@@ -227,4 +227,9 @@ use yii\helpers\Url;
       </form>
     </div> 
 
+    <?= $this->render('_customAjaxForm', [
+        'workflowDataModel' => $workflowDataModel,
+    ]) ?>
+
+
 </div>

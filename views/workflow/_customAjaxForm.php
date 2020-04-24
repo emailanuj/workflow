@@ -1,3 +1,12 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\Workflow */
+/* @var $form yii\widgets\ActiveForm */
+?>
   <!-- <form id="seModal0" action="" name="seModal0"> -->
   <?php $form = ActiveForm::begin(['id' => 'seModal0']); ?>
    <div class="panel panel-default" id="formgroup">

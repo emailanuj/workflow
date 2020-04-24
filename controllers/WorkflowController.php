@@ -113,14 +113,14 @@ class WorkflowController extends Controller
             $strFormType=Yii::$app->request->post('form-type');
 
             $arrOutputForm = [];
-            $arrOutputForm['status'] = 'success'
+            $arrOutputForm['status'] = 'success';
             if($strFormType == 'abc'){
-                $arrOutputForm['html'] = $this-renderPartial('_form')
+                $arrOutputForm['html'] = $this-renderPartial('_form');
             }
 
             // $this->renderAjax($arrOutputForm);
 
-            return json_encode($arrOutputForm)
+            return json_encode($arrOutputForm);
         }
     }
 
