@@ -20,26 +20,23 @@ class WorkFlowAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'assets/BPNM/public/css/toolbox.css',
-        'assets/BPNM/public/css/bootstrap.min.css',
-        'assets/BPNM/public/css/app.css',
+        'css/site.css',
+        'css/toolbox.css',
+        'css/app.css',
     ];
     public $js = [
-        'assets/BPNM/public/js/d3.js',
-        'assets/BPNM/public/js/jquery.min.js',
-        'assets/BPNM/public/js/angular.min.js',
-        'assets/BPNM/public/js/bootstrap.js',
-        'assets/BPNM/public/js/FileSaver.min.js',
-        'assets/BPNM/drawingpage/bpmnuploader.js',
-        'assets/BPNM/drawingpage/devider.js',
-        'assets/BPNM/drawingpage/bpmnJsonUpdater.js',
-        'assets/BPNM/drawingpage/startevent/startevent.js',
-        'assets/BPNM/drawingpage/gateway/gateway.js',
-        'assets/BPNM/drawingpage/task/task.js',
-        'assets/BPNM/drawingpage/flow/flow.js',
-        'assets/BPNM/drawingpage/endevent/endevent.js',
-        'assets/BPNM/drawingpage/drawing.js',
-        'assets/BPNM/drawingpage/workflow.js',
+        'js/d3.js',
+        'js/FileSaver.min.js',
+        'js/drawingpage/bpmnuploader.js',
+        'js/drawingpage/devider.js',
+        'js/drawingpage/bpmnJsonUpdater.js',
+        'js/drawingpage/startevent/startevent.js',
+        'js/drawingpage/gateway/gateway.js',
+        'js/drawingpage/task/task.js',
+        'js/drawingpage/flow/flow.js',
+        'js/drawingpage/endevent/endevent.js',
+        'js/drawingpage/drawing.js',
+        'js/workflow.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

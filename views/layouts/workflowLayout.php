@@ -22,6 +22,11 @@ WorkFlowAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+
+    <script type="text/javascript">
+        var baseURL = "<?= \yii\helpers\Url::base(true) ?>";
+    </script>
+
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -59,7 +64,7 @@ WorkFlowAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container">
+    <div class="container-fluid">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
@@ -68,13 +73,13 @@ WorkFlowAsset::register($this);
     </div>
 </div>
 
-<footer class="footer">
-    <div class="container">
+<!-- <footer class="footer">
+    <div class="container-fluid">
         <p class="pull-left">&copy; Cisco <?= date('Y') ?></p>
 
         <p class="pull-right">Powered by Cisco</p>
     </div>
-</footer>
+</footer> -->
 
 <?php $this->endBody() ?>
 </body>

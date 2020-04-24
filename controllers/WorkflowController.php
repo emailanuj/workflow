@@ -10,6 +10,10 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Html;
+
+
+use app\models\WorkflowDataModel;
+
 /**
  * WorkflowController implements the CRUD actions for Workflow model.
  */
@@ -70,30 +74,56 @@ class WorkflowController extends Controller
         $post_data='';
         $model = new Workflow();
         
+        $workflowDataModel = new WorkflowDataModel();
+
         if(!empty(Yii::$app->request->post())){
+
             $post_data=Yii::$app->request->post();
             $post_data['Workflow']['workflow_json']=$post_data['workflow_json'];
             $post_data['Workflow']['workflow_data']=$post_data['workflow_data'];
-        }
-        if ($model->load($post_data) && $model->save()) {
-            $post_data=Yii::$app->request->post();
-            /* -------------------- For Updating Records in MongoDB ------------------------------*/
-            $session_id=Yii::$app->session->Id;
-            try{
-                $logged_in_user_id=Yii::$app->user->identity->id;
+        
+            if ($model->load($post_data) && $model->save()) {
+                $post_data=Yii::$app->request->post();
+                /* -------------------- For Updating Records in MongoDB ------------------------------*/
+                $session_id=Yii::$app->session->Id;
+                try{
+                    $logged_in_user_id=Yii::$app->user->identity->id;
+                }
+                catch (\Exception $ex){
+                    $logged_in_user_id='';
+                }
+                $updateStatus=MongoWorkFlow::updateAll(['saved_in_db'=>'1','updated_by'=>$logged_in_user_id,'updated_at'=>time(),'id_in_db'=>$model->id],['session_id'=>$session_id]);
+                /* ------------------------ End ------------------------------------------------------*/
+                return $this->redirect(['view', 'id' => $model->id]);
             }
-            catch (\Exception $ex){
-                $logged_in_user_id='';
-            }
-            $updateStatus=MongoWorkFlow::updateAll(['saved_in_db'=>'1','updated_by'=>$logged_in_user_id,'updated_at'=>time(),'id_in_db'=>$model->id],['session_id'=>$session_id]);
-            /* ------------------------ End ------------------------------------------------------*/
-            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'workflowDataModel' => $workflowDataModel
         ]);
     }
+
+
+
+    public function actionGetAjaxForm()
+    {
+        if(Yii::$app->request->isAjax && Yii::$app->request->isPost ){
+            
+            $strFormType=Yii::$app->request->post('form-type');
+
+            $arrOutputForm = [];
+            $arrOutputForm['status'] = 'success'
+            if($strFormType == 'abc'){
+                $arrOutputForm['html'] = $this-renderPartial('_form')
+            }
+
+            // $this->renderAjax($arrOutputForm);
+
+            return json_encode($arrOutputForm)
+        }
+    }
+
 
     /**
      * Updates an existing Workflow model.
