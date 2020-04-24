@@ -17,7 +17,7 @@ use yii\base\Model;
 class WorkflowDataModel extends Model
 {
 
-    public $selectedId;
+    public $step_no;
     public $if_fail;
     public $next_process;
 
