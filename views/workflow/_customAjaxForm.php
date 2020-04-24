@@ -8,7 +8,13 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
   <!-- <form id="seModal0" action="" name="seModal0"> -->
-  <?php $form = ActiveForm::begin(['id' => 'seModal0']); ?>
+  <?php $form = ActiveForm::begin([
+    'id' => 'seModal0',
+    //'action'  => 'user-default-shipping/create',
+    'options' => [
+      'onsubmit' => 'return false'
+  ]
+  ]); ?>
    <div class="panel panel-default" id="formgroup">
     <div class="panel-heading" role="tab" id="heading0">
       <h4 class="panel-title">
@@ -28,7 +34,7 @@ use yii\widgets\ActiveForm;
 
 
           <div class="form-group">
-              <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+              <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button', 'id' => 'customcheck' ]) ?>
           </div>
       </div>
   </div>

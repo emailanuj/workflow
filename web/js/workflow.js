@@ -287,20 +287,21 @@ function clone_form() {
 
 
 
-// $(document).on('click',".stateName",function(){
-//     var state_name = $(this).attr('state_name');
-//     var data = {'request': 'searchState','searchString': state_name};
-//     $.ajax({
-//         url: baseURL +'/dashboard/main-dashboard',
-//         type: 'POST',
-//         dataType:'json',
-//         data: data,
-//         success: function(data) {
-//             $("#bng-kpi-view").html('');
-//             $("#bng-kpi-view").html(data.html);
-//         }
-//     });
-// });
+$(document).on('click',"#customcheck",function(){
+    alert("hit ajax call here naming controller and relative action");
+    // var state_name = $(this).attr('state_name');
+    // var data = {'request': 'searchState','searchString': state_name};
+    // $.ajax({
+    //     url: baseURL +'/dashboard/main-dashboard',
+    //     type: 'POST',
+    //     dataType:'json',
+    //     data: data,
+    //     success: function(data) {
+    //         $("#bng-kpi-view").html('');
+    //         $("#bng-kpi-view").html(data.html);
+    //     }
+    // });
+});
 
 // $(document).on('click',".kpiName",function(){
 //     var kpi_name = $(this).attr('kpi_name');
