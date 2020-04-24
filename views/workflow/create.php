@@ -77,7 +77,7 @@ use yii\helpers\Url;
                   <div class="form-group">
                     <label>If Fail</label>
                     <select id="iffail0" name="iffail0" class="form-control">
-                      <option value="">Please Select Keyword</option>
+                      <option value="">Please Select</option>
                       <option value="stop">Stop</option>
                       <option value="continue">Continue</option>
                     </select>
@@ -85,13 +85,6 @@ use yii\helpers\Url;
                   <div class="form-group">
                     <label>Next Process</label>
                     <input type="text" class="form-control" id="nextprocess0" name="nextprocess0" placeholder="Next Process"></input>
-                  </div>
-                   <div class="form-group">
-                    <label>Already Got Data</label><br>
-                    <input type="radio" id="yes" name="alreadygotdata" value="yes">
-                    <label for="yes">Yes</label><br>
-                    <input type="radio" id="no" name="alreadygotdata" value="no">
-                    <label for="no">No</label><br>     
                   </div>
                   <div class="form-group">
                     <label>Keyword</label>
@@ -103,25 +96,19 @@ use yii\helpers\Url;
                       <option value="configpush">Config Push</option>
                     </select>
                   </div>
-                   <div class="form-group">
+                   <div class="form-group api">
                     <label>API URL</label>
                     <input type="text" class="form-control" id="apiurl0" name="apiurl0" placeholder="API URL"></input>
                   </div>
-                  <div class="form-group">
-                    <label>Function To get Data</label>
-                    <select id="functiongetdata0" name="functiongetdata0" class="form-control">
-                      <option value="">Please Select Function</option>
-                      <option value="function_1">Function 1</option>
+                  <div class="form-group api">
+                    <label>API Method</label>
+                    <select id="apimethod0" name="apimethod0" class="form-control">
+                      <option value="">Please Select API Method</option>
+                      <option value="gettype">Get</option>
+                      <option value="posttype">POST</option>
                     </select>
                   </div>
-                  <div class="form-group">
-                    <label>Function To Perform</label>
-                    <select id="functiontoperform0" name="functiontoperform0" class="form-control">
-                      <option value="">Please Select Function To Perform</option>
-                      <option value="function_1">Function 1</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
+                  <div class="form-group api">
                     <label>API Type</label>
                     <select id="apitype0" name="apitype0" class="form-control">
                       <option value="">Please Select API Type</option>
@@ -129,39 +116,65 @@ use yii\helpers\Url;
                       <option value="soap">SOAP</option>
                     </select>
                   </div>
+                  <div class="form-group api">
+                    <label>API Headers</label>
+                    <input type="text" class="form-control" id="apiheaders0" name="apiheaders0" placeholder="API Headers"></input>
+                  </div>
+                 <!--   <div class="form-group">
+                    <label>Data Source</label>
+                    <select id="datasource0" name="datasource0" class="form-control">
+                      <option value="">Please Select Data Source</option>
+                      <option value="functionname">Function Name</option>
+                      <option value="formdata">Form Data</option>
+                      <option value="dataatbegnning">Date at Beginning</option>
+                      <option value="frompeviousprocess">From previous process</option>
+                    </select>
+                  </div>
                   <div class="form-group">
-                    <label>Access Type</label>
-                    <select id="accesstype0" name="accesstype0" class="form-control">
+                    <label>Function To get Data</label>
+                    <select id="functiongetdata0" name="functiongetdata0" class="form-control">
+                      <option value="">Please Select Function</option>
+                      <option value="function_1">getDataForTopology()</option>
+                      <option value="function_1">getDataForTelnet()</option>
+                    </select>
+                  </div> -->
+                  <div class="form-group api">
+                    <label>Function To Execute</label>
+                    <select id="functiontoexecute0" name="functiontoexecute0" class="form-control">
+                      <option value="">Please Select Function</option>
+                      <option value="execute_api">execute_curl_json()</option>
+                      <option value="execute_api">fil_get_contents()</option>
+                      <option value="execute_api">execute_curl_xml()</option>
+                    </select>
+                  </div>
+                  <div class="form-group api">
+                    <label>Authentication Type</label>
+                    <select id="authenticationtype0" name="authenticationtype0" class="form-control">
                       <option value="">Please Select Access Type</option>
                       <option value="login">Login</option>
                       <option value="tokenbased">Token Based</option>
+                      <option value="tokenbased">Both</option>
                     </select>
                   </div>
-                  <div class="form-group">
-                    <label>Input Type</label>
-                    <select id="inputtype0" name="inputtype0" class="form-control">
-                      <option value="">Please Select Input Type</option>
-                      <option value="json">JSON</option>
-                      <option value="xml">XML</option>
+                  <div class="form-group api">
+                    <label>Token From</label>
+                    <select id="tokenfrom0" name="tokenfrom0" class="form-control">
+                      <option value="">Please Select Token Source</option>
+                      <option value="prevresponse">Previous Response</option>
+                      <option value="tokenurl">Token URL</option>
                     </select>
                   </div>
-                  <div class="form-group">
-                    <label>Input format</label>
-                    <textarea rows="3" cols="30" id="inputformat0" name="inputformat0" class="form-control"></textarea>
-                    <!--  <input type="text" class="form-control" id="inputformat0" name="inputformat0" placeholder="Input format"></input>-->
+                  <div class="form-group api">
+                    <label>Token URL</label>
+                    <input type="text" class="form-control" id="tokenurl0" name="tokenurl0" placeholder="Token URL"></input>
                   </div>
-                  <div class="form-group">
-                    <label>Output Type</label>
-                    <select id="outputtype0" name="outputtype0" class="form-control">
-                      <option value="">Please Select Output Type</option>
-                      <option value="json">JSON</option>
-                      <option value="xml">XML</option>
-                    </select>
+                   <div class="form-group api">
+                    <label>Username</label>
+                    <input type="text" class="form-control" id="apiusername0" name="apiusername0" placeholder="API Username"></input>
                   </div>
-                  <div class="form-group">
-                    <label>Expected Response</label>
-                    <textarea rows="3" cols="30" id="expectedresponse0" name="expectedresponse0" class="form-control"></textarea>
-                    <!--  <input type="text" class="form-control" id="expectedresponse0" name="expectedresponse0" placeholder="Expected Response"></input>-->
+                  <div class="form-group api">
+                    <label>API Password</label>
+                    <input type="text" class="form-control" id="apipassword0" name="apipassword0" placeholder="API Password"></input>
                   </div>
               </div>
             </div>
