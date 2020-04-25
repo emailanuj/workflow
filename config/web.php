@@ -49,10 +49,10 @@ $config = [
             'rules' => [
             ],
         ],
-        // 'mongodb' => [
-        //     'class' => '\yii\mongodb\Connection',
-        //     'dsn' => 'mongodb://cisco:password@localhost:27017/cisco_workflow',
-        // ],
+        'mongodb' => [
+            'class' => '\yii\mongodb\Connection',
+            'dsn' => 'mongodb://cisco:password@localhost:27017/cisco_workflow',
+        ],
         
     ],
     'params' => $params,

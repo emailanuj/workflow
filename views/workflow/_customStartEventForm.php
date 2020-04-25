@@ -10,9 +10,9 @@ use app\models\TblFunctions;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <?php 
-$keyword=TblKeywords::find()->all();
+$keyword=TblKeywords::find()->orderBy(['keyword_name'=>SORT_ASC])->all();
 $keywordsList=ArrayHelper::map($keyword,'keyword_name','keyword_name');
-$functions_exe=TblFunctions::find()->where(['function_type'=>'EXECUTABLE'])->all();
+$functions_exe=TblFunctions::find()->where(['function_type'=>'EXECUTABLE'])->orderBy(['function_name'=>SORT_ASC])->all();
 $functions_exe_list=ArrayHelper::map($functions_exe,'function_name','function_name');
 ?>
   <!-- <form id="seModal0" action="" name="seModal0"> -->

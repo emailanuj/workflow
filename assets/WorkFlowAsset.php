@@ -23,6 +23,7 @@ class WorkFlowAsset extends AssetBundle
         'css/site.css',
         'css/toolbox.css',
         'css/app.css',
+        'css/workflow.css'
     ];
     public $js = [
         'js/d3.js',

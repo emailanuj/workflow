@@ -80,7 +80,7 @@ use yii\helpers\Url;
 <div id="FModal" class="modal"> 
       <!-- Modal content -->
       <div class="modal-content">
-      <form id="w0" action="/project/web/workflow/create" method="post">
+      <form id="w0" action="<?= Url::base() .'/workflow/create' ?>" method="post">
         <div class="modal-header">
           <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="GClose" aria-hidden="true">&times;</span></button> -->
           
@@ -107,9 +107,10 @@ use yii\helpers\Url;
       </form>
     </div> 
 
-    <?= $this->render('_customAjaxForm', [
-        'workflowDataModel' => $workflowDataModel,
-    ]) ?>
-
-
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+   // your code here
+   drawGraph(<?php echo $model['workflow_json']?>,<?php echo $model['workflow_data']?>);
+}, false);
+</script>

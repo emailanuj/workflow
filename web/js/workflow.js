@@ -294,6 +294,8 @@ function showFunction(element_id,form_type){
 		    console.log(xhr.responseText);
 		},
 	});
+	// By Default Hiding Fields
+	$( ".field-api_url" ).hide();
 }
 
 $(document).on('click',"#savestartevent",function(){
