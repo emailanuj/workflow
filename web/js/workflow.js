@@ -283,8 +283,7 @@ function showFunction(element_id,form_type){
 		data: {'element_id':element_id,'form_type':form_type},
 		dataType: "json",
 		success: function (jsonData) {
-		   console.log(jsonData);
-		   console.log(jsonData.html);
+		   $('.panel-group').empty();
 		   $('.panel-group').append(jsonData.html);
 		   return jsonData.status;
 		},
@@ -297,22 +296,38 @@ function showFunction(element_id,form_type){
 	});
 }
 
-$(document).on('click',"#customcheck",function(){
-    alert("hit ajax call here naming controller and relative action");
-    // var state_name = $(this).attr('state_name');
-    // var data = {'request': 'searchState','searchString': state_name};
-    // $.ajax({
-    //     url: baseURL +'/dashboard/main-dashboard',
-    //     type: 'POST',
-    //     dataType:'json',
-    //     data: data,
-    //     success: function(data) {
-    //         $("#bng-kpi-view").html('');
-    //         $("#bng-kpi-view").html(data.html);
-    //     }
-    // });
+$(document).on('click',"#savestartevent",function(){
+	debugger;
+    /*------------------ Start Code ------------------*/
+	var json_data='';
+    var formArray={};
+    parent=[]
+    var mainArr={}
+    total_forms=parseInt($("#form_size").val());
+    for(var count=0;count<=total_forms;count++){
+        var jsonArray = {};
+        jsonArray["selectedId"]=selectedId;
+        jsonArray["elementType"]=elementType;
+        jsonArray["elementSubType"]=elementSubType;
+        var form_id='seModal'+count;
+        console.log(form_id);
+        json_data=$('#'+form_id).serialize().split('&');
+        $.each(json_data, function (key, value) {
+            var item = {};
+            var splittedValue = value.split('=');               
+            jsonArray[splittedValue[0]]=splittedValue[1];
+        });
+        formArray[count]=jsonArray;
+    }
+    elementArray[selectedId]=formArray;
+    localStorage.setItem('formData', JSON.stringify(elementArray));
+    status=saveMongoData();
+    semodal.style.display = "none";
+    alert('Data saved successfully!');   
 });
-
+$(document).on('click',"#SEClose",function(){
+	semodal.style.display = "none";
+});
 // $(document).on('click',".kpiName",function(){
 //     var kpi_name = $(this).attr('kpi_name');
 //     var data = {'request': 'searchKpi','searchString': kpi_name};

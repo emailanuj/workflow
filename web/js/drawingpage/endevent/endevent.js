@@ -91,9 +91,9 @@ console.log('calling end event');
                     .duration(200)
                     .style("opacity", 1.9);
 
-                tooltipDiv.html("<input id=" + "trash-button" + " type=" + "image" + " title=" + "End Event" + " src=" + "img/trash-icon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >"+"&nbsp"+ "<br>" + "<input id=" + "property-button" + " type=" + "image" + " title=" + "End Event" + " src=" + "img/settingsicon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >")
-                    .style("left", coords.x + 20 + "px")
-                    .style("top", (coords.y - 20) + "px");
+                tooltipDiv.html("<input id=" + "trash-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/trash-icon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >"+"&nbsp"+ "<br>" + "<input id=" + "property-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/settingsicon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >")
+                    .style("left", coords.x + 35 + "px")
+                    .style("top", (coords.y - 30) + "px");
 
 
                 tooltipDiv.select("#trash-button").on("click", function () {

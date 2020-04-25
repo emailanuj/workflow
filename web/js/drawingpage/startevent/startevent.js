@@ -115,8 +115,8 @@ var starteventdevider = function (eid,subElement,svg,xvalue,yvalue){
                 tooltipDiv.html("<input id=" + "trash-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/trash-icon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >"+"&nbsp"+"<input id=" + "arrow-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/arrow.png" + " alt=" + "arrow" + " style=" + "width:25px;" + " >" + "<br>" + "<input id=" + "property-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/settingsicon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >")
                     // .style("left", coords.x + 20 + "px")
                     // .style("top", (coords.y - 20) + "px");
-                    .style("left", coords.x + 30 + "px")
-                    .style("top", (coords.y - 25) + "px");
+                    .style("left", coords.x + 35 + "px")
+                    .style("top", (coords.y - 30) + "px");
 
 
                 tooltipDiv.select("#trash-button").on("click", function () {
@@ -130,19 +130,26 @@ var starteventdevider = function (eid,subElement,svg,xvalue,yvalue){
                     for (var i = 0; i < bpmnjson.length ; i++) {
                         var element = bpmnjson[i]
                         if (element.id === t) {
-                            console.log("++++++++++++++")
-                            console.log(element.subtype)
+                        	selectedId=t;
+                            elementType="StartEvent";
+                            elementSubType=element.subtype;
                             if (element.subtype === "StartEvent") {
+                            	selectedId="SE"+t;
                             	showFunction(t,element.subtype);
-                                console.log("ado awa")
-                            semodal.style.display = "block";
+                            	semodal.style.display = "block";
                             console.log("-----------"+ subElement)
                             }else if (element.subtype === "TimeStartEvent") {
-                                tsemodal.style.display = "block";
+                            	showFunction(t,element.subtype);
+                            	selectedId="TSE"+t;
+                            	semodal.style.display = "block";
                             }else if (element.subtype === "MessageStartEvent") {
-                                msemodal.style.display = "block";
+                            	showFunction(t,element.subtype);
+                            	selectedId="MSE"+t;
+                            	semodal.style.display = "block";
                             }else if (element.subtype === "ErrorStartEvent") {
-                                esemodal.style.display = "block";
+                            	showFunction(t,element.subtype);
+                            	selectedId="ESE"+t;
+                            	semodal.style.display = "block";
                             }
                         }
                     }

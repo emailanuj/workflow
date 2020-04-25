@@ -13,6 +13,7 @@ use yii\helpers\Html;
 
 
 use app\models\WorkflowDataModel;
+use app\models\WorkflowStartEventModel;
 
 /**
  * WorkflowController implements the CRUD actions for Workflow model.
@@ -108,7 +109,7 @@ class WorkflowController extends Controller
 
     public function actionGetAjaxForm()
     {
-        $workflowDataModel = new WorkflowDataModel();
+        $workflowStartEventModel = new WorkflowStartEventModel();
         if(Yii::$app->request->isAjax && Yii::$app->request->isPost ){
             
             $strFormType=Yii::$app->request->post('form_type');
@@ -116,7 +117,7 @@ class WorkflowController extends Controller
             $arrOutputForm = [];
             $arrOutputForm['status'] = 'success';
             if($strFormType == 'StartEvent'){
-                $arrOutputForm['html'] = $this->renderPartial('_customAjaxForm',array('workflowDataModel' => $workflowDataModel));
+                $arrOutputForm['html'] = $this->renderPartial('_customStartEventForm',array('workflowStartEventModel' => $workflowStartEventModel));
             }
 
             // $this->renderAjax($arrOutputForm);

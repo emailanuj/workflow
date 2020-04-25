@@ -51,10 +51,10 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
 
     // define property creator object
         window.semodal = document.getElementById('SEModal');
-        var sepropertyclose = document.getElementById('SEClose');
-        sepropertyclose.onclick = function () {
-            semodal.style.display = "none";
-        }
+//        var sepropertyclose = document.getElementById('SEClose');
+//        sepropertyclose.onclick = function () {
+//            semodal.style.display = "none";
+//        }
 
 
         // window.tsemodal = document.getElementById('TSEModal');
