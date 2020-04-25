@@ -59,136 +59,16 @@ use yii\helpers\Url;
         </div>
         <div class="modal-body">
           <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-          <form id="seModal0" action="" name="seModal0">
-          <div class="panel panel-default" id="formgroup">
-              <div class="panel-heading" role="tab" id="heading0">
-                <h4 class="panel-title">
-                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse0" aria-expanded="true" aria-controls="collapse0">
-                    Event Configuration
-                  </a>
-                </h4>
-              </div>
-              <div id="collapse0" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading0">
-                <div class="panel-body">
-                  <div class="form-group">
-                    <label>Step No</label>
-                    <input type="text" class="form-control" id="stepno0" name="stepno0" placeholder="Step No"></input>
-                  </div>
-                  <div class="form-group">
-                    <label>If Fail</label>
-                    <select id="iffail0" name="iffail0" class="form-control">
-                      <option value="">Please Select</option>
-                      <option value="stop">Stop</option>
-                      <option value="continue">Continue</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Next Process</label>
-                    <input type="text" class="form-control" id="nextprocess0" name="nextprocess0" placeholder="Next Process"></input>
-                  </div>
-                  <div class="form-group">
-                    <label>Keyword</label>
-                    <select id="keyword0" name="keyword0" class="form-control">
-                      <option value="">Please Select Keyword</option>
-                      <option value="api">API</option>
-                      <option value="nso">NSO</option>
-                      <option value="commandexecution">Command Execution</option>
-                      <option value="configpush">Config Push</option>
-                    </select>
-                  </div>
-                   <div class="form-group api">
-                    <label>API URL</label>
-                    <input type="text" class="form-control" id="apiurl0" name="apiurl0" placeholder="API URL"></input>
-                  </div>
-                  <div class="form-group api">
-                    <label>API Method</label>
-                    <select id="apimethod0" name="apimethod0" class="form-control">
-                      <option value="">Please Select API Method</option>
-                      <option value="gettype">Get</option>
-                      <option value="posttype">POST</option>
-                    </select>
-                  </div>
-                  <div class="form-group api">
-                    <label>API Type</label>
-                    <select id="apitype0" name="apitype0" class="form-control">
-                      <option value="">Please Select API Type</option>
-                      <option value="rest">Rest</option>
-                      <option value="soap">SOAP</option>
-                    </select>
-                  </div>
-                  <div class="form-group api">
-                    <label>API Headers</label>
-                    <input type="text" class="form-control" id="apiheaders0" name="apiheaders0" placeholder="API Headers"></input>
-                  </div>
-                 <!--   <div class="form-group">
-                    <label>Data Source</label>
-                    <select id="datasource0" name="datasource0" class="form-control">
-                      <option value="">Please Select Data Source</option>
-                      <option value="functionname">Function Name</option>
-                      <option value="formdata">Form Data</option>
-                      <option value="dataatbegnning">Date at Beginning</option>
-                      <option value="frompeviousprocess">From previous process</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Function To get Data</label>
-                    <select id="functiongetdata0" name="functiongetdata0" class="form-control">
-                      <option value="">Please Select Function</option>
-                      <option value="function_1">getDataForTopology()</option>
-                      <option value="function_1">getDataForTelnet()</option>
-                    </select>
-                  </div> -->
-                  <div class="form-group api">
-                    <label>Function To Execute</label>
-                    <select id="functiontoexecute0" name="functiontoexecute0" class="form-control">
-                      <option value="">Please Select Function</option>
-                      <option value="execute_api">execute_curl_json()</option>
-                      <option value="execute_api">fil_get_contents()</option>
-                      <option value="execute_api">execute_curl_xml()</option>
-                    </select>
-                  </div>
-                  <div class="form-group api">
-                    <label>Authentication Type</label>
-                    <select id="authenticationtype0" name="authenticationtype0" class="form-control">
-                      <option value="">Please Select Access Type</option>
-                      <option value="login">Login</option>
-                      <option value="tokenbased">Token Based</option>
-                      <option value="tokenbased">Both</option>
-                    </select>
-                  </div>
-                  <div class="form-group api">
-                    <label>Token From</label>
-                    <select id="tokenfrom0" name="tokenfrom0" class="form-control">
-                      <option value="">Please Select Token Source</option>
-                      <option value="prevresponse">Previous Response</option>
-                      <option value="tokenurl">Token URL</option>
-                    </select>
-                  </div>
-                  <div class="form-group api">
-                    <label>Token URL</label>
-                    <input type="text" class="form-control" id="tokenurl0" name="tokenurl0" placeholder="Token URL"></input>
-                  </div>
-                   <div class="form-group api">
-                    <label>Username</label>
-                    <input type="text" class="form-control" id="apiusername0" name="apiusername0" placeholder="API Username"></input>
-                  </div>
-                  <div class="form-group api">
-                    <label>API Password</label>
-                    <input type="text" class="form-control" id="apipassword0" name="apipassword0" placeholder="API Password"></input>
-                  </div>
-              </div>
-            </div>
-            </div>
-            </form>
-       <!------------------------------------------------- End -------------------------------->
-       <!----- Testing Data -------------->
-       <input type="hidden" name="form_size" id="form_size" value="0">
-       <!----------- End ----------------->
+          
+       <!------------------------------------------------- Start -------------------------------->
+      
+       <!-------------------------------------------------- End --------------------------------->
       </div>
       
       <div class="modal-footer">
+      	<input type="hidden" name="form_size" id="form_size" value="0">
         <button id="SEClose" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-default" onClick="clone_form()">Add New Step</button>
+        <!--  <button type="button" class="btn btn-default" onClick="clone_form()">Add New Step</button> -->
         <button type="button" class="btn btn-default" onClick="saveData()">Save</button>
         
       </div>

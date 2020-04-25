@@ -108,14 +108,15 @@ class WorkflowController extends Controller
 
     public function actionGetAjaxForm()
     {
+        $workflowDataModel = new WorkflowDataModel();
         if(Yii::$app->request->isAjax && Yii::$app->request->isPost ){
             
-            $strFormType=Yii::$app->request->post('form-type');
+            $strFormType=Yii::$app->request->post('form_type');
 
             $arrOutputForm = [];
             $arrOutputForm['status'] = 'success';
-            if($strFormType == 'abc'){
-                $arrOutputForm['html'] = $this-renderPartial('_form');
+            if($strFormType == 'StartEvent'){
+                $arrOutputForm['html'] = $this->renderPartial('_customAjaxForm',array('workflowDataModel' => $workflowDataModel));
             }
 
             // $this->renderAjax($arrOutputForm);

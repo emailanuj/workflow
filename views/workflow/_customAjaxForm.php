@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Workflow */
+/* @var $workflowDataModel app\models\Workflow */
 /* @var $form yii\widgets\ActiveForm */
 ?>
   <!-- <form id="seModal0" action="" name="seModal0"> -->

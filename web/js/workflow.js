@@ -275,17 +275,27 @@ function clone_form() {
       uploadgraphCreator(grapOBJ);
       localStorage.setItem('formData', JSON.stringify(formObj));
   }
-
-
-
-
-
-
-  $(forms-sample).submit(function(){
-    // alert("Submitted");
-});
-
-
+function showFunction(element_id,form_type){
+	debugger;
+	$.ajax({
+		type: "post",
+		url: baseURL + '/workflow/get-ajax-form',
+		data: {'element_id':element_id,'form_type':form_type},
+		dataType: "json",
+		success: function (jsonData) {
+		   console.log(jsonData);
+		   console.log(jsonData.html);
+		   $('.panel-group').append(jsonData.html);
+		   return jsonData.status;
+		},
+		error: function (xhr, status, errorThrown) {
+			console.log('Error');
+		    console.log(errorThrown);
+		    console.log(xhr.status);
+		    console.log(xhr.responseText);
+		},
+	});
+}
 
 $(document).on('click',"#customcheck",function(){
     alert("hit ajax call here naming controller and relative action");

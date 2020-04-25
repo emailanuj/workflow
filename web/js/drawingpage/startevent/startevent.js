@@ -1,4 +1,7 @@
 "use strict";
+var selectedId=0;
+var elementType='';
+var elementSubType='';
 var starteventdevider = function (eid,subElement,svg,xvalue,yvalue){  
 
     // console.log(eid +'==>>>'+ subElement +'=>>>'+ svg +'==>>>'+ xvalue +'==>>>>'+ yvalue);
@@ -130,6 +133,7 @@ var starteventdevider = function (eid,subElement,svg,xvalue,yvalue){
                             console.log("++++++++++++++")
                             console.log(element.subtype)
                             if (element.subtype === "StartEvent") {
+                            	showFunction(t,element.subtype);
                                 console.log("ado awa")
                             semodal.style.display = "block";
                             console.log("-----------"+ subElement)
