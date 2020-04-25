@@ -1,5 +1,10 @@
 <?php
 use yii\helpers\Url;
+if(!empty($model['id'])){
+    $url=Url::base() .'/workflow/update?id='.$model["id"];
+}else{
+    $url=Url::base() .'/workflow/create';
+}
 ?>
 <div>    
     <!-- <div id="mySvg"></div> -->
@@ -80,7 +85,7 @@ use yii\helpers\Url;
 <div id="FModal" class="modal"> 
       <!-- Modal content -->
       <div class="modal-content">
-      <form id="w0" action="<?= Url::base() .'/workflow/create' ?>" method="post">
+      <form id="w0" action="<?= $url ?>" method="post">
         <div class="modal-header">
           <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="GClose" aria-hidden="true">&times;</span></button> -->
           
@@ -92,11 +97,11 @@ use yii\helpers\Url;
         <div class="modal-body">
           <div class="form-group">
             <label>Workflow Title</label>
-            <input type="text" id="workflow-workflow_title" class="form-control" name="Workflow[workflow_title]" maxlength="100">
+            <input type="text" id="workflow-workflow_title" class="form-control" name="Workflow[workflow_title]" maxlength="100" value="<?php echo $model['workflow_title'];?>">
           </div>
           <div class="form-group">
             <label>Workflow Description</label>
-            <input type="text" id="workflow-workflow_description" class="form-control" name="Workflow[workflow_description]" maxlength="200">
+            <input type="text" id="workflow-workflow_description" class="form-control" name="Workflow[workflow_description]" maxlength="200" value="<?php echo $model['workflow_description'];?>">
           </div>
         </div>
         <div class="modal-footer">

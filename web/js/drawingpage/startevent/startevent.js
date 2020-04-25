@@ -135,7 +135,7 @@ var starteventdevider = function (eid,subElement,svg,xvalue,yvalue){
                             elementSubType=element.subtype;
                             if (element.subtype === "StartEvent") {
                             	selectedId="SE"+t;
-                            	showFunction(t,element.subtype);
+                            	showFunction(selectedId,element.subtype);
                             	semodal.style.display = "block";
                             console.log("-----------"+ subElement)
                             }else if (element.subtype === "TimeStartEvent") {

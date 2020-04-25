@@ -139,19 +139,34 @@ function populateData(blockId){
             for(var el=0;el<len;el++){
                 if(localData[el]){
                     if(localData.id!=''){
-                        $("#stepno"+el+"").val(localData[el]['stepno'+el]);
-                        $("#iffail"+el+"").val(localData[el]['iffail'+el]);
-                        $("#nextprocess"+el+"").val(localData[el]['nextprocess'+el]);
-                        $("#alreadygotdata"+el+"").val(localData[el]['alreadygotdata'+el]);
-                        $("#keyword"+el+"").val(localData[el]['keyword'+el]);
-                        $("#datasource"+el+"").val(localData[el]['datasource'+el]);
-                        $("#apiurl"+el+"").val(localData[el]['apiurl'+el]);
-                        $("#apitype"+el+"").val(localData[el]['apitype'+el]);
-                        $("#accesstype"+el+"").val(localData[el]['accesstype'+el]);
-                        $("#inputtype"+el+"").val(localData[el]['inputtype'+el]);
-                        $("#inputformat"+el+"").val(localData[el]['inputformat'+el]);
-                        $("#outputtype"+el+"").val(localData[el]['outputtype'+el]);
-                        $("#expectedresponse"+el+"").val(localData[el]['expectedresponse'+el]);
+//                        $("#stepno"+el+"").val(localData[el]['stepno'+el]);
+//                        $("#iffail"+el+"").val(localData[el]['iffail'+el]);
+//                        $("#nextprocess"+el+"").val(localData[el]['nextprocess'+el]);
+//                        $("#alreadygotdata"+el+"").val(localData[el]['alreadygotdata'+el]);
+//                        $("#keyword"+el+"").val(localData[el]['keyword'+el]);
+//                        $("#datasource"+el+"").val(localData[el]['datasource'+el]);
+//                        $("#apiurl"+el+"").val(localData[el]['apiurl'+el]);
+//                        $("#apitype"+el+"").val(localData[el]['apitype'+el]);
+//                        $("#accesstype"+el+"").val(localData[el]['accesstype'+el]);
+//                        $("#inputtype"+el+"").val(localData[el]['inputtype'+el]);
+//                        $("#inputformat"+el+"").val(localData[el]['inputformat'+el]);
+//                        $("#outputtype"+el+"").val(localData[el]['outputtype'+el]);
+//                        $("#expectedresponse"+el+"").val(localData[el]['expectedresponse'+el]);
+                    	  $("#step_no").val(localData[el]['step_no']);
+                    	  $("#if_fail").val(localData[el]['if_fail']);
+                    	  $("#next_process").val(localData[el]['next_process']);
+                    	  $("#keywords").val(localData[el]['keywords']);
+                    	  $("#api_url").val(localData[el]['api_url']);
+                    	  $("#api_method").val(localData[el]['api_method']);
+                    	  $("#api_type").val(localData[el]['api_type']);
+                    	  $("#api_headers").val(localData[el]['api_headers']);
+                    	  $("#function_execute").val(localData[el]['function_execute']);
+                    	  $("#auth_type").val(localData[el]['auth_type']);
+                    	  $("#token_from").val(localData[el]['token_from']);
+                    	  $("#token_url").val(localData[el]['token_url']);
+                    	  $("#username").val(localData[el]['username']);
+                    	  $("#password").val(localData[el]['password']);
+                    	  
                     }
                     console.log('End Localstorage fetch data');
                 }else{
@@ -285,6 +300,7 @@ function showFunction(element_id,form_type){
 		success: function (jsonData) {
 		   $('.panel-group').empty();
 		   $('.panel-group').append(jsonData.html);
+		   populateData(element_id);
 		   return jsonData.status;
 		},
 		error: function (xhr, status, errorThrown) {
@@ -295,7 +311,6 @@ function showFunction(element_id,form_type){
 		},
 	});
 	// By Default Hiding Fields
-	$( ".field-api_url" ).hide();
 }
 
 $(document).on('click',"#savestartevent",function(){
