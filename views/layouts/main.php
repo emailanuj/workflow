@@ -22,6 +22,9 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+     <script type="text/javascript">
+        var baseURL = "<?= \yii\helpers\Url::base(true) ?>";
+    </script>
 </head>
 <body>
 <?php $this->beginBody() ?>

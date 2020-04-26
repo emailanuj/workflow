@@ -52,7 +52,7 @@ function saveData(){
 //// Function for saving Mongo Data
 function saveMongoData(){
 	//debugger;
-	var baseURL='/project/web';
+	
     var json_data='';
     var formArray={};
     // For saving diagram JSON
@@ -342,6 +342,7 @@ $(document).on('click',"#savestartevent",function(){
     semodal.style.display = "none";
     alert('Data saved successfully!');   
 });
+
 $(document).on('click',"#SEClose",function(){
 	semodal.style.display = "none";
 });
