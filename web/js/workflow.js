@@ -4,7 +4,7 @@ var currFormArr={};
 var fieldsArray=[];
 
 function saveData(){
-    debugger;
+    // debugger;
    console.log('Current Id '+selectedId);
     var json_data='';
     
@@ -106,7 +106,7 @@ function saveMongoData(){
 }
 function populateData(blockId){
     /* ----------------------- Testing ------------------------*/
-    debugger;
+    // debugger;
     if(localStorage.getItem('formData')){
         var localJSONData=JSON.parse(localStorage.getItem('formData'));
         var localData=localJSONData[blockId];
@@ -217,10 +217,10 @@ function populateData(blockId){
 }
 
 function saveWorkFlow(){
-	debugger;
+	// debugger;
     var final_json={};
     final_json['bpmn']=bpmnjson;
-    debugger;
+    // debugger;
     console.log('BPNM JSON ');
     localstorageData=localStorage.getItem('formData');
     console.log('Local Storage Data');
@@ -291,7 +291,7 @@ function clone_form() {
       localStorage.setItem('formData', JSON.stringify(formObj));
   }
 function showFunction(element_id,form_type){
-	debugger;
+	// debugger;
 	$.ajax({
 		type: "post",
 		url: baseURL + '/workflow/get-ajax-form',
@@ -314,7 +314,7 @@ function showFunction(element_id,form_type){
 }
 
 $(document).on('click',"#savestartevent",function(){
-	debugger;
+	// debugger;
     /*------------------ Start Code ------------------*/
 	var json_data='';
     var formArray={};

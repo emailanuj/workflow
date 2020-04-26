@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "tbl_functions".
@@ -14,6 +15,7 @@ use Yii;
  */
 class TblFunctions extends \yii\db\ActiveRecord
 {
+    const EXECUTABLE = 'EXECUTABLE';
     /**
      * {@inheritdoc}
      */
@@ -45,5 +47,11 @@ class TblFunctions extends \yii\db\ActiveRecord
             'function_type' => 'Function Type',
             'deleted' => 'Deleted',
         ];
+    }
+
+    public static function getAllExecutableFunction()
+    {
+        $arrTblFunctions = TblFunctions::find()->where(['function_type' => TblFunctions::EXECUTABLE ])->orderBy(['function_name'=>SORT_ASC])->all();
+        return ArrayHelper::map($arrTblFunctions,'function_name','function_name');
     }
 }

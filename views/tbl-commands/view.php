@@ -31,10 +31,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'command_name',
-            'is_deleted',
-            'created_at',
+            // 'is_deleted',
+            [
+                'attribute' => 'is_deleted',
+                'label' => 'Status',
+                'value' => function ($model){
+                    return ( $model->is_deleted == 0 ) ? 'Active' : 'No-Active';
+                },
+            ],
+            'created_at:date',
             'created_by',
-            'updated_at',
+            'created_at:date',
             'updated_by',
         ],
     ]) ?>

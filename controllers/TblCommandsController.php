@@ -66,6 +66,8 @@ class TblCommandsController extends Controller
     {
         $model = new TblCommands();
 
+        // echo '<pre>'; print_r(Yii::$app->request->post()); __LINE__;die;
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }

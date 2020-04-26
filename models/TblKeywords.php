@@ -3,6 +3,9 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use \yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "tbl_keywords".
@@ -15,7 +18,7 @@ use Yii;
  * @property string $updated_at
  * @property string $updated_by
  */
-class TblKeywords extends \yii\db\ActiveRecord
+class TblKeywords extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -25,18 +28,28 @@ class TblKeywords extends \yii\db\ActiveRecord
         return 'tbl_keywords';
     }
 
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at','updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'keyword_name', 'created_by', 'updated_at', 'updated_by'], 'required'],
             [['id', 'is_deleted'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
             [['keyword_name'], 'string', 'max' => 255],
-            [['created_by', 'updated_by'], 'string', 'max' => 11],
-            [['id'], 'unique'],
         ];
     }
 
@@ -54,5 +67,12 @@ class TblKeywords extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'updated_by' => 'Updated By',
         ];
+    }
+
+
+    public static function getAllKeywordLists()
+    {
+        $arrTblKeywords = TblKeywords::find()->orderBy(['keyword_name'=>SORT_ASC])->all();
+        return ArrayHelper::map($arrTblKeywords,'keyword_name','keyword_name');
     }
 }

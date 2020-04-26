@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "tbl_commands".
@@ -25,14 +27,28 @@ class TblCommands extends \yii\db\ActiveRecord
         return 'tbl_commands';
     }
 
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at','updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'command_name', 'created_by', 'updated_at', 'updated_by'], 'required'],
-            [['id', 'is_deleted'], 'integer'],
+            [[ 'command_name'], 'required'],
+            [['is_deleted'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['command_name'], 'string', 'max' => 255],
             [['created_by', 'updated_by'], 'string', 'max' => 11],

@@ -22,3 +22,13 @@ CREATE TABLE `project`.`tbl_functions` (
 
 INSERT INTO `tbl_functions` VALUES (1,'execute_curl_json','EXECUTABLE',0),(2,'fil_get_contents','EXECUTABLE',0),(3,'execute_curl_xml','EXECUTABLE',0);
 
+
+#######################################
+
+
+ALTER TABLE `tbl_commands` CHANGE `created_at` `created_at` INT(11) NOT NULL
+ALTER TABLE `tbl_commands` CHANGE `created_by` `created_by` INT(11) NOT NULL
+ALTER TABLE `tbl_commands` CHANGE `updated_at` `updated_at` INT(11) NOT NULL
+ALTER TABLE `tbl_commands` CHANGE `updated_by` `updated_by` INT(11) NOT NULL
+
+

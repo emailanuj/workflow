@@ -23,63 +23,63 @@ if(!empty($model['id'])){
     <div id="toolbox">
      <!--  <input type="file" id="hidden-file-upload"> -->
     <!--  <span><b>Start Event</b></span><br> -->
-     <input id="start-button" type="image" title="Start Event" src="<?= Url::base() .'/img/startevent.png' ?>" alt="Start Event" style="width: 30px;height: 30px">
-     <input id="start-time-button" type="image" title="Time Event" src="<?= Url::base() .'/img/timestartevent.png' ?>" alt="Time Event" style="width: 30px;height: 30px"><br>
-     <input id="start-message-button" type="image" title="Message Start Event" src="<?= Url::base() .'/img/messagestartevent.png' ?>" alt="Message Start Event" style="width: 30px;height: 30px">
-     <input id="start-error-button" type="image" title="Error Start Event" src="<?= Url::base() .'/img/errorstartevent.png' ?>" alt="Error Start Event" style="width: 30px;height: 30px"><br>
-     <hr>
+        <input id="start-button" type="image" title="Start Event" src="<?= Url::base() .'/img/startevent.png' ?>" alt="Start Event" style="width: 30px;height: 30px">
+        <input id="start-time-button" type="image" title="Time Event" src="<?= Url::base() .'/img/timestartevent.png' ?>" alt="Time Event" style="width: 30px;height: 30px"><br>
+        <input id="start-message-button" type="image" title="Message Start Event" src="<?= Url::base() .'/img/messagestartevent.png' ?>" alt="Message Start Event" style="width: 30px;height: 30px">
+        <input id="start-error-button" type="image" title="Error Start Event" src="<?= Url::base() .'/img/errorstartevent.png' ?>" alt="Error Start Event" style="width: 30px;height: 30px"><br>
+        
+        <hr>
+
     <!--  <span><b>End Event</b></span><br> -->
-     <input id="end-button" type="image" title="End Event" src="<?= Url::base() .'/img/black-circle.png' ?>" alt="End Event" style="width: 30px;height: 30px">
-      <input id="error-end-button" type="image" title="Error End Event" src="<?= Url::base() .'/img/errorend.png' ?>" alt="Error End Event" style="width: 30px;height: 30px"><br>
-      <input id="terminate-end-button" type="image" title="Terminate End Event" src="<?= Url::base() .'/img/terminateend.png' ?>" alt="Terminate End Event" style="width: 30px;height: 30px">
-      <input id="cancel-end-button" type="image" title="Cancel End Event" src="<?= Url::base() .'/img/cancelend.png' ?>" alt="Cancel End Event" style="width: 30px;height: 30px"><br>
-      <hr>
-     <!--  <span><b>Task</b></span><br> -->
-      <input id="user-task-button" type="image" title="User Task" src="<?= Url::base() .'/img/user.svg' ?>" alt="User Task" style="width: 30px;height: 30px">
-      <input id="script-task-button" type="image" title="Script Task" src="<?= Url::base() .'/img/script.svg' ?>" alt="Script Task" style="width: 30px;height: 30px"><br>
-      <input id="mail-task-button" type="image" title="Mail Task" src="<?= Url::base() .'/img/message.svg' ?>" alt="Mail Task" style="width: 30px;height: 30px">
-      <input id="manual-task-button" type="image" title="Manual Task" src="<?= Url::base() .'/img/manual.svg' ?>" alt="Manual Task" style="width: 30px;height: 30px"><br>
-      <hr>
+        <input id="end-button" type="image" title="End Event" src="<?= Url::base() .'/img/black-circle.png' ?>" alt="End Event" style="width: 30px;height: 30px">
+        <input id="error-end-button" type="image" title="Error End Event" src="<?= Url::base() .'/img/errorend.png' ?>" alt="Error End Event" style="width: 30px;height: 30px"><br>
+        <input id="terminate-end-button" type="image" title="Terminate End Event" src="<?= Url::base() .'/img/terminateend.png' ?>" alt="Terminate End Event" style="width: 30px;height: 30px">
+        <input id="cancel-end-button" type="image" title="Cancel End Event" src="<?= Url::base() .'/img/cancelend.png' ?>" alt="Cancel End Event" style="width: 30px;height: 30px"><br>
+        
+        <hr>
+        
+        <!--  <span><b>Task</b></span><br> -->
+        <input id="user-task-button" type="image" title="User Task" src="<?= Url::base() .'/img/user.svg' ?>" alt="User Task" style="width: 30px;height: 30px">
+        <input id="script-task-button" type="image" title="Script Task" src="<?= Url::base() .'/img/script.svg' ?>" alt="Script Task" style="width: 30px;height: 30px"><br>
+        <input id="mail-task-button" type="image" title="Mail Task" src="<?= Url::base() .'/img/message.svg' ?>" alt="Mail Task" style="width: 30px;height: 30px">
+        <input id="manual-task-button" type="image" title="Manual Task" src="<?= Url::base() .'/img/manual.svg' ?>" alt="Manual Task" style="width: 30px;height: 30px"><br>
+        
+        <hr>
     
-     <input id="parallel-gateway-button" type="image" title="Parallel Gateway" src="<?= Url::base() .'/img/parallelgateway.png' ?>" alt="Parallel Gateway" style="width: 30px;height: 30px">
-      <input id="exclusive-gateway-button" type="image" title="Exclusive Gateway" src="<?= Url::base() .'/img/Exclusivegateway.png' ?>" alt="Exclusive Gateway" style="width: 30px;height: 30px"><br>
-      <input id="inclusive-gateway-button" type="image" title="Inclusive Gateway" src="<?= Url::base() .'/img/inclusivedateway.png' ?>" alt="Inclusive Gateway" style="width: 30px;height: 30px">
-      <input id="event-gateway-button" type="image" title="Event Gateway" src="<?= Url::base() .'/img/Eventgateway.png' ?>" alt="Event Gateway" style="width: 30px;height: 30px"><br>
-      <hr>
-  <!--     <span><b>Connections</b></span><br> -->
-      <input id="arrow-button" type="image" title="Sequence Flow" src="<?= Url::base() .'/img/arrow.png' ?>" alt="Sequence Flow" style="width: 30px;height: 30px"><br>
-    <hr>
-    <img type="image" src="<?= Url::base() .'/img/settingsicon.png' ?>" style="width: 30px;height: 30px" onClick="saveWorkFlow()">
+        <input id="parallel-gateway-button" type="image" title="Parallel Gateway" src="<?= Url::base() .'/img/parallelgateway.png' ?>" alt="Parallel Gateway" style="width: 30px;height: 30px">
+        <input id="exclusive-gateway-button" type="image" title="Exclusive Gateway" src="<?= Url::base() .'/img/Exclusivegateway.png' ?>" alt="Exclusive Gateway" style="width: 30px;height: 30px"><br>
+        <input id="inclusive-gateway-button" type="image" title="Inclusive Gateway" src="<?= Url::base() .'/img/inclusivedateway.png' ?>" alt="Inclusive Gateway" style="width: 30px;height: 30px">
+        <input id="event-gateway-button" type="image" title="Event Gateway" src="<?= Url::base() .'/img/Eventgateway.png' ?>" alt="Event Gateway" style="width: 30px;height: 30px"><br>
+        
+        <hr>
+        
+        <!--     <span><b>Connections</b></span><br> -->
+        <input id="arrow-button" type="image" title="Sequence Flow" src="<?= Url::base() .'/img/arrow.png' ?>" alt="Sequence Flow" style="width: 30px;height: 30px"><br>
+        
+        <hr>
+        
+        <img type="image" src="<?= Url::base() .'/img/settingsicon.png' ?>" style="width: 30px;height: 30px" onClick="saveWorkFlow()">
     </div>
     <!----------------------------------------- Testing Area ----------------------------------->
     <!-------------------------------------------- End -----------------------------------------> 
 
     <!-- The Modal -->
     <div id="SEModal" class="modal"> 
-      <!-- Modal content -->
-      <div class="modal-content" style="width:1000px">
-        <div class="modal-header">
-          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="SEClose" aria-hidden="true">&times;</span></button> -->
-          <center><h4>Configure Workflow</h4></center>
+        <div class="modal-content" style="width:1000px">
+            <div class="modal-header">
+                <center><h4>Configure Workflow</h4></center>
+            </div>
+            <div class="modal-body">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"></div>
+                <div class="modal-footer">
+                    <input type="hidden" name="form_size" id="form_size" value="0">
+                    <!-- <button id="SEClose" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-default" onClick="clone_form()">Add New Step</button>
+                    <button type="button" class="btn btn-default" onClick="saveData()">Save</button> -->	
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-          
-       <!------------------------------------------------- Start -------------------------------->
-      
-       <!-------------------------------------------------- End --------------------------------->
-      </div>
-      
-      <div class="modal-footer">
-       <input type="hidden" name="form_size" id="form_size" value="0">
-       <!-- <button id="SEClose" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-default" onClick="clone_form()">Add New Step</button>
-        <button type="button" class="btn btn-default" onClick="saveData()">Save</button> -->	
-        
-      </div>
     </div>
-  </div>
-</div>
 <!-------- ENd  First Modal --------------------->
 <!------------- Modal for Saving The Data --------->
 <div id="FModal" class="modal"> 
@@ -113,9 +113,9 @@ if(!empty($model['id'])){
     </div> 
 
 </div>
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-   // your code here
-   drawGraph(<?php echo $model['workflow_json']?>,<?php echo $model['workflow_data']?>);
-}, false);
+    document.addEventListener('DOMContentLoaded', function() {
+        drawGraph(<?php echo $model['workflow_json']?>,<?php echo $model['workflow_data']?>);
+    }, false);
 </script>

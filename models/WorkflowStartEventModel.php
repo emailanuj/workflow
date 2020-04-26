@@ -5,15 +5,6 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
-/**
- * This is the model class for table "workflow".
- *
- * @property int $step_no
- * @property string|null $if_fail
- * @property string|null $next_process
- */
-
-
 class WorkflowStartEventModel extends Model
 {
 

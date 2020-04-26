@@ -3,7 +3,8 @@
 namespace app\models;
 
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
+use \yii\db\ActiveRecord;
 /**
  * This is the model class for table "workflow".
  *
@@ -19,7 +20,7 @@ use Yii;
  * @property User $createdBy
  * @property User $updatedBy
  */
-class Workflow extends \yii\db\ActiveRecord
+class Workflow extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -29,6 +30,20 @@ class Workflow extends \yii\db\ActiveRecord
         return 'workflow';
     }
 
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at','updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -36,9 +51,9 @@ class Workflow extends \yii\db\ActiveRecord
     {
         return [
             [['workflow_data','workflow_json'], 'string'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['workflow_title'], 'string', 'max' => 100],
             [['workflow_description'], 'string', 'max' => 200],
+            
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
         ];

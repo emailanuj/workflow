@@ -10,10 +10,10 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Html;
-
-
 use app\models\WorkflowDataModel;
 use app\models\WorkflowStartEventModel;
+use app\models\TblFunctions;
+use app\models\TblKeywords;
 
 /**
  * WorkflowController implements the CRUD actions for Workflow model.
@@ -70,7 +70,6 @@ class WorkflowController extends Controller
      */
     public function actionCreate()
     {
-       // echo 'Action Called';
         $this->layout = 'workflowLayout';
         $post_data='';
         $model = new Workflow();
@@ -116,11 +115,15 @@ class WorkflowController extends Controller
 
             $arrOutputForm = [];
             $arrOutputForm['status'] = 'success';
-            if($strFormType == 'StartEvent'){
-                $arrOutputForm['html'] = $this->renderPartial('_customStartEventForm',array('workflowStartEventModel' => $workflowStartEventModel));
+            if( $strFormType == 'StartEvent' ){
+                $arrOutputForm['html'] = $this->renderPartial('_customStartEventForm',
+                                                [
+                                                    'workflowStartEventModel' => $workflowStartEventModel,
+                                                    'keywordsList' => TblKeywords::getAllKeywordLists(),
+                                                    'functions_exe_list' => TblFunctions::getAllExecutableFunction() 
+                                                ]
+                                            );
             }
-
-            // $this->renderAjax($arrOutputForm);
 
             return json_encode($arrOutputForm);
         }
