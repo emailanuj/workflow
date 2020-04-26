@@ -115,7 +115,8 @@ class WorkflowController extends Controller
 
             $arrOutputForm = [];
             $arrOutputForm['status'] = 'success';
-            if( $strFormType == 'StartEvent' ){
+            //if( $strFormType == 'StartEvent' || $strFormType == 'EndEvent'){
+            if(!empty($strFormType)){
                 $arrOutputForm['html'] = $this->renderPartial('_customStartEventForm',
                                                 [
                                                     'workflowStartEventModel' => $workflowStartEventModel,

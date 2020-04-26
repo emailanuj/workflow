@@ -105,9 +105,9 @@ var g2 = svg.append('g')
                     .duration(200)
                     .style("opacity", 1.9);
 
-                tooltipDiv.html("<input id=" + "trash-button" + " type=" + "image" + " title=" + "End Event" + " src=" + "img/trash-icon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >"+"&nbsp"+"<input id=" + "arrow-button" + " type=" + "image" + " title=" + "End Event" + " src=" + "img/arrow.png" + " alt=" + "arrow" + " style=" + "width:25px;" + " >" + "<br>" + "<input id=" + "property-button" + " type=" + "image" + " title=" + "End Event" + " src=" + "img/settingsicon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >")
-                    .style("left", coords.x + 30 + "px")
-                    .style("top", (coords.y + 10) + "px");
+                tooltipDiv.html("<input id=" + "trash-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/trash-icon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >"+"&nbsp"+"<input id=" + "arrow-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/arrow.png" + " alt=" + "arrow" + " style=" + "width:25px;" + " >" + "<br>" + "<input id=" + "property-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/settingsicon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >")
+                    .style("left", coords.x + 45 + "px")
+                    .style("top", (coords.y + 20) + "px");
 
 
                 tooltipDiv.select("#trash-button").on("click", function () {
@@ -117,9 +117,37 @@ var g2 = svg.append('g')
                 });
 
                 tooltipDiv.select("#property-button").on("click", function () {
-                    tooltipDiv.style("opacity", 0);
-                    console.log("end evnt button clicked ")
-                    gmodal.style.display = "block";
+                	for (var i = 0; i < bpmnjson.length ; i++) {
+                        var element = bpmnjson[i]
+                        if (element.id === t) {
+                            selectedId=t;
+                            elementType="Gateway";
+                            elementSubType=element.subtype;
+                            console.log(element.subtype)
+                            if (element.subtype === "parallel") {
+                                selectedId="PG"+t;
+                                showFunction(selectedId,element.subtype);
+                                semodal.style.display = "block";
+                            console.log("-----------"+elementSubType)
+                            }else if (element.subtype === "exclusive") {
+                                semodal.style.display = "block";
+                                selectedId="EG"+t;
+                                showFunction(selectedId,element.subtype);
+                            }else if (element.subtype === "inclusive") {
+                                semodal.style.display = "block";
+                                selectedId="IG"+t;
+                                showFunction(selectedId,element.subtype);
+                            }else if (element.subtype === "event") {
+                                semodal.style.display = "block";
+                                selectedId="EG"+t;
+                                showFunction(selectedId,element.subtype);
+                            }
+                        }
+                    }
+                    //End
+                   tooltipDiv.style("opacity", 0);
+                   console.log("gateway evnt button clicked ")
+                   semodal.style.display = "block";
                 });
 
                 tooltipDiv.select("#arrow-button").on("click", function () {

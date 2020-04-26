@@ -103,9 +103,39 @@ console.log('calling end event');
                 });
 
                 tooltipDiv.select("#property-button").on("click", function () {
+                	// Added Code for Getting Selected Id and Sub Type
+                    debugger;
+                    for (var i = 0; i < bpmnjson.length ; i++) {
+                        var element = bpmnjson[i]
+                        if (element.id === t) {
+                            selectedId=t;
+                            elementType="EndEvent";
+                            elementSubType=element.subtype;
+                            console.log("++++++++++++++")
+                            console.log(element.subtype)
+                            if (element.subtype === "EndEvent") {
+                                selectedId="EE"+t;
+                                showFunction(selectedId,element.subtype);
+                                semodal.style.display = "block";
+                            }else if (element.subtype === "ErrorEndEvent") {
+                                semodal.style.display = "block";
+                                selectedId="EEE"+t;
+                                showFunction(selectedId,element.subtype);
+                            }else if (element.subtype === "TerminateEndEvent") {
+                                semodal.style.display = "block";
+                                selectedId="TEE"+t;
+                                showFunction(selectedId,element.subtype);
+                            }else if (element.subtype === "CancelEndEvent") {
+                                semodal.style.display = "block";
+                                selectedId="CEE"+t;
+                                showFunction(selectedId,element.subtype);
+                            }
+                        }
+                    }
+                    //End
                     tooltipDiv.style("opacity", 0);
                     console.log("end evnt button clicked ")
-                    eemodal.style.display = "block";
+                    semodal.style.display = "block";
                 });
             })
             .on("mouseout", function () {

@@ -748,8 +748,8 @@ var dragrect = newg.append("rect")
                     .duration(200)
                     .style("opacity", 1.9);
 
-                tooltipDiv.html("<input id=" + "trash-button" + " type=" + "image" + " title=" + "End Event" + " src=" + "img/trash-icon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >" +"&nbsp"+"<input id=" + "arrow-button" + " type=" + "image" + " title=" + "End Event" + " src=" + "img/arrow.png" + " alt=" + "arrow" + " style=" + "width:25px;" + " >"+ "<br>" + "<input id=" + "property-button" + " type=" + "image" + " title=" + "End Event" + " src=" + "img/settingsicon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >"+"&nbsp"+"<input id=" + "text-button" + " type=" + "image" + " title=" + "End Event" + " src=" + "img/review.png" + " alt=" + "Text" + " style=" + "width:25px;" + " >")
-                    .style("left", coords.x + width+ 10 + "px")
+                tooltipDiv.html("<input id=" + "trash-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/trash-icon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >" +"&nbsp"+"<input id=" + "arrow-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/arrow.png" + " alt=" + "arrow" + " style=" + "width:25px;" + " >"+ "<br>" + "<input id=" + "property-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/settingsicon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >"+"&nbsp"+"<input id=" + "text-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/review.png" + " alt=" + "Text" + " style=" + "width:25px;" + " >")
+                    .style("left", coords.x + width+ 20 + "px")
                     .style("top", (coords.y + 15) + "px");
 
 
@@ -763,9 +763,37 @@ var dragrect = newg.append("rect")
                 });
 
                 tooltipDiv.select("#property-button").on("click", function () {
+                	for (var i = 0; i < bpmnjson.length ; i++) {
+                        var element = bpmnjson[i]
+                        if (element.id === t) {
+                            selectedId=t;
+                            elementType="Task";
+                            elementSubType=element.subtype;
+                            if (element.subtype === "UserTask") {
+                                selectedId="UT"+t;
+                                console.log(selectedId);
+                                showFunction(selectedId,element.subtype);
+                                semodal.style.display = "block";
+                            }else if (element.subtype === "ScriptTask") {
+                                semodal.style.display = "block";
+                                selectedId="ST"+t;
+                                showFunction(selectedId,element.subtype);
+                            }else if (element.subtype === "MailTask") {
+                                semodal.style.display = "block";
+                                selectedId="MT"+t;
+                                showFunction(selectedId,element.subtype);
+                            }else if (element.subtype === "ManualTask") {
+                                semodal.style.display = "block";
+                                selectedId="MaT"+t;
+                                showFunction(selectedId,element.subtype);
+                            }
+
+                            console.log()
+                        }
+                    }
                     tooltipDiv.style("opacity", 0);
-                    console.log("end evnt button clicked ")
-                    tmodal.style.display = "block";
+                    console.log("Task evnt button clicked ")
+                    semodal.style.display = "block";
                 });
                 tooltipDiv.select("#text-button").on("click", function () {
                     tooltipDiv.style("opacity", 0);
