@@ -271,17 +271,7 @@ function clone_form() {
     new_element+='</div></div>';
     new_element+='</form></div>';
 
-    /*var row = $(clonebutton).parent(),
-      inputVal = row.find('input').val(),
-      selectVal = row.find('select').val(),
-      original = $('#divRow0'),
-      clone = $(original).clone(true, true);
-    clone.find('#divRow0').prop('id', 'divRow' + $('.clonerow').length);
-    clone.find('#innerDivRow0').prop('id', 'innerDivRow' + $('.clonerow').length);
-    clone.find('input[type="text"]').val(inputVal);
-    clone.find('select').val(selectVal);
-    $('#container').append(clone);*/
-    //$("#formgroup").clone().appendTo("#accordion"); 
+   
     $("#accordion").append(new_element);
     $("#form_size").val(i);
   }
@@ -291,6 +281,7 @@ function clone_form() {
       localStorage.setItem('formData', JSON.stringify(formObj));
   }
 function showFunction(element_id,form_type){
+    // clearLocalStorage();
 	// debugger;
 	$.ajax({
 		type: "post",

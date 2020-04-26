@@ -72,10 +72,7 @@ if(!empty($model['id'])){
             <div class="modal-body">
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"></div>
                 <div class="modal-footer">
-                    <input type="hidden" name="form_size" id="form_size" value="0">
-                    <!-- <button id="SEClose" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-default" onClick="clone_form()">Add New Step</button>
-                    <button type="button" class="btn btn-default" onClick="saveData()">Save</button> -->	
+                    <input type="hidden" name="form_size" id="form_size" value="0">\
                 </div>
             </div>
         </div>
