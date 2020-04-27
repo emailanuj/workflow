@@ -340,6 +340,12 @@ $(document).on('click',"#savestartevent",function(){
 $(document).on('click',"#SEClose",function(){
 	semodal.style.display = "none";
 });
+$(document).on('change',"#keywords",function(){
+	selected_value=this.value;
+	if(selected_value=='API'){
+		$('.api_cls').css("display", "block");
+	}
+});
 // $(document).on('click',".kpiName",function(){
 //     var kpi_name = $(this).attr('kpi_name');
 //     var data = {'request': 'searchKpi','searchString': kpi_name};

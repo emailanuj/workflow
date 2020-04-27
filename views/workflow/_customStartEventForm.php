@@ -34,7 +34,7 @@ $form = ActiveForm::begin([
             <?= $form->field($workflowStartEventModel, 'next_process')->textInput(['id'=>'next_process','name'=>'next_process']) ?>
 
             <?= $form->field($workflowStartEventModel, 'keywords')->dropDownList($keywordsList,['prompt'=>'Please select Keyword','id'=>'keywords','name'=>'keywords']) ?>
-
+		<div class="api_cls" style="display:none;">
             <?= $form->field($workflowStartEventModel, 'api_url')->textInput(['id'=>'api_url','name'=>'api_url']) ?>
 
             <?= $form->field($workflowStartEventModel, 'api_method')->dropDownList(['get' => 'Get','post'=>'Post'],['prompt'=>'Please Select','id'=>'api_method','name'=>'api_method']) ?>
@@ -54,7 +54,7 @@ $form = ActiveForm::begin([
             <?= $form->field($workflowStartEventModel, 'username')->textInput(['id'=>'username','name'=>'username']) ?>
             
             <?= $form->field($workflowStartEventModel, 'password')->textInput(['id'=>'password','name'=>'password']) ?>
-            
+ 		</div>    
             <div class="form-group">
               <?= Html::submitButton('Save', ['class' => 'btn btn-primary', 'name' => 'contact-button', 'id' => 'savestartevent' ]) ?>
                 <button id="SEClose" type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
