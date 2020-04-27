@@ -343,7 +343,6 @@ $(document).on('click',"#SEClose",function(){
 $(document).on('change',"#keywords",function(){
 	selected_value=this.value;
 	if(selected_value=='API'){
-		alert('API');
 		$('.api_cls').css("display", "block");
 	}
 });
