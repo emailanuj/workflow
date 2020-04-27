@@ -32,3 +32,17 @@ ALTER TABLE `tbl_commands` CHANGE `updated_at` `updated_at` INT(11) NOT NULL
 ALTER TABLE `tbl_commands` CHANGE `updated_by` `updated_by` INT(11) NOT NULL
 
 
+truncate workflow;
+truncate workflow_templates;
+
+ALTER TABLE `project`.`workflow_templates` 
+ADD COLUMN `workflow_template_id` INT(11) NOT NULL AFTER `updated_by`;
+
+  ALTER TABLE workflow
+ADD CONSTRAINT FK_WORKFLOW_TEMPLATE_ID
+FOREIGN KEY (workflow_template_id) REFERENCES workflow_templates(id);
+
+
+
+
+
