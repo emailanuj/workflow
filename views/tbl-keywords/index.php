@@ -12,7 +12,14 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tbl-keywords-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="col-md-6 absoluteClm">
+        <div class="page-action-wrapper text-right">
+            <span class="table-search-icon">
+                <button class="btn-transparent btn-search" id="TableSearch"><img src="public/images/search-icon.png"></button>
+            </span>                                           
+            <button class="btn btn-update"><?= Html::encode($this->title) ?></button>
+        </div>
+    </div>
 
     <p>
         <?= Html::a('Create Tbl Keywords', ['create'], ['class' => 'btn btn-success']) ?>
