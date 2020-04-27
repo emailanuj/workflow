@@ -126,7 +126,7 @@ function populateData(blockId){
             formCurrentLength=currFormArr[blockId];
             if(len>1){
                 for(var nf=current_forms;nf<len-1;nf++){
-                    clone_form();
+                   // clone_form();
                     currentForm+=1;
                     $("#form_size").val(currentForm);
                     

@@ -68,7 +68,7 @@ class WorkflowController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id=null)
     {
         $this->layout = 'workflowLayout';
         $post_data='';
@@ -100,7 +100,8 @@ class WorkflowController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'workflowDataModel' => $workflowDataModel
+            'workflowDataModel' => $workflowDataModel,
+            'template_id'=>$id
         ]);
     }
 
