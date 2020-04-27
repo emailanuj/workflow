@@ -139,6 +139,11 @@ function populateData(blockId){
             for(var el=0;el<len;el++){
                 if(localData[el]){
                     if(localData.id!=''){
+                    	if(localData[el]['keywords']=='API'){
+                    		$('.api_cls').css("display", "block");
+                    	}else{
+                    		$('.api_cls').css("display", "none");
+                    	}
 //                        $("#stepno"+el+"").val(localData[el]['stepno'+el]);
 //                        $("#iffail"+el+"").val(localData[el]['iffail'+el]);
 //                        $("#nextprocess"+el+"").val(localData[el]['nextprocess'+el]);
@@ -344,6 +349,8 @@ $(document).on('change',"#keywords",function(){
 	selected_value=this.value;
 	if(selected_value=='API'){
 		$('.api_cls').css("display", "block");
+	}else{
+		$('.api_cls').css("display", "none");
 	}
 });
 // $(document).on('click',".kpiName",function(){
