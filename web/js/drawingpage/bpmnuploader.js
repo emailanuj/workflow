@@ -1,6 +1,5 @@
 "use strict";
 function uploadgraphCreator(data) {
-    console.log(data)
        // console.log(data.bpmnjson.length)
             for (var i = 0; i < data.bpmn.length ; i++) {
                 var bpmnelement = data.bpmn[i]

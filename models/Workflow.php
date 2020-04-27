@@ -19,6 +19,7 @@ use \yii\db\ActiveRecord;
  * @property int|null $updated_by
  * @property User $createdBy
  * @property User $updatedBy
+ * @property int|null $workflow_template_id
  */
 class Workflow extends ActiveRecord
 {
@@ -53,6 +54,7 @@ class Workflow extends ActiveRecord
             [['workflow_data','workflow_json'], 'string'],
             [['workflow_title'], 'string', 'max' => 100],
             [['workflow_description'], 'string', 'max' => 200],
+            [['workflow_template_id'], 'integer', 'max' => 11],
             
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
@@ -70,6 +72,7 @@ class Workflow extends ActiveRecord
             'workflow_description' => 'Workflow Description',
             'workflow_data' => 'Workflow Data',
             'workflow_json' => 'Workflow Json',
+            'workflow_template_id'=>'workflow template id',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',

@@ -10,6 +10,7 @@ use yii\behaviors\TimestampBehavior;
  * This is the model class for table "workflow_templates".
  *
  * @property int $id
+ * @property int|null $workflow_id
  * @property string|null $workflow_template_title
  * @property string|null $workflow_template_description
  * @property int $is_deleted
@@ -64,6 +65,7 @@ class WorkflowTemplate extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'workflow_id' => 'Workflow Id',
             'workflow_template_title' => 'Workflow Template Title',
             'workflow_template_description' => 'Workflow Template Description',
             'is_deleted' => 'Is Deleted',

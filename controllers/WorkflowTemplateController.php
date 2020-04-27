@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\WorkflowTemplate;
 use app\models\WorkflowTemplateSearch;
+use app\models\Workflow;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,13 +66,27 @@ class WorkflowTemplateController extends Controller
     public function actionCreate()
     {
         $model = new WorkflowTemplate();
-
+        $wmodel = new Workflow();
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $postdata = Yii::$app->request->post();
+            $cloneid = $postdata['WorkflowTemplate']['workflow_id'];
+            if (($clonedata = Workflow::findOne($cloneid)) !== null) {
+                $wmodel->workflow_template_id = $model->id;
+                $wmodel->workflow_title = $clonedata->workflow_title;
+                $wmodel->workflow_description = $clonedata->workflow_description;
+                $wmodel->workflow_data = $clonedata->workflow_data;
+                $wmodel->workflow_json = $clonedata->workflow_json; 
+                $wmodel->save();                
+               // Workflow::update(['workflow_id' => $wmodel->id])->where(['id' => $model->id]);
+            } 
+            
             return $this->redirect(['index']);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'wmodel' => $wmodel
         ]);
     }
 
