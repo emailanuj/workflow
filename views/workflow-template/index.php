@@ -71,7 +71,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         $url = Url::base().'/workflow/create?id='.$model->id;
                         return $url;
                     }
-        
+                    if ($action === 'view') {
+                        $url = Url::base().'/workflow-template/view?id='.$model->id;
+                        return $url;
+                    }
+                    if ($action === 'update') {
+                        $url = Url::base().'/workflow-template/update?id='.$model->id;
+                        return $url;
+                    }
+                    if ($action === 'delete') {
+                        $url = Url::base().'/workflow-template/delete?id='.$model->id;
+                        return $url;
+                    }
                   }
                             
             ],
