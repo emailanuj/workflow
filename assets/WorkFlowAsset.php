@@ -20,10 +20,12 @@ class WorkFlowAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
+        // 'css/site.css',
         'css/toolbox.css',
         'css/app.css',
-        'css/workflow.css'
+        'css/workflow.css',
+        'font-awesome/css/font-awesome.min.css',
+        'css/custom-style.css',
     ];
     public $js = [
         'js/d3.js',
@@ -38,6 +40,7 @@ class WorkFlowAsset extends AssetBundle
         'js/drawingpage/endevent/endevent.js',
         'js/drawingpage/drawing.js',
         'js/workflow.js',
+        // 'js/adminlte.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

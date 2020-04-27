@@ -20,9 +20,13 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
+        // 'css/site.css',
+        'font-awesome/css/font-awesome.min.css',
+        'css/custom-style.css',
+        // 'css/ie10-viewport-bug-workaround.css',
     ];
     public $js = [
+        'js/adminlte.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
