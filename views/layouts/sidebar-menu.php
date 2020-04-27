@@ -35,7 +35,17 @@ use yii\helpers\Url;
             </span>
         </a>
     </li>
-
+    <li>
+            <a href="<?= Url::to(['/workflow']) ?>">
+                <i class="fa fa-circle-o"></i>  
+                <span>
+                    <span class="nav-icon">
+                        <img src="<?= Url::base() .'/images/icons/workflow-template.png' ?>" />
+                    </span> 
+                    Workflow
+                </span>
+            </a>
+        </li>
     <!-- <li class="active">
         <a href="<?= Url::to(['/']) ?>">
             <i class="fa fa-circle-o"></i>  

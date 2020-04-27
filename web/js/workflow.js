@@ -139,6 +139,26 @@ function populateData(blockId){
             for(var el=0;el<len;el++){
                 if(localData[el]){
                     if(localData.id!=''){
+                    	if(localData[el]['keywords']=='API'){
+                    		$('.api_cls').css("display", "block");
+                    		$('.ds_cls').css("display", "none");
+                    		$('.formdata_cls').css("display", "none");
+                    	}else{
+                    		$('.api_cls').css("display", "none");
+                    		$('.ds_cls').css("display", "block");
+                    	}
+                    	if(localData[el]['data_source']=='function_name'){
+                    		$('.func_cls').css("display", "block");
+                    		$('.formdata_cls').css("display", "none");
+                    	}else{
+                    		$('.func_cls').css("display", "none");
+                    	}
+                    	if(localData[el]['data_source']=='form_data'){
+                    		$('.func_cls').css("display", "none");
+                    		$('.formdata_cls').css("display", "block");
+                    	}else{
+                    		$('.formdata_cls').css("display", "none");
+                    	}
 //                        $("#stepno"+el+"").val(localData[el]['stepno'+el]);
 //                        $("#iffail"+el+"").val(localData[el]['iffail'+el]);
 //                        $("#nextprocess"+el+"").val(localData[el]['nextprocess'+el]);
@@ -166,6 +186,9 @@ function populateData(blockId){
                     	  $("#token_url").val(localData[el]['token_url']);
                     	  $("#username").val(localData[el]['username']);
                     	  $("#password").val(localData[el]['password']);
+                    	  $("#data_source").val(localData[el]['data_source']);
+                    	  $("#get_data_function").val(localData[el]['get_data_function']);
+                    	  $("#form_data").val(localData[el]['form_data']);
                     	  
                     }
                     console.log('End Localstorage fetch data');
@@ -344,6 +367,26 @@ $(document).on('change',"#keywords",function(){
 	selected_value=this.value;
 	if(selected_value=='API'){
 		$('.api_cls').css("display", "block");
+		$('.ds_cls').css("display", "none");
+		$('.formdata_cls').css("display", "none");
+	}else{
+		$('.api_cls').css("display", "none");
+		$('.ds_cls').css("display", "block");
+	}
+});
+$(document).on('change',"#data_source",function(){
+	selected_value=this.value;
+	if(selected_value=='function_name'){
+		$('.func_cls').css("display", "block");
+		$('.formdata_cls').css("display", "none");
+	}else{
+		$('.func_cls').css("display", "none");
+	}
+	if(selected_value=='form_data'){
+		$('.func_cls').css("display", "none");
+		$('.formdata_cls').css("display", "block");
+	}else{
+		$('.formdata_cls').css("display", "none");
 	}
 });
 // $(document).on('click',".kpiName",function(){

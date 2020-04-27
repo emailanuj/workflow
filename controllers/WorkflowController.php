@@ -122,7 +122,8 @@ class WorkflowController extends Controller
                                                 [
                                                     'workflowStartEventModel' => $workflowStartEventModel,
                                                     'keywordsList' => TblKeywords::getAllKeywordLists(),
-                                                    'functions_exe_list' => TblFunctions::getAllExecutableFunction() 
+                                                    'functions_exe_list' => TblFunctions::getAllExecutableFunction(),
+                                                    'functions_get_data_list'=>TblFunctions::getAllDataFunction()
                                                 ]
                                             );
             }

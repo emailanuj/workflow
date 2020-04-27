@@ -16,7 +16,7 @@ class WorkflowStartEventModel extends Model
     public $api_method;
     public $api_type;
     public $api_headers;
-    public $datasource;
+    public $data_source;
     public $get_data_function;
     public $function_execute;
     public $auth_type;
@@ -24,6 +24,7 @@ class WorkflowStartEventModel extends Model
     public $token_url;
     public $username;
     public $password;
+    public $form_data;
 
     /**
      * {@inheritdoc}
@@ -50,7 +51,7 @@ class WorkflowStartEventModel extends Model
             'api_method'=>'API method',
             'api_type'=>'API type',
             'api_headers'=>'API headers',
-            'datasource'=>'Data Source',
+            'data_source'=>'Data Source',
             'get_data_function'=>'Get Data Function',
             'function_execute'=>'Function to execute',
             'auth_type'=>'Auth type',
@@ -58,6 +59,7 @@ class WorkflowStartEventModel extends Model
             'token_url'=>'Token URL',
             'username'=>'Username',
             'password'=>'Password',
+            'form_data'=>'Form Data',
         ];
     }
     
