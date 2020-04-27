@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Actions',
                 'headerOptions' => ['style' => 'color:#337ab7'],
-                // 'template' => '{view}{update}{delete}',
+                // 'template' => '{view}{update}{delete}',                
                 'template' => '{view}{update} {delete} {create-process}',
                 'buttons' => [
                     'view' => function ($url, $model) {
@@ -61,16 +61,20 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
                     },
                     'create-process' => function ($url, $model) {
-                        return Html::a('<button type="button" class="btn btn-success btn-sm">Add Process</button>', $url, [
-                                    'title' => Yii::t('app', 'workflow-create'),
-                        ]);
+                        if($model->workflow_id == '0') {
+                            $url = Url::base().'/workflow/create?id='.$model->id;
+                            return Html::a('<button type="button" class="btn btn-success btn-sm">Add Process</button>', $url, [
+                                        'title' => Yii::t('app', 'workflow-create'),
+                            ]);
+                        } else {
+                            $url = Url::base().'/workflow/update?id='.$model->id;
+                            return Html::a('<button type="button" class="btn btn-success btn-sm">modify Process</button>', $url, [
+                                'title' => Yii::t('app', 'workflow-update'),
+                            ]); 
+                        }
                     }
                 ],  
-                'urlCreator' => function ($action, $model, $key, $index) {
-                    if ($action === 'create-process') {
-                        $url = Url::base().'/workflow/create?id='.$model->id;
-                        return $url;
-                    }
+                'urlCreator' => function ($action, $model, $key, $index) {                    
                     if ($action === 'view') {
                         $url = Url::base().'/workflow-template/view?id='.$model->id;
                         return $url;
