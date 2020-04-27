@@ -77,10 +77,10 @@ class WorkflowTemplateController extends Controller
                 $wmodel->workflow_description = $clonedata->workflow_description;
                 $wmodel->workflow_data = $clonedata->workflow_data;
                 $wmodel->workflow_json = $clonedata->workflow_json; 
-                $wmodel->save();                
-               // Workflow::update(['workflow_id' => $wmodel->id])->where(['id' => $model->id]);
+                $wmodel->save();                                                
             } 
-            
+            $model->workflow_id = $wmodel->id ;
+            $model->save();
             return $this->redirect(['index']);
         }
 
