@@ -16,6 +16,7 @@ use yii\helpers\ArrayHelper;
 class TblFunctions extends \yii\db\ActiveRecord
 {
     const EXECUTABLE = 'EXECUTABLE';
+    const GETDATA = 'GETDATA';
     /**
      * {@inheritdoc}
      */
@@ -52,6 +53,11 @@ class TblFunctions extends \yii\db\ActiveRecord
     public static function getAllExecutableFunction()
     {
         $arrTblFunctions = TblFunctions::find()->where(['function_type' => TblFunctions::EXECUTABLE ])->orderBy(['function_name'=>SORT_ASC])->all();
+        return ArrayHelper::map($arrTblFunctions,'function_name','function_name');
+    }
+    public static function getAllDataFunction()
+    {
+        $arrTblFunctions = TblFunctions::find()->where(['function_type' => TblFunctions::GETDATA ])->orderBy(['function_name'=>SORT_ASC])->all();
         return ArrayHelper::map($arrTblFunctions,'function_name','function_name');
     }
 }

@@ -35,12 +35,16 @@ ALTER TABLE `tbl_commands` CHANGE `updated_by` `updated_by` INT(11) NOT NULL
 truncate workflow;
 truncate workflow_templates;
 
-ALTER TABLE `project`.`workflow_templates` 
+ALTER TABLE `workflow_templates` 
 ADD COLUMN `workflow_template_id` INT(11) NOT NULL AFTER `updated_by`;
 
   ALTER TABLE workflow
 ADD CONSTRAINT FK_WORKFLOW_TEMPLATE_ID
 FOREIGN KEY (workflow_template_id) REFERENCES workflow_templates(id);
+
+INSERT INTO `tbl_functions` (`id`, `function_name`, `function_type`, `deleted`) VALUES ('4', 'get_data', 'GETDATA', '0');
+INSERT INTO `tbl_functions` (`id`, `function_name`, `function_type`, `deleted`) VALUES ('5', 'get_nso_data', 'GETDATA', '0');
+
 
 
 

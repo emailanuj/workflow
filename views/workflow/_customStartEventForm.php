@@ -54,7 +54,16 @@ $form = ActiveForm::begin([
             <?= $form->field($workflowStartEventModel, 'username')->textInput(['id'=>'username','name'=>'username']) ?>
             
             <?= $form->field($workflowStartEventModel, 'password')->textInput(['id'=>'password','name'=>'password']) ?>
- 		</div>    
+ 		</div>
+ 		<div class="ds_cls" style="display:none;">
+ 		<?= $form->field($workflowStartEventModel, 'data_source')->dropDownList(['function_name' => 'Function Name','form_data'=>'Form Data','begnning_data'=>'Data at Begnning','prev_process'=>'From Previous Process'],['prompt'=>'Please Select','id'=>'data_source','name'=>'data_source']) ?>
+ 		</div>
+ 		<div class="func_cls" style="display:none;">
+ 		    <?= $form->field($workflowStartEventModel, 'get_data_function')->dropDownList($functions_get_data_list,['prompt'=>'Please select Function','id'=>'get_data_function','name'=>'get_data_function']) ?>
+ 		</div>
+ 		<div class="formdata_cls" style="display:none;">
+ 		    <?= $form->field($workflowStartEventModel, 'form_data')->textarea(['id'=>'form_data','name'=>'form_data']) ?>
+ 		</div>
             <div class="form-group">
               <?= Html::submitButton('Save', ['class' => 'btn btn-primary', 'name' => 'contact-button', 'id' => 'savestartevent' ]) ?>
                 <button id="SEClose" type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
