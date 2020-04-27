@@ -126,7 +126,7 @@ function populateData(blockId){
             formCurrentLength=currFormArr[blockId];
             if(len>1){
                 for(var nf=current_forms;nf<len-1;nf++){
-                    clone_form();
+                   // clone_form();
                     currentForm+=1;
                     $("#form_size").val(currentForm);
                     
@@ -217,10 +217,10 @@ function populateData(blockId){
 }
 
 function saveWorkFlow(){
-	// debugger;
+	debugger;
     var final_json={};
     final_json['bpmn']=bpmnjson;
-    // debugger;
+    debugger;
     console.log('BPNM JSON ');
     localstorageData=localStorage.getItem('formData');
     console.log('Local Storage Data');
@@ -276,7 +276,10 @@ function clone_form() {
     $("#form_size").val(i);
   }
   function drawGraph(grapOBJ,formObj){
-      console.log(formObj);
+	  debugger;
+	  console.log('Start Graph OBJ');
+      console.log(grapOBJ);
+      console.log('End Graph OBJ');
       uploadgraphCreator(grapOBJ);
       localStorage.setItem('formData', JSON.stringify(formObj));
   }
