@@ -2598,4 +2598,7 @@ h3.modal-title, h4.modal-title {font-size: 20px; font-weight: normal}
 #properties p {
     text-align: left;
 }
+form .error {
+  color: #ff0000;
+}
 /*==== Workflow App Ends Here ====*/
