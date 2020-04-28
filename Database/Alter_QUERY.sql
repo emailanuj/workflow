@@ -1,3 +1,11 @@
+/*  alter query 28 april 2020 */
+
+ALTER TABLE `workflow` ADD `is_instance` TINYINT(1) NOT NULL DEFAULT '0' AFTER `workflow_template_id`;
+
+
+/* alter query 28 april 2020 */
+
+
 DROP TABLE IF EXISTS `tbl_keywords`;
 CREATE TABLE `tbl_keywords` (
   `id` int(11) NOT NULL,
