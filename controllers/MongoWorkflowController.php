@@ -95,7 +95,7 @@ class MongoWorkflowController extends Controller
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             // Workflow Validation
             $workflowStartEventModel = new WorkflowStartEventModel();
-            $validation_status=ActiveForm::validate($workflowStartEventModel);
+            $validation_status=ActiveForm::validate($workflowStartEventModel,Yii::$app->request->post());
             
             $data = Yii::$app->request->post();
         }
