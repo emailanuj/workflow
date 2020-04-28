@@ -12,15 +12,15 @@ use app\models\TblFunctions;
 
 
 $form = ActiveForm::begin([
-                            'id' => 'seModal0',
-                            //'action'  => 'user-default-shipping/create',
-                            'options' => [
-                                    'onsubmit' => 'return false'
-                                ],
-                            'enableAjaxValidation' => true,
-                            'enableClientValidation' => true,
-                        ]); 
-  ?>
+    'id' => 'seModal0',
+    //'action'  => 'user-default-shipping/create',
+    'options' => [
+        'onsubmit' => 'return false'
+    ],
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => true,
+]);
+?>
     <div class="panel panel-default" id="formgroup">
         <div class="panel-heading" role="tab" id="heading0">
             <h4 class="panel-title">

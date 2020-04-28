@@ -34,7 +34,7 @@ class MongoWorkflowController extends Controller
             ],
         ];
     }
-
+    
     /**
      * Lists all MongoWorkFlow models.
      * @return mixed
@@ -43,13 +43,13 @@ class MongoWorkflowController extends Controller
     {
         $searchModel = new MongoWorkflowSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
-
+    
     /**
      * Displays a single MongoWorkFlow model.
      * @param integer $_id
@@ -62,7 +62,7 @@ class MongoWorkflowController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
-
+    
     /**
      * Creates a new MongoWorkFlow model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -75,12 +75,12 @@ class MongoWorkflowController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => (string)$model->_id]);
         }
-
+        
         return $this->render('create', [
             'model' => $model,
         ]);
     }
-
+    
     public function actionMongoCreate()
     {
         $model = new MongoWorkFlow();
@@ -121,16 +121,16 @@ class MongoWorkflowController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => (string)$model->_id]);
         }
-
+        
         return $this->render('update', [
             'model' => $model,
         ]);
     }
-
+    
     /**
      * Deletes an existing MongoWorkFlow model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -141,10 +141,10 @@ class MongoWorkflowController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
+        
         return $this->redirect(['index']);
     }
-
+    
     /**
      * Finds the MongoWorkFlow model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -157,7 +157,7 @@ class MongoWorkflowController extends Controller
         if (($model = MongoWorkFlow::findOne($id)) !== null) {
             return $model;
         }
-
+        
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 }
