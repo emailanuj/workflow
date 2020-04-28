@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\TblKeywordsSearch */
@@ -15,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-6 absoluteClm">
         <div class="page-action-wrapper text-right">
             <span class="table-search-icon">
-                <button class="btn-transparent btn-search" id="TableSearch"><img src="public/images/search-icon.png"></button>
+                <button class="btn-transparent btn-search" id="TableSearch"><img src="<?= Url::base() .'/images/search-icon.png'?>"></button>
             </span>                                           
             <button class="btn btn-update"><?= Html::encode($this->title) ?></button>
         </div>
