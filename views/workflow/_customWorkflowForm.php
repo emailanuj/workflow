@@ -21,45 +21,171 @@ if(!empty($model['id'])){
     </textarea>
 
     <div id="toolbox">
-     <!--  <input type="file" id="hidden-file-upload"> -->
-    <!--  <span><b>Start Event</b></span><br> -->
-        <input id="start-button" type="image" title="Start Event" src="<?= Url::base() .'/img/startevent.png' ?>" alt="Start Event" style="width: 30px;height: 30px">
-        <input id="start-time-button" type="image" title="Time Event" src="<?= Url::base() .'/img/timestartevent.png' ?>" alt="Time Event" style="width: 30px;height: 30px"><br>
-        <input id="start-message-button" type="image" title="Message Start Event" src="<?= Url::base() .'/img/messagestartevent.png' ?>" alt="Message Start Event" style="width: 30px;height: 30px">
-        <input id="start-error-button" type="image" title="Error Start Event" src="<?= Url::base() .'/img/errorstartevent.png' ?>" alt="Error Start Event" style="width: 30px;height: 30px"><br>
-        
-        <hr>
+        <div class="back-app">
+            <a href="<?= Url::to(['/workflow-template']) ?>">
+                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> <span>Back to Application</span>
+            </a>
+        </div>
+        <p class="title-symbol">Designer Entity</p>
+        <div id="blocklist">
+            <input id="start-button" type="image" title="Start Event" src="<?= Url::base() .'/img/startevent.png' ?>" alt="Start Event" style="width: 30px;height: 30px">
+            <input id="start-time-button" type="image" title="Time Event" src="<?= Url::base() .'/img/timestartevent.png' ?>" alt="Time Event" style="width: 30px;height: 30px"><br>
+            <input id="start-message-button" type="image" title="Message Start Event" src="<?= Url::base() .'/img/messagestartevent.png' ?>" alt="Message Start Event" style="width: 30px;height: 30px">
+            <input id="start-error-button" type="image" title="Error Start Event" src="<?= Url::base() .'/img/errorstartevent.png' ?>" alt="Error Start Event" style="width: 30px;height: 30px"><br>
+            
+            <hr>
 
-    <!--  <span><b>End Event</b></span><br> -->
-        <input id="end-button" type="image" title="End Event" src="<?= Url::base() .'/img/black-circle.png' ?>" alt="End Event" style="width: 30px;height: 30px">
-        <input id="error-end-button" type="image" title="Error End Event" src="<?= Url::base() .'/img/errorend.png' ?>" alt="Error End Event" style="width: 30px;height: 30px"><br>
-        <input id="terminate-end-button" type="image" title="Terminate End Event" src="<?= Url::base() .'/img/terminateend.png' ?>" alt="Terminate End Event" style="width: 30px;height: 30px">
-        <input id="cancel-end-button" type="image" title="Cancel End Event" src="<?= Url::base() .'/img/cancelend.png' ?>" alt="Cancel End Event" style="width: 30px;height: 30px"><br>
+        <!--  <span><b>End Event</b></span><br> -->
+            <input id="end-button" type="image" title="End Event" src="<?= Url::base() .'/img/black-circle.png' ?>" alt="End Event" style="width: 30px;height: 30px">
+            <input id="error-end-button" type="image" title="Error End Event" src="<?= Url::base() .'/img/errorend.png' ?>" alt="Error End Event" style="width: 30px;height: 30px"><br>
+            <input id="terminate-end-button" type="image" title="Terminate End Event" src="<?= Url::base() .'/img/terminateend.png' ?>" alt="Terminate End Event" style="width: 30px;height: 30px">
+            <input id="cancel-end-button" type="image" title="Cancel End Event" src="<?= Url::base() .'/img/cancelend.png' ?>" alt="Cancel End Event" style="width: 30px;height: 30px"><br>
+            
+            <hr>
+            
+            <!--  <span><b>Task</b></span><br> -->
+            <input id="user-task-button" type="image" title="User Task" src="<?= Url::base() .'/img/user.svg' ?>" alt="User Task" style="width: 30px;height: 30px">
+            <input id="script-task-button" type="image" title="Script Task" src="<?= Url::base() .'/img/script.svg' ?>" alt="Script Task" style="width: 30px;height: 30px"><br>
+            <input id="mail-task-button" type="image" title="Mail Task" src="<?= Url::base() .'/img/message.svg' ?>" alt="Mail Task" style="width: 30px;height: 30px">
+            <input id="manual-task-button" type="image" title="Manual Task" src="<?= Url::base() .'/img/manual.svg' ?>" alt="Manual Task" style="width: 30px;height: 30px"><br>
+            
+            <hr>
         
-        <hr>
-        
-        <!--  <span><b>Task</b></span><br> -->
-        <input id="user-task-button" type="image" title="User Task" src="<?= Url::base() .'/img/user.svg' ?>" alt="User Task" style="width: 30px;height: 30px">
-        <input id="script-task-button" type="image" title="Script Task" src="<?= Url::base() .'/img/script.svg' ?>" alt="Script Task" style="width: 30px;height: 30px"><br>
-        <input id="mail-task-button" type="image" title="Mail Task" src="<?= Url::base() .'/img/message.svg' ?>" alt="Mail Task" style="width: 30px;height: 30px">
-        <input id="manual-task-button" type="image" title="Manual Task" src="<?= Url::base() .'/img/manual.svg' ?>" alt="Manual Task" style="width: 30px;height: 30px"><br>
-        
-        <hr>
-    
-        <input id="parallel-gateway-button" type="image" title="Parallel Gateway" src="<?= Url::base() .'/img/parallelgateway.png' ?>" alt="Parallel Gateway" style="width: 30px;height: 30px">
-        <input id="exclusive-gateway-button" type="image" title="Exclusive Gateway" src="<?= Url::base() .'/img/Exclusivegateway.png' ?>" alt="Exclusive Gateway" style="width: 30px;height: 30px"><br>
-        <input id="inclusive-gateway-button" type="image" title="Inclusive Gateway" src="<?= Url::base() .'/img/inclusivedateway.png' ?>" alt="Inclusive Gateway" style="width: 30px;height: 30px">
-        <input id="event-gateway-button" type="image" title="Event Gateway" src="<?= Url::base() .'/img/Eventgateway.png' ?>" alt="Event Gateway" style="width: 30px;height: 30px"><br>
-        
-        <hr>
-        
-        <!--     <span><b>Connections</b></span><br> -->
-        <input id="arrow-button" type="image" title="Sequence Flow" src="<?= Url::base() .'/img/arrow.png' ?>" alt="Sequence Flow" style="width: 30px;height: 30px"><br>
-        
-        <hr>
-        
-        <img type="image" src="<?= Url::base() .'/img/settingsicon.png' ?>" style="width: 30px;height: 30px" onClick="saveWorkFlow()">
+            <input id="parallel-gateway-button" type="image" title="Parallel Gateway" src="<?= Url::base() .'/img/parallelgateway.png' ?>" alt="Parallel Gateway" style="width: 30px;height: 30px">
+            <input id="exclusive-gateway-button" type="image" title="Exclusive Gateway" src="<?= Url::base() .'/img/Exclusivegateway.png' ?>" alt="Exclusive Gateway" style="width: 30px;height: 30px"><br>
+            <input id="inclusive-gateway-button" type="image" title="Inclusive Gateway" src="<?= Url::base() .'/img/inclusivedateway.png' ?>" alt="Inclusive Gateway" style="width: 30px;height: 30px">
+            <input id="event-gateway-button" type="image" title="Event Gateway" src="<?= Url::base() .'/img/Eventgateway.png' ?>" alt="Event Gateway" style="width: 30px;height: 30px"><br>
+            
+            <hr>
+            
+            <!--     <span><b>Connections</b></span><br> -->
+            <!-- <input id="arrow-button" type="image" title="Sequence Flow" src="<?= Url::base() .'/img/arrow.png' ?>" alt="Sequence Flow" style="width: 30px;height: 30px"><br> -->
+        </div>
     </div>
+
+
+    <div id="propwrap" class="">
+      <div id="properties">
+          <div id="close">
+              <img src="public/images/pop-close.png">
+          </div>
+          <p id="title-properties">Set Field Parameters</p>
+          <div id="proplist">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <div class="input-group search">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Input Label 01</label>
+                      <input type="text" name="" class="form-control">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Input Label 02</label>
+                      <input type="text" name="" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Input Label 03</label>
+                      <input type="text" name="" class="form-control">
+                    </div>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5">
+                  <div class="form-group">
+                    <label>Select 01</label>
+                    <select class="form-control" id="">
+                      <option value="">Select</option>
+                    </select>
+                  </div>
+                </div>                
+                <div class="col-md-7">
+                  <div class="form-group">
+                    <label>Select 02</label>
+                    <select class="form-control" id="">
+                      <option value="">Select</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="radcheckinline">
+                      <div class="checkbox">
+                        <input id="checkOpt1" class="checkbox-custom" name="checkOpt" type="checkbox">
+                        <label for="checkOpt1" class="checkbox-custom-label">Checkbox 1</label>
+                      </div>
+                      <div class="checkbox">
+                        <input id="checkOpt2" class="checkbox-custom" name="checkOpt" type="checkbox">
+                        <label for="checkOpt2" class="checkbox-custom-label">Checkbox 2</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>Textarea</label>
+                    <textarea class="form-control" rows="3" placeholder="Textarea"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="radcheckinline">
+                    <div class="radio">
+                      <input id="radioOpt1" class="radio-custom" name="radio0" value="" type="radio">
+                      <label for="radioOpt1" class="radio-custom-label">Radio 1</label>
+                    </div>
+                    <div class="radio">
+                      <input id="radioOpt2" class="radio-custom" name="radio0" value="" type="radio">
+                      <label for="radioOpt2" class="radio-custom-label">Radio 2</label>
+                    </div>
+                    <div class="radio">
+                      <input id="radioOpt3" class="radio-custom" name="radio0" value="" type="radio">
+                      <label for="radioOpt3" class="radio-custom-label">Radio 3</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row margin-top-10">
+                <div class="col-md-12">
+                  <button id="" class="btn btn-primary">Button 1</button>
+                  <button id="" class="btn btn-info">Button 2</button>                
+                  <button id="" class="btn btn-default">Button 3</button>
+                </div>
+              </div>
+              <div class="row margin-top-10">
+                <div class="col-md-12">                  
+                  <button id="" class="btn btn-update">Button 4</button>
+                  <button id="" class="btn btn-comman">Button 5</button>
+                  <button id="" class="btn btn-comman" disabled="disabled">Button 6</button>
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  </div>
+
     <!----------------------------------------- Testing Area ----------------------------------->
     <!-------------------------------------------- End -----------------------------------------> 
 

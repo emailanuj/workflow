@@ -21,7 +21,7 @@ body{
 }
 
 #toolbox_other{
-    position: absolute;
+    /*position: absolute;
     bottom: 0;
     left: 0;
     margin-bottom: 0.5em;
@@ -29,7 +29,15 @@ body{
     border: solid 1px #a39393;
     border-radius: 5px;
     padding: 1em;
-    z-index: 5;
+    z-index: 5;*/
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 150px;
+    border: none;
+    padding: 2px 20px 2px 30px;
+    z-index: 815;
+    background-color: #e4e4e4;
 }
 
 #toolbox_other input{
@@ -44,8 +52,7 @@ body{
 
 
 #toolbox{
-    position: absolute;
-    /*top: 1.5em;*/
+    /*position: absolute;
     top: 6.5em;
     left: 1.5em;
     margin-bottom: 0.5em;
@@ -54,7 +61,21 @@ body{
     border-radius: 5px;
     padding: 1em;
     z-index: 5;
-    background:#FAFAFA;
+    background:#FAFAFA;*/
+        width: 150px;
+    background-color: #fff;
+    border: none;
+    padding-top: 61px;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: calc(100vh - 60px);
+    overflow: auto;
+    position: fixed;
+    padding-top: 60px;
+    top: 0;
+    left: 0;
+    min-height: 100%;
+    z-index: 810;
 }
 
 #toolbox hr{margin: 5px 0px;}
