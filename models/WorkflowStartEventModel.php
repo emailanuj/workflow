@@ -32,7 +32,7 @@ class WorkflowStartEventModel extends Model
     public function rules()
     {
         return [
-            [['step_no','if_fail'], 'required'],
+            [['step_no','if_fail','next_process','keywords'], 'required'],
             
         ];
     }

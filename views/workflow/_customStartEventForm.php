@@ -16,7 +16,9 @@ $form = ActiveForm::begin([
                             //'action'  => 'user-default-shipping/create',
                             'options' => [
                                     'onsubmit' => 'return false'
-                                ]
+                                ],
+                            'enableAjaxValidation' => true,
+                            'enableClientValidation' => true,
                         ]); 
   ?>
     <div class="panel panel-default" id="formgroup">
@@ -27,7 +29,7 @@ $form = ActiveForm::begin([
         </div>
         <div id="collapse0" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading0">
             <div class="panel-body">
-            <?= $form->field($workflowStartEventModel, 'step_no')->textInput(['autofocus' => true,'id'=>'step_no','name'=>'step_no']) ?>
+            <?= $form->field($workflowStartEventModel, 'step_no')->textInput(['autofocus' => true,'id'=>'step_no','name'=>'step_no','required'=>'required']) ?>
 
             <?= $form->field($workflowStartEventModel, 'if_fail')->dropDownList(['stop' => 'Stop','continue'=>'Continue'],['prompt'=>'Please Select','id'=>'if_fail','name'=>'if_fail']) ?>
 

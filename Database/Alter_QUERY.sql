@@ -35,7 +35,7 @@ ALTER TABLE `tbl_commands` CHANGE `updated_by` `updated_by` INT(11) NOT NULL
 truncate workflow;
 truncate workflow_templates;
 
-ALTER TABLE `workflow_templates` 
+ALTER TABLE `workflow` 
 ADD COLUMN `workflow_template_id` INT(11) NOT NULL AFTER `updated_by`;
 
   ALTER TABLE workflow

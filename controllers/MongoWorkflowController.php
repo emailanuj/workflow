@@ -8,7 +8,8 @@ use app\models\MongoWorkflowSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\widgets\ActiveForm;
+use app\models\WorkflowStartEventModel;
 /**
  * MongoWorkflowController implements the CRUD actions for MongoWorkFlow model.
  */
@@ -92,6 +93,10 @@ class MongoWorkflowController extends Controller
         }
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            // Workflow Validation
+            $workflowStartEventModel = new WorkflowStartEventModel();
+            $validation_status=ActiveForm::validate($workflowStartEventModel);
+            
             $data = Yii::$app->request->post();
         }
         $updateModel = MongoWorkFlow::findOne(['session_id' => $session_id]);
