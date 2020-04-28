@@ -40,6 +40,8 @@ class WorkFlowAsset extends AssetBundle
         'js/drawingpage/endevent/endevent.js',
         'js/drawingpage/drawing.js',
         'js/workflow.js',
+        'js/jquery.validate.min.js',
+        'js/form-validation.js',
         // 'js/adminlte.min.js',
     ];
     public $depends = [

@@ -331,33 +331,118 @@ function showFunction(element_id,form_type){
 }
 
 $(document).on('click',"#savestartevent",function(){
-	// debugger;
-    /*------------------ Start Code ------------------*/
-	var json_data='';
-    var formArray={};
-    parent=[]
-    var mainArr={}
-    total_forms=parseInt($("#form_size").val());
-    for(var count=0;count<=total_forms;count++){
-        var jsonArray = {};
-        jsonArray["selectedId"]=selectedId;
-        jsonArray["elementType"]=elementType;
-        jsonArray["elementSubType"]=elementSubType;
-        var form_id='seModal'+count;
-        console.log(form_id);
-        json_data=$('#'+form_id).serialize().split('&');
-        $.each(json_data, function (key, value) {
-            var item = {};
-            var splittedValue = value.split('=');               
-            jsonArray[splittedValue[0]]=splittedValue[1];
-        });
-        formArray[count]=jsonArray;
-    }
-    elementArray[selectedId]=formArray;
-    localStorage.setItem('formData', JSON.stringify(elementArray));
-    status=saveMongoData();
-    semodal.style.display = "none";
-    alert('Data saved successfully!');   
+	debugger;
+	$("form[name='workflow_form']").validate({
+	    rules: {
+	      step_no: "required",
+	      if_fail: "required",
+	      next_process:"required",
+	      keywords:"required",
+	      api_url: {
+              required: {
+                  depends: function () {
+                      return $('#keywords').val() == "API";
+                  }
+              }
+          },
+          api_method: {
+              required: {
+                  depends: function () {
+                      return $('#keywords').val() == "API";
+                  }
+              }
+          },
+          api_type: {
+              required: {
+                  depends: function () {
+                      return $('#keywords').val() == "API";
+                  }
+              }
+          },
+          function_execute: {
+              required: {
+                  depends: function () {
+                      return $('#keywords').val() == "API";
+                  }
+              }
+          },
+          auth_type: {
+              required: {
+                  depends: function () {
+                      return $('#keywords').val() == "API";
+                  }
+              }
+          },
+          token_from: {
+              required: {
+                  depends: function () {
+                      return $('#auth_type').val() == "token";
+                  }
+              }
+          },
+          data_source: {
+              required: {
+                  depends: function () {
+                      return $('#keywords').val() != "API";
+                  }
+              }
+          },
+          get_data_function: {
+              required: {
+                  depends: function () {
+                      return $('#data_source').val() == "function_name";
+                  }
+              }
+          },
+          form_data: {
+              required: {
+                  depends: function () {
+                      return $('#data_source').val() == "form_data";
+                  }
+              }
+          },
+	    },
+	    messages: {
+	      step_no: "Please enter step no",
+	      if_fail: "Please select if fail",
+	      next_process:"Please select next step",
+	      keywords:"Please select keyword",
+	      api_url:"Please select API URL",
+	      api_method:"Please select Auth Method",
+	      api_type:"Please select API Type",
+	      function_execute:"Please select Function",
+	      auth_type:"Please select Auth Type",
+	      token_from:"Please select Token from",
+	      data_source:"Please select data source",
+	    },
+	    submitHandler: function(form) {
+	    	var json_data='';
+	        var formArray={};
+	        parent=[]
+	        var mainArr={}
+	        total_forms=parseInt($("#form_size").val());
+	        for(var count=0;count<=total_forms;count++){
+	            var jsonArray = {};
+	            jsonArray["selectedId"]=selectedId;
+	            jsonArray["elementType"]=elementType;
+	            jsonArray["elementSubType"]=elementSubType;
+	            var form_id='seModal'+count;
+	            console.log(form_id);
+	            json_data=$('#'+form_id).serialize().split('&');
+	            $.each(json_data, function (key, value) {
+	                var item = {};
+	                var splittedValue = value.split('=');               
+	                jsonArray[splittedValue[0]]=splittedValue[1];
+	            });
+	            formArray[count]=jsonArray;
+	        }
+	        elementArray[selectedId]=formArray;
+	        localStorage.setItem('formData', JSON.stringify(elementArray));
+	        status=saveMongoData();
+	        semodal.style.display = "none";
+	        alert('Data saved successfully!');  
+	    }
+	  });
 });
 
 $(document).on('click',"#SEClose",function(){

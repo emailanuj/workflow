@@ -15,7 +15,8 @@ $form = ActiveForm::begin([
     'id' => 'seModal0',
     //'action'  => 'user-default-shipping/create',
     'options' => [
-        'onsubmit' => 'return false'
+        'onsubmit' => 'return false',
+        'name' => 'workflow_form'
     ],
     'enableAjaxValidation' => true,
     'enableClientValidation' => true,
