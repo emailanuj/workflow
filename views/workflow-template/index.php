@@ -62,12 +62,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'create-process' => function ($url, $model) {
                         if($model->workflow_id == '0') {
-                            $url = Url::base().'/workflow/create?id='.$model->id;
+                            $url = Url::base().'/workflow/create?id='.$model->id.'&is_instance=0';
                             return Html::a('<button type="button" class="btn btn-success btn-sm">Add Process</button>', $url, [
                                         'title' => Yii::t('app', 'workflow-create'),
                             ]);
                         } else {
-                            $url = Url::base().'/workflow/update?id='.$model->id;
+                            $url = Url::base().'/workflow/update?id='.$model->id.'&is_instance=0';
                             return Html::a('<button type="button" class="btn btn-success btn-sm">modify Process</button>', $url, [
                                 'title' => Yii::t('app', 'workflow-update'),
                             ]); 
