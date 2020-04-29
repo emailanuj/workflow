@@ -23,7 +23,7 @@ use yii\helpers\Url;
                 Commands
             </span>
         </a>
-    </li>    
+    </li>
     <li>
             <a href="<?= Url::to(['/workflow']) ?>">
                 <i class="fa fa-circle-o"></i>  
