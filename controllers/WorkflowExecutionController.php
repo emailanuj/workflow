@@ -36,8 +36,7 @@ class WorkflowExecutionController extends Controller
             //           case 1:  form_data
             //           case2: Function to get data
             //           case3: From Previous Process:  get all process selected from 
-            //           case 4 : check if complete workflow's data is given
-            ////glyphicon glyphicon-hourglass
+            //           case 4 : check if complete workflow's data is given            
                       
     }
     
