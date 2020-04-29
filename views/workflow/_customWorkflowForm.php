@@ -249,9 +249,9 @@ if(!empty($model['id'])){
           
           <center><h4>Save Workflow</h4></center>
         </div>
-        <input type="hidden" name="_csrf" value="LIZdfhe_4zU73ImVV9k2Zxcd82RMq-QXOS34nRNGhuRG1wsVSPXOZna--KwRq0EAJiTLDirFhWEIY72rWCrTow==">
-        <input type="hidden" name="workflow_json" id="workflow_json" value="">
-        <input type="hidden" name="workflow_data" id="workflow_data" value="">
+        <input type="hidden" name="WorkflowStartEventModel[_csrf]" value="LIZdfhe_4zU73ImVV9k2Zxcd82RMq-QXOS34nRNGhuRG1wsVSPXOZna--KwRq0EAJiTLDirFhWEIY72rWCrTow==">
+        <input type="hidden" name="WorkflowStartEventModel[workflow_json]" id="workflow_json" value="">
+        <input type="hidden" name="WorkflowStartEventModel[workflow_data]" id="workflow_data" value="">
         <?php if(isset($template_id)){?>
         	<input type="hidden" name="Workflow[workflow_template_id]" value="<?php echo $template_id;?>">
         <?php } ?>
