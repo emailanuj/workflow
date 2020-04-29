@@ -2,11 +2,11 @@
 
 return [
     'class' => 'yii\db\Connection',
-    //'dsn' => 'mysql:host=localhost:3306;dbname=project',
-    'dsn' => 'mysql:host=localhost:3306;dbname=anuj-bpnm',
+    'dsn' => 'mysql:host=localhost:3306;dbname=bpnm',
+    //'dsn' => 'mysql:host=localhost:3306;dbname=anuj-bpnm',
     'username' => 'root',
     'password' => '',
-    //'password' => 'password',
+    'password' => 'password',
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)
