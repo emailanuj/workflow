@@ -245,42 +245,11 @@ class WorkflowController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-    // For Saving Data in MongoDB
-    public function actionMongoCreate()
-    {
-        $model = new MongoWorkFlow();
-        $session_id=Yii::$app->session->Id;
-        try{
-            $logged_in_user_id=Yii::$app->user->identity->id;
-        }
-        catch (\Exception $ex){
-            $logged_in_user_id='';
-        }
-        if (Yii::$app->request->isAjax) {
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            // Workflow Validation
-            $workflowStartEventModel = new WorkflowStartEventModel();
-            $validation_status=ActiveForm::validate($workflowStartEventModel,Yii::$app->request->post());
-            
-            $data = Yii::$app->request->post();
-        }
-        $updateModel = MongoWorkFlow::findOne(['session_id' => $session_id]);
-        $data_arr['MongoWorkflow']=array('session_id'=>$session_id,'workflow_data'=>$data['workflow_data'],'workflow_json'=>$data['workflow_json'],'created_by'=>$logged_in_user_id,'created_at'=>time(),'updated_by'=>$logged_in_user_id,'updated_at'=>time(),'saved_in_db'=>'0','id_in_db'=>'0');
-        if(!$updateModel){
-            if ($model->load($data_arr) && $model->save()) {
-                return ['status'=>'success'];
-            }
-        }
-        else{
-            $updateStatus=MongoWorkFlow::updateAll(['workflow_data'=>$data['workflow_data'],'updated_by'=>$logged_in_user_id,'updated_at'=>time(),'workflow_json'=>$data['workflow_json'],'saved_in_db'=>'0','id_in_db'=>'0'],['session_id'=>$session_id]);
-        }
-        return ['status'=>'success'];
-    }
 
     public function actionClone() {
         $model = new WorkflowClone();
         $wmodel = new Workflow();
-        if (Yii::$app->request->isAjax) {
+        if (Yii::$app->request->isAjax && Yii::$app->request->post()) {
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;            
             $model = new WorkflowClone();
             $validation_status=ActiveForm::validate($model,Yii::$app->request->post());
@@ -291,16 +260,31 @@ class WorkflowController extends Controller
                     $clonedata[$kv] = $vv['value'];
                 }
            }           
-           $clone_id = $clonedata[2]['value'];
-           $clone_type = $clonedata[1]['value'];
-           if (($clonedata = Workflow::findOne($clone_id)) !== null) {                
-                $wmodel->workflow_title = $clonedata->workflow_title;
-                $wmodel->workflow_description = $clonedata->workflow_description;
-                $wmodel->workflow_data = $clonedata->workflow_data;
-                $wmodel->workflow_json = $clonedata->workflow_json; 
-                $wmodel->save();                                                
+           $clone_id = $clonedata[2];
+           $clone_type = $clonedata[1];
+           if (($clone_db_data = Workflow::findOne($clone_id)) !== null) {                
+                $wmodel->workflow_title = $clone_db_data->workflow_title;
+                $wmodel->workflow_description = $clone_db_data->workflow_description;
+                $wmodel->workflow_data = $clone_db_data->workflow_data;
+                if($clone_type== 'data') {
+                    $wmodel->workflow_json = $clone_db_data->workflow_json;
+                } else {  
+                    $work_form_struct_json = array();                  
+                    $work_form_array = json_decode($clone_db_data->workflow_json, true);                                          
+                    foreach($work_form_array as $wfk => $wfv) {                        
+                            $work_form_struct_array[$wfk]['selectedId']     = $wfv['selectedId'];
+                            $work_form_struct_array[$wfk]['elementType']    = $wfv['elementType'];
+                            $work_form_struct_array[$wfk]['elementSubType'] = $wfv['elementSubType'];
+                            $work_form_struct_array[$wfk]['step_no']        = $wfv['step_no'];
+                            $work_form_struct_array[$wfk]['keywords']       = $wfv['keywords'];                                                                  
+                    }                                                          
+                    $work_form_struct_json = json_encode($work_form_struct_array);
+                    $wmodel->workflow_json = $work_form_struct_json;
+                    
+                }               
+                $wmodel->save(); 
             }
-        }
-        
+            return 'success';            
+        }     
     }
 }

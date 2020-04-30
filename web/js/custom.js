@@ -19,10 +19,9 @@ $(document).on('click', '#clonesubmit',function(){
      dataType: 'json',
      data: {formdata},     
      //if ajax success
-     success: function(data) {
-         alert('You have successfully created the entry');
-         //this will reload a pjax element if you use it.
-         //$.pjax.reload({container: "#address-list"});
+     success: function(data) {         
+         $(".clone-form").css('display','none');
+         $(".form-container").append('<span class="alert alert-success" style="position:absolute;width:95%;">Worklow is clonned successfully.</span>');
      }
   });
 });

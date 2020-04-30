@@ -13,10 +13,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="workflow-index">
     
-    <div id="form-popup">
-        <div class="form-container">
+    <div id="form-popup">        
         <span id="close" onclick="closeForm()" style="margin-top:0px!important;"><img src="<?= Url::base().'/images/pop-close.png'; ?>" /></span>    
-        <h3>Clone Form</h3>
+        <div class="form-container">
+                <h3>Clone Form</h3>
                 <?= $this->render('_customCloneForm', [
                     'clonemodel' => $clonemodel
             ]) ?>
