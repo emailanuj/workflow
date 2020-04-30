@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Workflow;
 use app\models\MongoWorkFlow;
+use app\models\WorkflowClone;
 use app\models\WorkflowSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -42,12 +43,14 @@ class WorkflowController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new WorkflowSearch();
+        $searchModel = new WorkflowSearch();        
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $clonemodel = new WorkflowClone();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'clonemodel' => $clonemodel,
         ]);
     }
 
@@ -232,5 +235,32 @@ class WorkflowController extends Controller
             $updateStatus=MongoWorkFlow::updateAll(['workflow_data'=>$data['workflow_data'],'updated_by'=>$logged_in_user_id,'updated_at'=>time(),'workflow_json'=>$data['workflow_json'],'saved_in_db'=>'0','id_in_db'=>'0'],['session_id'=>$session_id]);
         }
         return ['status'=>'success'];
+    }
+
+    public function actionClone() {
+        $model = new WorkflowClone();
+        $wmodel = new Workflow();
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;            
+            $model = new WorkflowClone();
+            $validation_status=ActiveForm::validate($model,Yii::$app->request->post());
+            $data = Yii::$app->request->post();
+            $clonedata = array();           
+           foreach($data as $k =>$v) {
+                foreach($v as $kv => $vv) {                
+                    $clonedata[$kv] = $vv['value'];
+                }
+           }           
+           $clone_id = $clonedata[2]['value'];
+           $clone_type = $clonedata[1]['value'];
+           if (($clonedata = Workflow::findOne($clone_id)) !== null) {                
+                $wmodel->workflow_title = $clonedata->workflow_title;
+                $wmodel->workflow_description = $clonedata->workflow_description;
+                $wmodel->workflow_data = $clonedata->workflow_data;
+                $wmodel->workflow_json = $clonedata->workflow_json; 
+                $wmodel->save();                                                
+            }
+        }
+        
     }
 }
