@@ -25,7 +25,12 @@ $(document).on('click',"#savestartevent",function(){
 	    },
 	}); 
 });
-
+$(document).on('click',"#SEClose",function(){
+	$('.workflow_form').empty();
+});
+$(document).on('click',"#close",function(){
+	$('.workflow_form').empty();
+});
 // For Showing Modal
 function showFunction(element_id,form_type){
     // clearLocalStorage();
