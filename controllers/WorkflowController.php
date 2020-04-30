@@ -16,6 +16,7 @@ use app\models\WorkflowStartEventModel;
 use app\models\TblFunctions;
 use app\models\TblKeywords;
 use yii\widgets\ActiveForm;
+use yii\web\Response;
 
 /**
  * WorkflowController implements the CRUD actions for Workflow model.
@@ -117,7 +118,7 @@ class WorkflowController extends Controller
         if(Yii::$app->request->isAjax && Yii::$app->request->isPost ){
             
             $strFormType=Yii::$app->request->post('form_type');
-
+            $element_id=Yii::$app->request->post('element_id');
             $arrOutputForm = [];
             $arrOutputForm['status'] = 'success';
             //if( $strFormType == 'StartEvent' || $strFormType == 'EndEvent'){
@@ -127,7 +128,8 @@ class WorkflowController extends Controller
                                                     'workflowStartEventModel' => $workflowStartEventModel,
                                                     'keywordsList' => TblKeywords::getAllKeywordLists(),
                                                     'functions_exe_list' => TblFunctions::getAllExecutableFunction(),
-                                                    'functions_get_data_list'=>TblFunctions::getAllDataFunction()
+                                                    'functions_get_data_list'=>TblFunctions::getAllDataFunction(),
+                                                    'element_id'=>$element_id,
                                                 ]
                                             );
             }
@@ -175,7 +177,45 @@ class WorkflowController extends Controller
             'model' => $model,
         ]);
     }
-
+    // For Saving Data in MongoDB
+    public function actionMongoCreate()
+    {
+        $model = new MongoWorkFlow();
+        $session_id=Yii::$app->session->Id;
+        try{
+            $logged_in_user_id=Yii::$app->user->identity->id;
+        }
+        catch (\Exception $ex){
+            $logged_in_user_id='';
+        }
+        if (Yii::$app->request->isAjax) {
+            // Workflow Validation
+            $json_array=array();
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            $post_data=Yii::$app->request->post();
+            $json_array[$post_data['element_id']]=$post_data['WorkflowStartEventModel'];
+            $workflowStartEventModel = new WorkflowStartEventModel();
+            $workflowStartEventModel->load($post_data);
+            ActiveForm::validate($workflowStartEventModel);
+            $errors=$workflowStartEventModel->errors;
+            $json_data=json_encode($json_array);
+            if(!$errors){
+                $updateModel = MongoWorkFlow::findOne(['session_id' => $session_id]);
+                $data_arr['MongoWorkflow']=array('session_id'=>$session_id,'workflow_data'=>$data['workflow_data'],'workflow_json'=>$data['workflow_json'],'created_by'=>$logged_in_user_id,'created_at'=>time(),'updated_by'=>$logged_in_user_id,'updated_at'=>time(),'saved_in_db'=>'0','id_in_db'=>'0');
+                if(!$updateModel){
+                    if ($model->load($data_arr) && $model->save()) {
+                        return ['status'=>'success'];
+                    }
+                }
+                else{
+                    $updateStatus=MongoWorkFlow::updateAll(['workflow_data'=>$data['workflow_data'],'updated_by'=>$logged_in_user_id,'updated_at'=>time(),'workflow_json'=>$data['workflow_json'],'saved_in_db'=>'0','id_in_db'=>'0'],['session_id'=>$session_id]);
+                }
+                return ['status'=>'success'];
+            }else{
+                return $errors;
+            }
+        }
+    }
     /**
      * Deletes an existing Workflow model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

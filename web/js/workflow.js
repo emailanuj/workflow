@@ -10,7 +10,7 @@ $(document).on('click',"#savestartevent",function(){
 	 diagram_json=JSON.stringify(diagram_json);
 	$.ajax({
 	    type: "post",
-	    url: baseURL + '/mongo-workflow/mongo-create',
+	    url: baseURL + '/workflow/mongo-create',
 	    data:formdata,
 	    dataType: "json",
 	    success: function (jsonData) {
@@ -30,6 +30,10 @@ $(document).on('click',"#SEClose",function(){
 });
 $(document).on('click',"#close",function(){
 	$('.workflow_form').empty();
+});
+$(document).on('click',"#saveWorkflowModal",function(){
+	window.workflowmodal = document.getElementById('workflowmodal');
+	workflowmodal.style.display = "block";
 });
 // For Showing Modal
 function showFunction(element_id,form_type){

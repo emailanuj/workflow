@@ -64,6 +64,7 @@ if(!empty($model['id'])){
     </div>
 
     <div class="content-wrapper content-wrapper-app">
+      <!-- ---------------------------- Save Modal Form ----------------------->
       <section class="content">
           <div>
               <div class="title-breadcrumb" style="margin:0; padding:0">
@@ -94,6 +95,7 @@ if(!empty($model['id'])){
               </div>
           </div>
       </section>
+      <!-- -----------------------------------End ----------------------------->
       <div class="svg-wrapper">
         <div id="mySvg"><svg width="1536" height="754"></svg></div>
       </div>
@@ -101,57 +103,4 @@ if(!empty($model['id'])){
 
     <div id="propwrap" class="workflow_form">
     </div>
-
-    <!----------------------------------------- Testing Area ----------------------------------->
-    <!-------------------------------------------- End -----------------------------------------> 
-
-    <!-- The Modal -->
-    <div id="SEModal" class="modal"> 
-        <div class="modal-content" style="width:1000px">
-            <div class="modal-header">
-                <center><h4>Configure Workflow</h4></center>
-            </div>
-            <div class="modal-body">
-                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"></div>
-                <div class="modal-footer">
-                    <input type="hidden" name="form_size" id="form_size" value="0">
-                </div>
-            </div>
-        </div>
-    </div>
-<!-------- ENd  First Modal --------------------->
-<!------------- Modal for Saving The Data --------->
-<div id="FModal" class="modal"> 
-      <!-- Modal content -->
-      <div class="modal-content">
-      <form id="w0" action="<?= $url ?>" method="post">
-        <div class="modal-header">
-          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="GClose" aria-hidden="true">&times;</span></button> -->
-          
-          <center><h4>Save Workflow</h4></center>
-        </div>
-        <input type="hidden" name="WorkflowStartEventModel[_csrf]" value="LIZdfhe_4zU73ImVV9k2Zxcd82RMq-QXOS34nRNGhuRG1wsVSPXOZna--KwRq0EAJiTLDirFhWEIY72rWCrTow==">
-        <input type="hidden" name="WorkflowStartEventModel[workflow_json]" id="workflow_json" value="">
-        <input type="hidden" name="WorkflowStartEventModel[workflow_data]" id="workflow_data" value="">
-        <?php if(isset($template_id)){?>
-        	<input type="hidden" name="Workflow[workflow_template_id]" value="<?php echo $template_id;?>">
-        <?php } ?>
-        <div class="modal-body">
-          <div class="form-group">
-            <label>Workflow Title</label>
-            <input type="text" id="workflow-workflow_title" class="form-control" name="Workflow[workflow_title]" maxlength="100" value="<?php echo $model['workflow_title'];?>">
-          </div>
-          <div class="form-group">
-            <label>Workflow Description</label>
-            <input type="text" id="workflow-workflow_description" class="form-control" name="Workflow[workflow_description]" maxlength="200" value="<?php echo $model['workflow_description'];?>">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal" id="FClose">Cancel</button>
-          <button type="submit" class="btn btn-default" onClick="clearLocalStorage()">Save</button>
-        </div>
-      </div>
-      </form>
-    </div> 
-
 </div>
