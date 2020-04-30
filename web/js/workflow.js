@@ -38,11 +38,12 @@ $(document).on('click',"#saveWorkflowModal",function(){
 // For Showing Modal
 function showFunction(element_id,form_type){
     // clearLocalStorage();
+	var workflow_id=$('#workflow_id').val();
 	debugger;
 	$.ajax({
 		type: "post",
 		url: baseURL + '/workflow/get-ajax-form',
-		data: {'element_id':element_id,'form_type':form_type},
+		data: {'element_id':element_id,'form_type':form_type,'workflow_id':workflow_id},
 		dataType: "json",
 		success: function (jsonData) {
 		   $('.workflow_form').empty();

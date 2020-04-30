@@ -1,5 +1,5 @@
 <?= $this->render('_customWorkflowForm', [
-    'model' => $model,
+    'model' => $model,'workflow_id'=>$workflow_id
 ]) ?>
 <?php
     $this->registerJs(

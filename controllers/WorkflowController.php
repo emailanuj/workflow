@@ -44,11 +44,13 @@ class WorkflowController extends Controller
     public function actionIndex()
     {
         $searchModel = new WorkflowSearch();
+        $workflowModel=new Workflow();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'workflowModel'=>$workflowModel,
         ]);
     }
 
@@ -80,10 +82,7 @@ class WorkflowController extends Controller
 
         if(!empty(Yii::$app->request->post())){
 
-            $post_data=Yii::$app->request->post();
-            $post_data['Workflow']['workflow_json']=$post_data['workflow_json'];
-            $post_data['Workflow']['workflow_data']=$post_data['workflow_data'];
-        
+            $post_data=Yii::$app->request->post();        
             if ($model->load($post_data) && $model->save()) {
                 $post_data=Yii::$app->request->post();
                 /* -------------------- For Updating Records in MongoDB ------------------------------*/
@@ -94,16 +93,18 @@ class WorkflowController extends Controller
                 catch (\Exception $ex){
                     $logged_in_user_id='';
                 }
-                $updateStatus=MongoWorkFlow::updateAll(['saved_in_db'=>'1','updated_by'=>$logged_in_user_id,'updated_at'=>time(),'id_in_db'=>$model->id],['session_id'=>$session_id]);
                 /* ------------------------ End ------------------------------------------------------*/
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['create', 'id' => $model->id]);
             }
         }
-
+        if(!empty($id)){
+            $model = $this->findModel($id);
+        }
+        $title=$model['workflow_title'];
         return $this->render('create', [
             'model' => $model,
             'workflowDataModel' => $workflowDataModel,
-            'template_id'=>$id
+            'workflow_id'=>$id
         ]);
     }
 
@@ -116,6 +117,7 @@ class WorkflowController extends Controller
             
             $strFormType=Yii::$app->request->post('form_type');
             $element_id=Yii::$app->request->post('element_id');
+            $workflow_id=Yii::$app->request->post('workflow_id');
             $arrOutputForm = [];
             $arrOutputForm['status'] = 'success';
             //if( $strFormType == 'StartEvent' || $strFormType == 'EndEvent'){
@@ -127,6 +129,7 @@ class WorkflowController extends Controller
                                                     'functions_exe_list' => TblFunctions::getAllExecutableFunction(),
                                                     'functions_get_data_list'=>TblFunctions::getAllDataFunction(),
                                                     'element_id'=>$element_id,
+                                                    'workflow_id'=>$workflow_id,
                                                 ]
                                             );
             }
@@ -172,6 +175,7 @@ class WorkflowController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'workflow_id'=>$id
         ]);
     }
     // For Saving Data in MongoDB

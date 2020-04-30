@@ -1,5 +1,5 @@
 <?= $this->render('_customWorkflowForm', [
-    'model' => $model,'template_id'=>$template_id
+    'model' => $model,'workflow_id'=>$workflow_id
 ]) ?>
 
 
