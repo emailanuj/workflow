@@ -10,10 +10,7 @@ use yii\helpers\Url;
   <!-- <form id="seModal0" action="" name="seModal0"> -->
   <?php $form = ActiveForm::begin([
     'id' => 'workflow_save',
-    //'action'  => 'user-default-shipping/create',
-    'options' => [
-      'onsubmit' => 'return false'
-  ]
+    'action'  => 'workflow/create',
   ]); ?>
    <form id="w0" action="" method="post">
         <div class="modal-header">
@@ -21,17 +18,14 @@ use yii\helpers\Url;
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label>Workflow Title</label>
-            <input type="text" id="workflow-workflow_title" class="form-control" name="Workflow[workflow_title]" maxlength="100" value="">
+          <?= $form->field($workflowModel, 'workflow_title')->textInput(['autofocus' => true,'placeholder'=>'Workflow Title','required'=>'required']) ?>
           </div>
           <div class="form-group">
-            <label>Workflow Description</label>
-            <input type="text" id="workflow-workflow_description" class="form-control" name="Workflow[workflow_description]" maxlength="200" value="">
+          <?= $form->field($workflowModel, 'workflow_description')->textarea(['placeholder'=>'Workflow Description']) ?>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal" id="SEClose">Cancel</button>
-          <button type="submit" class="btn btn-default" onClick="clearLocalStorage()">Save</button>
+        <?= Html::submitButton('Save', ['class' => 'btn btn-primary', 'name' => 'contact-button', 'id' => 'savestartevent','onClick'=>'clearLocalStorage()' ]) ?>
         </div>
       </div>
       </form>

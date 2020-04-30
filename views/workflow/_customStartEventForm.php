@@ -69,6 +69,7 @@ $form = ActiveForm::begin([
  		    <?= $form->field($workflowStartEventModel, 'form_data')->textarea(['placeholder'=>'Form Data']) ?>
  		</div>
  		<input type="hidden" name="element_id" value="<?php echo $element_id;?>">
+ 		<input type="hidden" name="workflow_id" value="<?php echo $workflow_id;?>">
             <div class="form-group">
               <?= Html::submitButton('Save', ['class' => 'btn btn-primary', 'name' => 'contact-button', 'id' => 'savestartevent' ]) ?>
                 <button id="SEClose" type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>

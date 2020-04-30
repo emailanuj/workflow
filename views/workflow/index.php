@@ -82,7 +82,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <div id="workflowmodal" class="modal"> 
       <!-- Modal content -->
       <div class="modal-content">
-      <?= $this->render('_customWorkflowSaveForm') ?>
+      <?= $this->render('_customWorkflowSaveForm',[
+    'workflowModel' => $workflowModel
+]) ?>
       </div>
 </div> 
 <!-- ----------------------------------------------------------End ---------------------------------->
