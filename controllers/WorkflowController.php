@@ -181,45 +181,7 @@ class WorkflowController extends Controller
             'workflow_id'=>$id
         ]);
     }
-    // For Saving Data in MongoDB
-    public function actionMongoCreate()
-    {
-        $model = new MongoWorkFlow();
-        $session_id=Yii::$app->session->Id;
-        try{
-            $logged_in_user_id=Yii::$app->user->identity->id;
-        }
-        catch (\Exception $ex){
-            $logged_in_user_id='';
-        }
-        if (Yii::$app->request->isAjax) {
-            // Workflow Validation
-            $json_array=array();
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            $post_data=Yii::$app->request->post();
-            $json_array[$post_data['element_id']]=$post_data['WorkflowStartEventModel'];
-            $workflowStartEventModel = new WorkflowStartEventModel();
-            $workflowStartEventModel->load($post_data);
-            ActiveForm::validate($workflowStartEventModel);
-            $errors=$workflowStartEventModel->errors;
-            $json_data=json_encode($json_array);
-            if(!$errors){
-                $updateModel = MongoWorkFlow::findOne(['session_id' => $session_id]);
-                $data_arr['MongoWorkflow']=array('session_id'=>$session_id,'workflow_data'=>$data['workflow_data'],'workflow_json'=>$data['workflow_json'],'created_by'=>$logged_in_user_id,'created_at'=>time(),'updated_by'=>$logged_in_user_id,'updated_at'=>time(),'saved_in_db'=>'0','id_in_db'=>'0');
-                if(!$updateModel){
-                    if ($model->load($data_arr) && $model->save()) {
-                        return ['status'=>'success'];
-                    }
-                }
-                else{
-                    $updateStatus=MongoWorkFlow::updateAll(['workflow_data'=>$data['workflow_data'],'updated_by'=>$logged_in_user_id,'updated_at'=>time(),'workflow_json'=>$data['workflow_json'],'saved_in_db'=>'0','id_in_db'=>'0'],['session_id'=>$session_id]);
-                }
-                return ['status'=>'success'];
-            }else{
-                return $errors;
-            }
-        }
-    }
+    
     /**
      * Deletes an existing Workflow model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -261,26 +223,33 @@ class WorkflowController extends Controller
             $logged_in_user_id='';
         }
         if (Yii::$app->request->isAjax) {
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
             // Workflow Validation
+            $json_array=array();
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            $post_data=Yii::$app->request->post();
+            $json_array[$post_data['element_id']]=$post_data['WorkflowStartEventModel'];
             $workflowStartEventModel = new WorkflowStartEventModel();
-            $validation_status=ActiveForm::validate($workflowStartEventModel,Yii::$app->request->post());
-            
-            $data = Yii::$app->request->post();
-        }
-        $updateModel = MongoWorkFlow::findOne(['session_id' => $session_id]);
-        $data_arr['MongoWorkflow']=array('session_id'=>$session_id,'workflow_data'=>$data['workflow_data'],'workflow_json'=>$data['workflow_json'],'created_by'=>$logged_in_user_id,'created_at'=>time(),'updated_by'=>$logged_in_user_id,'updated_at'=>time(),'saved_in_db'=>'0','id_in_db'=>'0');
-        if(!$updateModel){
-            if ($model->load($data_arr) && $model->save()) {
+            $workflowStartEventModel->load($post_data);
+            ActiveForm::validate($workflowStartEventModel);
+            $errors=$workflowStartEventModel->errors;
+            $json_data=json_encode($json_array);
+            if(!$errors){
+                $updateModel = MongoWorkFlow::findOne(['session_id' => $session_id]);
+                $data_arr['MongoWorkflow']=array('session_id'=>$session_id,'workflow_data'=>$data['workflow_data'],'workflow_json'=>$data['workflow_json'],'created_by'=>$logged_in_user_id,'created_at'=>time(),'updated_by'=>$logged_in_user_id,'updated_at'=>time(),'saved_in_db'=>'0','id_in_db'=>'0');
+                if(!$updateModel){
+                    if ($model->load($data_arr) && $model->save()) {
+                        return ['status'=>'success'];
+                    }
+                }
+                else{
+                    $updateStatus=MongoWorkFlow::updateAll(['workflow_data'=>$data['workflow_data'],'updated_by'=>$logged_in_user_id,'updated_at'=>time(),'workflow_json'=>$data['workflow_json'],'saved_in_db'=>'0','id_in_db'=>'0'],['session_id'=>$session_id]);
+                }
                 return ['status'=>'success'];
+            }else{
+                return $errors;
             }
         }
-        else{
-            $updateStatus=MongoWorkFlow::updateAll(['workflow_data'=>$data['workflow_data'],'updated_by'=>$logged_in_user_id,'updated_at'=>time(),'workflow_json'=>$data['workflow_json'],'saved_in_db'=>'0','id_in_db'=>'0'],['session_id'=>$session_id]);
-        }
-        return ['status'=>'success'];
     }
-
     public function actionClone() {
         $model = new WorkflowClone();
         $wmodel = new Workflow();
