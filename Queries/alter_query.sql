@@ -1,0 +1,1 @@
+INSERT INTO `bpnm`.`tbl_keywords` (`id`, `keyword_name`, `created_by`, `updated_by`) VALUES ('4', 'API', '0', '0');

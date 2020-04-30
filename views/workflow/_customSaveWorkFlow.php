@@ -22,13 +22,9 @@ use yii\helpers\Url;
                               <div class="page-title-div">
                                   <span>
                                       <img src="<?= Url::base() .'/images/icons/title-workflow-execution-dark.png'?>">
-                                      <input value="" type="text" class="input-text" placeholder="" value="Testing">
+                                      <input type="text" class="input-text" placeholder="" value="<?php echo $model['workflow_title'];?>">
+                                  <?= Html::submitButton('Complete Workflow', ['class' => 'btn btn-comman','onClick'=>'clearLocalStorage()' ]) ?>
                                   </span>
-                              </div>
-                          </div>
-                          <div class="col-md-4">
-                              <div class="page-action-wrapper text-right">
-                               <?= Html::submitButton('Complete Workflow', ['class' => 'btn btn-comman', 'name' => 'contact-button','onClick'=>'clearLocalStorage()' ]) ?>
                               </div>
                           </div>
                       </div>
