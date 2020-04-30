@@ -773,17 +773,13 @@ var dragrect = newg.append("rect")
                                 selectedId="UT"+t;
                                 console.log(selectedId);
                                 showFunction(selectedId,element.subtype);
-                                semodal.style.display = "block";
                             }else if (element.subtype === "ScriptTask") {
-                                semodal.style.display = "block";
                                 selectedId="ST"+t;
                                 showFunction(selectedId,element.subtype);
                             }else if (element.subtype === "MailTask") {
-                                semodal.style.display = "block";
                                 selectedId="MT"+t;
                                 showFunction(selectedId,element.subtype);
                             }else if (element.subtype === "ManualTask") {
-                                semodal.style.display = "block";
                                 selectedId="MaT"+t;
                                 showFunction(selectedId,element.subtype);
                             }
@@ -793,7 +789,6 @@ var dragrect = newg.append("rect")
                     }
                     tooltipDiv.style("opacity", 0);
                     console.log("Task evnt button clicked ")
-                    semodal.style.display = "block";
                 });
                 tooltipDiv.select("#text-button").on("click", function () {
                     tooltipDiv.style("opacity", 0);

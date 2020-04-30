@@ -25,6 +25,7 @@ class WorkflowStartEventModel extends Model
     public $username;
     public $password;
     public $form_data;
+    public $form_json;
 
     /**
      * {@inheritdoc}
@@ -60,6 +61,7 @@ class WorkflowStartEventModel extends Model
             'username'=>'Username',
             'password'=>'Password',
             'form_data'=>'Form Data',
+            'form_json'=>'Form JSON',
         ];
     }
     

@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use app\models\TblKeywords;
 use yii\helpers\ArrayHelper;
 use app\models\TblFunctions;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $workflowStartEventModel app\models\WorkflowStartEventModel */
@@ -22,13 +23,13 @@ $form = ActiveForm::begin([
     'enableClientValidation' => true,
 ]);
 ?>
-    <div class="panel panel-default" id="formgroup">
-        <div class="panel-heading" role="tab" id="heading0">
-            <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse0" aria-expanded="true" aria-controls="collapse0"> Event Configuration</a>
-            </h4>
-        </div>
-        <div id="collapse0" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading0">
+<div id="properties">
+          <div id="close">
+              <img src="<?= Url::base() .'/images/pop-close.png'?>">
+          </div>
+          <p id="title-properties">Set Field Parameters</p>
+          <div id="proplist">
+    <div class="container-fluid">
             <div class="panel-body">
             <?= $form->field($workflowStartEventModel, 'step_no')->textInput(['autofocus' => true,'placeholder'=>'Step No']) ?>
 
@@ -73,5 +74,6 @@ $form = ActiveForm::begin([
             </div>
           </div>
       </div>
-    </div>
+      </div>
+     </div>
 <?php ActiveForm::end(); ?>

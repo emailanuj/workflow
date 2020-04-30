@@ -116,17 +116,13 @@ console.log('calling end event');
                             if (element.subtype === "EndEvent") {
                                 selectedId="EE"+t;
                                 showFunction(selectedId,element.subtype);
-                                semodal.style.display = "block";
                             }else if (element.subtype === "ErrorEndEvent") {
-                                semodal.style.display = "block";
                                 selectedId="EEE"+t;
                                 showFunction(selectedId,element.subtype);
                             }else if (element.subtype === "TerminateEndEvent") {
-                                semodal.style.display = "block";
                                 selectedId="TEE"+t;
                                 showFunction(selectedId,element.subtype);
                             }else if (element.subtype === "CancelEndEvent") {
-                                semodal.style.display = "block";
                                 selectedId="CEE"+t;
                                 showFunction(selectedId,element.subtype);
                             }
@@ -134,8 +130,6 @@ console.log('calling end event');
                     }
                     //End
                     tooltipDiv.style("opacity", 0);
-                    console.log("end evnt button clicked ")
-                    semodal.style.display = "block";
                 });
             })
             .on("mouseout", function () {

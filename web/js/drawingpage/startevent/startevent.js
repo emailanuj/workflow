@@ -136,27 +136,19 @@ var starteventdevider = function (eid,subElement,svg,xvalue,yvalue){
                             if (element.subtype === "StartEvent") {
                             	selectedId="SE"+t;
                             	showFunction(selectedId,element.subtype);
-                            	semodal.style.display = "block";
                             console.log("-----------"+ subElement)
                             }else if (element.subtype === "TimeStartEvent") {
                             	showFunction(t,element.subtype);
                             	selectedId="TSE"+t;
-                            	semodal.style.display = "block";
                             }else if (element.subtype === "MessageStartEvent") {
                             	showFunction(t,element.subtype);
                             	selectedId="MSE"+t;
-                            	semodal.style.display = "block";
                             }else if (element.subtype === "ErrorStartEvent") {
                             	showFunction(t,element.subtype);
                             	selectedId="ESE"+t;
-                            	semodal.style.display = "block";
                             }
                         }
                     }
-                    // console.log("end evnt button clicked ")
-                    // console.log("------adoz-----"+ subElement)
-                    
-                   // semodal.style.display = "block";
                 });
 
                 var CircleWidth = this.getBoundingClientRect().width;
