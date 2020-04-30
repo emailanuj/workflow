@@ -10,7 +10,7 @@ $(document).on('click',"#savestartevent",function(){
 	 diagram_json=JSON.stringify(diagram_json);
 	$.ajax({
 	    type: "post",
-	    url: baseURL + '/mongo-workflow/mongo-create',
+	    url: baseURL + '/workflow/mongo-create',
 	    data:formdata,
 	    dataType: "json",
 	    success: function (jsonData) {

@@ -64,6 +64,7 @@ if(!empty($model['id'])){
     </div>
 
     <div class="content-wrapper content-wrapper-app">
+      <!-- ---------------------------- Save Modal Form ----------------------->
       <section class="content">
           <div>
               <div class="title-breadcrumb" style="margin:0; padding:0">
@@ -94,6 +95,7 @@ if(!empty($model['id'])){
               </div>
           </div>
       </section>
+      <!-- -----------------------------------End ----------------------------->
       <div class="svg-wrapper">
         <div id="mySvg"><svg width="1536" height="754"></svg></div>
       </div>
@@ -102,25 +104,6 @@ if(!empty($model['id'])){
     <div id="propwrap" class="workflow_form">
     </div>
 
-    <!----------------------------------------- Testing Area ----------------------------------->
-    <!-------------------------------------------- End -----------------------------------------> 
-
-    <!-- The Modal -->
-    <div id="SEModal" class="modal"> 
-        <div class="modal-content" style="width:1000px">
-            <div class="modal-header">
-                <center><h4>Configure Workflow</h4></center>
-            </div>
-            <div class="modal-body">
-                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"></div>
-                <div class="modal-footer">
-                    <input type="hidden" name="form_size" id="form_size" value="0">
-                </div>
-            </div>
-        </div>
-    </div>
-<!-------- ENd  First Modal --------------------->
-<!------------- Modal for Saving The Data --------->
 <div id="FModal" class="modal"> 
       <!-- Modal content -->
       <div class="modal-content">
