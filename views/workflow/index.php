@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\WorkflowSearch */
@@ -10,15 +11,17 @@ use yii\grid\GridView;
 $this->title = 'Workflows';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
 <div class="workflow-index">
+    
     <div id="form-popup">
-    <div class="form-container">
-        <h1>Login</h1>
-        <span onclick="closeForm()">close Form</span>
-        <input type="text" id="tt" value="" />
+        <div class="form-container">
+        <span id="close" onclick="closeForm()" style="margin-top:0px!important;"><img src="<?= Url::base().'/images/pop-close.png'; ?>" /></span>    
+        <h3>Clone Form</h3>
+                <?= $this->render('_customCloneForm', [
+                    'clonemodel' => $clonemodel
+            ]) ?>
+        </div>
     </div>
-</div>
 
     <h1><?= Html::encode($this->title) ?></h1>
 

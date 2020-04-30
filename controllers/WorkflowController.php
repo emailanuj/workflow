@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Workflow;
 use app\models\MongoWorkFlow;
+use app\models\WorkflowClone;
 use app\models\WorkflowSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -43,14 +44,16 @@ class WorkflowController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new WorkflowSearch();
         $workflowModel=new Workflow();
+        $searchModel = new WorkflowSearch();        
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $clonemodel = new WorkflowClone();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'workflowModel'=>$workflowModel,
+            'clonemodel' => $clonemodel,
         ]);
     }
 
@@ -245,5 +248,63 @@ class WorkflowController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    // For Saving Data in MongoDB
+    public function actionMongoCreate()
+    {
+        $model = new MongoWorkFlow();
+        $session_id=Yii::$app->session->Id;
+        try{
+            $logged_in_user_id=Yii::$app->user->identity->id;
+        }
+        catch (\Exception $ex){
+            $logged_in_user_id='';
+        }
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            // Workflow Validation
+            $workflowStartEventModel = new WorkflowStartEventModel();
+            $validation_status=ActiveForm::validate($workflowStartEventModel,Yii::$app->request->post());
+            
+            $data = Yii::$app->request->post();
+        }
+        $updateModel = MongoWorkFlow::findOne(['session_id' => $session_id]);
+        $data_arr['MongoWorkflow']=array('session_id'=>$session_id,'workflow_data'=>$data['workflow_data'],'workflow_json'=>$data['workflow_json'],'created_by'=>$logged_in_user_id,'created_at'=>time(),'updated_by'=>$logged_in_user_id,'updated_at'=>time(),'saved_in_db'=>'0','id_in_db'=>'0');
+        if(!$updateModel){
+            if ($model->load($data_arr) && $model->save()) {
+                return ['status'=>'success'];
+            }
+        }
+        else{
+            $updateStatus=MongoWorkFlow::updateAll(['workflow_data'=>$data['workflow_data'],'updated_by'=>$logged_in_user_id,'updated_at'=>time(),'workflow_json'=>$data['workflow_json'],'saved_in_db'=>'0','id_in_db'=>'0'],['session_id'=>$session_id]);
+        }
+        return ['status'=>'success'];
+    }
+
+    public function actionClone() {
+        $model = new WorkflowClone();
+        $wmodel = new Workflow();
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;            
+            $model = new WorkflowClone();
+            $validation_status=ActiveForm::validate($model,Yii::$app->request->post());
+            $data = Yii::$app->request->post();
+            $clonedata = array();           
+           foreach($data as $k =>$v) {
+                foreach($v as $kv => $vv) {                
+                    $clonedata[$kv] = $vv['value'];
+                }
+           }           
+           $clone_id = $clonedata[2]['value'];
+           $clone_type = $clonedata[1]['value'];
+           if (($clonedata = Workflow::findOne($clone_id)) !== null) {                
+                $wmodel->workflow_title = $clonedata->workflow_title;
+                $wmodel->workflow_description = $clonedata->workflow_description;
+                $wmodel->workflow_data = $clonedata->workflow_data;
+                $wmodel->workflow_json = $clonedata->workflow_json; 
+                $wmodel->save();                                                
+            }
+        }
+        
     }
 }
