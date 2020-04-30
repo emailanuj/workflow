@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Workflow', ['create'], ['class' => 'btn btn-success']) ?>
+    	<button id="saveWorkflowModal" class="btn btn-success" data-toggle="modal" data-target="#FModal">Create Workflow</button>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -74,3 +74,12 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
 
 </div>
+
+<!--------------------------------------------------- Modal For Saving Data ------------------------->
+<div id="workflowmodal" class="modal"> 
+      <!-- Modal content -->
+      <div class="modal-content">
+      <?= $this->render('_customWorkflowSaveForm') ?>
+      </div>
+</div> 
+<!-- ----------------------------------------------------------End ---------------------------------->

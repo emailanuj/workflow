@@ -31,6 +31,10 @@ $(document).on('click',"#SEClose",function(){
 $(document).on('click',"#close",function(){
 	$('.workflow_form').empty();
 });
+$(document).on('click',"#saveWorkflowModal",function(){
+	window.workflowmodal = document.getElementById('workflowmodal');
+	workflowmodal.style.display = "block";
+});
 // For Showing Modal
 function showFunction(element_id,form_type){
     // clearLocalStorage();

@@ -103,38 +103,4 @@ if(!empty($model['id'])){
 
     <div id="propwrap" class="workflow_form">
     </div>
-
-<div id="FModal" class="modal"> 
-      <!-- Modal content -->
-      <div class="modal-content">
-      <form id="w0" action="<?= $url ?>" method="post">
-        <div class="modal-header">
-          <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span id="GClose" aria-hidden="true">&times;</span></button> -->
-          
-          <center><h4>Save Workflow</h4></center>
-        </div>
-        <input type="hidden" name="WorkflowStartEventModel[_csrf]" value="LIZdfhe_4zU73ImVV9k2Zxcd82RMq-QXOS34nRNGhuRG1wsVSPXOZna--KwRq0EAJiTLDirFhWEIY72rWCrTow==">
-        <input type="hidden" name="WorkflowStartEventModel[workflow_json]" id="workflow_json" value="">
-        <input type="hidden" name="WorkflowStartEventModel[workflow_data]" id="workflow_data" value="">
-        <?php if(isset($template_id)){?>
-        	<input type="hidden" name="Workflow[workflow_template_id]" value="<?php echo $template_id;?>">
-        <?php } ?>
-        <div class="modal-body">
-          <div class="form-group">
-            <label>Workflow Title</label>
-            <input type="text" id="workflow-workflow_title" class="form-control" name="Workflow[workflow_title]" maxlength="100" value="<?php echo $model['workflow_title'];?>">
-          </div>
-          <div class="form-group">
-            <label>Workflow Description</label>
-            <input type="text" id="workflow-workflow_description" class="form-control" name="Workflow[workflow_description]" maxlength="200" value="<?php echo $model['workflow_description'];?>">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal" id="FClose">Cancel</button>
-          <button type="submit" class="btn btn-default" onClick="clearLocalStorage()">Save</button>
-        </div>
-      </div>
-      </form>
-    </div> 
-
 </div>
