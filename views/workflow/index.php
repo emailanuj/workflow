@@ -10,7 +10,15 @@ use yii\grid\GridView;
 $this->title = 'Workflows';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="workflow-index">
+    <div id="form-popup">
+    <div class="form-container">
+        <h1>Login</h1>
+        <span onclick="closeForm()">close Form</span>
+        <input type="text" id="tt" value="" />
+    </div>
+</div>
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -35,9 +43,34 @@ $this->params['breadcrumbs'][] = $this->title;
             //'created_by',
             //'updated_by',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view}{update}{delete}{clone}{execute}',
+                'buttons' => [
+                    'execute' => function ($url) {
+                        return Html::a(
+                            '<span class="glyphicon glyphicon-hourglass"></span>',
+                            $url, 
+                            [
+                                'title' => 'Execute',
+                                'data-pjax' => '0',
+                            ]
+                        );
+                    },
+                    'clone' => function ($url, $model, $key) {
+                        return Html::a('<span class="glyphicon glyphicon-duplicate" onclick="openform('.$key.')"></span>','#', [
+                            'class' => 'clone-view-link',
+                            'title' => Yii::t('yii', 'Clone'),
+                            'data-toggle' => 'modal',
+                            'data-target' => '#clone-modal',
+                            'data-id' => $key,
+                            'data-pjax' => '0',
+        
+                        ]);
+                    },
+                ],
+            ],
         ],
     ]); ?>
-
 
 </div>
