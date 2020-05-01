@@ -74,6 +74,7 @@ function populateData(blockId,workflow_id){
     if(localStorage.getItem(workflow_id)){
         var localJSONData=JSON.parse(localStorage.getItem(workflow_id));
         var localData=localJSONData[blockId];
+        console.log(localData);
         if(localData){
         	if(localData['keywords']=='API'){
         		$('.api_cls').css("display", "block");
@@ -95,7 +96,7 @@ function populateData(blockId,workflow_id){
         	}else{
         		$('.formdata_cls').css("display", "none");
         	}
-             $.each( localData, function( key, value ) {
+             $.each( localJSONData[blockId], function( key, value ) {
             	 $('#workflowstarteventmodel-'+key).val(value);
             	});
                     	  
@@ -135,7 +136,19 @@ $(document).on('change',"#workflowstarteventmodel-data_source",function(){
 	}
 });
 
+function completeWorkflow(){
+	w_id=$('#workflow_id').val();
+	workflow_data=localStorage.getItem(w_id);
+	workflow_json=localStorage.getItem('form_json');
+	$('#workflow_json').val(workflow_json);
+	$('#workflow_data').val(workflow_data);
+	$('#w_id').val(w_id);
+	clearLocalStorage();
+}
 function clearLocalStorage(){
-	alert('Clear Storage Called');
     localStorage.clear();
+}
+function drawGraph(grapOBJ,formObj,workflow_id){
+    uploadgraphCreator(grapOBJ);
+    localStorage.setItem(workflow_id, JSON.stringify(formObj));
 }

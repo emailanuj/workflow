@@ -10,7 +10,7 @@ use yii\helpers\Url;
   <!-- <form id="seModal0" action="" name="seModal0"> -->
   <?php $form = ActiveForm::begin([
     'id' => 'workflow_save',
-    'action'  => 'workflow/save-workflow',
+    'action'  => 'save-workflow',
   ]); ?>
    <form id="w0" action="" method="post">
    <section class="content">
@@ -23,7 +23,10 @@ use yii\helpers\Url;
                                   <span>
                                       <img src="<?= Url::base() .'/images/icons/title-workflow-execution-dark.png'?>">
                                       <input type="text" class="input-text" placeholder="" value="<?php echo $model['workflow_title'];?>">
-                                  <?= Html::submitButton('Complete Workflow', ['class' => 'btn btn-comman','onClick'=>'clearLocalStorage()' ]) ?>
+                                      <input type="hidden" name="workflow_json" id="workflow_json" value="">
+                                      <input type="hidden" name="workflow_data" id="workflow_data" value="">
+                                      <input type="hidden" name="w_id" id="w_id" value="">
+                                  <?= Html::submitButton('Complete Workflow', ['class' => 'btn btn-comman','onClick'=>'completeWorkflow()' ]) ?>
                                   </span>
                               </div>
                           </div>

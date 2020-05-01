@@ -227,7 +227,7 @@ class WorkflowController extends Controller
             $json_array=array();
             Yii::$app->response->format = Response::FORMAT_JSON;
             $post_data=Yii::$app->request->post();
-            $json_array[$post_data['element_id']]=array($post_data['WorkflowStartEventModel']);
+            $json_array[$post_data['element_id']]=$post_data['WorkflowStartEventModel'];
             $workflowStartEventModel = new WorkflowStartEventModel();
             $workflowStartEventModel->load($post_data);
             ActiveForm::validate($workflowStartEventModel);
@@ -297,5 +297,32 @@ class WorkflowController extends Controller
             }
             return 'success';            
         }     
+    }
+    /// For Saving Complete Workflow
+    /**
+     * Creates a new Workflow model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionSaveWorkflow()
+    {
+        $post_data='';
+        $model = new Workflow();
+        try{
+            $logged_in_user_id=Yii::$app->user->identity->id;
+        }
+        catch (\Exception $ex){
+            $logged_in_user_id='';
+        }
+        $workflowDataModel = new WorkflowDataModel();
+        $post_data=Yii::$app->request->post();
+        if(!empty(Yii::$app->request->post())){
+            
+            $post_data=Yii::$app->request->post();
+            $updateStatus=Workflow::updateAll(['workflow_data'=>$post_data['workflow_data'],'workflow_json'=>$post_data['workflow_json'],'updated_by'=>$logged_in_user_id,'updated_at'=>time()],['id'=>$post_data['w_id']]);
+            if($updateStatus){
+                return $this->redirect(['index']);
+            }
+        }
     }
 }
