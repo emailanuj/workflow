@@ -148,4 +148,5 @@ function clearLocalStorage(){
 function drawGraph(grapOBJ,formObj,workflow_id){
     uploadgraphCreator(grapOBJ);
     localStorage.setItem(workflow_id, JSON.stringify(formObj));
+    localStorage.setItem('form_json', JSON.stringify(grapOBJ));
 }

@@ -319,7 +319,7 @@ class WorkflowController extends Controller
         if(!empty(Yii::$app->request->post())){
             
             $post_data=Yii::$app->request->post();
-            $updateStatus=Workflow::updateAll(['workflow_data'=>$post_data['workflow_data'],'workflow_json'=>$post_data['workflow_json'],'updated_by'=>$logged_in_user_id,'updated_at'=>time()],['id'=>$post_data['w_id']]);
+            $updateStatus=Workflow::updateAll(['workflow_title'=>$post_data['workflow_title'],'workflow_data'=>$post_data['workflow_data'],'workflow_json'=>$post_data['workflow_json'],'updated_by'=>$logged_in_user_id,'updated_at'=>time()],['id'=>$post_data['w_id']]);
             if($updateStatus){
                 return $this->redirect(['index']);
             }
