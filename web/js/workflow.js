@@ -68,9 +68,6 @@ function showFunction(element_id,form_type){
 	});
 }
 function populateData(blockId,workflow_id){
-	console.log('Under populate data method');
-    /* ----------------------- Testing ------------------------*/
-    debugger;
     if(localStorage.getItem(workflow_id)){
         var localJSONData=JSON.parse(localStorage.getItem(workflow_id));
         var localData=localJSONData[blockId];
