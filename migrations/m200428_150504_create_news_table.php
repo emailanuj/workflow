@@ -12,36 +12,37 @@ class m200428_150504_create_news_table extends Migration
 
     public function up()
     {
-        $this->createTable('news', [
-            'id' => $this->primaryKey(),
-            'title' => $this->string()->notNull(),
-            'content' => $this->text(),
-        ]);
+        // $this->createTable('news', [
+        //     'id' => $this->primaryKey(),
+        //     'title' => $this->string()->notNull(),
+        //     'content' => $this->text(),
+        // ]);
     }
 
     public function down()
     {
         // echo "m101129_185401_create_news_table cannot be reverted.\n";
         // return false;
-        $this->dropTable('news');
+        // $this->dropTable('news');
     }
 
     
     /**
      * {@inheritdoc}
      */
-    // public function safeUp()
-    // {
+    public function safeUp()
+    {
     //     $this->createTable('{{%news}}', [
     //         'id' => $this->primaryKey(),
     //     ]);
-    // }
+        $this->addColumn('news', 'category', $this->text());
+    }
 
     /**
      * {@inheritdoc}
      */
-    // public function safeDown()
-    // {
+    public function safeDown()
+    {
     //     $this->dropTable('{{%news}}');
-    // }
+    }
 }
