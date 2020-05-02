@@ -62,23 +62,27 @@ DROP TABLE IF EXISTS `tbl_keywords`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_keywords` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `keyword_name` varchar(255) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_by` varchar(11) NOT NULL,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_by` varchar(11) NOT NULL,
+  `created_at` int(11) NOT NULL DEFAULT '0',
+  `created_by` varchar(11) NOT NULL DEFAULT '0',
+  `updated_at` int(11) NOT NULL DEFAULT '0',
+  `updated_by` varchar(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbl_keywords`
+--
 
 LOCK TABLES `tbl_keywords` WRITE;
 /*!40000 ALTER TABLE `tbl_keywords` DISABLE KEYS */;
-INSERT INTO `tbl_keywords` VALUES (1,'Precheck',0,'0000-00-00 00:00:00','0','0000-00-00 00:00:00','0'),(2,'Postcheck',0,'0000-00-00 00:00:00','0','0000-00-00 00:00:00','0'),(3,'NSO',0,'0000-00-00 00:00:00','0','0000-00-00 00:00:00','0');
+INSERT INTO `tbl_keywords` VALUES (1,'Precheck',0,1588401418,'0',1588401418,'0'),(2,'Postcheck',0,1588401451,'0',1588401451,'0'),(3,'NSO',0,1588401472,'0',1588401472,'0'),(4,'API',0,1588401484,'0',1588401484,'0');
 /*!40000 ALTER TABLE `tbl_keywords` ENABLE KEYS */;
 UNLOCK TABLES;
-
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 --
 -- Table structure for table `user`
