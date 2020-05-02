@@ -34,8 +34,13 @@ class WorkflowStartEventModel extends Model
     {
         return [
             [['step_no','if_fail','next_process','keywords'], 'required'],
-            
+            [['step_no','if_fail','next_process','keywords','api_url','api_method','api_type','api_headers','function_execute','auth_type'], 'required','on'=>'API'],
+            [['step_no','if_fail','next_process','keywords','data_source'], 'required','on'=>'NSO'],
         ];
+    }
+    public function scenarios() {
+        $scenarios = parent::scenarios();
+        return $scenarios;
     }
 
     /**

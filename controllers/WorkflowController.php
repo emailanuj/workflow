@@ -229,6 +229,11 @@ class WorkflowController extends Controller
             $post_data=Yii::$app->request->post();
             $json_array[$post_data['element_id']]=$post_data['WorkflowStartEventModel'];
             $workflowStartEventModel = new WorkflowStartEventModel();
+            // Adding Scenario Based on Keywords
+            $keywords=$json_array[$post_data['element_id']]['keywords'];
+            if(!empty($keywords)){
+                $workflowStartEventModel->scenario=$keywords;
+            }
             $workflowStartEventModel->load($post_data);
             ActiveForm::validate($workflowStartEventModel);
             $errors=$workflowStartEventModel->errors;
