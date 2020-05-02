@@ -253,7 +253,7 @@ class WorkflowController extends Controller
                     return ['status'=>'success','json_data'=>$json_data,'id'=>$workflow_id];
                 }
             }else{
-                return $errors;
+                return ['status'=>'error','error'=>$errors];
             }
         }
     }

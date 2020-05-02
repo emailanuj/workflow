@@ -22,6 +22,13 @@ $(document).on('click',"#savestartevent",function(){
 	    		localStorage.setItem('form_json',diagram_json);
 	    		$('.workflow_form').empty();
 	    		alert('Data saved successfully !');
+	    	}else if(jsonData.status=="error"){
+	    		console.log('Error Found');
+	    		console.log(jsonData.error);
+	    		$.each( jsonData.error, function( key, value ) {
+	    			 $(".field-workflowstarteventmodel-"+key+" .help-block").addClass('errordiv');
+	            	 $(".field-workflowstarteventmodel-"+key+" .help-block").text(value);
+	            	});
 	    	}
 	    },
 	    error: function (xhr, status, errorThrown) {
