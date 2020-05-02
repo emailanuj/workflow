@@ -127,27 +127,21 @@ var g2 = svg.append('g')
                             if (element.subtype === "parallel") {
                                 selectedId="PG"+t;
                                 showFunction(selectedId,element.subtype);
-                                semodal.style.display = "block";
                             console.log("-----------"+elementSubType)
                             }else if (element.subtype === "exclusive") {
-                                semodal.style.display = "block";
                                 selectedId="EG"+t;
                                 showFunction(selectedId,element.subtype);
                             }else if (element.subtype === "inclusive") {
-                                semodal.style.display = "block";
                                 selectedId="IG"+t;
                                 showFunction(selectedId,element.subtype);
                             }else if (element.subtype === "event") {
-                                semodal.style.display = "block";
                                 selectedId="EG"+t;
                                 showFunction(selectedId,element.subtype);
                             }
                         }
                     }
-                    //End
                    tooltipDiv.style("opacity", 0);
                    console.log("gateway evnt button clicked ")
-                   semodal.style.display = "block";
                 });
 
                 tooltipDiv.select("#arrow-button").on("click", function () {

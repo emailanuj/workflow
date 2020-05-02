@@ -19,7 +19,6 @@ use Yii;
  * @property mixed $updated_by
  * @property mixed $saved_in_db
  * @property mixed $id_in_db
- * @property mixed $workflow_id
  */
 class MongoWorkflow extends \yii\mongodb\ActiveRecord
 {
@@ -49,7 +48,6 @@ class MongoWorkflow extends \yii\mongodb\ActiveRecord
             'updated_by',
             'saved_in_db',
             'id_in_db',
-            'workflow_id',
         ];
     }
 
@@ -59,7 +57,7 @@ class MongoWorkflow extends \yii\mongodb\ActiveRecord
     public function rules()
     {
         return [
-            [['session_id', 'workflow_title', 'workflow_description', 'workflow_data', 'workflow_json', 'created_at', 'updated_at', 'created_by', 'updated_by','saved_in_db','id_in_db','workflow_id'], 'safe']
+            [['session_id', 'workflow_title', 'workflow_description', 'workflow_data', 'workflow_json', 'created_at', 'updated_at', 'created_by', 'updated_by','saved_in_db','id_in_db'], 'safe']
         ];
     }
 
@@ -80,8 +78,7 @@ class MongoWorkflow extends \yii\mongodb\ActiveRecord
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'saved_in_db'=> 'Saved in DB',
-            'id_in_db'   => 'Id in DB',
-            'workflow_id'=>'workflow_id',
+            'id_in_db'   => 'Id in DB'
         ];
     }
 }

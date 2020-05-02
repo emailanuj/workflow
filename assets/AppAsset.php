@@ -27,6 +27,8 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/adminlte.min.js',
+        'js/custom.js',
+        'js/workflow.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
