@@ -51,10 +51,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view}{update}{delete}{clone}{execute}',
                 'buttons' => [
-                    'execute' => function ($url) {
+                    'execute' => function ($url, $model, $key) {
                         return Html::a(
                             '<span class="glyphicon glyphicon-hourglass"></span>',
-                            $url, 
+                            'workflow-execution/index?id='.$key, 
                             [
                                 'title' => 'Execute',
                                 'data-pjax' => '0',

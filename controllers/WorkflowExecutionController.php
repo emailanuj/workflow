@@ -8,6 +8,7 @@ use app\models\WorkflowExecutionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Workflow;
 
 /**
  * WorkflowExecutionController implements the CRUD actions for WorkflowExecution model.
@@ -29,15 +30,51 @@ class WorkflowExecutionController extends Controller
         ];
     }
 
-
-    public function execute() {
-            // case 1:  API
-            // case 2: Other
-            //     check Data_Source 
-            //           case 1:  form_data
-            //           case2: Function to get data
-            //           case3: From Previous Process:  get all process selected from 
-            //           case 4 : check if complete workflow's data is given                 
+    public function actionIndex() {        
+        $id = Yii::$app->request->get('id');            
+            $model = new Workflow();
+            if (($workflow_data = Workflow::findOne($id)) !== null) {
+              $workflowjson = json_decode($workflow_data->workflow_data);
+              foreach($workflowjson as $wjk =>$wjv) {
+                  //(
+//     [step_no] => 12
+//     [if_fail] => stop
+//     [next_process] => 1
+//     [keywords] => NSO
+//     [api_url] => 
+//     [api_method] => 
+//     [api_type] => 
+//     [api_headers] => 
+//     [function_execute] => 
+//     [auth_type] => 
+//     [token_from] => 
+//     [token_url] => 
+//     [username] => 
+//     [password] => 
+//     [data_source] => form_data
+//     [get_data_function] => 
+//     [form_data] => form data
+// )
+                switch ($wjv->keywords) {
+                    case "API":
+                        $result = "API";
+                        break;
+                    case "NSO":
+                        //$wjv->
+                        $result = "NSO";
+                        break;
+                    case "OTHER":
+                        $result = "OTHER";
+                        break;
+                    default:
+                        $result = "Default";
+                }
+              }  
+                return $this->render('index', [                    
+                    'result'    => $result,
+                ]);                          
+            }                    
+                      
     }
     
 }
