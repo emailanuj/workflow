@@ -10,8 +10,7 @@ function closeForm() {
 }
 
 $(document).on('click', '#clonesubmit',function(){
-    var formdata = $('#formclone').serializeArray();
-  console.log(formdata);
+    var formdata = $('#formclone').serializeArray();  
   $.ajax({
      //this will use the default form action
      url: $('#formclone').attr('action'),
@@ -19,10 +18,16 @@ $(document).on('click', '#clonesubmit',function(){
      dataType: 'json',
      data: {formdata},     
      //if ajax success
+     beforeSend: function(){
+      $("#loading").show();
+     },
      success: function(data) {         
          $(".clone-form").css('display','none');
          $(".form-container").append('<span class="alert alert-success" style="position:absolute;width:95%;">Worklow is clonned successfully.</span>');
-     }
+     },
+     complete: function() {
+        $("#loading").hide();
+     },
   });
 });
 /* added-Dev:lavi 30-04-2020 */

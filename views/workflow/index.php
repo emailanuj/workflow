@@ -11,9 +11,9 @@ use yii\helpers\Url;
 $this->title = 'Workflows';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="workflow-index">
-    
-    <div id="form-popup">        
+<div class="workflow-index">    
+    <div id="form-popup">   
+    <div id="loading" style="position:absolute;display:none;"><img src="<?= Url::base().'/images/loading.gif'; ?>" style="margin-left:400px;"/></div>     
         <span id="close" onclick="closeForm()" style="margin-top:0px!important;"><img src="<?= Url::base().'/images/pop-close.png'; ?>" /></span>    
         <div class="form-container">
                 <h3>Clone Form</h3>
