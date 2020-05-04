@@ -48,6 +48,10 @@ $(document).on('click',"#saveWorkflowModal",function(){
 	window.workflowmodal = document.getElementById('workflowmodal');
 	workflowmodal.style.display = "block";
 });
+$(document).on('click',"#cancelstartevent",function(){
+	window.workflowmodal = document.getElementById('workflowmodal');
+	workflowmodal.style.display = "none";
+});
 // For Showing Modal
 function showFunction(element_id,form_type){
     // clearLocalStorage();
