@@ -14,7 +14,7 @@ use yii\helpers\Url;
   ]); ?>
    <form id="w0" action="" method="post">
         <div class="modal-header">
-        <center><h4>Save Workflow</h4></center>
+        <center><h4>Create Workflow</h4></center>
         </div>
         <div class="modal-body">
           <div class="form-group">
