@@ -2617,6 +2617,8 @@ form .error {
     padding: 20px;
     background-color: white;  
   }
-  
+  .errordiv{
+  		color:red;
+  }
   /* pop up for clone */
 /*==== Workflow App Ends Here ====*/

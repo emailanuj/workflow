@@ -229,24 +229,36 @@ class WorkflowController extends Controller
             $post_data=Yii::$app->request->post();
             $json_array[$post_data['element_id']]=$post_data['WorkflowStartEventModel'];
             $workflowStartEventModel = new WorkflowStartEventModel();
+            // Adding Scenario Based on Keywords
+            $keywords=$json_array[$post_data['element_id']]['keywords'];
+            if(!empty($keywords)){
+                $workflowStartEventModel->scenario=$keywords;
+            }
             $workflowStartEventModel->load($post_data);
             ActiveForm::validate($workflowStartEventModel);
             $errors=$workflowStartEventModel->errors;
+            $workflow_id=$post_data['workflow_id'];
             $json_data=json_encode($json_array);
             if(!$errors){
-                $updateModel = MongoWorkFlow::findOne(['session_id' => $session_id]);
-                $data_arr['MongoWorkflow']=array('session_id'=>$session_id,'workflow_data'=>$data['workflow_data'],'workflow_json'=>$data['workflow_json'],'created_by'=>$logged_in_user_id,'created_at'=>time(),'updated_by'=>$logged_in_user_id,'updated_at'=>time(),'saved_in_db'=>'0','id_in_db'=>'0');
+                $updateModel = MongoWorkFlow::findOne(['workflow_id' => $workflow_id]);
+                $data_arr['MongoWorkflow']=array('workflow_id'=>$workflow_id,'workflow_data'=>$json_data,'workflow_json'=>$post_data['form_json_data'],'created_by'=>$logged_in_user_id,'created_at'=>time(),'updated_by'=>$logged_in_user_id,'updated_at'=>time(),'saved_in_db'=>'0');
                 if(!$updateModel){
                     if ($model->load($data_arr) && $model->save()) {
-                        return ['status'=>'success'];
+                        return ['status'=>'success','json_data'=>$json_data,'id'=>$workflow_id];
                     }
                 }
                 else{
-                    $updateStatus=MongoWorkFlow::updateAll(['workflow_data'=>$data['workflow_data'],'updated_by'=>$logged_in_user_id,'updated_at'=>time(),'workflow_json'=>$data['workflow_json'],'saved_in_db'=>'0','id_in_db'=>'0'],['session_id'=>$session_id]);
+                    // Get Data And Insert New Array and Update
+                    $old_data=$updateModel['workflow_data'];
+                    $old_data=json_decode($old_data,true);
+                    $old_data[$post_data['element_id']]=$post_data['WorkflowStartEventModel'];
+                    //array_push($old_data, $json_array);
+                    $json_data=json_encode($old_data);
+                    $updateStatus=MongoWorkFlow::updateAll(['workflow_data'=>$json_data,'updated_by'=>$logged_in_user_id,'updated_at'=>time(),'workflow_json'=>$post_data['form_json_data'],'saved_in_db'=>'0'],['workflow_id'=>$workflow_id]);
+                    return ['status'=>'success','json_data'=>$json_data,'id'=>$workflow_id];
                 }
-                return ['status'=>'success'];
             }else{
-                return $errors;
+                return ['status'=>'error','error'=>$errors];
             }
         }
     }
@@ -290,5 +302,32 @@ class WorkflowController extends Controller
             }
             return 'success';            
         }     
+    }
+    /// For Saving Complete Workflow
+    /**
+     * Creates a new Workflow model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionSaveWorkflow()
+    {
+        $post_data='';
+        $model = new Workflow();
+        try{
+            $logged_in_user_id=Yii::$app->user->identity->id;
+        }
+        catch (\Exception $ex){
+            $logged_in_user_id='';
+        }
+        $workflowDataModel = new WorkflowDataModel();
+        $post_data=Yii::$app->request->post();
+        if(!empty(Yii::$app->request->post())){
+            
+            $post_data=Yii::$app->request->post();
+            $updateStatus=Workflow::updateAll(['workflow_title'=>$post_data['workflow_title'],'workflow_data'=>$post_data['workflow_data'],'workflow_json'=>$post_data['workflow_json'],'updated_by'=>$logged_in_user_id,'updated_at'=>time()],['id'=>$post_data['w_id']]);
+            if($updateStatus){
+                return $this->redirect(['index']);
+            }
+        }
     }
 }

@@ -10,7 +10,7 @@ use yii\helpers\Url;
   <!-- <form id="seModal0" action="" name="seModal0"> -->
   <?php $form = ActiveForm::begin([
     'id' => 'workflow_save',
-    'action'  => 'workflow/save-workflow',
+    'action'  => 'save-workflow',
   ]); ?>
    <form id="w0" action="" method="post">
    <section class="content">
@@ -22,13 +22,12 @@ use yii\helpers\Url;
                               <div class="page-title-div">
                                   <span>
                                       <img src="<?= Url::base() .'/images/icons/title-workflow-execution-dark.png'?>">
-                                      <input value="" type="text" class="input-text" placeholder="" value="Testing">
+                                      <input type="text" class="input-text" name="workflow_title" placeholder="" value="<?php echo $model['workflow_title'];?>">
+                                      <input type="hidden" name="workflow_json" id="workflow_json" value="">
+                                      <input type="hidden" name="workflow_data" id="workflow_data" value="">
+                                      <input type="hidden" name="w_id" id="w_id" value="">
+                                  <?= Html::submitButton('Complete Workflow', ['class' => 'btn btn-comman','onClick'=>'completeWorkflow()' ]) ?>
                                   </span>
-                              </div>
-                          </div>
-                          <div class="col-md-4">
-                              <div class="page-action-wrapper text-right">
-                               <?= Html::submitButton('Complete Workflow', ['class' => 'btn btn-comman', 'name' => 'contact-button','onClick'=>'clearLocalStorage()' ]) ?>
                               </div>
                           </div>
                       </div>

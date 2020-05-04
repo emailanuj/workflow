@@ -65,7 +65,9 @@ if(!empty($model['id'])){
 	<input type="hidden" name="workflow_id" id="workflow_id" value="<?php echo $workflow_id;?>">
     <div class="content-wrapper content-wrapper-app">
       <!-- ---------------------------- Save Modal Form ----------------------->
-      <?= $this->render('_customSaveWorkFlow') ?>
+      <?= $this->render('_customSaveWorkFlow', [
+    'model' => $model,'workflow_id'=>$workflow_id
+]) ?>
       <!-- -----------------------------------End ----------------------------->
       <div class="svg-wrapper">
         <div id="mySvg"><svg width="1536" height="754"></svg></div>
