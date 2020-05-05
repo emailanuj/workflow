@@ -35,8 +35,7 @@ class WorkflowExecutionController extends Controller
         $id = Yii::$app->request->get('id');               
         if (($model = Workflow::findOne($id)) !== null) {
             $workflowjson = json_decode($model->workflow_data);            
-            foreach($workflowjson as $wjk =>$wjv) {
-                //echo '<pre/>'; print_r($wjv); exit;
+            foreach($workflowjson as $wjk =>$wjv) {                
                 switch ($wjv->keywords) {
                     case "API":
                         $result = "API";
@@ -54,15 +53,18 @@ class WorkflowExecutionController extends Controller
                     default:
                         $result = "Default";
                 }
-                $ex_model = new WorkflowExecution(); 
-                $ex_model->instance_id      = $model->id;
-                $ex_model->request_params   = $wjv->keywords;
-                $ex_model->response_params  = $result;                
-                $ex_model->save();                
+                $ex_model_saved = WorkflowExecution::find()->where(['instance_id' => $model->id])->one();
+                if($ex_model_saved->instance_id == '') {
+                    $ex_model = new WorkflowExecution(); 
+                    $ex_model->instance_id      = $model->id;
+                    $ex_model->request_params   = $wjv->keywords;
+                    $ex_model->response_params  = $result;                
+                    $ex_model->save();                
+                }                
             }  
             return $this->render('index', [                    
                 'model'    => $model, 
-                'ex_model' => $ex_model,               
+                //'ex_model' => $ex_model,               
                 'workflow_id' => $id,
             ]);                          
         }                    
