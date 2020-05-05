@@ -32,36 +32,21 @@ class WorkflowExecutionController extends Controller
 
     public function actionIndex() { 
         $this->layout = 'workflowLayout';               
-        $id = Yii::$app->request->get('id');        
+        $id = Yii::$app->request->get('id');               
         if (($model = Workflow::findOne($id)) !== null) {
-            $workflowjson = json_decode($model->workflow_data);
+            $workflowjson = json_decode($model->workflow_data);            
             foreach($workflowjson as $wjk =>$wjv) {
-                                        //(
-                                        //     [step_no] => 12
-                                        //     [if_fail] => stop
-                                        //     [next_process] => 1
-                                        //     [keywords] => NSO
-                                        //     [api_url] => 
-                                        //     [api_method] => 
-                                        //     [api_type] => 
-                                        //     [api_headers] => 
-                                        //     [function_execute] => 
-                                        //     [auth_type] => 
-                                        //     [token_from] => 
-                                        //     [token_url] => 
-                                        //     [username] => 
-                                        //     [password] => 
-                                        //     [data_source] => form_data
-                                        //     [get_data_function] => 
-                                        //     [form_data] => form data
-                                        // )
+                //echo '<pre/>'; print_r($wjv); exit;
                 switch ($wjv->keywords) {
                     case "API":
                         $result = "API";
                         break;
                     case "NSO":
-                        //$wjv->
-                        $result = "NSO";
+                        if($wjv->data_source == 'form_data') {
+                            $result = $wjv->form_data;
+                        } else {
+                            $result = '';
+                        }                        
                         break;
                     case "OTHER":
                         $result = "OTHER";
@@ -69,9 +54,15 @@ class WorkflowExecutionController extends Controller
                     default:
                         $result = "Default";
                 }
+                $ex_model = new WorkflowExecution(); 
+                $ex_model->instance_id      = $model->id;
+                $ex_model->request_params   = $wjv->keywords;
+                $ex_model->response_params  = $result;                
+                $ex_model->save();                
             }  
             return $this->render('index', [                    
-                'model'    => $model,                
+                'model'    => $model, 
+                'ex_model' => $ex_model,               
                 'workflow_id' => $id,
             ]);                          
         }                    

@@ -14,9 +14,6 @@ use yii\helpers\Url;
         <div id="mySvg"><svg width="1536" height="754"></svg></div>
       </div>
   </div>
-
-    <div id="propwrap" class="workflow_form">
-    </div>
 </div>
 <?php
     $this->registerJs(
