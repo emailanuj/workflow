@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             
                                     <?= $form->field($model, 'rememberMe')->checkbox() ?>
         <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
+			<div class="col-sm-offset-4 col-sm-12">
                 <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
             </div>
         </div>
