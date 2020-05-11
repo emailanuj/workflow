@@ -138,11 +138,12 @@ DROP TABLE IF EXISTS `workflow_execution`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `workflow_execution` (
-  `id` int(11) unsigned NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `instance_id` int(11) unsigned NOT NULL,
   `request_params` longtext NOT NULL,
   `response_params` longtext NOT NULL,
-  `executed_at` int(11) unsigned NOT NULL,
+  `created_at` int(11) unsigned NOT NULL,
+  `updated_at` int(11) NOT NULL,
   `executed_by` int(11) unsigned NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
