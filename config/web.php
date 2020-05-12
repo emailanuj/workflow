@@ -51,7 +51,7 @@ $config = [
         ],
         'mongodb' => [
             'class' => '\yii\mongodb\Connection',
-            'dsn' => 'mongodb://root:password@localhost:27017/bpnm',
+            'dsn' => 'mongodb://bpnmroot:password@localhost:27017/bpnm',
         ],
         
     ],
