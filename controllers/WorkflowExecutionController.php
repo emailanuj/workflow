@@ -49,10 +49,9 @@ class WorkflowExecutionController extends Controller
             foreach($workflowfinaljson as $wjk =>$wjv) {                 
                 // gather previous result  
                 if($wjk > 0) {              
-                $previous_result = WorkflowExecution::find()->where(['id' => $ex_model->id])->one();
-                if(!empty($previous_result)) { $default_result = $previous_result->response_params; }
-                else { $default_result = ''; }
-                }
+                    $previous_result = WorkflowExecution::find()->where(['id' => $ex_model->id])->one();
+                    if(!empty($previous_result)) { $default_result = $previous_result->response_params; }                
+                } else { $default_result = ''; }
                 
                 switch ($wjv->keywords) {
                     case "API":
@@ -94,7 +93,9 @@ class WorkflowExecutionController extends Controller
                         if($wjv->data_source == 'form_data') {
                             $result = $wjv->form_data;
                         } else if($wjv->data_source == 'function_name') {
-                            $result = $wjv->get_data_function;                            
+                            $function_to_execute    = $wjv->get_data_function;
+                            $executed_function_data = call_user_func($function_to_execute);
+                            $result = $executed_function_data;                            
                         } else {
                             $result = $default_result;
                         }                        
@@ -103,7 +104,9 @@ class WorkflowExecutionController extends Controller
                         if($wjv->data_source == 'form_data') {
                             $result = $wjv->form_data;
                         } else if($wjv->data_source == 'function_name') {
-                            $result = $wjv->get_data_function;                            
+                            $function_to_execute    = $wjv->get_data_function;
+                            $executed_function_data = call_user_func($function_to_execute);
+                            $result = $executed_function_data;                           
                         } else {
                             $result = $default_result;
                         }
