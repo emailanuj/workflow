@@ -82,7 +82,7 @@ class WorkflowController extends Controller
         $model = new Workflow();
         
         $workflowDataModel = new WorkflowDataModel();
-
+       // print_r(Yii::$app->request->post()); exit;
         if(!empty(Yii::$app->request->post())){
 
             $post_data=Yii::$app->request->post();        

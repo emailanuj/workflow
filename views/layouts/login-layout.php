@@ -38,49 +38,7 @@ AppAsset::register($this);
                 <img src="<?= Url::base() .'/images/logo-cisco.png' ?>">
             </a>
             
-            <nav class="navbar navbar-static-top" role="navigation">
-                <a href="javascript:void(0)" class="sidebar-toggle" data-toggle="push-menu" role="button"><span class="sr-only">Toggle navigation</span></a>
-                <div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown user user-menu">
-                            <a href="javascript:void(0)" class="dropdown-toggle clearfix" data-toggle="dropdown">
-                                <span class="hidden-xs">
-                                    <div class="user-icon pull-left">
-                                        <img src="<?= Url::base() .'/images/user-icon.png' ?>" class="user-image" alt="User Image"/>
-                                    </div>
-                                    <!-- --------- ------------------ Check for Login ------------------->
-                                    <?php if(Yii::$app->user->isGuest){?>
-                                    <div class="pull-left"><a href="<?= Url::to(['site/login']) ?>">Login</a></div>
-                                    <?php }else {?>
-                                    <div class="pull-left"><?= Html::beginForm(['/site/logout'], 'post')
-                                    . Html::submitButton(
-                                        'Logout (' .  Yii::$app->user->identity->username . ')',
-                                        ['class' => 'btn btn-link logout']
-                                    )
-                                    . Html::endForm();?>
-                					</div>
-               					    <?php }?>
-                                </span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <!-- Menu Footer-->
-                                <li class="user-footer">
-                                    <div class="">
-                                        <a href="javascript:void(0)" class="user-footer-links"><i class="fa fa-fw fa-user fa-lg"></i>My Profile</a>
-                                    </div>
-                                    <div class="">
-                                        <a class="user-footer-links" href="javascript:void(0)" data-method="post">Sign Out</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
         </header>
-
-
-
         <div class="alert-wrap error_display_div" style="display:none;">
                 <div class="alert alert-danger alert-dismissible ">
                     <div class="error_display"></div>
@@ -96,13 +54,6 @@ AppAsset::register($this);
                     <div class="loader-img"><img src="<?= Url::base() .'/images/loading.gif' ?>" alt="preloader"><p class="preloader_message"></p></div>
                 </div>
             </div>
-            <aside class="main-sidebar">
-                <section class="sidebar">
-                     <?= $this->render('sidebar-menu') ?>
-                </section>
-                <!--<section class="version"><p>Version 4.0</p></section>-->
-            </aside>
-
             <div class="content-wrapper">
                 <section class="content">
                     <div>

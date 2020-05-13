@@ -3,6 +3,9 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use \yii\db\ActiveRecord;
+
 
 /**
  * This is the model class for table "workflow_execution".
@@ -11,7 +14,8 @@ use Yii;
  * @property int $instance_id
  * @property string $request_params
  * @property string $response_params
- * @property int $executed_at
+ * @property int $created_at
+ * @property int $updated_at
  * @property int $executed_by
  * @property int $status
  */
@@ -25,14 +29,28 @@ class WorkflowExecution extends \yii\db\ActiveRecord
         return 'workflow_execution';
     }
 
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at','updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['instance_id', 'request_params', 'response_params', 'executed_at', 'executed_by'], 'required'],
-            [['instance_id', 'executed_at', 'executed_by', 'status'], 'integer'],
+            [['instance_id', 'request_params', 'response_params'], 'required'],
+            [['instance_id', 'created_at','updated_at', 'executed_by', 'status'], 'integer'],
             [['request_params', 'response_params'], 'string'],
         ];
     }
@@ -47,7 +65,8 @@ class WorkflowExecution extends \yii\db\ActiveRecord
             'instance_id' => 'Instance ID',
             'request_params' => 'Request Params',
             'response_params' => 'Response Params',
-            'executed_at' => 'Executed At',
+            'created_at' => 'Executed At',
+            'updated_at' => 'Executed At',
             'executed_by' => 'Executed By',
             'status' => 'Status',
         ];

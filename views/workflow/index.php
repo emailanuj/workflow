@@ -11,9 +11,9 @@ use yii\helpers\Url;
 $this->title = 'Workflows';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="workflow-index">
-    
-    <div id="form-popup">        
+<div class="workflow-index">    
+    <div id="form-popup">   
+    <div id="loading" style="position:absolute;display:none;"><img src="<?= Url::base().'/images/loading.gif'; ?>" style="margin-left:400px;"/></div>     
         <span id="close" onclick="closeForm()" style="margin-top:0px!important;"><img src="<?= Url::base().'/images/pop-close.png'; ?>" /></span>    
         <div class="form-container">
                 <h3>Clone Form</h3>
@@ -51,10 +51,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view}{update}{delete}{clone}{execute}',
                 'buttons' => [
-                    'execute' => function ($url) {
+                    'execute' => function ($url, $model, $key) {
                         return Html::a(
                             '<span class="glyphicon glyphicon-hourglass"></span>',
-                            $url, 
+                            'workflow-execution/index?id='.$key, 
                             [
                                 'title' => 'Execute',
                                 'data-pjax' => '0',

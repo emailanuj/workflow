@@ -14,7 +14,7 @@ use yii\helpers\Url;
   ]); ?>
    <form id="w0" action="" method="post">
         <div class="modal-header">
-        <center><h4>Save Workflow</h4></center>
+        <center><h4>Create Workflow</h4></center>
         </div>
         <div class="modal-body">
           <div class="form-group">
@@ -26,6 +26,7 @@ use yii\helpers\Url;
         </div>
         <div class="modal-footer">
         <?= Html::submitButton('Save', ['class' => 'btn btn-primary', 'name' => 'contact-button', 'id' => 'savestartevent','onClick'=>'clearLocalStorage()' ]) ?>
+        <?= Html::button('Cancel', ['class' => 'btn btn-primary', 'name' => 'contact-button', 'id' => 'cancelstartevent' ]) ?>
         </div>
       </div>
       </form>

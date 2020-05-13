@@ -51,10 +51,23 @@ $config = [
         ],
         'mongodb' => [
             'class' => '\yii\mongodb\Connection',
-            // 'dsn' => 'mongodb://cisco:password@localhost:27017/cisco_workflow',
+            // 'dsn' => 'mongodb://bpnmroot:password@localhost:27017/bpnm',
             'dsn' => 'mongodb://localhost:27017/cisco_workflow',
         ],
-        
+    ],
+    'as beforeRequest' =>
+    [
+        'class' => 'yii\filters\AccessControl',
+        'rules' =>  [
+            [
+                'actions' => ['login', 'error'],
+                'allow' => true,
+            ],
+            [
+                'allow' => true,
+                'roles' => ['@'],
+            ],
+        ],
     ],
     'params' => $params,
 ];
