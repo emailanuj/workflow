@@ -51,7 +51,8 @@ $config = [
         ],
         'mongodb' => [
             'class' => '\yii\mongodb\Connection',
-            'dsn' => 'mongodb://cisco:password@localhost:27017/cisco_workflow',
+            // 'dsn' => 'mongodb://cisco:password@localhost:27017/cisco_workflow',
+            'dsn' => 'mongodb://localhost:27017/cisco_workflow',
         ],
         
     ],
