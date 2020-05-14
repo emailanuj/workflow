@@ -35,24 +35,81 @@ class WorkflowExecutionController extends Controller
         $id = Yii::$app->request->get('id');               
         if (($model = Workflow::findOne($id)) !== null) {
             $workflowjson = json_decode($model->workflow_data); 
-            $workflow_elements = count((array)$workflowjson);        
-            $execution_id = uniqid('ex');
-            foreach($workflowjson as $wjk =>$wjv) {                                
+
+           // sort in the execution order
+            $workflow_elements = (array)$workflowjson;                 
+            array_walk_recursive($workflow_elements,function(&$item){if(is_object($item))$item=(array)$item;});            
+            usort($workflow_elements, function($a, $b) {
+                return $a['step_no'] <=> $b['step_no'];
+            });
+            $workflowfinaljson =  (object) json_decode(json_encode($workflow_elements));            
+            // sort in the execution order
+
+            $execution_id = uniqid('ex');            
+            foreach($workflowfinaljson as $wjk =>$wjv) {                 
+                // gather previous result  
+                if($wjk > 0) {              
+                    $previous_result = WorkflowExecution::find()->where(['id' => $ex_model->id])->one();
+                    if(!empty($previous_result)) { $default_result = $previous_result->response_params; }                
+                } else { $default_result = ''; }
+                
                 switch ($wjv->keywords) {
                     case "API":
-                        $result = "API";
+                        $api_uri        = $wjv->api_url;
+                        $api_method     = $wjv->api_method;
+                        $api_type       = $wjv->api_type;
+                        $api_headers    = $wjv->api_headers;
+                        $auth_type      = $wjv->auth_type;
+                        $token_from     = $wjv->token_from;
+                        $token_url      = $wjv->token_url;
+                        $username       = $wjv->username;
+                        $password       = $wjv->password;
+
+                        $post_items = array();
+
+                        if($api_type == 'rest') {
+                            $curl = curl_init();
+                            if($api_method == 'get') {                                                                        
+                                    curl_setopt_array($curl, [
+                                        CURLOPT_RETURNTRANSFER => 1,
+                                        CURLOPT_URL => $api_url,
+                                        CURLOPT_USERAGENT => 'Test'
+                                    ]);
+                            }
+                            if($api_method == 'post') {                                                                
+                                curl_setopt_array($curl, [
+                                    CURLOPT_RETURNTRANSFER => 1,
+                                    CURLOPT_URL => $api_url,
+                                    CURLOPT_USERAGENT => 'Test',
+                                    CURLOPT_POST => 1,
+                                    CURLOPT_POSTFIELDS => $post_items
+                                ]);                                
+                            }
+                            $result = curl_exec($curl);                                    
+                            curl_close($curl);
+                        }                        
                         break;
                     case "NSO":
                         if($wjv->data_source == 'form_data') {
                             $result = $wjv->form_data;
                         } else if($wjv->data_source == 'function_name') {
-                            $result = $wjv->get_data_function;                            
+                            $function_to_execute    = $wjv->get_data_function;
+                            $executed_function_data = call_user_func($function_to_execute);
+                            $result = $executed_function_data;                            
                         } else {
-                            $result = '';
+                            $result = $default_result;
                         }                        
                         break;
                     case "OTHER":
-                        $result = "OTHER";
+                        if($wjv->data_source == 'form_data') {
+                            $result = $wjv->form_data;
+                        } else if($wjv->data_source == 'function_name') {
+                            $function_to_execute    = $wjv->get_data_function;
+                            $executed_function_data = call_user_func($function_to_execute);
+                            $result = $executed_function_data;                           
+                        } else {
+                            $result = $default_result;
+                        }
                         break;
                     default:
                         $result = "Default";
@@ -66,7 +123,7 @@ class WorkflowExecutionController extends Controller
                     $ex_model->execution_id     = $execution_id;  
                     $ex_model->status           = '1';              
                     $ex_model->save();                
-                }                
+                }                           
             } 
             // get executed data  
             $execution_model = WorkflowExecution::find()->where(['instance_id' => $model->id, 'execution_id' => $execution_id])->all();            
