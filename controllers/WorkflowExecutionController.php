@@ -67,25 +67,29 @@ class WorkflowExecutionController extends Controller
 
                         $post_items = array();
 
-                        if($api_type == 'rest') {
+                        if($api_type == 'rest') {                            
                             $curl = curl_init();
-                            if($api_method == 'get') {                                                                        
+                            if($api_method == 'get') {                                                                                                        
                                     curl_setopt_array($curl, [
                                         CURLOPT_RETURNTRANSFER => 1,
-                                        CURLOPT_URL => $api_url,
+                                        CURLOPT_URL => $api_uri,
                                         CURLOPT_USERAGENT => 'Test'
                                     ]);
                             }
-                            if($api_method == 'post') {                                                                
+                            else if($api_method == 'post') {                                                                
                                 curl_setopt_array($curl, [
                                     CURLOPT_RETURNTRANSFER => 1,
-                                    CURLOPT_URL => $api_url,
+                                    CURLOPT_URL => $api_uri,
                                     CURLOPT_USERAGENT => 'Test',
                                     CURLOPT_POST => 1,
                                     CURLOPT_POSTFIELDS => $post_items
                                 ]);                                
-                            }
-                            $result = curl_exec($curl);                                    
+                            } else { }                            
+                            $response = curl_exec($curl);
+                            if($response === false)
+                                { $result = curl_error($curl); }
+                            else
+                                { $result = $response; }                                  
                             curl_close($curl);
                         }                        
                         break;
@@ -93,8 +97,9 @@ class WorkflowExecutionController extends Controller
                         if($wjv->data_source == 'form_data') {
                             $result = $wjv->form_data;
                         } else if($wjv->data_source == 'function_name') {
-                            $function_to_execute    = $wjv->get_data_function;
-                            $executed_function_data = call_user_func($function_to_execute);
+                            $function_to_execute    = preg_split('#/#',$wjv->get_data_function);
+                            //echo $ste = $function_to_execute[0].'::'.$function_to_execute[1].'()'; exit;
+                            $executed_function_data = WorkflowExecution::functionex();
                             $result = $executed_function_data;                            
                         } else {
                             $result = $default_result;
@@ -104,9 +109,10 @@ class WorkflowExecutionController extends Controller
                         if($wjv->data_source == 'form_data') {
                             $result = $wjv->form_data;
                         } else if($wjv->data_source == 'function_name') {
-                            $function_to_execute    = $wjv->get_data_function;
-                            $executed_function_data = call_user_func($function_to_execute);
-                            $result = $executed_function_data;                           
+                            $function_to_execute    = preg_split('#/#',$wjv->get_data_function);
+                            //echo $ste = $function_to_execute[0].'::'.$function_to_execute[1].'()'; exit;
+                            $executed_function_data = WorkflowExecution::functionex();
+                            $result = $executed_function_data;                            
                         } else {
                             $result = $default_result;
                         }
@@ -135,6 +141,16 @@ class WorkflowExecutionController extends Controller
             ]);                          
         }                    
                       
+    }
+
+    public function actionRestget() {
+        echo $data  = "rest api get request"; exit;
+    }
+
+    public function actionRestpost() {
+        $params = $_POST;
+        echo '<pre/>'; print_r($params); exit;
+        return $data  = "rest api post request";
     }
     
 }
