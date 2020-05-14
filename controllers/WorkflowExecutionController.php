@@ -89,7 +89,7 @@ class WorkflowExecutionController extends Controller
                             if($response === false)
                                 { $result = curl_error($curl); }
                             else
-                                { $result = $response; }                                  
+                                { $result = $response; }                                                                  
                             curl_close($curl);
                         }                        
                         break;
@@ -141,16 +141,6 @@ class WorkflowExecutionController extends Controller
             ]);                          
         }                    
                       
-    }
-
-    public function actionRestget() {
-        echo $data  = "rest api get request"; exit;
-    }
-
-    public function actionRestpost() {
-        $params = $_POST;
-        echo '<pre/>'; print_r($params); exit;
-        return $data  = "rest api post request";
     }
     
 }
