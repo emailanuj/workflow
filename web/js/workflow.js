@@ -92,7 +92,10 @@ $(document).on('click',"#cancelstartevent",function(){
 function showFunction(element_id,form_type){
     // clearLocalStorage();
 	var workflow_id=$('#workflow_id').val();
+<<<<<<< HEAD
 	// debugger;
+=======
+>>>>>>> 05713fddf6bb8be3eff88c452c1297c03338a776
 	$.ajax({
 		type: "post",
 		url: baseURL + '/workflow/get-ajax-form',
