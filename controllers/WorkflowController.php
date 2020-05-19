@@ -275,12 +275,13 @@ class WorkflowController extends Controller
                 foreach($v as $kv => $vv) {                
                     $clonedata[$kv] = $vv['value'];
                 }
-           }           
-           $clone_id = $clonedata[2];
-           $clone_type = $clonedata[1];
+           }
+                     
+           $clone_id = $clonedata[4];
+           $clone_type = $clonedata[3];
            if (($clone_db_data = Workflow::findOne($clone_id)) !== null) {                
-                $wmodel->workflow_title = $clone_db_data->workflow_title;
-                $wmodel->workflow_description = $clone_db_data->workflow_description;
+                $wmodel->workflow_title = $clonedata[1];
+                $wmodel->workflow_description = $clonedata[2];
                 $wmodel->workflow_json = $clone_db_data->workflow_json;
                 if($clone_type== 'data') {
                     $wmodel->workflow_data = $clone_db_data->workflow_data;
