@@ -58,6 +58,6 @@ class TblFunctions extends \yii\db\ActiveRecord
     public static function getAllDataFunction()
     {
         $arrTblFunctions = TblFunctions::find()->where(['function_type' => TblFunctions::GETDATA ])->orderBy(['function_name'=>SORT_ASC])->all();
-        return ArrayHelper::map($arrTblFunctions,'function_name','function_name');
+        return ArrayHelper::map($arrTblFunctions,'function_url','function_name');
     }
 }

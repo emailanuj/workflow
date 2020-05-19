@@ -71,4 +71,10 @@ class WorkflowExecution extends \yii\db\ActiveRecord
             'status' => 'Status',
         ];
     }
+
+    public function functionex() {
+        return $data = 'I am the data returned by function call';        
+    }
+
+    
 }
