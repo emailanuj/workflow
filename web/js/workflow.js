@@ -59,12 +59,12 @@ $(document).on('click',"#saveWorkflowModal",function(){
 			$('#modal').find('#modalContent').html('');
 			$('#modal').find('#modalHeader').html('Create Workflow');
 			$('#modal').find('#modalContent').html(data);
-
+			$('#modal').find('.save-ajax-btn').attr('id','save-workflow-data');
 		}
 	});
 });
 
-$(document).on('click',"#save-form-data",function(){
+$(document).on('click',"#save-workflow-data",function(){
 	$.ajax({
 		url: baseURL +'/workflow/create-workflow/',
 		type: 'POST',
@@ -79,8 +79,35 @@ $(document).on('click',"#save-form-data",function(){
 	});
 });
 
-// 
+$(document).on('click',"#createWorkflowClone",function(){
+	$.ajax({
+		url: baseURL +'/workflow/create-workflow-clone/',
+		data : {'workflow-id' : $(this).attr('actual-id'), 'form-type' : 'create-clone' },
+		type: 'POST',
+		success: function(data) {
+			$('#modal').modal('show');
+			$('#modal').find('#modalContent').html('');
+			$('#modal').find('#modalHeader').html('Clone Workflow');
+			$('#modal').find('#modalContent').html(data);
+			$('#modal').find('.save-ajax-btn').attr('id','clone-workflow-data');
+		}
+	});
+});
 
+$(document).on('click',"#clone-workflow-data",function(){
+	$.ajax({
+		url: baseURL +'/workflow/create-workflow-clone/',
+		type: 'POST',
+		dataType:'json',
+		data: $('#formclone').serializeArray(),
+		success: function(data) {
+			$.each(data, function(index, value){
+				$("#formclone").find('.field-workflowclone-'+ index).addClass('has-error');
+				$("#formclone").find('.field-workflowclone-'+ index).find('.help-block').text(value);
+			})
+		}
+	});
+});
 
 
 $(document).on('click',"#cancelstartevent",function(){

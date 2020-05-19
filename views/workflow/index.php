@@ -18,13 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <span id="close" onclick="closeForm()" style="margin-top:0px!important;">
             <img src="<?= Url::base().'/images/pop-close.png'; ?>" />
         </span>    
-        <!-- <div class="form-container">
-                <h3>Clone Form</h3>
-                <?php 
-                    // echo $this->render('_customCloneForm', [
-                    //'clonemodel' => $clonemodel
-           // ]) ?>
-        </div> -->
     </div>
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -51,6 +44,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view}{update}{delete}{clone}{execute}',
                 'buttons' => [
+                    'clone' => function ($url, $model, $key) {
+                        //<span class="glyphicon glyphicon-duplicate" onclick="openform('.$key.')"></span>
+                        return Html::a(
+                            ' <span class="glyphicon glyphicon-duplicate"></span>',
+                            '#', 
+                            [
+                                'id'=>"createWorkflowClone",
+                                'actual-id' => $key,
+                                'class' => 'clone-view-link',
+                                'title' => Yii::t('yii', 'Clone'),
+                                'data-pjax' => '0',
+                        ]);
+                    },
                     'execute' => function ($url, $model, $key) {
                         return Html::a(
                             '<span class="glyphicon glyphicon-hourglass"></span>',
@@ -61,19 +67,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         );
                     },
-                    'clone' => function ($url, $model, $key) {
-                        return Html::a('<span class="glyphicon glyphicon-duplicate" onclick="openform('.$key.')"></span>','#', [
-                            'class' => 'clone-view-link',
-                            'title' => Yii::t('yii', 'Clone'),
-                            'data-toggle' => 'modal',
-                            'data-target' => '#clone-modal',
-                            'data-id' => $key,
-                            'data-pjax' => '0',
-        
-                        ]);
-                    },
+                    
                 ],
             ],
         ],
-    ]); ?>
+    ]); ?>  
 </div>
