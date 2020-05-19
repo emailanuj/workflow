@@ -65,16 +65,21 @@ class WorkflowExecutionController extends Controller
                         $username       = $wjv->username;
                         $password       = $wjv->password;
 
+                        $token_bearer = $this->getCurrentToken($auth_type,$token_url,$username,$password,$execution_id);                        
                         $post_items = array();
 
                         if($api_type == 'rest') {                            
                             $curl = curl_init();
-                            if($api_method == 'get') {                                                                                                        
+                            curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+                                    'Content-Type: application/json',
+                                    'Authorization: Bearer ' . $token_bearer
+                                    )); 
+                            if($api_method == 'get') {                                                                                                                                           
                                     curl_setopt_array($curl, [
                                         CURLOPT_RETURNTRANSFER => 1,
                                         CURLOPT_URL => $api_uri,
                                         CURLOPT_USERAGENT => 'Test'
-                                    ]);
+                                    ]);                                    
                             }
                             else if($api_method == 'post') {                                                                
                                 curl_setopt_array($curl, [
@@ -126,10 +131,15 @@ class WorkflowExecutionController extends Controller
                     $ex_model->instance_id      = $model->id;
                     $ex_model->request_params   = $wjv->step_no;
                     $ex_model->response_params  = $result;
-                    $ex_model->execution_id     = $execution_id;  
+                    $ex_model->execution_id     = $execution_id; 
+                    if($wjv->keywords == 'API') {
+                        $ex_model->api_domain       = $token_url;
+                        $ex_model->auth_token       = $token_bearer; 
+                    }
                     $ex_model->status           = '1';              
                     $ex_model->save();                
-                }                           
+                } 
+                                        
             } 
             // get executed data  
             $execution_model = WorkflowExecution::find()->where(['instance_id' => $model->id, 'execution_id' => $execution_id])->all();            
@@ -141,6 +151,34 @@ class WorkflowExecutionController extends Controller
             ]);                          
         }                    
                       
+    }
+
+    public function getCurrentToken($auth_type,$token_url,$username,$password,$executionid) {
+        $credentials = array('username' => $username, 'password' => $password);                    
+        if($auth_type == 'token') { 
+            $previous_token = WorkflowExecution::find()->where(['execution_id' => $executionid, 'api_domain' => $token_url])->one();
+            if(!empty($previous_token)) {
+                $token = $previous_token->auth_token;
+                return $token;
+            }
+            else {
+                $curl = curl_init();
+                curl_setopt_array($curl, [
+                    CURLOPT_RETURNTRANSFER => 1,
+                    CURLOPT_URL => $token_url,
+                    CURLOPT_USERAGENT => 'Test',
+                    CURLOPT_POST => 1,
+                    CURLOPT_POSTFIELDS => $credentials
+                ]);
+                $response = curl_exec($curl);            
+                if($response === false)
+                    { $token = curl_error($curl); }
+                else
+                    { $token = $response; }                                                                  
+                curl_close($curl);            
+                return $token;
+            }
+        }
     }
     
 }
