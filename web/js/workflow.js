@@ -6,7 +6,7 @@ var diagram_json={};
 $(document).on('click',"#savestartevent",function(){
 	// debugger;
 	 var diagram_json={};
-	 diagram_json['bpmn']=bpmnjson;
+	 diagram_json['bpmn'] = bpmnjson;
 	 diagram_json=JSON.stringify(diagram_json);
 	 $('#form_json_data').val(diagram_json);
 	 formdata=$('#seModal0').serializeArray();
@@ -38,20 +38,56 @@ $(document).on('click',"#savestartevent",function(){
 	    },
 	}); 
 });
+
 $(document).on('click',"#SEClose",function(){
 	$('.workflow_form').empty();
 });
+
 $(document).on('click',"#close",function(){
 	$('.workflow_form').empty();
 });
+
 $(document).on('click',"#saveWorkflowModal",function(){
-	window.workflowmodal = document.getElementById('workflowmodal');
-	workflowmodal.style.display = "block";
+// 	window.workflowmodal = document.getElementById('workflowmodal');
+// 	workflowmodal.style.display = "block";
+	clearLocalStorage();
+	$.ajax({
+		url: baseURL +'/workflow/create-workflow/',
+		type: 'POST',
+		success: function(data) {
+			$('#modal').modal('show');
+			$('#modal').find('#modalContent').html('');
+			$('#modal').find('#modalHeader').html('Create Workflow');
+			$('#modal').find('#modalContent').html(data);
+
+		}
+	});
 });
+
+$(document).on('click',"#save-form-data",function(){
+	$.ajax({
+		url: baseURL +'/workflow/create-workflow/',
+		type: 'POST',
+		dataType:'json',
+		data: $('#workflow_save').serializeArray(),
+		success: function(data) {
+			$.each(data, function(index, value){
+				$("#workflow_save").find('.field-workflow-'+ index).addClass('has-error');
+				$("#workflow_save").find('.field-workflow-'+ index).find('.help-block').text(value);
+			})
+		}
+	});
+});
+
+// 
+
+
+
 $(document).on('click',"#cancelstartevent",function(){
 	window.workflowmodal = document.getElementById('workflowmodal');
 	workflowmodal.style.display = "none";
 });
+
 // For Showing Modal
 function showFunction(element_id,form_type){
     // clearLocalStorage();

@@ -13,21 +13,24 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="workflow-index">    
     <div id="form-popup">   
-    <div id="loading" style="position:absolute;display:none;"><img src="<?= Url::base().'/images/loading.gif'; ?>" style="margin-left:400px;"/></div>     
-        <span id="close" onclick="closeForm()" style="margin-top:0px!important;"><img src="<?= Url::base().'/images/pop-close.png'; ?>" /></span>    
-        <div class="form-container">
+    <div id="loading" style="position:absolute;display:none;">
+        <img src="<?= Url::base().'/images/loading.gif'; ?>" style="margin-left:400px;"/></div>     
+        <span id="close" onclick="closeForm()" style="margin-top:0px!important;">
+            <img src="<?= Url::base().'/images/pop-close.png'; ?>" />
+        </span>    
+        <!-- <div class="form-container">
                 <h3>Clone Form</h3>
-                <?= $this->render('_customCloneForm', [
-                    'clonemodel' => $clonemodel
-            ]) ?>
-        </div>
+                <?php 
+                    // echo $this->render('_customCloneForm', [
+                    //'clonemodel' => $clonemodel
+           // ]) ?>
+        </div> -->
     </div>
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
     	<button id="saveWorkflowModal" class="btn btn-success" data-toggle="modal" data-target="#FModal">Create Workflow</button>
-    	
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -38,14 +41,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            // 'id',
             'workflow_title',
             'workflow_description',
+            'created_at:datetime',
             //'workflow_data:ntext',
-            //'created_at',
-            //'updated_at',
-            //'created_by',
-            //'updated_by',
 
             [
                 'class' => 'yii\grid\ActionColumn',
@@ -76,16 +76,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-
 </div>
-
-<!--------------------------------------------------- Modal For Saving Data ------------------------->
-<div id="workflowmodal" class="modal"> 
-      <!-- Modal content -->
-      <div class="modal-content" class="workflowmodal" style="width: 500px; margin-left:500px;margin-top:100px;">
-      <?= $this->render('_customWorkflowSaveForm',[
-    'workflowModel' => $workflowModel
-]) ?>
-      </div>
-</div>
-<!-- ----------------------------------------------------------End ---------------------------------->

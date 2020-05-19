@@ -10,6 +10,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use yii\helpers\Url;
+// use yii\bootstrap\Modal;
 
 AppAsset::register($this);
 ?>
@@ -143,16 +144,41 @@ AppAsset::register($this);
             </div>
             <div class='control-sidebar-bg'></div>
     </div>
-
     <?php $this->endBody() ?>
+    
+    <?php
+        yii\bootstrap\Modal::begin([
+            'options' => [
+                'tabindex' => false // important for Select2 to work properly
+            ],
+            'header'=>'<h4 class="modal-title" id="modalHeader"></h4>',
+            'footer'=>'
+                <button type="button" id="save-form-data" class="btn btn-success" name="contact-button">Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            ',
+            'id' => 'modal',
+            //'size' => 'modal-lg',
+            //keeps from closing modal with esc key or by clicking out of the modal.
+            // user must click cancel or X to close
+            'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+
+        ]);
+        echo "<div class='batch-info'></div>
+             <div id='modalContent'></div>";
+        yii\bootstrap\Modal::end();
+    ?>
+
+
     <script type="text/javascript">
-            $(document).ready(function(){
-                //Table Filter
-                $("#TableSearch").click(function(){
-                    $(".table-filter").toggle();
-                });
+        $(document).ready(function(){
+            //Table Filter
+            $("#TableSearch").click(function(){
+                $(".table-filter").toggle();
             });
-        </script>
+
+            // $('#modal').modal('show');
+        });
+    </script>
 </body>
 </html>
 <?php $this->endPage() ?>

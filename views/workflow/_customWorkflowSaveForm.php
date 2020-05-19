@@ -7,28 +7,24 @@ use yii\helpers\Url;
 /* @var $workflowDataModel app\models\Workflow */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-  <!-- <form id="seModal0" action="" name="seModal0"> -->
   <?php $form = ActiveForm::begin([
     'id' => 'workflow_save',
-    'action'  => 'workflow/create',
+    'enableClientValidation' => true,
+    'enableAjaxValidation' => false,
+    // 'options' => [
+    //     'validateOnSubmit' => false,
+    // ],
   ]); ?>
-   <form id="w0" action="" method="post">
-        <div class="modal-header">
-        <center><h4>Create Workflow</h4></center>
+        <div class="form-group">
+            <?= $form->field($workflowModel, 'workflow_title')->textInput(['autofocus' => true,'placeholder'=>'Workflow Title']) ?>
         </div>
-        <div class="modal-body">
-          <div class="form-group">
-          <?= $form->field($workflowModel, 'workflow_title')->textInput(['autofocus' => true,'placeholder'=>'Workflow Title','required'=>'required']) ?>
-          </div>
-          <div class="form-group">
-          <?= $form->field($workflowModel, 'workflow_description')->textarea(['placeholder'=>'Workflow Description']) ?>
-          </div>
+        <div class="form-group">
+            <?= $form->field($workflowModel, 'workflow_description')->textarea(['placeholder'=>'Workflow Description']) ?>
         </div>
-        <div class="modal-footer">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-primary', 'name' => 'contact-button', 'id' => 'savestartevent','onClick'=>'clearLocalStorage()' ]) ?>
-        <?= Html::button('Cancel', ['class' => 'btn btn-primary', 'name' => 'contact-button', 'id' => 'cancelstartevent' ]) ?>
-        </div>
-      </div>
-      </form>
+        
+        <!-- <div class="form-group">
+            <?= Html::submitButton('Save', ['class' => 'btn btn-primary', 'name' => 'contact-button', 'id' => 'savestartevent','onClick'=>'clearLocalStorage()' ]) ?>
+            <?= Html::button('Cancel', ['class' => 'btn btn-primary', 'name' => 'contact-button', 'id' => 'create-workflow' ]) ?>
+        </div> -->
+
   <?php ActiveForm::end(); ?>
-  <!-- </form> -->

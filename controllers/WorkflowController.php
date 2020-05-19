@@ -57,6 +57,7 @@ class WorkflowController extends Controller
         ]);
     }
 
+
     /**
      * Displays a single Workflow model.
      * @param integer $id
@@ -68,6 +69,23 @@ class WorkflowController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+
+    public function actionCreateWorkflow()
+    {
+        $objWorkflow = new Workflow();
+        if(Yii::$app->request->isAjax && !empty(Yii::$app->request->post())  ){
+            if ( $objWorkflow->load(Yii::$app->request->post()) && $objWorkflow->save() ) {
+                return $this->redirect(['create', 'id' => $objWorkflow->id]);
+            }
+            return json_encode($objWorkflow->getErrors());
+        }
+
+        echo $this->renderAjax('_customWorkflowSaveForm', [
+                                                'workflowModel' => $objWorkflow,
+                                            ]
+        );
     }
 
     /**
@@ -82,24 +100,22 @@ class WorkflowController extends Controller
         $model = new Workflow();
         
         $workflowDataModel = new WorkflowDataModel();
-       // print_r(Yii::$app->request->post()); exit;
-        if(!empty(Yii::$app->request->post())){
-
-            $post_data=Yii::$app->request->post();        
-            if ($model->load($post_data) && $model->save()) {
-                $post_data=Yii::$app->request->post();
-                /* -------------------- For Updating Records in MongoDB ------------------------------*/
-                $session_id=Yii::$app->session->Id;
-                try{
-                    $logged_in_user_id=Yii::$app->user->identity->id;
-                }
-                catch (\Exception $ex){
-                    $logged_in_user_id='';
-                }
-                /* ------------------------ End ------------------------------------------------------*/
-                return $this->redirect(['create', 'id' => $model->id]);
-            }
-        }
+        // if(!empty(Yii::$app->request->post())){
+        //     $post_data=Yii::$app->request->post();        
+        //     if ($model->load($post_data) && $model->save()) {
+        //         $post_data=Yii::$app->request->post();
+        //         /* -------------------- For Updating Records in MongoDB ------------------------------*/
+        //         $session_id=Yii::$app->session->Id;
+        //         try{
+        //             $logged_in_user_id=Yii::$app->user->identity->id;
+        //         }
+        //         catch (\Exception $ex){
+        //             $logged_in_user_id='';
+        //         }
+        //         /* ------------------------ End ------------------------------------------------------*/
+        //         return $this->redirect(['create', 'id' => $model->id]);
+        //     }
+        // }
         if(!empty($id)){
             $model = $this->findModel($id);
         }

@@ -50,8 +50,9 @@ class Workflow extends ActiveRecord
     public function rules()
     {
         return [
-            [['workflow_data','workflow_json'], 'string'],
+            [['workflow_title'], 'required'],
             [['workflow_title'], 'string', 'max' => 100],
+            [['workflow_data','workflow_json'], 'string'],
             [['workflow_description'], 'string', 'max' => 200],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
