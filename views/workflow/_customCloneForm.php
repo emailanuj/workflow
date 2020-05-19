@@ -20,9 +20,11 @@ $clones = array('structure'=>'structure','data'=>'data');
 
     ]); ?>
 
+    <?= $form->field($clonemodel,'clone_title')->textInput(['maxlength' => true]); ?>
+    <?= $form->field($clonemodel,'clone_description')->textInput(['maxlength' => true]); ?>
     <?= $form->field($clonemodel,'clone_type')->dropDownList($clones,['prompt'=> 'select Clone Type']);   ?>
 
-    <?= $form->field($clonemodel,'clone_id')->textInput(['maxlength' => true, 'readonly' => 'true']) ?>
+    <?= Html::activeHiddenInput($clonemodel,'clone_id'); ?>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success', 'id' => 'clonesubmit']) ?>
     </div>
