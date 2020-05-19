@@ -4,7 +4,6 @@ var currFormArr={};
 var fieldsArray=[];
 var diagram_json={};
 $(document).on('click',"#savestartevent",function(){
-	debugger;
 	 var diagram_json={};
 	 diagram_json['bpmn']=bpmnjson;
 	 diagram_json=JSON.stringify(diagram_json);
@@ -56,7 +55,6 @@ $(document).on('click',"#cancelstartevent",function(){
 function showFunction(element_id,form_type){
     // clearLocalStorage();
 	var workflow_id=$('#workflow_id').val();
-	debugger;
 	$.ajax({
 		type: "post",
 		url: baseURL + '/workflow/get-ajax-form',
