@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'execute' => function ($url, $model, $key) {
                         return Html::a(
                             '<span class="glyphicon glyphicon-hourglass"></span>',
-                            'workflow-execution/index?id='.$key, 
+                            Url::base().'/workflow-execution/index?id='.$key, 
                             [
                                 'title' => 'Execute',
                                 'data-pjax' => '0',

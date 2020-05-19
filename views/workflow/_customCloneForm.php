@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model app\models\Workflow */
 /* @var $form yii\widgets\ActiveForm */
@@ -13,7 +13,7 @@ $clones = array('structure'=>'structure','data'=>'data');
 
     <?php $form = ActiveForm::begin([
         'id' => 'formclone',
-        'action' => 'workflow/clone',
+        'action' => Url::base().'/workflow/clone',
         'options' => [
             'onsubmit' => 'return false'
         ]

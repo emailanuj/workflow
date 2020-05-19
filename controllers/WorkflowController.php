@@ -281,21 +281,18 @@ class WorkflowController extends Controller
            if (($clone_db_data = Workflow::findOne($clone_id)) !== null) {                
                 $wmodel->workflow_title = $clone_db_data->workflow_title;
                 $wmodel->workflow_description = $clone_db_data->workflow_description;
-                $wmodel->workflow_data = $clone_db_data->workflow_data;
+                $wmodel->workflow_json = $clone_db_data->workflow_json;
                 if($clone_type== 'data') {
-                    $wmodel->workflow_json = $clone_db_data->workflow_json;
+                    $wmodel->workflow_data = $clone_db_data->workflow_data;
                 } else {  
                     $work_form_struct_json = array();                  
-                    $work_form_array = json_decode($clone_db_data->workflow_json, true);                                          
+                    $work_form_array = json_decode($clone_db_data->workflow_data, true);                                            
                     foreach($work_form_array as $wfk => $wfv) {                        
-                            $work_form_struct_array[$wfk]['selectedId']     = $wfv['selectedId'];
-                            $work_form_struct_array[$wfk]['elementType']    = $wfv['elementType'];
-                            $work_form_struct_array[$wfk]['elementSubType'] = $wfv['elementSubType'];
                             $work_form_struct_array[$wfk]['step_no']        = $wfv['step_no'];
                             $work_form_struct_array[$wfk]['keywords']       = $wfv['keywords'];                                                                  
                     }                                                          
                     $work_form_struct_json = json_encode($work_form_struct_array);
-                    $wmodel->workflow_json = $work_form_struct_json;
+                    $wmodel->workflow_data = $work_form_struct_json;
                     
                 }               
                 $wmodel->save(); 
