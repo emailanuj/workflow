@@ -278,45 +278,85 @@ class WorkflowController extends Controller
             }
         }
     }
-    public function actionClone() {
-        $model = new WorkflowClone();
-        $wmodel = new Workflow();
-        if (Yii::$app->request->isAjax && Yii::$app->request->post()) {
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;            
-            $model = new WorkflowClone();
-            $validation_status=ActiveForm::validate($model,Yii::$app->request->post());
-            $data = Yii::$app->request->post();
-            $clonedata = array();           
-           foreach($data as $k =>$v) {
-                foreach($v as $kv => $vv) {                
-                    $clonedata[$kv] = $vv['value'];
+
+
+    public function actionCreateWorkflowClone()
+    {
+        $workflowModel = new WorkflowClone();
+        $strFormType = Yii::$app->request->post('form-type');
+
+        if(Yii::$app->request->isAjax && !empty(Yii::$app->request->post()) && $strFormType != 'create-clone' ){
+            if ( $workflowModel->load(Yii::$app->request->post()) && $workflowModel->validate() ) {
+                $clone_db_data = Workflow::findOne($workflowModel->clone_id);
+
+                $objSaveWorkflowClone = new Workflow();
+                $objSaveWorkflowClone->workflow_title = $workflowModel->clone_title;
+                $objSaveWorkflowClone->workflow_description = $workflowModel->clone_description;
+                $objSaveWorkflowClone->workflow_json = $clone_db_data->workflow_json;
+
+                if($workflowModel->clone_type == 'data') {
+                    $objSaveWorkflowClone->workflow_data = $clone_db_data->workflow_data;
+                } else {
+                    $arrDataStructure = [];                  
+                    $arrSavedWorkflowData = json_decode($clone_db_data->workflow_data, true);          
+                    foreach($arrSavedWorkflowData as $strKey => $arrValues) {                        
+                        $work_form_struct_array[$strKey]['step_no'] = $arrValues['step_no'];
+                        $work_form_struct_array[$strKey]['keywords'] = $arrValues['keywords'];
+                    }
+                    $objSaveWorkflowClone->workflow_data = json_encode($work_form_struct_array);
                 }
-           }
-                     
-           $clone_id = $clonedata[4];
-           $clone_type = $clonedata[3];
-           if (($clone_db_data = Workflow::findOne($clone_id)) !== null) {                
-                $wmodel->workflow_title = $clonedata[1];
-                $wmodel->workflow_description = $clonedata[2];
-                $wmodel->workflow_json = $clone_db_data->workflow_json;
-                if($clone_type== 'data') {
-                    $wmodel->workflow_data = $clone_db_data->workflow_data;
-                } else {  
-                    $work_form_struct_json = array();                  
-                    $work_form_array = json_decode($clone_db_data->workflow_data, true);                                            
-                    foreach($work_form_array as $wfk => $wfv) {                        
-                            $work_form_struct_array[$wfk]['step_no']        = $wfv['step_no'];
-                            $work_form_struct_array[$wfk]['keywords']       = $wfv['keywords'];                                                                  
-                    }                                                          
-                    $work_form_struct_json = json_encode($work_form_struct_array);
-                    $wmodel->workflow_data = $work_form_struct_json;
-                    
-                }               
-                $wmodel->save(); 
+                $objSaveWorkflowClone->save();
+                return $this->redirect(['update', 'id' => $objSaveWorkflowClone->id]);
             }
-            return 'success';            
-        }     
+            return json_encode($workflowModel->getErrors());
+        }
+
+        $workflowModel->clone_id = Yii::$app->request->post('workflow-id');
+        echo $this->renderAjax('_customCloneForm', [
+                                                'clonemodel' => $workflowModel,
+                                            ]
+        );
     }
+
+    // public function actionClone() {
+    //     $model = new WorkflowClone();
+    //     $wmodel = new Workflow();
+    //     if (Yii::$app->request->isAjax && Yii::$app->request->post()) {
+    //         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;            
+    //         $model = new WorkflowClone();
+    //         $validation_status=ActiveForm::validate($model,Yii::$app->request->post());
+    //         $data = Yii::$app->request->post();
+    //         $clonedata = array();           
+    //        foreach($data as $k =>$v) {
+    //             foreach($v as $kv => $vv) {          
+    //                 $clonedata[$kv] = $vv['value'];
+    //             }
+    //        }
+                     
+    //        $clone_id = $clonedata[4];
+    //        $clone_type = $clonedata[3];
+    //        if (($clone_db_data = Workflow::findOne($clone_id)) !== null) {                
+    //             $wmodel->workflow_title = $clonedata[1];
+    //             $wmodel->workflow_description = $clonedata[2];
+    //             $wmodel->workflow_json = $clone_db_data->workflow_json;
+    //             if($clone_type== 'data') {
+    //                 $wmodel->workflow_data = $clone_db_data->workflow_data;
+    //             } else {  
+    //                 $work_form_struct_json = array();                  
+    //                 $work_form_array = json_decode($clone_db_data->workflow_data, true);                                            
+    //                 foreach($work_form_array as $wfk => $wfv) {                        
+    //                         $work_form_struct_array[$wfk]['step_no']        = $wfv['step_no'];
+    //                         $work_form_struct_array[$wfk]['keywords']       = $wfv['keywords'];                                                                  
+    //                 }                                                          
+    //                 $work_form_struct_json = json_encode($work_form_struct_array);
+    //                 $wmodel->workflow_data = $work_form_struct_json;
+                    
+    //             }               
+    //             $wmodel->save(); 
+    //         }
+    //         return 'success';            
+    //     }     
+    // }
     /// For Saving Complete Workflow
     /**
      * Creates a new Workflow model.
@@ -344,4 +384,5 @@ class WorkflowController extends Controller
             }
         }
     }
+
 }

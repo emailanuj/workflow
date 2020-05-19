@@ -153,7 +153,7 @@ AppAsset::register($this);
             ],
             'header'=>'<h4 class="modal-title" id="modalHeader"></h4>',
             'footer'=>'
-                <button type="button" id="save-form-data" class="btn btn-success" name="contact-button">Save</button>
+                <button type="button" class="btn btn-success save-ajax-btn" >Save</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
             ',
             'id' => 'modal',
