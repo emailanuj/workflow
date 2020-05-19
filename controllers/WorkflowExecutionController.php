@@ -9,6 +9,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Workflow;
+use yii\data\ActiveDataProvider;
+use yii\db\Query;
+
 
 /**
  * WorkflowExecutionController implements the CRUD actions for WorkflowExecution model.
@@ -142,11 +145,23 @@ class WorkflowExecutionController extends Controller
                                         
             } 
             // get executed data  
-            $execution_model = WorkflowExecution::find()->where(['instance_id' => $model->id, 'execution_id' => $execution_id])->all();            
-
+            //$dataProvider = WorkflowExecution::find()->where(['instance_id' => $model->id, 'execution_id' => $execution_id])->all();                       
+            $query = (new Query())->from('workflow_execution')->where(['instance_id' => $model->id, 'execution_id' => $execution_id]);                        
+            $provider = new ActiveDataProvider([
+                'query' => $query,                
+                'sort' => [
+                    'defaultOrder' => [
+                        //'created_at' => SORT_DESC,
+                        //'request_params' => SORT_ASC, 
+                    ]
+                ],
+            ]);
+            $emodel = $provider->getModels();
+            // get executed data 
             return $this->render('index', [                    
                 'model'    => $model, 
-                'execution_model' => $execution_model,               
+                'dataProvider' => $provider, 
+                'emodel'     => $emodel,              
                 'workflow_id' => $id,
             ]);                          
         }                    
