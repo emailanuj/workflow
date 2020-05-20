@@ -21,6 +21,11 @@ use \yii\db\ActiveRecord;
  */
 class WorkflowExecution extends \yii\db\ActiveRecord
 {
+    const NOT_STARTED = 'Not Started';
+    const IN_PROGRESS = 'In Progress';
+    const COMPLEATED = 'Compleated';
+
+    
     /**
      * {@inheritdoc}
      */

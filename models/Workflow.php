@@ -22,6 +22,7 @@ use \yii\db\ActiveRecord;
  */
 class Workflow extends ActiveRecord
 {
+    public $execution_status;
     /**
      * {@inheritdoc}
      */
