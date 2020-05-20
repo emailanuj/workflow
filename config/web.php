@@ -54,7 +54,7 @@ $config = [
             // 'dsn' => 'mongodb://bpnmroot:password@localhost:27017/bpnm',
             // 'dsn' => 'mongodb://cisco:password@localhost:27017/cisco_workflow',
             'dsn' => 'mongodb://localhost:27017/cisco_workflow',
-        ],
+        ],        
     ],
     'as beforeRequest' =>
     [
@@ -70,6 +70,16 @@ $config = [
             ],
         ],
     ],
+    'modules' => [
+        'gridview' =>  [
+             'class' => '\kartik\grid\Module',
+             // enter optional module parameters below - only if you need to  
+             // use your own export download action or custom translation 
+             // message source
+              'downloadAction' => 'gridview/export/download',
+              'i18n' => []
+         ]
+        ],
     'params' => $params,
 ];
 

@@ -1,6 +1,9 @@
 <?php
 use yii\helpers\Url;
-use yii\grid\GridView;
+//use yii\grid\GridView;
+use kartik\export\ExportMenu;
+use kartik\grid\GridView;
+
 
 ?>
 <div style="height:500px!important;">    
@@ -16,7 +19,8 @@ use yii\grid\GridView;
 
   
 </div>
-<?= GridView::widget([
+
+<?php /*echo GridView::widget([
         'dataProvider' => $dataProvider,        
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -31,7 +35,34 @@ use yii\grid\GridView;
              ],
             ['class' => 'yii\grid\ActionColumn', 'template' => ''],
         ],
-    ]); ?>
+    ]);*/ ?>
+    <?php 
+    $gridColumns = [
+      ['class' => 'yii\grid\SerialColumn'],
+  
+      'id',            
+      'request_params',
+      'created_at:datetime',                       
+      [
+        'label'=>'Status',
+        'format'=>'raw',
+        'value' => function($emodel) { return $emodel['status'] == 0 ? 'Fail' : 'Pass';}, 
+       ],
+      ['class' => 'yii\grid\ActionColumn', 'template' => ''],
+      ];
+    echo ExportMenu::widget([
+      'dataProvider' => $dataProvider,
+      'columns' => $gridColumns,
+      'dropdownOptions' => [
+          'label' => 'Export All',
+          'class' => 'btn btn-outline-secondary'
+      ]
+  ]) . "<hr>\n".
+  GridView::widget([
+      'dataProvider' => $dataProvider,
+      'columns' => $gridColumns,
+  ]);
+    ?>
 
 <?php
     $this->registerJs(
