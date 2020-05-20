@@ -64,9 +64,9 @@ var g2 = svg.append('g')
 
             g2.append('rect')
                 .attr('id', 'gateway' + idgatewayelement);
-                if(status == 'fail') {
+                if(status == '0') {
                     g2.style("stroke", "red"); 
-                } else if(status == 'pass') {
+                } else if(status == '1') {
                     g2.style("stroke", "green");
                 } else {
                     g2.style("stroke", "black");

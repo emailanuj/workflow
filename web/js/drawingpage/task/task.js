@@ -701,9 +701,9 @@ var dragrect = newg.append("rect")
 
            .attr('class', 'square')
             .attr('id', 'task' + idtaskelement);
-            if(status == 'fail') {
+            if(status == '0') {
                 newg.style("stroke", "red"); 
-            } else if(status == 'pass') {
+            } else if(status == '1') {
                 newg.style("stroke", "green");
             } else {
                 newg.style("stroke", "black");

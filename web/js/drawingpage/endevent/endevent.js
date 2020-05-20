@@ -59,9 +59,9 @@ console.log('calling end event');
 
         var g = group.append('circle')
             .attr('id', 'endEvent' + idendelement);
-            if(status == 'fail') {
+            if(status == '0') {
                 g.style("stroke", "red"); 
-            } else if(status == 'pass') {
+            } else if(status == '1') {
                 g.style("stroke", "green");
             } else {
                 g.style("stroke", "black");

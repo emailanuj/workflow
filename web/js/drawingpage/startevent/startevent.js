@@ -52,9 +52,9 @@ var starteventdevider = function (eid,subElement,svg,xvalue,yvalue,status){
 
         var g = group.append('circle')
             .attr('id', 'startEvnet' + idstartelement);
-            if(status == 'fail') {
+            if(status == '0') {
                 g.style("stroke", "red"); 
-            } else if(status == 'pass') {
+            } else if(status == '1') {
                 g.style("stroke", "green");
             } else {
                 g.style("stroke", "black");
