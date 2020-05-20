@@ -2,7 +2,7 @@
 var selectedId=0;
 var elementType='';
 var elementSubType='';
-var starteventdevider = function (eid,subElement,svg,xvalue,yvalue){
+var starteventdevider = function (eid,subElement,svg,xvalue,yvalue,status){
     var group = svg.append('g')
         .attr('transform', 'translate(' + xvalue + ',' + yvalue + ')')
         .attr('id', 'startEvnet' + (++idstartelement))
@@ -50,10 +50,16 @@ var starteventdevider = function (eid,subElement,svg,xvalue,yvalue){
                 .attr("transform","matrix(1.4375,0,0,1.4375,-20.9375,-20.9375)")
            }
 
-        group.append('circle')
-            .attr('id', 'startEvnet' + idstartelement)
-            .style("stroke", "black")
-            .style("stroke-width", "2")
+        var g = group.append('circle')
+            .attr('id', 'startEvnet' + idstartelement);
+            if(status == 'fail') {
+                g.style("stroke", "red"); 
+            } else if(status == 'pass') {
+                g.style("stroke", "green");
+            } else {
+                g.style("stroke", "black");
+            }
+           g.style("stroke-width", "2")
             .style("fill-opacity", "0")
             .attr('r', '20')
             .on("mouseover", function () {

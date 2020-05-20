@@ -1,5 +1,5 @@
 "use strict";
-var taskdevider = function (eid,subElement,svg,xvalue,yvalue){  
+var taskdevider = function (eid,subElement,svg,xvalue,yvalue,status){  
     console.log("commming")
     ++idtaskelement
 var w = window.innerWidth,
@@ -700,9 +700,15 @@ var dragpic1 =  group.append('path')
 var dragrect = newg.append("rect")
 
            .attr('class', 'square')
-            .attr('id', 'task' + idtaskelement)
-            .style("stroke", "black")
-            .attr("x", function(d) { return xvalue})
+            .attr('id', 'task' + idtaskelement);
+            if(status == 'fail') {
+                newg.style("stroke", "red"); 
+            } else if(status == 'pass') {
+                newg.style("stroke", "green");
+            } else {
+                newg.style("stroke", "black");
+            }
+            newg.attr("x", function(d) { return xvalue})
             .attr("y", function(d) { return yvalue})
             .style("stroke-width", "2")
             .style("fill-opacity", "0")

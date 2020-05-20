@@ -37,21 +37,20 @@ class WorkflowExecutionController extends Controller
         $this->layout = 'workflowLayout';               
         $id = Yii::$app->request->get('id');               
         if (($model = Workflow::findOne($id)) !== null) {
-            $workflowjson = json_decode($model->workflow_data); 
-
+            $workflowjson = json_decode($model->workflow_data);
+            $workflowdiagramjson = json_decode($model->workflow_json); 
+            $workflowdiagram_finaljson = json_decode(json_encode($workflowdiagramjson->bpmn), true);
            // sort in the execution order
-            $workflow_elements = (array)$workflowjson;                 
-            array_walk_recursive($workflow_elements,function(&$item){if(is_object($item))$item=(array)$item;});            
-            usort($workflow_elements, function($a, $b) {
-                return $a['step_no'] <=> $b['step_no'];
-            });
-            $workflowfinaljson =  (object) json_decode(json_encode($workflow_elements));            
+            $workflow_elements = json_decode(json_encode($workflowjson), true);                                                    
+            //usort($workflow_elements, function($a, $b) { return $a['step_no'] <=> $b['step_no']; });            
+            $workflowfinaljson =  (object) json_decode(json_encode($workflow_elements));                                 
             // sort in the execution order
 
-            $execution_id = uniqid('ex');            
+            $execution_id = uniqid('ex');
+            $ex_id = 0;            
             foreach($workflowfinaljson as $workflow_key =>$workflow_values) {                 
                 // gather previous result  
-                if($workflow_key > 0) {              
+                if($ex_id > 0) {              
                     $previous_result = WorkflowExecution::find()->where(['id' => $ex_model->id])->one();
                     if(!empty($previous_result)) { $default_result = $previous_result->response_params; }                
                 } else { $default_result = ''; }
@@ -142,10 +141,17 @@ class WorkflowExecutionController extends Controller
                     $ex_model->status  = empty($result) ? '0' : '1';                                                  
                     $ex_model->save();                
                 } 
-
+                $workflow_key = ltrim($workflow_key,"SE");                
+                $jsonkey = array_search($workflow_key,array_column($workflowdiagram_finaljson, 'id'));
+                $workflowdiagram_finaljson[$jsonkey]['status'] = empty($result) ? '0' : '1';                  
                 if(empty($result)) { if($workflow_values->if_fail == 'stop') { break;  } }
-                                        
-            } 
+                              
+               $ex_id++;                         
+            }  
+            $workflowdiagrambpmn['bpmn'] = $workflowdiagram_finaljson;
+            $workflow_json_diagram_save = json_encode($workflowdiagrambpmn);           
+            $model->workflow_json = $workflow_json_diagram_save;           
+            $model->save();                    
             // get executed data  
             //$dataProvider = WorkflowExecution::find()->where(['instance_id' => $model->id, 'execution_id' => $execution_id])->all();                       
             $query = (new Query())->from('workflow_execution')->where(['instance_id' => $model->id, 'execution_id' => $execution_id]);                        
@@ -196,6 +202,10 @@ class WorkflowExecutionController extends Controller
                 return $token;
             }
         }
+    }
+
+    public function actionList() {
+
     }
     
 }

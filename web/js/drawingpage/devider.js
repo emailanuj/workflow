@@ -10,17 +10,17 @@ var bpmnEventDivider = function (bpmnElement,subElement,svg) {
     // console.log(bpmnElement);
     if (bpmnElement === "startEvent") {
         window.bpmnElement = null;
-        starteventdevider(null,subElement,svg,d3.event.pageX,d3.event.pageY);
+        starteventdevider(null,subElement,svg,d3.event.pageX,d3.event.pageY,status);
     } else if (bpmnElement === "endEvent") {
         window.bpmnElement = null;
-        endeventdevider(null,subElement,svg,d3.event.pageX,d3.event.pageY);
+        endeventdevider(null,subElement,svg,d3.event.pageX,d3.event.pageY,status);
     } else if (bpmnElement === "task") {
         window.bpmnElement = null;
         // var sampleSVG = svg;
-        taskdevider(null,subElement,svg,d3.event.pageX,d3.event.pageY);
+        taskdevider(null,subElement,svg,d3.event.pageX,d3.event.pageY,status);
     } else if (bpmnElement === "gateway") {
         window.bpmnElement = null;
-        gatewaydevider(null,subElement,svg,d3.event.pageX,d3.event.pageY);
+        gatewaydevider(null,subElement,svg,d3.event.pageX,d3.event.pageY,status);
     } 
     else if (bpmnElement === "flow" || bpmnElement === "flowselect") {
         window.bpmnElement = null;
