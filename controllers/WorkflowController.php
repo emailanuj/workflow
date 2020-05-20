@@ -44,16 +44,12 @@ class WorkflowController extends Controller
      */
     public function actionIndex()
     {
-        $workflowModel=new Workflow();
-        $searchModel = new WorkflowSearch();        
+        $searchModel = new WorkflowSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $clonemodel = new WorkflowClone();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'workflowModel'=>$workflowModel,
-            'clonemodel' => $clonemodel,
         ]);
     }
 

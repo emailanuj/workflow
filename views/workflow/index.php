@@ -37,6 +37,13 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'id',
             'workflow_title',
             'workflow_description',
+            [
+                'attribute' => 'execution_status',
+                'label' => 'Executed Workflow',
+                'value' => function ($model){
+                    return ( $model->execution_status == 0 ) ? 'Active' : 'No-Active';
+                },
+            ],
             'created_at:datetime',
             //'workflow_data:ntext',
 
@@ -44,10 +51,28 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{view}{update}{delete}{clone}{execute}',
                 'buttons' => [
+
+                    'view' => function ($url, $model) {
+                        return Html::a('<button type="button" class="btn btn-sm btn-success marginRight5Px">View</button>', $url, [
+                                    'title' => Yii::t('app', 'lead-view'),
+                        ]);
+                    },
+
+                    'update' => function ($url, $model) {
+                        return Html::a('<button type="button" class="btn btn-sm btn-primary marginRight5Px">Edit</button>', $url, [
+                                    'title' => Yii::t('app', 'instance-update'),
+                        ]);
+                    },
+                    'delete' => function ($url, $model) {
+                        return Html::a('<button type="button" class="btn btn-sm btn-danger marginRight5Px">Delete</button>', $url, [
+                                    'title' => Yii::t('app', 'instance-delete'),
+                        ]);
+                    },
+
                     'clone' => function ($url, $model, $key) {
                         //<span class="glyphicon glyphicon-duplicate" onclick="openform('.$key.')"></span>
                         return Html::a(
-                            ' <span class="glyphicon glyphicon-duplicate"></span>',
+                            '<button type="button" class="btn btn-sm btn-warning marginRight5Px">Clone </button>',
                             '#', 
                             [
                                 'id'=>"createWorkflowClone",
@@ -59,7 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'execute' => function ($url, $model, $key) {
                         return Html::a(
-                            '<span class="glyphicon glyphicon-hourglass"></span>',
+                            '<button type="button" class="btn btn-sm btn-primary">Execute</button>',
                             Url::base().'/workflow-execution/index?id='.$key, 
                             [
                                 'title' => 'Execute',
