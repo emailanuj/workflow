@@ -49,24 +49,24 @@ class WorkflowExecutionController extends Controller
             // sort in the execution order
 
             $execution_id = uniqid('ex');            
-            foreach($workflowfinaljson as $wjk =>$wjv) {                 
+            foreach($workflowfinaljson as $workflow_key =>$workflow_values) {                 
                 // gather previous result  
-                if($wjk > 0) {              
+                if($workflow_key > 0) {              
                     $previous_result = WorkflowExecution::find()->where(['id' => $ex_model->id])->one();
                     if(!empty($previous_result)) { $default_result = $previous_result->response_params; }                
                 } else { $default_result = ''; }
                 
-                switch ($wjv->keywords) {
+                switch ($workflow_values->keywords) {
                     case "API":
-                        $api_uri        = $wjv->api_url;
-                        $api_method     = $wjv->api_method;
-                        $api_type       = $wjv->api_type;
-                        $api_headers    = $wjv->api_headers;
-                        $auth_type      = $wjv->auth_type;
-                        $token_from     = $wjv->token_from;
-                        $token_url      = $wjv->token_url;
-                        $username       = $wjv->username;
-                        $password       = $wjv->password;
+                        $api_uri        = $workflow_values->api_url;
+                        $api_method     = $workflow_values->api_method;
+                        $api_type       = $workflow_values->api_type;
+                        $api_headers    = $workflow_values->api_headers;
+                        $auth_type      = $workflow_values->auth_type;
+                        $token_from     = $workflow_values->token_from;
+                        $token_url      = $workflow_values->token_url;
+                        $username       = $workflow_values->username;
+                        $password       = $workflow_values->password;
 
                         $token_bearer = $this->getCurrentToken($auth_type,$token_url,$username,$password,$execution_id);                        
                         $post_items = array();
@@ -102,10 +102,10 @@ class WorkflowExecutionController extends Controller
                         }                        
                         break;
                     case "NSO":
-                        if($wjv->data_source == 'form_data') {
-                            $result = $wjv->form_data;
-                        } else if($wjv->data_source == 'function_name') {
-                            $function_to_execute    = preg_split('#/#',$wjv->get_data_function);
+                        if($workflow_values->data_source == 'form_data') {
+                            $result = $workflow_values->form_data;
+                        } else if($workflow_values->data_source == 'function_name') {
+                            $function_to_execute    = preg_split('#/#',$workflow_values->get_data_function);
                             //echo $ste = $function_to_execute[0].'::'.$function_to_execute[1].'()'; exit;
                             $executed_function_data = WorkflowExecution::functionex();
                             $result = $executed_function_data;                            
@@ -114,10 +114,10 @@ class WorkflowExecutionController extends Controller
                         }                        
                         break;
                     case "OTHER":
-                        if($wjv->data_source == 'form_data') {
-                            $result = $wjv->form_data;
-                        } else if($wjv->data_source == 'function_name') {
-                            $function_to_execute    = preg_split('#/#',$wjv->get_data_function);
+                        if($workflow_values->data_source == 'form_data') {
+                            $result = $workflow_values->form_data;
+                        } else if($workflow_values->data_source == 'function_name') {
+                            $function_to_execute    = preg_split('#/#',$workflow_values->get_data_function);
                             //echo $ste = $function_to_execute[0].'::'.$function_to_execute[1].'()'; exit;
                             $executed_function_data = WorkflowExecution::functionex();
                             $result = $executed_function_data;                            
@@ -128,20 +128,22 @@ class WorkflowExecutionController extends Controller
                     default:
                         $result = "Default";
                 }
-                $ex_model_saved = WorkflowExecution::find()->where(['instance_id' => $model->id, 'request_params' => $wjv->step_no, 'execution_id' => $execution_id])->one();                
-                if(empty($ex_model_saved)) {                    
+                $execution_model_saved = WorkflowExecution::find()->where(['instance_id' => $model->id, 'request_params' => $workflow_values->step_no, 'execution_id' => $execution_id])->one();                
+                if(empty($execution_model_saved)) {                                       
                     $ex_model = new WorkflowExecution(); 
                     $ex_model->instance_id      = $model->id;
-                    $ex_model->request_params   = $wjv->step_no;
+                    $ex_model->request_params   = $workflow_values->step_no;
                     $ex_model->response_params  = $result;
                     $ex_model->execution_id     = $execution_id; 
-                    if($wjv->keywords == 'API') {
+                    if($workflow_values->keywords == 'API') {
                         $ex_model->api_domain       = $token_url;
                         $ex_model->auth_token       = $token_bearer; 
-                    }
-                    $ex_model->status           = '1';              
+                    }                    
+                    $ex_model->status  = empty($result) ? '0' : '1';                                                  
                     $ex_model->save();                
                 } 
+
+                if(empty($result)) { if($workflow_values->if_fail == 'stop') { break;  } }
                                         
             } 
             // get executed data  
