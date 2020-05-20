@@ -1,4 +1,4 @@
-<?= $this->render('_customWorkflowForm', [
+ <?= $this->render('_customWorkflowForm', [
     'model' => $model,'workflow_id'=>$workflow_id
 ]) ?>
 <?php

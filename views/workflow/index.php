@@ -10,6 +10,7 @@ use yii\helpers\Url;
 
 $this->title = 'Workflows';
 $this->params['breadcrumbs'][] = $this->title;
+// $this->registerJsFile('@web/js/workflow.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 <div class="workflow-index">    
     <div id="form-popup">   
@@ -39,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'workflow_description',
             [
                 'attribute' => 'execution_status',
-                'label' => 'Executed Workflow',
+                'label' => 'Executed Workflow Status',
                 'value' => function ($model){
                     return ( $model->execution_status == 0 ) ? 'Active' : 'No-Active';
                 },
@@ -49,26 +50,30 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{view}{update}{delete}{clone}{execute}',
+                // 'template' => '{view}{update}{delete}{clone}{execute}',
+                'template' => '{update}{delete}{clone}{execute}',
                 'buttons' => [
 
                     'view' => function ($url, $model) {
                         return Html::a('<button type="button" class="btn btn-sm btn-success marginRight5Px">View</button>', $url, [
-                                    'title' => Yii::t('app', 'lead-view'),
+                                    'title' => Yii::t('app', 'View'),
                         ]);
                     },
 
                     'update' => function ($url, $model) {
                         return Html::a('<button type="button" class="btn btn-sm btn-primary marginRight5Px">Edit</button>', $url, [
-                                    'title' => Yii::t('app', 'instance-update'),
+                                    'title' => Yii::t('app', 'Edit'),
                         ]);
                     },
-                    'delete' => function ($url, $model) {
-                        return Html::a('<button type="button" class="btn btn-sm btn-danger marginRight5Px">Delete</button>', $url, [
-                                    'title' => Yii::t('app', 'instance-delete'),
+                    'delete' => function($url, $model){
+                        return Html::a('<button type="button" class="btn btn-sm btn-danger marginRight5Px">Delete</button>', ['delete', 'id' => $model->id], [
+                            'class' => '',
+                            'data' => [
+                                'confirm' => 'Are you absolutely sure ? You will lose all the information about this user with this action.',
+                                'method' => 'post',
+                            ],
                         ]);
                     },
-
                     'clone' => function ($url, $model, $key) {
                         //<span class="glyphicon glyphicon-duplicate" onclick="openform('.$key.')"></span>
                         return Html::a(
@@ -93,6 +98,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         );
                     },
                     
+
+
                 ],
             ],
         ],

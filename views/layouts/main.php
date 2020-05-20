@@ -31,7 +31,8 @@ AppAsset::register($this);
 <body class="skin-blue">
     <?php $this->beginBody() ?>
     <div id="PopoverBackdrop" class="pop-backdrop"></div>
-    <div class="custom-loader"></div>
+    <!-- <div class="custom-loader"></div> -->
+    <div class="se-pre-con"></div>
     <div class="wrapper">
         <!-- Header Starts -->
         <header class="main-header">

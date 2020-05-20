@@ -1,3 +1,5 @@
+$(".se-pre-con").fadeOut("slow");
+
 var elementArray={};
 var formDBArray={};
 var currFormArr={};

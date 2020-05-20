@@ -31,6 +31,7 @@ WorkFlowAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
+<div class="se-pre-con"></div>
  <div class="wrapper" style="min-height: 100%; height: auto;">
     <header class="main-header">
             <a class="logo" href="<?= Yii::$app->homeUrl ?>">

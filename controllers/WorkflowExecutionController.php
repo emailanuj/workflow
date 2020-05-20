@@ -34,9 +34,52 @@ class WorkflowExecutionController extends Controller
     }
 
     public function actionIndex() { 
-        $this->layout = 'workflowLayout';               
-        $id = Yii::$app->request->get('id');               
+        $this->layout = 'workflowLayout';
+        $id = Yii::$app->request->get('id');
         if (($model = Workflow::findOne($id)) !== null) {
+            return $this->render('index', [                    
+                'model'    => $model,
+                'workflow_id' => $id,
+            ]);                          
+        }
+    }
+
+    public function actionGetRunningProcess() { 
+        $model = Workflow::findOne(Yii::$app->request->post('workflow-id'));
+        $workflowjson = json_decode($model->workflow_data,true);
+        // echo '<pre>'; print_r($workflowjson); __LINE__;die;
+        $arrToRunProcess = array_keys($workflowjson);
+
+        $execution_id = uniqid('ex');
+
+        $arrOutput = [];
+        foreach ($arrToRunProcess as $strIndex => $strValue) {
+            $arrOutput[$strIndex]['execution_id'] = $execution_id;
+            $arrOutput[$strIndex]['diagram_id'] = $strValue;
+        }
+
+        return json_encode($arrOutput);
+    }
+
+
+    public function actionExecuteRunningProcess() { 
+        // process 1
+
+        // sucess or failer
+
+        // $model = Workflow::findOne(Yii::$app->request->post('workflow-id'));
+        // $workflowjson = json_decode($model->workflow_data,true);
+        // // echo '<pre>'; print_r($workflowjson); __LINE__;die;
+        // $arrToRunProcess = array_keys($workflowjson);
+        // return json_encode($arrToRunProcess);
+    }
+
+
+    public function actionIndexBackup() { 
+        $this->layout = 'workflowLayout';               
+        $id = Yii::$app->request->get('id');
+        if (($model = Workflow::findOne($id)) !== null) {
+
             $workflowjson = json_decode($model->workflow_data);
             $workflowdiagramjson = json_decode($model->workflow_json); 
             $workflowdiagram_finaljson = json_decode(json_encode($workflowdiagramjson->bpmn), true);
