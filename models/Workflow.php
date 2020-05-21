@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use \yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "workflow".
  *
@@ -17,8 +18,9 @@ use \yii\db\ActiveRecord;
  * @property int|null $updated_at
  * @property int|null $created_by
  * @property int|null $updated_by
- * @property User $createdBy
- * @property User $updatedBy
+ * @property int $deleted
+ *
+ * @property WorkflowExecution[] $workflowExecutions
  */
 class Workflow extends ActiveRecord
 {
@@ -53,10 +55,9 @@ class Workflow extends ActiveRecord
         return [
             [['workflow_title'], 'required'],
             [['workflow_title'], 'string', 'max' => 100],
-            [['workflow_data','workflow_json'], 'string'],
             [['workflow_description'], 'string', 'max' => 200],
-            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
-            [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['updated_by' => 'id']],
+            [['workflow_data', 'workflow_json'], 'string'],
+            [['created_at', 'updated_at', 'created_by', 'updated_by', 'is_deleted'], 'integer'],
         ];
     }
 
@@ -70,26 +71,22 @@ class Workflow extends ActiveRecord
             'workflow_title' => 'Workflow Title',
             'workflow_description' => 'Workflow Description',
             'workflow_data' => 'Workflow Data',
-            'workflow_json' => 'Workflow Json',            
+            'workflow_json' => 'Workflow Json',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
+            'deleted' => 'Deleted',
         ];
-    }
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCreatedBy()
-    {
-        return $this->hasOne(User::className(), ['id' => 'created_by']);
     }
 
     /**
+     * Gets query for [[WorkflowExecutions]].
+     *
      * @return \yii\db\ActiveQuery
      */
-    public function getUpdatedBy()
+    public function getWorkflowExecutions()
     {
-        return $this->hasOne(User::className(), ['id' => 'updated_by']);
+        return $this->hasMany(WorkflowExecution::className(), ['instance_id' => 'id']);
     }
 }

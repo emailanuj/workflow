@@ -30,70 +30,89 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             // 'id',
-            //'workflow_title',
-            //'workflow_description',
+            // 'workflow_title',
             [
-                'attribute' => 'execution_status',
-                'label' => 'Executed Workflow Status',
-                'value' => function ($model){
-                    return ( $model->execution_status == 0 ) ? 'Active' : 'No-Active';
-                },
+                'attribute'=>'workflow_title',
+                'label'=>'Workflow Title',
+                'content'=>function($data){
+                    return $data->workflow_title;
+                }
             ],
-            'created_at:datetime',
             [
-                'class' => 'yii\grid\ActionColumn',
-                // 'template' => '{view}{update}{delete}{clone}{execute}',
-                'template' => '{update}{delete}{clone}{execute}',
-                'buttons' => [
+                'attribute'=>'execution_id',
+                'label'=>'Unique Instance Id',
+                'content'=>function($data){
+                    return $data->execution_id;
+                }
+            ],
+            [
+                'attribute'=>'executed_details',
+                'label'=>'Executed Details',
+                'content'=>function($data){
+                    $url = ['get-workflow-executed-details','id' => $data->instance_id,'execution_id' => $data->execution_id];
+                    return Html::a('<button type="button" class="btn btn-sm btn-success marginRight5Px">Get Details</button>', $url, 
+                        [
+                            'title' => Yii::t('app', 'Get Details'),
+                            'target'=>'_blank'
+                        ]);
+                }
+            ],
+            
+            // 'created_at:datetime',
+            // [
+            //     'class' => 'yii\grid\ActionColumn',
+            //     // 'template' => '{view}{update}{delete}{clone}{execute}',
+            //     'template' => '{update}{delete}{clone}{execute}',
+            //     'buttons' => [
 
-                    'view' => function ($url, $model) {
-                        return Html::a('<button type="button" class="btn btn-sm btn-success marginRight5Px">View</button>', $url, [
-                                    'title' => Yii::t('app', 'View'),
-                        ]);
-                    },
+            //         'view' => function ($url, $model) {
+            //             return Html::a('<button type="button" class="btn btn-sm btn-success marginRight5Px">View</button>', $url, [
+            //                         'title' => Yii::t('app', 'View'),
+            //             ]);
+            //         },
 
-                    'update' => function ($url, $model) {
-                        return Html::a('<button type="button" class="btn btn-sm btn-primary marginRight5Px">Edit</button>', $url, [
-                                    'title' => Yii::t('app', 'Edit'),
-                        ]);
-                    },
-                    'delete' => function($url, $model){
-                        return Html::a('<button type="button" class="btn btn-sm btn-danger marginRight5Px">Delete</button>', ['delete', 'id' => $model->id], [
-                            'class' => '',
-                            'data' => [
-                                'confirm' => 'Are you absolutely sure ? You will lose all the information about this user with this action.',
-                                'method' => 'post',
-                            ],
-                        ]);
-                    },
-                    'clone' => function ($url, $model, $key) {
-                        //<span class="glyphicon glyphicon-duplicate" onclick="openform('.$key.')"></span>
-                        return Html::a(
-                            '<button type="button" class="btn btn-sm btn-warning marginRight5Px">Clone </button>',
-                            '#', 
-                            [
-                                'id'=>"createWorkflowClone",
-                                'actual-id' => $key,
-                                'class' => 'clone-view-link',
-                                'title' => Yii::t('yii', 'Clone'),
-                                'data-pjax' => '0',
-                        ]);
-                    },
-                    'execute' => function ($url, $model, $key) {
-                        return Html::a(
-                            '<button type="button" class="btn btn-sm btn-primary">Execute</button>',
-                            Url::base().'/workflow-execution/index?id='.$key, 
-                            [
-                                'title' => 'Execute',
-                                'data-pjax' => '0',
-                            ]
-                        );
-                    },
+            //         'update' => function ($url, $model) {
+            //             return Html::a('<button type="button" class="btn btn-sm btn-primary marginRight5Px">Edit</button>', $url, [
+            //                         'title' => Yii::t('app', 'Edit'),
+            //             ]);
+            //         },
+            //         'delete' => function($url, $model){
+            //             return Html::a('<button type="button" class="btn btn-sm btn-danger marginRight5Px">Delete</button>', ['delete', 'id' => $model->id], [
+            //                 'class' => '',
+            //                 'data' => [
+            //                     'confirm' => 'Are you absolutely sure ? You will lose all the information about this user with this action.',
+            //                     'method' => 'post',
+            //                 ],
+            //             ]);
+            //         },
+            //         'clone' => function ($url, $model, $key) {
+            //             //<span class="glyphicon glyphicon-duplicate" onclick="openform('.$key.')"></span>
+            //             return Html::a(
+            //                 '<button type="button" class="btn btn-sm btn-warning marginRight5Px">Clone </button>',
+            //                 '#', 
+            //                 [
+            //                     'id'=>"createWorkflowClone",
+            //                     'actual-id' => $key,
+            //                     'class' => 'clone-view-link',
+            //                     'title' => Yii::t('yii', 'Clone'),
+            //                     'data-pjax' => '0',
+            //             ]);
+            //         },
+            //         'execute' => function ($url, $model, $key) {
+            //             return Html::a(
+            //                 '<button type="button" class="btn btn-sm btn-primary">Execute</button>',
+            //                 Url::base().'/workflow-execution/index?id='.$key, 
+            //                 [
+            //                     'title' => 'Execute',
+            //                     'data-pjax' => '0',
+            //                 ]
+            //             );
+            //         },
                     
 
 
-                ],
-            ],
+            //     ],
+            // ],
         ],
     ]); ?>  
 </div>
