@@ -143,15 +143,15 @@ class WorkflowExecutionController extends Controller
                 } 
                 $workflow_key = ltrim($workflow_key,"SE");                
                 $jsonkey = array_search($workflow_key,array_column($workflowdiagram_finaljson, 'id'));
-                $workflowdiagram_finaljson[$jsonkey]['status'] = empty($result) ? '0' : '1';                  
+                $workflowdiagram_finaljson[$jsonkey]['status'] = empty($result) ? '0' : '1';                                  
                 if(empty($result)) { if($workflow_values->if_fail == 'stop') { break;  } }
                               
-               $ex_id++;                         
+               $ex_id++;                     
             }  
             $workflowdiagrambpmn['bpmn'] = $workflowdiagram_finaljson;
             $workflow_json_diagram_save = json_encode($workflowdiagrambpmn);           
             $model->workflow_json = $workflow_json_diagram_save;           
-            $model->save();                    
+            $model->save();                                
             // get executed data  
             //$dataProvider = WorkflowExecution::find()->where(['instance_id' => $model->id, 'execution_id' => $execution_id])->all();                       
             $query = (new Query())->from('workflow_execution')->where(['instance_id' => $model->id, 'execution_id' => $execution_id]);                        
@@ -204,8 +204,6 @@ class WorkflowExecutionController extends Controller
         }
     }
 
-    public function actionList() {
-
-    }
+    
     
 }
