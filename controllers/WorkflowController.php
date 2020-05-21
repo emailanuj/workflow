@@ -135,8 +135,18 @@ class WorkflowController extends Controller
             $workflow_id=Yii::$app->request->post('workflow_id');
             $arrOutputForm = [];
             $arrOutputForm['status'] = 'success';
-            //if( $strFormType == 'StartEvent' || $strFormType == 'EndEvent'){
-            if(!empty($strFormType)){
+            if( $strFormType == 'parallel' || $strFormType == 'inclusive' || $strFormType == 'exclusive' || $strFormType=='event'){
+                $arrOutputForm['html'] = $this->renderPartial('_customConditionEventForm',
+                    [
+                        'workflowStartEventModel' => $workflowStartEventModel,
+                        'element_id'=>$element_id,
+                        'workflow_id'=>$workflow_id,
+                        'element_type'=>$strFormType
+                    ]
+                    );
+            }
+            
+            else if(!empty($strFormType)){
                 $arrOutputForm['html'] = $this->renderPartial('_customStartEventForm',
                                                 [
                                                     'workflowStartEventModel' => $workflowStartEventModel,
@@ -145,6 +155,7 @@ class WorkflowController extends Controller
                                                     'functions_get_data_list'=>TblFunctions::getAllDataFunction(),
                                                     'element_id'=>$element_id,
                                                     'workflow_id'=>$workflow_id,
+                                                    'element_type'=>$strFormType
                                                 ]
                                             );
             }
@@ -242,9 +253,14 @@ class WorkflowController extends Controller
             $json_array[$post_data['element_id']]=$post_data['WorkflowStartEventModel'];
             $workflowStartEventModel = new WorkflowStartEventModel();
             // Adding Scenario Based on Keywords
-            $keywords=$json_array[$post_data['element_id']]['keywords'];
-            if(!empty($keywords)){
-                $workflowStartEventModel->scenario=$keywords;
+            $element_type=$post_data['element_type'];
+            if( $element_type == 'parallel' || $element_type == 'inclusive' || $element_type == 'exclusive' || $element_type=='event'){
+                $workflowStartEventModel->scenario=$element_type;
+            }else{
+                $keywords=$json_array[$post_data['element_id']]['keywords'];
+                if(!empty($keywords)){
+                    $workflowStartEventModel->scenario=$keywords;
+                }
             }
             $workflowStartEventModel->load($post_data);
             ActiveForm::validate($workflowStartEventModel);

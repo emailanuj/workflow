@@ -69,6 +69,7 @@ $form = ActiveForm::begin([
  		    <?= $form->field($workflowStartEventModel, 'form_data')->textarea(['placeholder'=>'Form Data']) ?>
  		</div>
  		<input type="hidden" name="element_id" value="<?php echo $element_id;?>">
+ 		<input type="hidden" name="element_type" value="<?php echo $element_type;?>">
  		<input type="hidden" name="workflow_id" value="<?php echo $workflow_id;?>">
  		<input type="hidden" name="form_json_data" id="form_json_data" value="">
             <div class="form-group">

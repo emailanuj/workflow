@@ -26,6 +26,8 @@ class WorkflowStartEventModel extends Model
     public $password;
     public $form_data;
     public $form_json;
+    public $on_fail;
+    public $on_success;
 
     /**
      * {@inheritdoc}
@@ -33,11 +35,15 @@ class WorkflowStartEventModel extends Model
     public function rules()
     {
         return [
-            [['step_no','if_fail','next_process','keywords'], 'required'],
+            [['step_no','if_fail'], 'required'],
             [['step_no','if_fail','next_process','keywords','api_url','api_method','api_type','api_headers','function_execute','auth_type'], 'required','on'=>'API'],
             [['step_no','if_fail','next_process','keywords','data_source'], 'required','on'=>'NSO'],
             [['step_no','if_fail','next_process','keywords','data_source'], 'required','on'=>'Postcheck'],
             [['step_no','if_fail','next_process','keywords','data_source'], 'required','on'=>'Precheck'],
+            [['step_no','if_fail','on_fail','on_success'], 'required','on'=>'parallel'],
+            [['step_no','if_fail','on_fail','on_success'], 'required','on'=>'inclusive'],
+            [['step_no','if_fail','on_fail','on_success'], 'required','on'=>'exclusive'],
+            [['step_no','if_fail','on_fail','on_success'], 'required','on'=>'event'],
         ];
     }
     public function scenarios() {
@@ -69,6 +75,8 @@ class WorkflowStartEventModel extends Model
             'password'=>'Password',
             'form_data'=>'Form Data',
             'form_json'=>'Form JSON',
+            'on_fail'=>'On Fail',
+            'on_success'=>'On Success',
         ];
     }
     
