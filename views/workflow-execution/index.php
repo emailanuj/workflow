@@ -49,6 +49,8 @@ $this->registerJsFile('@web/js/custom.js',['depends' => [\yii\web\JqueryAsset::c
   //     'columns' => $gridColumns,
   // ]);
     ?>
+ <div id="executionTable"></div>
+
 <?php
     $this->registerJs(
     "

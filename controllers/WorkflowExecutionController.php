@@ -11,6 +11,9 @@ use yii\filters\VerbFilter;
 use app\models\Workflow;
 use yii\data\ActiveDataProvider;
 use yii\db\Query;
+use kartik\export\ExportMenu;
+use kartik\grid\GridView;
+
 
 
 /**
@@ -46,7 +49,7 @@ class WorkflowExecutionController extends Controller
 
     public function getExecutionTable($instanceId,$executionId) {
         $query = (new Query())->from('workflow_execution')->where(['instance_id' => $instanceId, 'execution_id' => $executionId]);                        
-            $provider = new ActiveDataProvider([
+            $dataProvider = new ActiveDataProvider([
                 'query' => $query,                
                 'sort' => [
                     'defaultOrder' => [
@@ -55,16 +58,50 @@ class WorkflowExecutionController extends Controller
                     ]
                 ],
             ]);
+            $executionModel = $dataProvider->getModels();            
+
+            $gridColumns = [
+                ['class' => 'yii\grid\SerialColumn'],
             
-            // get executed data
-            return $provider; 
+                'id',            
+                'request_params',
+                'response_params',
+                'created_at:datetime',
+                'updated_at:datetime',                       
+                [
+                  'label'=>'Status',
+                  'format'=>'raw',
+                  'value' => function($executionModel) { 
+                    if($executionModel['status'] == 1) { $tablerowstatus = 'In Progress'; }
+                    else if($executionModel['status'] == 2) { $tablerowstatus = 'Pass'; }
+                    else if($executionModel['status'] == 3) { $tablerowstatus = 'Fail'; }
+                    else { $tablerowstatus = 'Not Started'; }
+                    return $tablerowstatus;
+                  }, 
+                 ],
+                ['class' => 'yii\grid\ActionColumn', 'template' => ''],
+                ];
+              return ExportMenu::widget([
+                'dataProvider' => $dataProvider,
+                'columns' => $gridColumns,
+                'dropdownOptions' => [
+                    'label' => 'Export All',
+                    'class' => 'btn btn-outline-secondary'
+                ]
+            ]) . "<hr>\n".
+            GridView::widget([
+                'dataProvider' => $dataProvider,
+                'columns' => $gridColumns,
+            ]);
+            
     }
 
     public function actionGetRunningProcess() { 
         $model = Workflow::findOne(Yii::$app->request->post('workflow-id'));        
         $output = $this->preExecutionSave($model);
-        //$executionModelData = $this->getExecutionTable($model->id,$executionId);
-        //$executionModel = $executionModelData->getModels();
+        $executionId = reset($output);
+        $executionModelData = $this->getExecutionTable($model->id,$executionId);
+        $output['datatable'] = $executionModelData;
         return json_encode($output);
     }
 
@@ -190,7 +227,12 @@ class WorkflowExecutionController extends Controller
             }             
             $executionModel->workflow_diagram = $workflowDiagramBpmnJson;                   
             $executionModel->status  = empty($result) ? WorkflowExecution::FAIL : WorkflowExecution::PASS;                                                  
-            $executionModel->save();                
+            $executionModel->save();   
+            
+            $executionModelData = $this->getExecutionTable($model->id,$executionId);
+            $output['status']   = empty($result) ? WorkflowExecution::FAIL : WorkflowExecution::PASS;
+            $output['datatable'] = $executionModelData;
+            return json_encode($output);
         
     }
 
