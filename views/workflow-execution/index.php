@@ -23,31 +23,31 @@ $this->registerJsFile('@web/js/custom.js',['depends' => [\yii\web\JqueryAsset::c
 </div>
 
     <?php 
-    $gridColumns = [
-      ['class' => 'yii\grid\SerialColumn'],
+  //   $gridColumns = [
+  //     ['class' => 'yii\grid\SerialColumn'],
   
-      'id',            
-      'request_params',
-      'created_at:datetime',                       
-      [
-        'label'=>'Status',
-        'format'=>'raw',
-        'value' => function($emodel) { return $emodel['status'] == 0 ? 'Fail' : 'Pass';}, 
-       ],
-      ['class' => 'yii\grid\ActionColumn', 'template' => ''],
-      ];
-    echo ExportMenu::widget([
-      'dataProvider' => $dataProvider,
-      'columns' => $gridColumns,
-      'dropdownOptions' => [
-          'label' => 'Export All',
-          'class' => 'btn btn-outline-secondary'
-      ]
-  ]) . "<hr>\n".
-  GridView::widget([
-      'dataProvider' => $dataProvider,
-      'columns' => $gridColumns,
-  ]);
+  //     'id',            
+  //     'request_params',
+  //     'created_at:datetime',                       
+  //     [
+  //       'label'=>'Status',
+  //       'format'=>'raw',
+  //       'value' => function($emodel) { return $emodel['status'] == 0 ? 'Fail' : 'Pass';}, 
+  //      ],
+  //     ['class' => 'yii\grid\ActionColumn', 'template' => ''],
+  //     ];
+  //   echo ExportMenu::widget([
+  //     'dataProvider' => $dataProvider,
+  //     'columns' => $gridColumns,
+  //     'dropdownOptions' => [
+  //         'label' => 'Export All',
+  //         'class' => 'btn btn-outline-secondary'
+  //     ]
+  // ]) . "<hr>\n".
+  // GridView::widget([
+  //     'dataProvider' => $dataProvider,
+  //     'columns' => $gridColumns,
+  // ]);
     ?>
 <?php
     $this->registerJs(

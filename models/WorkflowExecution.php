@@ -39,7 +39,7 @@ class WorkflowExecution extends ActiveRecord
      */
     public static function tableName()
     {
-        return 'workflow_execution';
+        return 'tbl_workflow_execution';
     }
 
     public function behaviors()

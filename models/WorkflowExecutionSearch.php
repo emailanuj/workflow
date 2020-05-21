@@ -85,18 +85,20 @@ class WorkflowExecutionSearch extends WorkflowExecution
 
     public function searchWorkflowReport($params)
     {
+        $tblWorkflowExecution = 'tbl_workflow_execution';
+        $tblWorkflow = 'tbl_workflow';
         $query = WorkflowExecution::find()
                     ->select([
-                                'workflow_execution.id',
-                                'workflow_execution.instance_id',
-                                'workflow_execution.request_params',
-                                'workflow_execution.response_params',
-                                'workflow_execution.execution_id',
-                                'workflow_execution.created_at',
-                                'workflow.workflow_title as workflow_title',
-                                'workflow.workflow_description as workflow_description',
+                                $tblWorkflowExecution.'.id',
+                                $tblWorkflowExecution.'.instance_id',
+                                $tblWorkflowExecution.'.request_params',
+                                $tblWorkflowExecution.'.response_params',
+                                $tblWorkflowExecution.'.execution_id',
+                                $tblWorkflowExecution.'.created_at',
+                                $tblWorkflow.'.workflow_title as workflow_title',
+                                $tblWorkflow.'.workflow_description as workflow_description',
                             ])
-                        ->join('inner join', 'workflow', 'workflow_execution.instance_id = workflow.id')
+                        ->join('inner join', $tblWorkflow, $tblWorkflowExecution.'.instance_id = '. $tblWorkflow .'.id')
 
                         // ->andWhere('bng_master_label_values.is_active =1');
         ;   
@@ -120,8 +122,8 @@ class WorkflowExecutionSearch extends WorkflowExecution
         // grid filtering conditions
          $query->andFilterWhere([
             'id' => $this->id,
-            'workflow.workflow_title' => $this->workflow_title,
-            'workflow.workflow_description' => $this->workflow_description,
+            $tblWorkflow.'.workflow_title' => $this->workflow_title,
+            $tblWorkflow.'.workflow_description' => $this->workflow_description,
             'instance_id' => $this->instance_id,
             'status' => $this->status,
             'executed_by' => $this->executed_by,

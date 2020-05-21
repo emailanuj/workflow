@@ -30,7 +30,7 @@ class Workflow extends ActiveRecord
      */
     public static function tableName()
     {
-        return 'workflow';
+        return 'tbl_workflow';
     }
 
     public function behaviors()
