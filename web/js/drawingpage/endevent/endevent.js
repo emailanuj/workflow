@@ -1,5 +1,5 @@
 "use strict";
-var endeventdevider = function (eid,subElement,svg,xvalue,yvalue,status){  
+var endeventdevider = function (eid,subElement,svg,xvalue,yvalue){  
 var group = svg.append('g')
         .attr('transform', 'translate(' + xvalue + ',' + yvalue + ')')
         .attr('id', 'endEvent' + (++idendelement))
@@ -57,16 +57,10 @@ console.log('calling end event');
 
            }
 
-        var g = group.append('circle')
-            .attr('id', 'endEvent' + idendelement);
-            if(status == '0') {
-                g.style("stroke", "red"); 
-            } else if(status == '1') {
-                g.style("stroke", "green");
-            } else {
-                g.style("stroke", "black");
-            }
-            g.style("stroke-width", "4")
+        group.append('circle')
+            .attr('id', 'endEvent' + idendelement)
+            .style("stroke", "black")
+            .style("stroke-width", "4")
             .style("fill-opacity", "0")
          //   .attr('transform', 'translate(' + d3.event.pageX + ',' + d3.event.pageY + ')')
             .attr('r', '20')
@@ -219,4 +213,3 @@ console.log('calling end event');
             EventBPMNJsonCreator(eid, xvalue, yvalue, 20, 20,"endEvent",subElement);
             subElement = null;
  }
-

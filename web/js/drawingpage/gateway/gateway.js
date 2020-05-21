@@ -1,6 +1,6 @@
 "use strict";
 
-var gatewaydevider = function (eid,subElement,svg,xvalue,yvalue,status){
+var gatewaydevider = function (eid,subElement,svg,xvalue,yvalue){
 
 var g2 = svg.append('g')
         .attr('transform', 'translate(' + xvalue + ',' + yvalue + ')')
@@ -63,15 +63,9 @@ var g2 = svg.append('g')
             }
 
             g2.append('rect')
-                .attr('id', 'gateway' + idgatewayelement);
-                if(status == '0') {
-                    g2.style("stroke", "red"); 
-                } else if(status == '1') {
-                    g2.style("stroke", "green");
-                } else {
-                    g2.style("stroke", "black");
-                }
-                g2.style("stroke-width", "2")
+                .attr('id', 'gateway' + idgatewayelement)
+                .style("stroke", "black")
+                .style("stroke-width", "2")
                 .style("stroke-linecap", "butt")
                 .style("stroke-linejoin", "miter")
                 .style("stroke-miterlimit", "2")
@@ -246,4 +240,3 @@ var g2 = svg.append('g')
               subElement = null;
 
  }
-
