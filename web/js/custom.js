@@ -42,8 +42,8 @@ $(document).on('click',"#executeProcess",function(){
 		type: 'POST',
 		dataType:'json',
 		success: function(data) {
-			$.each( data, function( key, value ) {
-			 	executeRunningProcess(workflow_id, value);
+			$.each( data, function( key, value ) {				
+			 	executeRunningProcess(workflow_id, key, value);
         	});
 
 		}
@@ -51,11 +51,11 @@ $(document).on('click',"#executeProcess",function(){
 	// $(".se-pre-con").fadeOut("slow");
 });
 
-function executeRunningProcess(workflow_id, digram_id){
-	console.log(workflow_id +'  ====  '+ digram_id);
+function executeRunningProcess(workflow_id, digram_id, execution_id){
+	console.log(workflow_id +'  ====  '+ digram_id +'===='+ execution_id);
 	$.ajax({
 		url: baseURL +'/workflow-execution/execute-running-process/',
-		data : {'workflow-id' : $("#workflow_id").val(), 'diagram-id' : digram_id },
+		data : {'workflow-id' : $("#workflow_id").val(), 'diagram-id' : digram_id, 'execution-id' : execution_id },
 		type: 'POST',
 		dataType:'json',
 		success: function(data) {
@@ -63,10 +63,7 @@ function executeRunningProcess(workflow_id, digram_id){
 			// $('#startEvnet1').attr('stroke','green');
 
 			$('#startEvnet1').attr('stroke','red');
-			// 
-			// $.each( data, function( key, value ) {
-			//  	executeRunningProcess(value);
-   //      	});
+			
 		}
 	});
 }

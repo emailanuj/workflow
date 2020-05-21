@@ -30,8 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             // 'id',
-            'workflow_title',
-            'workflow_description',
+            //'workflow_title',
+            //'workflow_description',
             [
                 'attribute' => 'execution_status',
                 'label' => 'Executed Workflow Status',

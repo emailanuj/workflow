@@ -23,7 +23,8 @@ class WorkflowExecution extends \yii\db\ActiveRecord
 {
     const NOT_STARTED = 0;
     const IN_PROGRESS = 1;
-    const COMPLEATED = 2;
+    const PASS = 2;
+    const FAIL = 3;
 
     /**
      * {@inheritdoc}
