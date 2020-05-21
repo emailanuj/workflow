@@ -41,32 +41,42 @@ $(document).on('click',"#executeProcess",function(){
 		data : {'workflow-id' : workflow_id, 'form-type' : 'create-clone' },
 		type: 'POST',
 		dataType:'json',
+		beforeSend: function() {
+			$(".se-pre-con").show();
+		},
 		success: function(data) {
+			//console.log(data); exit;
 			$.each( data, function( key, value ) {
-			 	executeRunningProcess(workflow_id, value);
+				if(key == 'datatable') {
+					$("#executionTable").html(value);
+				}
+				else {	executeRunningProcess(workflow_id, key, value); }
         	});
-
+			$(".se-pre-con").hide();
 		}
 	});
 	// $(".se-pre-con").fadeOut("slow");
 });
 
-function executeRunningProcess(workflow_id, digram_id){
-	console.log(workflow_id +'  ====  '+ digram_id);
+function executeRunningProcess(workflow_id, digram_id, execution_id){
+	console.log(workflow_id +'  ====  '+ digram_id +'===='+ execution_id);
 	$.ajax({
 		url: baseURL +'/workflow-execution/execute-running-process/',
-		data : {'workflow-id' : $("#workflow_id").val(), 'diagram-id' : digram_id },
+		data : {'workflow-id' : $("#workflow_id").val(), 'diagram-id' : digram_id, 'execution-id' : execution_id },
 		type: 'POST',
 		dataType:'json',
-		success: function(data) {
-			
-			// $('#startEvnet1').attr('stroke','green');
-
-			$('#startEvnet1').attr('stroke','red');
-			// 
-			// $.each( data, function( key, value ) {
-			//  	executeRunningProcess(value);
-   //      	});
+		success: function(data) {	
+			var re_diagram_id	=  digram_id.replace("SE", "");		
+			if(data['status'] == '3') {
+				$('#'+re_diagram_id+ ' circle').css('stroke','red');
+			} else if(data['status'] == '2') {
+				$('#'+re_diagram_id+ ' circle').css('stroke','green');
+			} else {
+				$('#'+re_diagram_id+ ' circle').css('stroke','black');
+			}
+			if(data['datatable']) {
+				$("#executionTable").html(data['datatable']);
+			}			
 		}
 	});
 }

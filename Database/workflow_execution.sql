@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2020 at 08:22 AM
+-- Generation Time: May 21, 2020 at 04:30 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.5
 
@@ -36,10 +36,11 @@ CREATE TABLE `workflow_execution` (
   `execution_id` varchar(20) NOT NULL,
   `api_domain` varchar(100) NOT NULL,
   `auth_token` varchar(100) DEFAULT NULL,
-  `created_at` int(11) UNSIGNED NOT NULL,
-  `updated_at` int(11) NOT NULL,
+  `workflow_diagram` text NOT NULL,
   `executed_by` int(11) UNSIGNED NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '0'
+  `status` tinyint(1) DEFAULT NULL COMMENT 'NOT_STARTED = 0, IN_PROGRESS = 1, PASS = 2, FAIL = 3',
+  `created_at` int(11) UNSIGNED NOT NULL,
+  `updated_at` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -50,7 +51,8 @@ CREATE TABLE `workflow_execution` (
 -- Indexes for table `workflow_execution`
 --
 ALTER TABLE `workflow_execution`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `workflow_fk_id` (`instance_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -61,6 +63,16 @@ ALTER TABLE `workflow_execution`
 --
 ALTER TABLE `workflow_execution`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `workflow_execution`
+--
+ALTER TABLE `workflow_execution`
+  ADD CONSTRAINT `workflow_fk_id` FOREIGN KEY (`instance_id`) REFERENCES `workflow` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
