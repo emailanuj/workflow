@@ -8,9 +8,9 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\WorkflowSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Workflows';
+$this->title = 'Workflows Execution Reports';
 $this->params['breadcrumbs'][] = $this->title;
-// $this->registerJsFile('@web/js/workflow.js',['depends' => [\yii\web\JqueryAsset::className()]]);
+
 ?>
 <div class="workflow-index">    
     <div id="form-popup">   
@@ -22,12 +22,6 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-    	<button id="saveWorkflowModal" class="btn btn-success" data-toggle="modal" data-target="#FModal">Create Workflow</button>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -46,8 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             'created_at:datetime',
-            //'workflow_data:ntext',
-
             [
                 'class' => 'yii\grid\ActionColumn',
                 // 'template' => '{view}{update}{delete}{clone}{execute}',
