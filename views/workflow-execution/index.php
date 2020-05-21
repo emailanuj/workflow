@@ -21,34 +21,7 @@ $this->registerJsFile('@web/js/custom.js',['depends' => [\yii\web\JqueryAsset::c
 
     <div style="position: absolute;height: 500px;top: 0px;left: 0px;width: 100%;"></div>  
 </div>
-
-    <?php 
-    $gridColumns = [
-      ['class' => 'yii\grid\SerialColumn'],
-  
-      'id',            
-      'request_params',
-      'created_at:datetime',                       
-      [
-        'label'=>'Status',
-        'format'=>'raw',
-        'value' => function($emodel) { return $emodel['status'] == 0 ? 'Fail' : 'Pass';}, 
-       ],
-      ['class' => 'yii\grid\ActionColumn', 'template' => ''],
-      ];
-    echo ExportMenu::widget([
-      'dataProvider' => $dataProvider,
-      'columns' => $gridColumns,
-      'dropdownOptions' => [
-          'label' => 'Export All',
-          'class' => 'btn btn-outline-secondary'
-      ]
-  ]) . "<hr>\n".
-  GridView::widget([
-      'dataProvider' => $dataProvider,
-      'columns' => $gridColumns,
-  ]);
-    ?>
+    <div id="executionTable"></div>
 <?php
     $this->registerJs(
     "

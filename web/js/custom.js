@@ -42,8 +42,12 @@ $(document).on('click',"#executeProcess",function(){
 		type: 'POST',
 		dataType:'json',
 		success: function(data) {
-			$.each( data, function( key, value ) {				
-			 	executeRunningProcess(workflow_id, key, value);
+			//console.log(data); exit;
+			$.each( data, function( key, value ) {
+				if(key == 'datatable') {
+					$("#executionTable").html(value);
+				}
+				else {	executeRunningProcess(workflow_id, key, value); }
         	});
 
 		}
@@ -58,12 +62,18 @@ function executeRunningProcess(workflow_id, digram_id, execution_id){
 		data : {'workflow-id' : $("#workflow_id").val(), 'diagram-id' : digram_id, 'execution-id' : execution_id },
 		type: 'POST',
 		dataType:'json',
-		success: function(data) {
-			
-			// $('#startEvnet1').attr('stroke','green');
-
-			$('#startEvnet1').attr('stroke','red');
-			
+		success: function(data) {	
+			var re_diagram_id	=  digram_id.replace("SE", "");		
+			if(data['status'] == '3') {
+				$('circle #'+re_diagram_id).css('stroke','red');
+			} else if(data['status'] == '2') {
+				$('circle #'+re_diagram_id).css('stroke','green');
+			} else {
+				$('circle #'+re_diagram_id).css('stroke','black');
+			}
+			if(data['datatable']) {
+				$("#executionTable").html(data['datatable']);
+			}			
 		}
 	});
 }

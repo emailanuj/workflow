@@ -33,7 +33,7 @@ class WorkflowExecution extends ActiveRecord
     const IN_PROGRESS = 1;
     const PASS = 2;
     const FAIL = 3;
-    
+
     /**
      * {@inheritdoc}
      */
@@ -64,7 +64,7 @@ class WorkflowExecution extends ActiveRecord
         return [
             [['instance_id', 'request_params', 'response_params'], 'required'],
             // [['instance_id', 'request_params', 'response_params', 'execution_id', 'api_domain', 'created_at', 'updated_at', 'executed_by'], 'required'],
-            [['instance_id', 'created_at', 'updated_at', 'executed_by', 'status','is_deleted'], 'integer'],
+            [['instance_id', 'created_at', 'updated_at', 'executed_by', 'status'], 'integer'],
             [['request_params', 'response_params'], 'string'],
             // [['execution_id'], 'string', 'max' => 20],
             [['api_domain', 'auth_token'], 'string', 'max' => 100],
