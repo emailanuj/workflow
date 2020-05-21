@@ -6,7 +6,6 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use \yii\db\ActiveRecord;
 
-
 /**
  * This is the model class for table "workflow_execution".
  *
@@ -14,17 +13,25 @@ use \yii\db\ActiveRecord;
  * @property int $instance_id
  * @property string $request_params
  * @property string $response_params
+ * @property string $execution_id
+ * @property string $api_domain
+ * @property string|null $auth_token
  * @property int $created_at
  * @property int $updated_at
  * @property int $executed_by
  * @property int $status
+ *
+ * @property Workflow $instance
  */
-class WorkflowExecution extends \yii\db\ActiveRecord
+class WorkflowExecution extends ActiveRecord
 {
+    public $workflow_title;
+    public $workflow_description;
+    public $executed_details;
+
     const NOT_STARTED = 0;
     const IN_PROGRESS = 1;
     const COMPLEATED = 2;
-
     /**
      * {@inheritdoc}
      */
@@ -54,8 +61,12 @@ class WorkflowExecution extends \yii\db\ActiveRecord
     {
         return [
             [['instance_id', 'request_params', 'response_params'], 'required'],
-            [['instance_id', 'created_at','updated_at', 'executed_by', 'status'], 'integer'],
+            // [['instance_id', 'request_params', 'response_params', 'execution_id', 'api_domain', 'created_at', 'updated_at', 'executed_by'], 'required'],
+            [['instance_id', 'created_at', 'updated_at', 'executed_by', 'status','is_deleted'], 'integer'],
             [['request_params', 'response_params'], 'string'],
+            // [['execution_id'], 'string', 'max' => 20],
+            [['api_domain', 'auth_token'], 'string', 'max' => 100],
+            [['instance_id'], 'exist', 'skipOnError' => true, 'targetClass' => Workflow::className(), 'targetAttribute' => ['instance_id' => 'id']],
         ];
     }
 
@@ -69,16 +80,27 @@ class WorkflowExecution extends \yii\db\ActiveRecord
             'instance_id' => 'Instance ID',
             'request_params' => 'Request Params',
             'response_params' => 'Response Params',
-            'created_at' => 'Executed At',
-            'updated_at' => 'Executed At',
+            'execution_id' => 'Execution ID',
+            'api_domain' => 'Api Domain',
+            'auth_token' => 'Auth Token',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
             'executed_by' => 'Executed By',
             'status' => 'Status',
         ];
     }
 
-    public function functionex() {
-        return $data = 'I am the data returned by function call';        
+    /**
+     * Gets query for [[Instance]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getWorkflow()
+    {
+        return $this->hasOne(Workflow::className(), ['id' => 'instance_id']);
     }
 
-    
+     public function functionex() {
+        return $data = 'I am the data returned by function call';        
+    }
 }
