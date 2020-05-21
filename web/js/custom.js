@@ -41,6 +41,9 @@ $(document).on('click',"#executeProcess",function(){
 		data : {'workflow-id' : workflow_id, 'form-type' : 'create-clone' },
 		type: 'POST',
 		dataType:'json',
+		beforeSend: function() {
+			$(".se-pre-con").show();
+		},
 		success: function(data) {
 			//console.log(data); exit;
 			$.each( data, function( key, value ) {
@@ -49,7 +52,7 @@ $(document).on('click',"#executeProcess",function(){
 				}
 				else {	executeRunningProcess(workflow_id, key, value); }
         	});
-
+			$(".se-pre-con").hide();
 		}
 	});
 	// $(".se-pre-con").fadeOut("slow");
