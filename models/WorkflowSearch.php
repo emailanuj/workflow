@@ -41,7 +41,7 @@ class WorkflowSearch extends Workflow
      */
     public function search($params)
     {
-        $query = Workflow::find();
+        $query = Workflow::find()->where(['is_deleted' => 0]);
 
         // add conditions that should always apply here
 

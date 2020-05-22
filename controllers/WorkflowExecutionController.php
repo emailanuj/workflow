@@ -123,13 +123,15 @@ class WorkflowExecutionController extends Controller
         foreach($workflowData as $dataKey => $dataValue) {
             $processStatus = WorkflowExecution::IN_PROGRESS;            
             $workflowDiagramBpmnJson = $this->diagramStatusChange($workflowDiagram,$processStatus,$dataKey); 
-            $data[] = [$model->id,$dataKey,$executionId,WorkflowExecution::IN_PROGRESS,$workflowDiagramBpmnJson]; 
-            $output[$dataKey] = $executionId;                                              
+            $data[] = [$model->id,$dataKey,$executionId,WorkflowExecution::IN_PROGRESS,$workflowDiagramBpmnJson, time()]; 
+            $output[$dataKey] = $executionId;                                    
         }
 
-        $arrTableColumn = ['instance_id','request_params', 'execution_id','status','workflow_diagram'];
+        $arrTableColumn = ['instance_id','request_params', 'execution_id','status','workflow_diagram','created_at'];
         $executionCount = Yii::$app->db->createCommand()
-                            ->batchInsert(WorkflowExecution::tableName(), $arrTableColumn ,$data)->execute();                            
+                            ->batchInsert(WorkflowExecution::tableName(), $arrTableColumn ,$data)->execute();
+
+
         return $output;
     }
 
@@ -237,8 +239,9 @@ class WorkflowExecutionController extends Controller
                 $executionModel->auth_token       = $tokenBearer; 
             }             
             $executionModel->workflow_diagram = $workflowDiagramBpmnJson;                   
-            $executionModel->status  = empty($result) ? WorkflowExecution::FAIL : WorkflowExecution::PASS;                                                  
-            $executionModel->save();   
+            $executionModel->status  = empty($result) ? WorkflowExecution::FAIL : WorkflowExecution::PASS;
+
+            $executionModel->save();
             
             $executionModelData = $this->getExecutionTable($model->id,$executionId);
             $output['status']   = empty($result) ? WorkflowExecution::FAIL : WorkflowExecution::PASS;
