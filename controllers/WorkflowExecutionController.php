@@ -108,6 +108,9 @@ class WorkflowExecutionController extends Controller
 
     public function preExecutionSave($model) {
         $workflowData = json_decode($model->workflow_data,true);
+        uasort($workflowData, function($a, $b) {
+            return $a['step_no'] <=> $b['step_no'];
+        });        
         $workflowDiagram = json_decode($model->workflow_json,true);
         $workflowDiagram = $workflowDiagram['bpmn'];
         $data = array();
@@ -116,7 +119,7 @@ class WorkflowExecutionController extends Controller
             $processStatus = WorkflowExecution::IN_PROGRESS;            
             $workflowDiagramBpmnJson = $this->diagramStatusChange($workflowDiagram,$processStatus,$dataKey); 
             $data[] = [$model->id,$dataKey,$executionId,WorkflowExecution::IN_PROGRESS,$workflowDiagramBpmnJson, time()]; 
-            $output[$dataKey] = $executionId;                                    
+            $output[$dataKey] = $executionId;                                             
         }
 
         $arrTableColumn = ['instance_id','request_params', 'execution_id','status','workflow_diagram','created_at'];
@@ -132,11 +135,29 @@ class WorkflowExecutionController extends Controller
     public function actionExecuteRunningProcess() { 
          $model = Workflow::findOne(Yii::$app->request->post('workflow-id'));
          $diagramId = Yii::$app->request->post('diagram-id');
-         $executionId = Yii::$app->request->post('execution-id');         
+         $gatewayId = preg_replace('/[0-9]+/', '', $diagramId);         
+         $executionId = Yii::$app->request->post('execution-id');
+                  
          $workflowData = json_decode($model->workflow_data,true);                  
          $workflowExecutableData = $workflowData[$diagramId];
          
-         switch ($workflowExecutableData['keywords']) {
+         $nextStep = $workflowExecutableData['next_process'];
+         $currentStep = $workflowExecutableData['step_no'];
+
+        /* check stepwise execution and diagram creation */
+        $workflowDiagramData = Yii::$app->db->createCommand("SELECT next_step,workflow_diagram FROM tbl_workflow_execution WHERE instance_id = '".$model->id."' AND execution_id = '".$executionId."' ORDER BY updated_at DESC")->queryOne();
+        if(!empty($workflowDiagramData)) { 
+            $workflowDiagramExecute = $workflowDiagramData['workflow_diagram'];
+            $workflowStepToExecute =   $workflowDiagramData['next_step'];          
+            if(!empty($workflowDiagramExecute)) { $workflowDiagram  = json_decode($workflowDiagramExecute, true); }
+        } else {
+            $workflowDiagram = json_decode($model->workflow_json,true);
+        }                  
+        $workflowDiagram = $workflowDiagram['bpmn'];
+        if(!empty($workflowStepToExecute)) { if($currentStep !== $workflowStepToExecute) { $output = 'blank'; return json_encode($output);  } }
+        
+        if(strpos($gatewayId, 'PGgateway') !== 0) {         
+        switch ($workflowExecutableData['keywords']) {
             case "API":
                 $apiUrl        = $workflowExecutableData['api_url'];
                 $apiMethod     = $workflowExecutableData['api_method'];
@@ -208,29 +229,23 @@ class WorkflowExecutionController extends Controller
             default:
                 $result = "Default";
          }
-
-         //$workflowDiagramData = WorkflowExecution::find()->where(['instance_id' => $workflowId, 'execution_id' => $executionId])->orderBy('id')->one();            
-         $workflowDiagramData = Yii::$app->db->createCommand("SELECT * FROM tbl_workflow_execution WHERE instance_id = '".$model->id."' AND execution_id = '".$executionId."' ORDER BY updated_at DESC")->queryOne();
-         if(!empty($workflowDiagramData)) { 
-             $workflowDiagramExecute = $workflowDiagramData['workflow_diagram'];            
-             if(!empty($workflowDiagramExecute)) { $workflowDiagram  = json_decode($workflowDiagramExecute, true); }
         } else {
-            $workflowDiagram = json_decode($model->workflow_json,true);
-        }                  
-         $workflowDiagram = $workflowDiagram['bpmn'];
+            $result = '';
+        }
+
          $processStatus   = empty($result) ? WorkflowExecution::FAIL : WorkflowExecution::PASS;
          $workflowDiagramBpmnJson = $this->diagramStatusChange($workflowDiagram,$processStatus,$diagramId);         
          $executionModelArr = array();
-         $executionModel = WorkflowExecution::findOne(['request_params' => $diagramId, 'execution_id' => $executionId]);         
+         $executionModel = WorkflowExecution::findOne(['request_params' => $diagramId, 'execution_id' => $executionId]);                  
          $executionModel->response_params  = $result;             
-            if($workflowExecutableData['keywords'] == 'API') {
+            if((@$workflowExecutableData['keywords'] == 'API') && strpos($gatewayId, 'PGgateway') !== 0) {
                 $executionModel->api_domain       = $tokenUrl;
                 $executionModel->auth_token       = $tokenBearer; 
             }             
-            $executionModel->workflow_diagram = $workflowDiagramBpmnJson;                   
+            $executionModel->workflow_diagram = $workflowDiagramBpmnJson;
+            $executionModel->next_step = $nextStep;                   
             $executionModel->status  = empty($result) ? WorkflowExecution::FAIL : WorkflowExecution::PASS;
-
-            $executionModel->save();
+            $executionModel->save();            
 
             /* save diagram to sync all */
             Yii::$app->db->createCommand()

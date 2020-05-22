@@ -31,11 +31,11 @@ $form = ActiveForm::begin([
           <div id="proplist">
     <div class="container-fluid">
             <div class="panel-body">
-            <?= $form->field($workflowStartEventModel, 'step_no')->textInput(['autofocus' => true,'placeholder'=>'Step No']) ?>
+            <?= $form->field($workflowStartEventModel, 'step_no')->textInput(['autofocus' => true,'placeholder'=>'Step No', 'type' => 'number']) ?>
 
             <?= $form->field($workflowStartEventModel, 'if_fail')->dropDownList(['stop' => 'Stop','continue'=>'Continue'],['prompt'=>'Please Select']) ?>
 
-            <?= $form->field($workflowStartEventModel, 'next_process')->textInput(['placeholder'=>'Next Process']) ?>
+            <?= $form->field($workflowStartEventModel, 'next_process')->textInput(['placeholder'=>'Next Process', 'type' => 'number']) ?>
 
             <?= $form->field($workflowStartEventModel, 'keywords')->dropDownList($keywordsList,['prompt'=>'Please select Keyword']) ?>
 		<div class="api_cls" style="display:none;">

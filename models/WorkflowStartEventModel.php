@@ -44,7 +44,8 @@ class WorkflowStartEventModel extends Model
             [['step_no','if_fail','condition_statement','next_process'], 'required','on'=>'inclusive'],
             [['step_no','if_fail','condition_statement','next_process'], 'required','on'=>'exclusive'],
             [['step_no','if_fail','condition_statement','next_process'], 'required','on'=>'event'],
-            [['api_post_params'], 'required', 'on'=>'rest']
+            [['api_post_params'], 'required', 'on'=>'rest'],
+            [['step_no','next_process'], 'number']
         ];
     }
     public function scenarios() {

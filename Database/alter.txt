@@ -1,1 +1,2 @@
-ALTER TABLE `workflow_execution` ADD `execution_id` VARCHAR(20) NOT NULL AFTER `response_params`;
+ALTER TABLE `tbl_workflow_execution` ADD `next_step` INT(11) UNSIGNED NOT NULL AFTER `request_params`;
+
