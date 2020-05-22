@@ -11,6 +11,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Workflow;
+use app\models\WorkflowExecution;
 
 class SiteController extends Controller
 {
@@ -63,7 +65,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $arrCountList = [];
+        $arrCountList['workflow_count'] = Workflow::find()->count();
+        $arrCountList['workflow_execution'] = WorkflowExecution::find()->count();
+        return $this->render('index', $arrCountList);
     }
 
     /**
