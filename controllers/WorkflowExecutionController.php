@@ -81,15 +81,7 @@ class WorkflowExecutionController extends Controller
                  ],
                 ['class' => 'yii\grid\ActionColumn', 'template' => ''],
                 ];
-              return ExportMenu::widget([
-                'dataProvider' => $dataProvider,
-                'columns' => $gridColumns,
-                'dropdownOptions' => [
-                    'label' => 'Export All',
-                    'class' => 'btn btn-outline-secondary'
-                ]
-            ]) . "<hr>\n".
-            GridView::widget([
+              return GridView::widget([
                 'dataProvider' => $dataProvider,
                 'columns' => $gridColumns,
             ]);
