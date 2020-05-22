@@ -49,7 +49,7 @@ class WorkflowExecutionReportsController extends Controller
 
         if (($model = Workflow::findOne($id)) !== null) {
 
-            $query = (new Query())->from('workflow_execution')->where(['instance_id' => $model->id, 'execution_id' => $execution_id]);                        
+            $query = (new Query())->from(WorkflowExecution::tableName())->where(['instance_id' => $model->id, 'execution_id' => $execution_id]);                        
             $provider = new ActiveDataProvider([
                 'query' => $query,                
                 'sort' => [

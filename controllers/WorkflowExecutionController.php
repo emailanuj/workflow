@@ -48,7 +48,7 @@ class WorkflowExecutionController extends Controller
     }
 
     public function getExecutionTable($instanceId,$executionId) {
-        $query = (new Query())->from('workflow_execution')->where(['instance_id' => $instanceId, 'execution_id' => $executionId]);                        
+        $query = (new Query())->from(WorkflowExecution::tableName())->where(['instance_id' => $instanceId, 'execution_id' => $executionId]);                        
             $dataProvider = new ActiveDataProvider([
                 'query' => $query,                
                 'sort' => [
@@ -123,12 +123,13 @@ class WorkflowExecutionController extends Controller
         foreach($workflowData as $dataKey => $dataValue) {
             $processStatus = WorkflowExecution::IN_PROGRESS;            
             $workflowDiagramBpmnJson = $this->diagramStatusChange($workflowDiagram,$processStatus,$dataKey); 
-            //echo '<pre/>'; print_r($workflowDiagramBpmnJson);           
-            $data[] = array($model->id,$dataKey,$executionId,WorkflowExecution::IN_PROGRESS,$workflowDiagramBpmnJson); 
-            $output[$dataKey] = $executionId;                                                                                                      
-        }  
+            $data[] = [$model->id,$dataKey,$executionId,WorkflowExecution::IN_PROGRESS,$workflowDiagramBpmnJson]; 
+            $output[$dataKey] = $executionId;                                    
+        }
+
+        $arrTableColumn = ['instance_id','request_params', 'execution_id','status','workflow_diagram'];
         $executionCount = Yii::$app->db->createCommand()
-        ->batchInsert('workflow_execution', ['instance_id','request_params', 'execution_id','status','workflow_diagram'],$data)->execute();                
+                            ->batchInsert(WorkflowExecution::tableName(), $arrTableColumn ,$data)->execute();
         return $output;
     }
 
