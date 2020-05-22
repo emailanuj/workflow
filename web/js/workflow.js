@@ -166,6 +166,11 @@ function populateData(blockId,workflow_id){
         		$('.formdata_cls').css("display", "block");
         	}else{
         		$('.formdata_cls').css("display", "none");
+			}
+			if(localData['api_method']=='post'){
+        		$('.api_post_field').css("display", "block");        		
+        	}else{
+        		$('.api_post_field').css("display", "none");
         	}
              $.each( localJSONData[blockId], function( key, value ) {
             	 $('#workflowstarteventmodel-'+key).val(value);
@@ -189,6 +194,14 @@ $(document).on('change',"#workflowstarteventmodel-keywords",function(){
 	}else{
 		$('.api_cls').css("display", "none");
 		$('.ds_cls').css("display", "block");
+	}
+});
+$(document).on('change',"#workflowstarteventmodel-api_method",function(){
+	selected_value=this.value;
+	if(selected_value=='post'){
+		$('.api_post_field').css("display", "block");		
+	}else{
+		$('.api_post_field').css("display", "none");		
 	}
 });
 $(document).on('change',"#workflowstarteventmodel-data_source",function(){

@@ -88,15 +88,6 @@ class WorkflowExecutionController extends Controller
             
     }
 
-    public function actionGetRunningProcess() { 
-        $model = Workflow::findOne(Yii::$app->request->post('workflow-id'));        
-        $output = $this->preExecutionSave($model);
-        $executionId = reset($output);
-        $executionModelData = $this->getExecutionTable($model->id,$executionId);
-        $output['datatable'] = $executionModelData;
-        return json_encode($output);
-    }
-
     public function diagramStatusChange($workflowDiagram,$status,$diagramId) {                        
         $workflow_key = ltrim($diagramId,"SE");                
         $jsonkey = array_search($workflow_key,array_column($workflowDiagram, 'id'));
@@ -105,6 +96,15 @@ class WorkflowExecutionController extends Controller
         $workflowDiagramBpmnJson = json_encode($workflowDiagramBpmn);        
         return $workflowDiagramBpmnJson;
     }
+
+    public function actionGetRunningProcess() { 
+        $model = Workflow::findOne(Yii::$app->request->post('workflow-id'));        
+        $output = $this->preExecutionSave($model);
+        $executionId = reset($output);
+        $executionModelData = $this->getExecutionTable($model->id,$executionId);
+        $output['datatable'] = $executionModelData;
+        return json_encode($output);
+    }    
 
     public function preExecutionSave($model) {
         $workflowData = json_decode($model->workflow_data,true);

@@ -42,16 +42,18 @@ $form = ActiveForm::begin([
             <?= $form->field($workflowStartEventModel, 'api_url')->textInput(['placeholder'=>'API URL']) ?>
 
             <?= $form->field($workflowStartEventModel, 'api_method')->dropDownList(['get' => 'Get','post'=>'Post'],['prompt'=>'Please Select']) ?>
-
-            <?= $form->field($workflowStartEventModel, 'api_type')->dropDownList(['rest' => 'Rest','soap'=>'Soap'],['prompt'=>'Please Select']) ?>
+            
+            <div class="api_post_field" style="display:none;"><?= $form->field($workflowStartEventModel, 'api_post_params')->textInput() ?></div>
+           
+            <?= $form->field($workflowStartEventModel, 'api_type')->dropDownList(['rest' => 'Rest'/*,'soap'=>'Soap'*/],['prompt'=>'Please Select']) ?>
 
             <?= $form->field($workflowStartEventModel, 'api_headers')->textInput(['placeholder'=>'API Headers']) ?>
 
             <?= $form->field($workflowStartEventModel, 'function_execute')->dropDownList($functions_exe_list,['prompt'=>'Please select Function']) ?>
             
-            <?= $form->field($workflowStartEventModel, 'auth_type')->dropDownList(['login' => 'Login','token'=>'Token','both'=>'Both'],['prompt'=>'Please Select']) ?>
+            <?= $form->field($workflowStartEventModel, 'auth_type')->dropDownList([/*'login' => 'Login','both'=>'Both',*/'token'=>'Token'],['prompt'=>'Please Select']) ?>
             
-            <?= $form->field($workflowStartEventModel, 'token_from')->dropDownList(['prev_response' => 'Previous Response','token_url'=>'Token URL'],['prompt'=>'Please Select']) ?>
+            <?= $form->field($workflowStartEventModel, 'token_from')->dropDownList(['token_url'=>'Token URL'],['prompt'=>'Please Select']) ?>
             
             <?= $form->field($workflowStartEventModel, 'token_url')->textInput(['placeholder'=>'Token URL']) ?>
             

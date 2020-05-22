@@ -32,8 +32,8 @@ $form = ActiveForm::begin([
     	<div class="container-fluid">
             <div class="panel-body">
                 <?= $form->field($workflowStartEventModel, 'step_no')->textInput(['autofocus' => true,'placeholder'=>'Step No']) ?>
-                <?= $form->field($workflowStartEventModel, 'on_fail')->textInput(['placeholder'=>'Step No']) ?>
-                <?= $form->field($workflowStartEventModel, 'on_success')->textInput(['placeholder'=>'Step No']) ?>
+                <?= $form->field($workflowStartEventModel, 'condition_statement')->textInput(['placeholder'=>'Step No']) ?>
+                <?= $form->field($workflowStartEventModel, 'next_process')->textInput(['placeholder'=>'Step No']) ?>
                 <?= $form->field($workflowStartEventModel, 'if_fail')->dropDownList(['stop' => 'Stop','continue'=>'Continue'],['prompt'=>'Please Select']) ?>
      			<input type="hidden" name="element_id" value="<?php echo $element_id;?>">
      			<input type="hidden" name="element_type" value="<?php echo $element_type;?>">

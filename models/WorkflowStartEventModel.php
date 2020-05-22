@@ -14,6 +14,7 @@ class WorkflowStartEventModel extends Model
     public $api_url;
     public $keywords;
     public $api_method;
+    public $api_post_params;
     public $api_type;
     public $api_headers;
     public $data_source;
@@ -26,8 +27,7 @@ class WorkflowStartEventModel extends Model
     public $password;
     public $form_data;
     public $form_json;
-    public $on_fail;
-    public $on_success;
+    public $condition_statement;    
 
     /**
      * {@inheritdoc}
@@ -40,10 +40,11 @@ class WorkflowStartEventModel extends Model
             [['step_no','if_fail','next_process','keywords','data_source'], 'required','on'=>'NSO'],
             [['step_no','if_fail','next_process','keywords','data_source'], 'required','on'=>'Postcheck'],
             [['step_no','if_fail','next_process','keywords','data_source'], 'required','on'=>'Precheck'],
-            [['step_no','if_fail','on_fail','on_success'], 'required','on'=>'parallel'],
-            [['step_no','if_fail','on_fail','on_success'], 'required','on'=>'inclusive'],
-            [['step_no','if_fail','on_fail','on_success'], 'required','on'=>'exclusive'],
-            [['step_no','if_fail','on_fail','on_success'], 'required','on'=>'event'],
+            [['step_no','if_fail','condition_statement','next_process'], 'required','on'=>'parallel'],
+            [['step_no','if_fail','condition_statement','next_process'], 'required','on'=>'inclusive'],
+            [['step_no','if_fail','condition_statement','next_process'], 'required','on'=>'exclusive'],
+            [['step_no','if_fail','condition_statement','next_process'], 'required','on'=>'event'],
+            [['api_post_params'], 'required', 'on'=>'rest']
         ];
     }
     public function scenarios() {
@@ -63,6 +64,7 @@ class WorkflowStartEventModel extends Model
             'api_url'=>'API URL',
             'keywords'=>'Keyword',
             'api_method'=>'API method',
+            'api_post_params' => 'API Post',
             'api_type'=>'API type',
             'api_headers'=>'API headers',
             'data_source'=>'Data Source',
@@ -75,8 +77,7 @@ class WorkflowStartEventModel extends Model
             'password'=>'Password',
             'form_data'=>'Form Data',
             'form_json'=>'Form JSON',
-            'on_fail'=>'On Fail',
-            'on_success'=>'On Success',
+            'condition_statement'=>'Conditional Statement',            
         ];
     }
     
