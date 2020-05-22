@@ -105,7 +105,7 @@ class WorkflowExecutionController extends Controller
         return json_encode($output);
     }
 
-    public function diagramStatusChange($workflowDiagram,$status,$diagramId) {
+    public function diagramStatusChange($workflowDiagram,$status,$diagramId) {                        
         $workflow_key = ltrim($diagramId,"SE");                
         $jsonkey = array_search($workflow_key,array_column($workflowDiagram, 'id'));
         $workflowDiagram[$jsonkey]['status'] = $status;
@@ -119,17 +119,17 @@ class WorkflowExecutionController extends Controller
         $workflowDiagram = json_decode($model->workflow_json,true);
         $workflowDiagram = $workflowDiagram['bpmn'];
         $data = array();
-        $executionId = uniqid('ex');        
+        $executionId = uniqid('ex');              
         foreach($workflowData as $dataKey => $dataValue) {
             $processStatus = WorkflowExecution::IN_PROGRESS;            
             $workflowDiagramBpmnJson = $this->diagramStatusChange($workflowDiagram,$processStatus,$dataKey); 
             $data[] = [$model->id,$dataKey,$executionId,WorkflowExecution::IN_PROGRESS,$workflowDiagramBpmnJson]; 
-            $output[$dataKey] = $executionId;                                    
+            $output[$dataKey] = $executionId;                                              
         }
 
         $arrTableColumn = ['instance_id','request_params', 'execution_id','status','workflow_diagram'];
         $executionCount = Yii::$app->db->createCommand()
-                            ->batchInsert(WorkflowExecution::tableName(), $arrTableColumn ,$data)->execute();
+                            ->batchInsert(WorkflowExecution::tableName(), $arrTableColumn ,$data)->execute();                            
         return $output;
     }
 
@@ -214,8 +214,18 @@ class WorkflowExecutionController extends Controller
             default:
                 $result = "Default";
          }
+
+         //$workflowDiagramData = WorkflowExecution::find()->where(['instance_id' => $workflowId, 'execution_id' => $executionId])->orderBy('id')->one();            
+         $workflowDiagramData = Yii::$app->db->createCommand("SELECT * FROM tbl_workflow_execution WHERE instance_id = '".$model->id."' AND execution_id = '".$executionId."' ORDER BY updated_at DESC")->queryOne();
+         if(!empty($workflowDiagramData)) { 
+             $workflowDiagramExecute = $workflowDiagramData['workflow_diagram'];            
+             if(!empty($workflowDiagramExecute)) { $workflowDiagram  = json_decode($workflowDiagramExecute, true); }
+        } else {
+            $workflowDiagram = json_decode($model->workflow_json,true);
+        }
          
-         $workflowDiagram = json_decode($model->workflow_json,true);
+
+         
          $workflowDiagram = $workflowDiagram['bpmn'];
          $processStatus   = empty($result) ? WorkflowExecution::FAIL : WorkflowExecution::PASS;
          $workflowDiagramBpmnJson = $this->diagramStatusChange($workflowDiagram,$processStatus,$diagramId);         
