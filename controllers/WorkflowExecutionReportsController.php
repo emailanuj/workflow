@@ -49,25 +49,25 @@ class WorkflowExecutionReportsController extends Controller
 
         if (($model = Workflow::findOne($id)) !== null) {
 
-            $query = (new Query())->from(WorkflowExecution::tableName())->where(['instance_id' => $model->id, 'execution_id' => $execution_id]);                        
+            $query = (new Query())->from(WorkflowExecution::tableName())->where(['instance_id' => $model->id, 'execution_id' => $execution_id]);
             $provider = new ActiveDataProvider([
                 'query' => $query,                
                 'sort' => [
                     'defaultOrder' => [
                         //'created_at' => SORT_DESC,
-                        //'request_params' => SORT_ASC, 
+                        //'request_params' => SORT_ASC,
                     ]
                 ],
             ]);
+
+            $arrWorkflowDiagram = WorkflowExecution::find()->select('workflow_diagram')->where(['instance_id' => $model->id, 'execution_id' => $execution_id])->orderBy(['id' => SORT_DESC])->AsArray()->one();
 
             return $this->render('workflow-executed-details', [                    
                 'model'    => $model,
                 'workflow_id' => $id,
                 'dataProvider' => $provider, 
-            ]);                          
+                'workflow_dragram' => $arrWorkflowDiagram
+            ]);
         }
     }
-
-
-    
 }
