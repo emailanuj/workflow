@@ -224,10 +224,7 @@ class WorkflowExecutionController extends Controller
              if(!empty($workflowDiagramExecute)) { $workflowDiagram  = json_decode($workflowDiagramExecute, true); }
         } else {
             $workflowDiagram = json_decode($model->workflow_json,true);
-        }
-         
-
-         
+        }                  
          $workflowDiagram = $workflowDiagram['bpmn'];
          $processStatus   = empty($result) ? WorkflowExecution::FAIL : WorkflowExecution::PASS;
          $workflowDiagramBpmnJson = $this->diagramStatusChange($workflowDiagram,$processStatus,$diagramId);         
@@ -242,6 +239,11 @@ class WorkflowExecutionController extends Controller
             $executionModel->status  = empty($result) ? WorkflowExecution::FAIL : WorkflowExecution::PASS;
 
             $executionModel->save();
+
+            /* save diagram to sync all */
+            Yii::$app->db->createCommand()
+            ->update('tbl_workflow_execution', ['workflow_diagram' => $workflowDiagramBpmnJson], ['instance_id' => $model->id, 'execution_id' => $executionId])
+            ->execute();
             
             $executionModelData = $this->getExecutionTable($model->id,$executionId);
             $output['status']   = empty($result) ? WorkflowExecution::FAIL : WorkflowExecution::PASS;
