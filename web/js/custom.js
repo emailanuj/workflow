@@ -33,8 +33,7 @@
 /* added-Dev:lavi 30-04-2020 */
 
 
-$(document).on('click',"#executeProcess",function(){
-	// $(".se-pre-con").fadeIn("slow");
+$(document).on('click',"#executeProcess",function(){	
 	var workflow_id = $("#workflow_id").val();
 	$.ajax({
 		url: baseURL +'/workflow-execution/get-running-process/',
@@ -44,39 +43,93 @@ $(document).on('click',"#executeProcess",function(){
 		beforeSend: function() {
 			$(".se-pre-con").show();
 		},
-		success: function(data) {
-			//console.log(data); exit;
+		success: function(data) {			
 			$.each( data, function( key, value ) {
 				if(key == 'datatable') {
 					$("#executionTable").html(value);
 				}
-				else {	executeRunningProcess(workflow_id, key, value); }
-        	});
+				//else {	executeRunningProcess(workflow_id, key, value); }
+			});
+			executeRunningProcessSequence(data);
 			$(".se-pre-con").hide();
 		}
-	});
-	// $(".se-pre-con").fadeOut("slow");
+	});	
 });
 
-function executeRunningProcess(workflow_id, digram_id, execution_id){
-	console.log(workflow_id +'  ====  '+ digram_id +'===='+ execution_id);
-	$.ajax({
-		url: baseURL +'/workflow-execution/execute-running-process/',
-		data : {'workflow-id' : $("#workflow_id").val(), 'diagram-id' : digram_id, 'execution-id' : execution_id },
-		type: 'POST',
-		dataType:'json',
-		success: function(data) {	
-			var re_diagram_id	=  digram_id.replace("SE", "");		
-			if(data['status'] == '3') {
-				$('#'+re_diagram_id+ ' circle').css('stroke','red');
-			} else if(data['status'] == '2') {
-				$('#'+re_diagram_id+ ' circle').css('stroke','green');
-			} else {
-				$('#'+re_diagram_id+ ' circle').css('stroke','black');
-			}
-			if(data['datatable']) {
-				$("#executionTable").html(data['datatable']);
-			}			
+function executeRunningProcessSequence(data,workflow_id) {
+	delete data.datatable;
+	console.log(data);
+	var ajaxes = [];
+	$.each( data, function( key, value ) {				
+		ajaxes.push( 
+			{
+				diagram_id: key,				
+				url      : baseURL +'/workflow-execution/execute-running-process/',
+				data     : {'workflow-id' : $("#workflow_id").val(), 'diagram-id' : key, 'execution-id' : value },
+				callback : function (data) { /*do work on data*/ }
+			});		
+	});	
+	current = 0;
+	function do_ajax() {
+		if (current < ajaxes.length) {		
+			$.ajax({
+				url      : ajaxes[current].url,
+				data     : ajaxes[current].data,
+				type: 'POST',
+				dataType:'json',
+				success  : function (serverResponse) {
+					console.log(serverResponse);
+					if (ajaxes[current].diagram_id.indexOf('SE') > -1)
+					{
+						var re_diagram_id	=  ajaxes[current].diagram_id.replace("SE", "") + ' circle';
+					} else if(ajaxes[current].diagram_id.indexOf('PG') > -1)
+					{
+						var re_diagram_id	=  ajaxes[current].diagram_id.replace("PG", "")+ ' rect';
+					}									
+					if(serverResponse['status'] == '3') {
+						$('#'+re_diagram_id).css('stroke','red');
+					} else if(serverResponse['status'] == '2') {
+						$('#'+re_diagram_id).css('stroke','green');
+					} else {
+						$('#'+re_diagram_id).css('stroke','black');
+					}
+					if(serverResponse['datatable']) {
+						$("#executionTable").html(serverResponse['datatable']);
+					}
+					ajaxes[current].callback(serverResponse);
+
+				},
+				complete : function () {
+					current++;
+					do_ajax();
+
+				}
+			});
 		}
-	});
+	}
+//run the AJAX function for the first time once `executesequence` fires
+do_ajax();
 }
+
+// function executeRunningProcess(workflow_id, digram_id, execution_id){
+// 	console.log(workflow_id +'  ====  '+ digram_id +'===='+ execution_id);
+// 	$.ajax({
+// 		url: baseURL +'/workflow-execution/execute-running-process/',
+// 		data : {'workflow-id' : $("#workflow_id").val(), 'diagram-id' : digram_id, 'execution-id' : execution_id },
+// 		type: 'POST',
+// 		dataType:'json',
+// 		success: function(data) {	
+// 			var re_diagram_id	=  digram_id.replace("SE", "");		
+// 			if(data['status'] == '3') {
+// 				$('#'+re_diagram_id+ ' circle').css('stroke','red');
+// 			} else if(data['status'] == '2') {
+// 				$('#'+re_diagram_id+ ' circle').css('stroke','green');
+// 			} else {
+// 				$('#'+re_diagram_id+ ' circle').css('stroke','black');
+// 			}
+// 			if(data['datatable']) {
+// 				$("#executionTable").html(data['datatable']);
+// 			}			
+// 		}
+// 	});
+// }

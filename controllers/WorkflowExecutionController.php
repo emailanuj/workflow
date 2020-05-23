@@ -145,10 +145,11 @@ class WorkflowExecutionController extends Controller
          $currentStep = $workflowExecutableData['step_no'];
 
         /* check stepwise execution and diagram creation */
-        $workflowDiagramData = Yii::$app->db->createCommand("SELECT next_step,workflow_diagram FROM tbl_workflow_execution WHERE instance_id = '".$model->id."' AND execution_id = '".$executionId."' ORDER BY updated_at DESC")->queryOne();
+        $workflowDiagramData = Yii::$app->db->createCommand("SELECT response_params,next_step,workflow_diagram FROM tbl_workflow_execution WHERE instance_id = '".$model->id."' AND execution_id = '".$executionId."' ORDER BY updated_at DESC")->queryOne();
         if(!empty($workflowDiagramData)) { 
             $workflowDiagramExecute = $workflowDiagramData['workflow_diagram'];
-            $workflowStepToExecute =   $workflowDiagramData['next_step'];          
+            $workflowStepToExecute =   $workflowDiagramData['next_step']; 
+            $previousResponse =     $workflowDiagramData['response_params'];     
             if(!empty($workflowDiagramExecute)) { $workflowDiagram  = json_decode($workflowDiagramExecute, true); }
         } else {
             $workflowDiagram = json_decode($model->workflow_json,true);
@@ -211,7 +212,7 @@ class WorkflowExecutionController extends Controller
                     $executedFunctionData = WorkflowExecution::functionex();
                     $result = $executedFunctionData;                            
                 } else {
-                    $result = '';
+                    $result = $previousResponse;
                 }                        
                 break;
             case "OTHER":
@@ -223,14 +224,19 @@ class WorkflowExecutionController extends Controller
                     $executedFunctionData = WorkflowExecution::functionex();
                     $result = $executedFunctionData;                            
                 } else {
-                    $result = '';
+                    $result = $previousResponse;
                 } 
                 break;
             default:
                 $result = "Default";
          }
         } else {
-            $result = '';
+            if($workflowExecutableData['condition_statement'] == $previousResponse) {
+                $nextStep = $workflowExecutableData['next_process'];
+                $result = 'condition executed';
+            } else {
+                $result = '';
+            }           
         }
 
          $processStatus   = empty($result) ? WorkflowExecution::FAIL : WorkflowExecution::PASS;
