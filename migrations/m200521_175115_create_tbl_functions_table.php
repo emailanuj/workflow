@@ -32,7 +32,7 @@ class m200521_175115_create_tbl_functions_table extends Migration
             ['function_name','function_type','tbl_functionscol','function_url','created_at','updated_at'], 
             [
                 ['get_cur_data()','EXECUTABLE','col','url',$strCurrentDateTime, $strCurrentDateTime],
-                ['functionex','functionex','col','workflow-execution/functionex', $strCurrentDateTime, $strCurrentDateTime]
+                ['get_nso_data()','EXECUTABLE','col','url', $strCurrentDateTime, $strCurrentDateTime]
             ])->execute();
     }
 
