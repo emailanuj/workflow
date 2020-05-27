@@ -144,6 +144,15 @@ class WorkflowController extends Controller
                         'element_type'=>$strFormType
                     ]
                     );
+            } else if( $strFormType == 'MessageStartEvent'){
+                $arrOutputForm['html'] = $this->renderPartial('_customEmailEventForm',
+                    [
+                        'workflowStartEventModel' => $workflowStartEventModel,
+                        'element_id'=>$element_id,
+                        'workflow_id'=>$workflow_id,
+                        'element_type'=>$strFormType
+                    ]
+                    );
             }
             
             else if(!empty($strFormType)){

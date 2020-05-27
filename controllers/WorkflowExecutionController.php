@@ -143,13 +143,14 @@ class WorkflowExecutionController extends Controller
          
          $nextStep = $workflowExecutableData['next_process'];
          $currentStep = $workflowExecutableData['step_no'];
+         $failStatus  = $workflowExecutableData['if_fail'];
 
         /* check stepwise execution and diagram creation */
         $workflowDiagramData = Yii::$app->db->createCommand("SELECT response_params,next_step,workflow_diagram FROM tbl_workflow_execution WHERE instance_id = '".$model->id."' AND execution_id = '".$executionId."' ORDER BY updated_at DESC")->queryOne();
         if(!empty($workflowDiagramData)) { 
             $workflowDiagramExecute = $workflowDiagramData['workflow_diagram'];
-            $workflowStepToExecute =   $workflowDiagramData['next_step']; 
-            $previousResponse =     $workflowDiagramData['response_params'];     
+            $workflowStepToExecute  = $workflowDiagramData['next_step']; 
+            $previousResponse       = $workflowDiagramData['response_params'];     
             if(!empty($workflowDiagramExecute)) { $workflowDiagram  = json_decode($workflowDiagramExecute, true); }
         } else {
             $workflowDiagram = json_decode($model->workflow_json,true);
@@ -251,8 +252,8 @@ class WorkflowExecutionController extends Controller
             $executionModel->workflow_diagram = $workflowDiagramBpmnJson;
             $executionModel->next_step = $nextStep;                   
             $executionModel->status  = empty($result) ? WorkflowExecution::FAIL : WorkflowExecution::PASS;
+            
             $executionModel->save();            
-
             /* save diagram to sync all */
             Yii::$app->db->createCommand()
             ->update('tbl_workflow_execution', ['workflow_diagram' => $workflowDiagramBpmnJson], ['instance_id' => $model->id, 'execution_id' => $executionId])
@@ -261,6 +262,7 @@ class WorkflowExecutionController extends Controller
             $executionModelData = $this->getExecutionTable($model->id,$executionId);
             $output['status']   = empty($result) ? WorkflowExecution::FAIL : WorkflowExecution::PASS;
             $output['datatable'] = $executionModelData;
+            $output['failstatus'] = empty($result) ? $failStatus : 'NA';
             return json_encode($output);
         
     }

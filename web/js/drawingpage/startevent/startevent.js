@@ -105,8 +105,8 @@ var starteventdevider = function (eid,subElement,svg,xvalue,yvalue,status){
                             	showFunction(t,element.subtype);
                             	selectedId="TSE"+t;
                             }else if (element.subtype === "MessageStartEvent") {
-                            	showFunction(t,element.subtype);
-                            	selectedId="MSE"+t;
+                                selectedId="MSE"+t;
+                                showFunction(selectedId,element.subtype);                            	
                             }else if (element.subtype === "ErrorStartEvent") {
                             	showFunction(t,element.subtype);
                             	selectedId="ESE"+t;

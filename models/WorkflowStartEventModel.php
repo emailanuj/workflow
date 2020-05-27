@@ -27,7 +27,11 @@ class WorkflowStartEventModel extends Model
     public $password;
     public $form_data;
     public $form_json;
-    public $condition_statement;    
+    public $condition_statement; 
+    public $email_from;
+    public $email_to;
+    public $subject;
+    public $message;   
 
     /**
      * {@inheritdoc}

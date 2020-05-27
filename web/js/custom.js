@@ -95,14 +95,16 @@ function executeRunningProcessSequence(data,workflow_id) {
 					}
 					if(serverResponse['datatable']) {
 						$("#executionTable").html(serverResponse['datatable']);
-					}
+					}															
 					ajaxes[current].callback(serverResponse);
+					// if(serverResponse['failstatus'] == 'stop') {
+					// 	console.log('hi');
+					// }					
 
 				},
-				complete : function () {
-					current++;
-					do_ajax();
-
+				complete : function () {					
+					current++;					
+					do_ajax();					
 				}
 			});
 		}
