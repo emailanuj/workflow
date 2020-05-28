@@ -265,7 +265,9 @@ class WorkflowController extends Controller
             $element_type=$post_data['element_type'];
             if( $element_type == 'parallel' || $element_type == 'inclusive' || $element_type == 'exclusive' || $element_type=='event'){
                 $workflowStartEventModel->scenario=$element_type;
-            }else{
+            } else if( $element_type == 'MessageStartEvent'){
+                $workflowStartEventModel->scenario=$element_type;
+            } else{
                 $keywords=$json_array[$post_data['element_id']]['keywords'];
                 if(!empty($keywords)){
                     $workflowStartEventModel->scenario=$keywords;

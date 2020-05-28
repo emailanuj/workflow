@@ -49,7 +49,8 @@ class WorkflowStartEventModel extends Model
             [['step_no','if_fail','condition_statement','next_process'], 'required','on'=>'exclusive'],
             [['step_no','if_fail','condition_statement','next_process'], 'required','on'=>'event'],
             [['api_post_params'], 'required', 'on'=>'rest'],
-            [['step_no','next_process'], 'number']
+            [['step_no','next_process'], 'number'],
+            [['email_from','email_to','subject','message'], 'required','on'=>'MessageStartEvent'],
         ];
     }
     public function scenarios() {
@@ -82,7 +83,11 @@ class WorkflowStartEventModel extends Model
             'password'=>'Password',
             'form_data'=>'Form Data',
             'form_json'=>'Form JSON',
-            'condition_statement'=>'Conditional Statement',            
+            'condition_statement'=>'Conditional Statement',
+            'email_from' => 'Email From',
+            'email_to'   => 'Email To',
+            'subject'=> 'Subject',
+            'message' => 'Message'            
         ];
     }
     

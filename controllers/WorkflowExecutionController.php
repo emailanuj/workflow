@@ -135,7 +135,7 @@ class WorkflowExecutionController extends Controller
     public function actionExecuteRunningProcess() { 
          $model = Workflow::findOne(Yii::$app->request->post('workflow-id'));
          $diagramId = Yii::$app->request->post('diagram-id');
-         $gatewayId = preg_replace('/[0-9]+/', '', $diagramId);         
+         $diagramChId = preg_replace('/[0-9]+/', '', $diagramId);         
          $executionId = Yii::$app->request->post('execution-id');
                   
          $workflowData = json_decode($model->workflow_data,true);                  
@@ -158,7 +158,7 @@ class WorkflowExecutionController extends Controller
         $workflowDiagram = $workflowDiagram['bpmn'];
         if(!empty($workflowStepToExecute)) { if($currentStep !== $workflowStepToExecute) { $output = 'blank'; return json_encode($output);  } }
         
-        if(strpos($gatewayId, 'PGgateway') !== 0) {         
+        if(strpos($diagramChId, 'PGgateway') !== 0 && strpos($diagramChId, 'MSEstartEvnet') !== 0) {         
         switch ($workflowExecutableData['keywords']) {
             case "API":
                 $apiUrl        = $workflowExecutableData['api_url'];
@@ -231,21 +231,33 @@ class WorkflowExecutionController extends Controller
             default:
                 $result = "Default";
          }
-        } else {
+        } else if(strpos($diagramChId, 'PGgateway') === 0) {
             if($workflowExecutableData['condition_statement'] == $previousResponse) {
                 $nextStep = $workflowExecutableData['next_process'];
                 $result = 'condition executed';
             } else {
                 $result = '';
             }           
-        }
+        } else if(strpos($diagramChId, 'MSEstartEvnet') === 0) {
+           try{ 
+               $mailStatus = Yii::$app->mailer->compose()
+                ->setFrom($workflowExecutableData['email_from'])
+                ->setTo($workflowExecutableData['email_to'])
+                ->setSubject($workflowExecutableData['subject'])
+                ->setTextBody($workflowExecutableData['message'])
+                ->send();
+            } catch(\Swift_TransportException $e) {
+                Yii::log("email sending failed due to error: " . $e->getMessage());
+            }
+            $result = $mailStatus;
+        } else {  }
 
          $processStatus   = empty($result) ? WorkflowExecution::FAIL : WorkflowExecution::PASS;
          $workflowDiagramBpmnJson = $this->diagramStatusChange($workflowDiagram,$processStatus,$diagramId);         
          $executionModelArr = array();
          $executionModel = WorkflowExecution::findOne(['request_params' => $diagramId, 'execution_id' => $executionId]);                  
          $executionModel->response_params  = $result;             
-            if((@$workflowExecutableData['keywords'] == 'API') && strpos($gatewayId, 'PGgateway') !== 0) {
+            if((@$workflowExecutableData['keywords'] == 'API') && strpos($diagramChId, 'PGgateway') !== 0) {
                 $executionModel->api_domain       = $tokenUrl;
                 $executionModel->auth_token       = $tokenBearer; 
             }             
