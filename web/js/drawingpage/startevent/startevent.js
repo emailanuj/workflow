@@ -2,13 +2,24 @@
 var selectedId=0;
 var elementType='';
 var elementSubType='';
-var starteventdevider = function (eid,subElement,svg,xvalue,yvalue,status){
+var width = 120,
+    height = 80,
+    dragbarw = 20;
+var starteventdevider = function (eid,subElement,svg,xvalue,yvalue,status){    
     var group = svg.append('g')
         .attr('transform', 'translate(' + xvalue + ',' + yvalue + ')')
         .attr('id', 'startEvnet' + (++idstartelement))
         .call(drag)
     var groupSelect = svg.append('g')
          if (subElement === "startEvent") {
+            group.append('foreignObject')
+            .attr('id', 'fobject' + idstartelement)
+            .attr("x", function(d) { return 20 ; })
+            .attr("y", function(d) { return 30; })
+           .attr('width', width - 40)
+            .attr('height', height - 30)
+           .html("<div id=\"textidstartEvnet"+idstartelement+"\"; style=\"width: 80%; height:45px ; background-color: transparent;\" >Start Event</div>");
+      
            }else if (subElement === "TimeStartEvent") {
                 group.append('circle')
                     .attr("fill","#ffffff")
@@ -82,7 +93,7 @@ var starteventdevider = function (eid,subElement,svg,xvalue,yvalue,status){
                 tooltipDiv.transition()
                     .duration(200)
                     .style("opacity", 1.9);
-                tooltipDiv.html("<input id=" + "trash-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/trash-icon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >"+"&nbsp"+"<input id=" + "arrow-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/arrow.png" + " alt=" + "arrow" + " style=" + "width:25px;" + " >" + "<br>" + "<input id=" + "property-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/settingsicon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >")
+                tooltipDiv.html("<input id=" + "trash-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/trash-icon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >"+"&nbsp"+"<input id=" + "arrow-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/arrow.png" + " alt=" + "arrow" + " style=" + "width:25px;" + " >" + "<br>" + "<input id=" + "property-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/settingsicon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >"+"<input id=" + "text-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/review.png" + " alt=" + "Text" + " style=" + "width:25px;" + " >")
                     .style("left", coords.x + 35 + "px")
                     .style("top", (coords.y - 30) + "px");
                 tooltipDiv.select("#trash-button").on("click", function () {
@@ -113,6 +124,21 @@ var starteventdevider = function (eid,subElement,svg,xvalue,yvalue,status){
                             }
                         }
                     }
+                });
+                tooltipDiv.select("#text-button").on("click", function () {
+                    tooltipDiv.style("opacity", 0);
+                    console.log("end evnt button clicked ")
+                    var element = document.getElementById('edittext');
+                    element.style.width = width+"px";
+                    element.style.height = height+"px";
+                    element.style.display = "block";
+                    element.style.left = coords.x+"px";
+                    element.style.top = coords.y+"px";
+                    console.log("textid"+t);
+                    element.value = document.getElementById("textid"+t).innerHTML;
+                    window.selectedtextid = "textid"+t; 
+                    console.log("textid"+t);
+                   // TextModal.style.display = "block";
                 });
                 var CircleWidth = this.getBoundingClientRect().width;
                 var CircleHeight = this.getBoundingClientRect().height;
