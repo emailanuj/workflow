@@ -61,7 +61,7 @@ var starteventdevider = function (eid,subElement,svg,xvalue,yvalue,status){
                 .html("<div id=\"textidstartEvnet"+idstartelement+"\"; style=\"width: 80%; height:45px ; background-color: transparent;\" >Start Event</div>");
       
 
-    var g = group.append('circle')
+            group.append('circle')
                 .attr('id', 'startEvnet' + idstartelement)
                 .style("stroke", "black")
                 .style("stroke-width", "2")
