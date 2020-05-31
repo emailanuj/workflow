@@ -88,7 +88,7 @@ var starteventdevider = function (eid,subElement,svg,xvalue,yvalue,status){
                         .duration(200)
                     .style("opacity", 1.9);
                     tooltipDiv.html("<input id=" + "trash-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/trash-icon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >"+"&nbsp"+"<input id=" + "arrow-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/arrow.png" + " alt=" + "arrow" + " style=" + "width:25px;" + " >" + "<br>" + "<input id=" + "property-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/settingsicon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >"+"<input id=" + "text-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/review.png" + " alt=" + "Text" + " style=" + "width:25px;" + " >")
-                        .style("left", coords.x + 35 + "px")
+                        .style("left", coords.x + 30 + "px")
                         .style("top", (coords.y - 30) + "px");
                     tooltipDiv.select("#trash-button").on("click", function () {
                     deleteElement(t);
@@ -173,7 +173,7 @@ var starteventdevider = function (eid,subElement,svg,xvalue,yvalue,status){
                 if (window.bpmnElement === "flowselect") {
                     endtype = "endEvent";
                     endid = t;
-                    endx = coords.x - 30;
+                    endx = coords.x -30;
                     endy = coords.y;
                     midx = startx + ((endx - startx) / 2);
                 }

@@ -29,13 +29,6 @@ function TaskBPMNJsonCreator(id, x, y, width, height,type,subtype) {
 }
 
 function FlowBPMNJsonCreator(id,type, start_id, end_id, start_x, start_y,end_x,end_y,mid_x,start_type,end_type) {
-	/// Remove If the same combinations already exists
-	$.each( bpmnjson, function( key, value ) {
-		 if(value.start_id==start_id && value.end_id==end_id && type=="flow"){
-			 console.log('Match Found '+key);
-			 bpmnjson.splice(key, 1);
-		 }
-   	});
     bpmnjson.push({
         "id": id,
         "type": type,
