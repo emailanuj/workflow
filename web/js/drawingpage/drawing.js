@@ -26,7 +26,11 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     window.bpmnElement = null;
     window.subElement = null;
     window.selectedId = 0;
+    
     window.selectedtextid = null;
+    window.selectedtextx = 0;
+    window.selectedtexty = 0;
+
     window.dragFlows = [];
     window.dragging = false;
     window.drawing = false;
@@ -410,17 +414,10 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
 
         bpmnEventDivider(bpmnElement, subElement, svg);
         d3.select('body').style("cursor", "auto");
-        var element = document.getElementById('edittext');
-        var textvalue = element.value;
-        element.value = "";
-        element.style.display = "none";
-        
-        if (window.selectedtextid != null) {
-            // console.log(window.selectedtextid)
-            document.getElementById(window.selectedtextid).innerHTML = textvalue;
-            window.selectedtextid = null;
-        }
-
+        // var element = document.getElementById('edittext');
+        // var textvalue = element.value;
+        // element.value = "";
+        // element.style.display = "none";
     });
 
     window.sampleSVG = svg;

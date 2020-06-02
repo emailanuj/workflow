@@ -8,7 +8,7 @@ var textWidth = 100, textHeight = 30, dragbarw = 20;
 
 var starteventdevider = function (eid, subElement, svg, xvalue, yvalue, status) {
     var group = svg
-        .append('g').attr('class', 'djs-group')
+        // .append('g').attr('class', 'djs-group')
         .append('g')
         .attr('transform', 'translate(' + xvalue + ',' + yvalue + ')')
         .attr('id', 'startEvnet' + (++idstartelement))
@@ -59,13 +59,13 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue, status) 
             .attr("transform", "matrix(1.4375,0,0,1.4375,-20.9375,-20.9375)")
     }
 
-    group.append('foreignObject')
-        .attr('id', 'fobject' + idstartelement)
-        .attr("x", function (d) { return 0; })
-        .attr("y", function (d) { return 0; })
-        .attr('width', width - 60)
-        .attr('height', height - 40)
-        .html("<div id=\"textidstartEvnet" + idstartelement + "\"; style=\"width: 80%; height:45px ; background-color: transparent;\" >Start Event</div>");
+    // group.append('foreignObject')
+    //     .attr('id', 'fobject' + idstartelement)
+    //     .attr("x", function (d) { return 0; })
+    //     .attr("y", function (d) { return 0; })
+    //     .attr('width', width - 60)
+    //     .attr('height', height - 40)
+    //     .html("<div id=\"textidstartEvnet" + idstartelement + "\"; style=\"width: 80%; height:45px ; background-color: transparent;\" >Start Event</div>");
 
 
     group.append('circle')
@@ -129,10 +129,10 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue, status) 
 
             tooltipDiv.select("#text-button").on("click", function () {
                 tooltipDiv.style("opacity", 0);
+                d3.select(document.getElementById('startEvnet' + idstartelement + '_label')).remove();
 
                 // console.log("end evnt button clicked "+ width +' ==>>>'+ height);
                 var element = document.getElementById('edittext');
-
                 var strTop = coords.y + 22;
                 var strleft = coords.x - 30;
                 element.style.width = textWidth + "px";
@@ -140,9 +140,11 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue, status) 
                 element.style.display = "block";
                 element.style.left = strleft + "px";
                 element.style.top = strTop + "px";
-                // element.value = document.getElementById("textid"+t).innerHTML;
-                element.value = document.getElementById("textid" + t);
-                window.selectedtextid = "textid" + t;
+                console.log('set data' + strTop + ' == ' + strleft);
+                window.selectedtextid = 'startEvnet' + idstartelement;
+
+                window.selectedtextx = Math.round(coords.x - 23 );
+                window.selectedtexty = Math.round(coords.y + 30);
             });
 
 

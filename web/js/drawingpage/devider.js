@@ -26,11 +26,33 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
         window.bpmnElement = null;
         flowcreator(null, subElement, svg, d3.event.pageX, d3.event.pageY);
     }
+
+
+    if (window.selectedtextid != null) {
+        var element = document.getElementById('edittext');
+        var textvalue = element.value;
+        element.value = "";
+        element.style.display = "none";
+        if (textvalue != '') {
+            console.log(window.selectedtextx);
+            console.log(window.selectedtexty);
+
+            var textGroup = svg
+                // .append('g').attr('class', 'djs-group')
+                .append('g')
+                .attr('transform', 'translate(' + window.selectedtextx + ',' + window.selectedtexty + ')')
+                .attr('id', window.selectedtextid + '_label')
+                .call(drag);
+
+            textGroup.append('text').text(textvalue);
+        }
+    }
+
 }
 
 function deleteElement(id) {
     // console.log("ididid : "+id)
-    // console.log(bpmnjson);
+    console.log(id);
 
     for (var i = 0; i < bpmnjson.length; i++) {
         var bpmnobject = bpmnjson[i];
