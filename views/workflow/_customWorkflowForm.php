@@ -16,8 +16,7 @@ if(!empty($model['id'])){
         <input type="image" id="download-input" title="download graph" src="<?= Url::base() .'/img/download-icon.png' ?>" alt="download graph">
         <!-- <input type="image" id="delete-graph" title="delete graph" src="/project/web/img/trash-icon.png" alt="delete graph">  -->
     </div>
-    <textarea id="edittext" title="Press SHIFT+Enter for line feed" style="width: 120px; height: 80px; left: 608px; top: 180px; position: absolute; text-align: center; box-sizing: border-box; margin: 0px; display: none;">
-        
+    <textarea id="edittext" title="Press SHIFT+Enter for line feed" style="width: 90px; height: 30px; left: 608px; top: 180px; background-color: rgb(255, 255, 255);  position: absolute; overflow-wrap: normal; border: 1px solid #111111; box-sizing: border-box; text-align: center; display: none;">
     </textarea>
 
     <div id="toolbox">
