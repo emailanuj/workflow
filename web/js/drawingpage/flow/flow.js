@@ -35,22 +35,54 @@ var flowcreator = function (eid){
                         .attr('d', 'M 0 0 L 10 5 L 0 10 z');
         
         
-        var strPoints = 'M'+startx + ','+ starty;
-        if( endx >  startx ){
-            if( endy >  starty ){
-                strPoints += ' L'+ endx +','+ starty;
-            } else if( endy <  starty ){
-                strPoints += ' L'+ endx +','+ starty;
-            }
-        } else if( endx <  startx ){
-            if( endy >  starty ){
-                strPoints += ' L'+ endx +','+ starty;
-            } else if( endy <  starty ){
-                strPoints += ' L'+ endx +','+ starty;
-            }
-        }
-        strPoints += ' L'+ endx +','+ endy;
+        // var strPoints = 'M'+startx + ','+ starty;
+        // if( endx >  startx ){
+        //     if( endy >  starty ){
+        //         strPoints += ' L'+ endx +','+ starty;
+        //     } else if( endy <  starty ){
+        //         strPoints += ' L'+ endx +','+ starty;
+        //     }
+        // } else if( endx <  startx ){
+        //     if( endy >  starty ){
+        //         strPoints += ' L'+ endx +','+ starty;
+        //     } else if( endy <  starty ){
+        //         strPoints += ' L'+ endx +','+ starty;
+        //     }
+        // }
+        // strPoints += ' L'+ endx +','+ endy;
         
+
+        /*
+            Case 1 : ( end.x > start.x ) && ( end.y > start.y )
+            Case 2 : ( end.x > start.x ) && ( end.y < start.y )
+
+            Case 3 : ( end.x < start.x ) && ( end.y > start.y )
+            Case 4 : ( end.x < start.x ) && ( end.y < start.y )
+        */
+        
+       var strPoints = 'M'+startx + ','+ starty;
+        
+       if( endx >  startx ){
+           var newMidPts = (startx + ((endx - startx)/2) );
+           // console.log('NOT TO GO..'+ coordsY +' @@@@ '+ starty +' @@@ '+ (starty + 60 ));
+           if( coordsY < (starty + 60 ) ){
+               strPoints += ' L'+ newMidPts +','+ starty;
+               strPoints += ' L'+ newMidPts +','+ endy;
+           } else {
+               strPoints += ' L'+ endx +','+ starty;
+           }
+       } else if( endx <  startx ){
+           var newMidPts = (startx - (( startx - endx)/2) );
+           if( coordsY < (starty + 60 ) ){
+               strPoints += ' L'+ newMidPts +','+ starty;
+               strPoints += ' L'+ newMidPts +','+ endy;
+           } else {
+               strPoints += ' L'+ endx +','+ starty;
+           }
+       }
+
+       strPoints += ' L'+ endx +','+ endy;
+       
         console.log( 'PRINCE  :  '+strPoints);
     
         var pathPoints = strPoints;

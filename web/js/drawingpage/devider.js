@@ -27,7 +27,7 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
         flowcreator(null, subElement, svg, d3.event.pageX, d3.event.pageY);
     }
 
-
+    console.log(window.selectedtextid);
     if (window.selectedtextid != null) {
         var element = document.getElementById('edittext');
         var textvalue = element.value;
