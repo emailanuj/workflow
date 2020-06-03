@@ -27,8 +27,8 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
         flowcreator(null, subElement, svg, d3.event.pageX, d3.event.pageY);
     }
 
-
     if (window.selectedtextid != null) {
+        console.log(window.selectedtextid);
         var element = document.getElementById('edittext');
         var textvalue = element.value;
         element.value = "";
@@ -36,9 +36,8 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
         if (textvalue != '') {
             console.log(window.selectedtextx);
             console.log(window.selectedtexty);
-
-            var textGroup = svg
-                // .append('g').attr('class', 'djs-group')
+            var textToElement = d3.select("#"+selectedtextid);
+            var textGroup = textToElement                
                 .append('g')
                 .attr('transform', 'translate(' + window.selectedtextx + ',' + window.selectedtexty + ')')
                 .attr('id', window.selectedtextid + '_label')
@@ -49,6 +48,28 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
     }
 
 }
+
+// function setEventName(selectedtextid, selectedtextx, selectedtexty) {
+//     if (selectedtextid != null) {
+//         console.log(selectedtextid);
+//         var element = document.getElementById('edittext');
+//         var textvalue = element.value;
+//         element.value = "";
+//         element.style.display = "none";
+//         if (textvalue != '') {
+//             console.log(selectedtextx);
+//             console.log(selectedtexty);
+//             var textToElement = d3.select("#"+selectedtextid);
+//             var textGroup = textToElement                
+//                 .append('g')
+//                 .attr('transform', 'translate(' + selectedtextx + ',' + selectedtexty + ')')
+//                 .attr('id', selectedtextid + '_label')
+//                 //.call(drag);
+
+//             textGroup.append('text').text(textvalue);
+//         }
+//     }
+// }
 
 function deleteElement(id) {
     // console.log("ididid : "+id)
@@ -109,8 +130,8 @@ var drag = d3.behavior.drag()
     .on("dragstart", function () {
         console.log('DRAG START');
         var elementid = d3.select(this).attr("id");
-        // console.log(elementid);
-        // console.log(bpmnjson);
+         console.log(elementid);
+         console.log(bpmnjson);
         for (var i = 0; i < bpmnjson.length; i++) {
             var bpmnobject = bpmnjson[i];
 

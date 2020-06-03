@@ -2,8 +2,6 @@
 var selectedId = 0;
 var elementType = '';
 var elementSubType = '';
-
-// var width = 120, height = 80, dragbarw = 20;
 var textWidth = 100, textHeight = 30, dragbarw = 20;
 
 var starteventdevider = function (eid, subElement, svg, xvalue, yvalue, status) {
@@ -59,15 +57,6 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue, status) 
             .attr("transform", "matrix(1.4375,0,0,1.4375,-20.9375,-20.9375)")
     }
 
-    // group.append('foreignObject')
-    //     .attr('id', 'fobject' + idstartelement)
-    //     .attr("x", function (d) { return 0; })
-    //     .attr("y", function (d) { return 0; })
-    //     .attr('width', width - 60)
-    //     .attr('height', height - 40)
-    //     .html("<div id=\"textidstartEvnet" + idstartelement + "\"; style=\"width: 80%; height:45px ; background-color: transparent;\" >Start Event</div>");
-
-
     group.append('circle')
         .attr('id', 'startEvnet' + idstartelement)
         .style("stroke", "black")
@@ -107,6 +96,7 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue, status) 
                 for (var i = 0; i < bpmnjson.length; i++) {
                     var element = bpmnjson[i]
                     if (element.id === t) {
+                        console.log(bpmnjson[i]);
                         selectedId = t;
                         elementType = "StartEvent";
                         elementSubType = element.subtype;
@@ -129,22 +119,24 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue, status) 
 
             tooltipDiv.select("#text-button").on("click", function () {
                 tooltipDiv.style("opacity", 0);
-                d3.select(document.getElementById('startEvnet' + idstartelement + '_label')).remove();
+                //d3.select(document.getElementById('startEvnet' + idstartelement + '_label')).remove();
 
-                // console.log("end evnt button clicked "+ width +' ==>>>'+ height);
+                //console.log("txt button clicked "+ width +' ==>>>'+ height);
                 var element = document.getElementById('edittext');
+                //console.log(element);
                 var strTop = coords.y + 22;
                 var strleft = coords.x - 30;
                 element.style.width = textWidth + "px";
-                element.style.height = textHeight + "px";
-                element.style.display = "block";
+                element.style.height = textHeight + "px";                
                 element.style.left = strleft + "px";
                 element.style.top = strTop + "px";
-                console.log('set data' + strTop + ' == ' + strleft);
-                window.selectedtextid = 'startEvnet' + idstartelement;
-
-                window.selectedtextx = Math.round(coords.x - 23 );
-                window.selectedtexty = Math.round(coords.y + 30);
+                element.style.display = "block";
+                //console.log('set data' + strTop + ' == ' + strleft);
+                window.selectedtextid = t;
+                window.selectedtextx = Math.round(-23);
+                window.selectedtexty = Math.round(30); 
+                console.log(selectedtextid);
+                //setEventName(selectedtextid, selectedtextx, selectedtexty);               
             });
 
 
