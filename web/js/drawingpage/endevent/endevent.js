@@ -41,13 +41,13 @@ var group = svg.append('g')
                     .attr("transform","matrix(1.4375,0,0,1.4375,0,0)")
         }
 
-        group.append('foreignObject')
-                .attr('id', 'fobject' + idendelement)
-                .attr("x", function(d) { return 0 ; })
-                .attr("y", function(d) { return 0; })
-                .attr('width', width - 60)
-                .attr('height', height - 40)
-                .html("<div id=\"textidendEvent"+idendelement+"\"; style=\"width: 80%; height:45px ; background-color: transparent;\" >End Event</div>");
+        // group.append('foreignObject')
+        //         .attr('id', 'fobject' + idendelement)
+        //         .attr("x", function(d) { return 0 ; })
+        //         .attr("y", function(d) { return 0; })
+        //         .attr('width', width - 60)
+        //         .attr('height', height - 40)
+        //         .html("<div id=\"textidendEvent"+idendelement+"\"; style=\"width: 80%; height:45px ; background-color: transparent;\" >End Event</div>");
 
         group.append('circle')
                 .attr('id', 'endEvent' + idendelement)

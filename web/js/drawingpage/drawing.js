@@ -360,10 +360,6 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
         nodeRadius: 50
     };
 
-
-
-
-
     GraphCreator.prototype.zoomed = function () {
         this.state.justScaleTransGraph = true;
         d3.select("." + this.consts.graphClass)
@@ -371,9 +367,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     };
 
 
-
     /**** MAIN ****/
-
     // warn the user when leaving
     window.onbeforeunload = function () {
         return "Make sure to save your graph locally before leaving :-)";
@@ -397,8 +391,8 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     // console.log(cwidth +' <<<==>>>'+height);
     /** MAIN SVG **/
     //var svg = d3.select("body > #mySvg").append("svg")
-    cwidth = '100%';
-    height = '100%';
+    // cwidth = '100%';
+    // height = '100%';
     var svg = d3.select("#mySvg").append("svg")
         .attr("width", cwidth)
         .attr("height", height);

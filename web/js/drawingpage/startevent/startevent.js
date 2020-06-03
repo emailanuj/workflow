@@ -145,10 +145,10 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue, status) 
             tooltipDiv.select("#arrow-button").on("click", function () {
                 console.log('circle arrow 1');
                 tooltipDiv.style("opacity", 0);
-                console.log("end arrow button clicked ")
+                // console.log("end arrow button clicked ")
                 starttype = "startEvent";
                 startid = t;
-                startx = coords.x;
+                startx = coords.x + 20;
                 starty = coords.y;
                 coordsX = coords.x
                 coordsY = coords.y;
@@ -178,12 +178,13 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue, status) 
                 cy = +circle.getAttribute('cy'),
                 ctm = circle.getCTM(),
                 coords = getScreenCoords(cx, cy, ctm);
-            coordsX = coords.x
-            coordsY = coords.y;
+                // coordsX = coords.x
+                // coordsY = coords.y;
             if (window.bpmnElement === "flowselect") {
                 endtype = "endEvent";
                 endid = t;
-                endx = coords.x - 30;
+                // endx = coords.x - 30;
+                endx = coords.x - 20;
                 endy = coords.y;
                 midx = startx + ((endx - startx) / 2);
             }
