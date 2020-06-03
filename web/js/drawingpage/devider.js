@@ -43,7 +43,17 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
                 .attr('transform', 'translate(' + window.selectedtextx + ',' + window.selectedtexty + ')')
                 .attr('id', window.selectedtextid + '_label')
                 .call(drag);
-
+                for (var i = 0; i < bpmnjson.length; i++) {
+                    var eventelement = bpmnjson[i]
+                    if (eventelement.id === selectedtextid) {
+                        console.log(bpmnjson[i]);
+                        bpmnjson[i].name = textvalue;
+                    }
+                }
+                // var result = bpmnjson.filter(obj => {
+                //     return obj.id === selectedtextid
+                //   })
+                // console.log(result);
             textGroup.append('text').text(textvalue);
         }
     }
