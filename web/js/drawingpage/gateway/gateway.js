@@ -1,5 +1,5 @@
 "use strict";
-var width = 120, height = 80, dragbarw = 20;
+var textWidth = 100, textHeight = 30, dragbarw = 20;
 var gatewaydevider = function (eid,subElement,svg,xvalue,yvalue){
 var g2 = svg.append('g')
         .attr('transform', 'translate(' + xvalue + ',' + yvalue + ')')
@@ -49,15 +49,6 @@ var g2 = svg.append('g')
                     .attr("transform","matrix(1,0,0,1,-20,9)")
             }
 
-            g2.append('foreignObject')
-                .attr('id', 'fobject' + idgatewayelement)
-                .attr("x", function(d) { return 0 ; })
-                .attr("y", function(d) { return 0; })
-                .attr('width', width - 60)
-                .attr('height', height - 40)
-                .html("<div id=\"textidgateway"+idgatewayelement+"\"; style=\"width: 80%; height:45px ; background-color: transparent;\" >Gateway</div>");
-
-
             g2.append('rect')
                 .attr('id', 'gateway' + idgatewayelement)
                 .style("stroke", "black")
@@ -100,7 +91,7 @@ var g2 = svg.append('g')
                 tooltipDiv.transition()
                     .duration(200)
                     .style("opacity", 1.9);
-
+                    $(".setting-box").css("display","block");
                 tooltipDiv.html("<input id=" + "trash-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/trash-icon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >"+"&nbsp"+"<input id=" + "arrow-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/arrow.png" + " alt=" + "arrow" + " style=" + "width:25px;" + " >" + "<br>" + "<input id=" + "property-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/settingsicon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >"+"<input id=" + "text-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/review.png" + " alt=" + "Text" + " style=" + "width:25px;" + " >")
                     .style("left", coords.x + 45 + "px")
                     .style("top", (coords.y + 20) + "px");
@@ -109,10 +100,12 @@ var g2 = svg.append('g')
                 tooltipDiv.select("#trash-button").on("click", function () {
                     tooltipDiv.style("opacity", 0);
                     deleteElement(t);
+                    $(".setting-box").css("display","none");
                     // semodal.style.display = "block";
                 });
 
                 tooltipDiv.select("#property-button").on("click", function () {
+                    $(".setting-box").css("display","none");
                 	for (var i = 0; i < bpmnjson.length ; i++) {
                         var element = bpmnjson[i]
                         if (element.id === t) {
@@ -141,18 +134,28 @@ var g2 = svg.append('g')
                 });
                 tooltipDiv.select("#text-button").on("click", function () {
                     tooltipDiv.style("opacity", 0);
-                    console.log("gateway button clicked ")
+                    $(".setting-box").css("display","none");
+                    //d3.select(document.getElementById('startEvnet' + idstartelement + '_label')).remove();
+    
+                    //console.log("txt button clicked "+ width +' ==>>>'+ height);
                     var element = document.getElementById('edittext');
-                    element.style.width = width+"px";
-                    element.style.height = height+"px";
+                    //console.log(element);
+                    var strTop = coords.y + 22;
+                    var strleft = coords.x - 30;
+                    element.style.width = textWidth + "px";
+                    element.style.height = textHeight + "px";
+                    element.style.left = strleft + "px";
+                    element.style.top = strTop + "px";
                     element.style.display = "block";
-                    element.style.left = coords.x+"px";
-                    element.style.top = coords.y+"px";                    
-                    element.value = document.getElementById("textid"+t).innerHTML;
-                    window.selectedtextid = "textid"+t;                    
+                    //console.log('set data' + strTop + ' == ' + strleft);
+                    window.selectedtextid = t;
+                    window.selectedtextx = Math.round(-23);
+                    window.selectedtexty = Math.round(30);                 
+                    //setEventName(selectedtextid, selectedtextx, selectedtexty);               
                 });
                 tooltipDiv.select("#arrow-button").on("click", function () {
                     tooltipDiv.style("opacity", 0);
+                    $(".setting-box").css("display","none");
                     console.log("end arrow button clicked ");
                     starttype = "gateway";
                     startid =t;
@@ -168,6 +171,10 @@ var g2 = svg.append('g')
                 tooltipDiv.transition()
                     .duration(3200)
                     .style("opacity", 0);
+
+                setTimeout(function(){
+                    $('.setting-box').hide();// or fade, css display however you'd like.
+                    }, 5000);
             })
             
             .on("click", function () {

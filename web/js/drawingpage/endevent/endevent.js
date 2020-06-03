@@ -1,5 +1,5 @@
 "use strict";
-var width = 120, height = 80, dragbarw = 20;
+var textWidth = 100, textHeight = 30, dragbarw = 20;
 var endeventdevider = function (eid, subElement, svg, xvalue, yvalue) {
     var group = svg.append('g')
         .attr('transform', 'translate(' + xvalue + ',' + yvalue + ')')
@@ -41,14 +41,6 @@ var endeventdevider = function (eid, subElement, svg, xvalue, yvalue) {
             .attr("transform", "matrix(1.4375,0,0,1.4375,0,0)")
     }
 
-    // group.append('foreignObject')
-    //         .attr('id', 'fobject' + idendelement)
-    //         .attr("x", function(d) { return 0 ; })
-    //         .attr("y", function(d) { return 0; })
-    //         .attr('width', width - 60)
-    //         .attr('height', height - 40)
-    //         .html("<div id=\"textidendEvent"+idendelement+"\"; style=\"width: 80%; height:45px ; background-color: transparent;\" >End Event</div>");
-
     group.append('circle')
         .attr('id', 'endEvent' + idendelement)
         .style("stroke", "black")
@@ -78,14 +70,17 @@ var endeventdevider = function (eid, subElement, svg, xvalue, yvalue) {
             tooltipDiv.transition()
                 .duration(200)
                 .style("opacity", 1.9);
+                $(".setting-box").css("display","block");
             tooltipDiv.html("<input id=" + "trash-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/trash-icon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >" + "&nbsp" + "<br>" + "<input id=" + "property-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/settingsicon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >" + "<input id=" + "text-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/review.png" + " alt=" + "Text" + " style=" + "width:25px;" + " >")
                 .style("left", coords.x + 35 + "px")
                 .style("top", (coords.y - 30) + "px");
             tooltipDiv.select("#trash-button").on("click", function () {
                 deleteElement(t);
+                $(".setting-box").css("display","none");
                 t = 0;
             });
             tooltipDiv.select("#property-button").on("click", function () {
+                $(".setting-box").css("display","none");
                 // Added Code for Getting Selected Id and Sub Type                    
                 for (var i = 0; i < bpmnjson.length; i++) {
                     var element = bpmnjson[i]
@@ -115,15 +110,24 @@ var endeventdevider = function (eid, subElement, svg, xvalue, yvalue) {
             });
             tooltipDiv.select("#text-button").on("click", function () {
                 tooltipDiv.style("opacity", 0);
-                console.log("end evnt button clicked ")
+                $(".setting-box").css("display","none");
+                //d3.select(document.getElementById('startEvnet' + idstartelement + '_label')).remove();
+
+                //console.log("txt button clicked "+ width +' ==>>>'+ height);
                 var element = document.getElementById('edittext');
-                element.style.width = width + "px";
-                element.style.height = height + "px";
+                //console.log(element);
+                var strTop = coords.y + 22;
+                var strleft = coords.x - 30;
+                element.style.width = textWidth + "px";
+                element.style.height = textHeight + "px";
+                element.style.left = strleft + "px";
+                element.style.top = strTop + "px";
                 element.style.display = "block";
-                element.style.left = coords.x + "px";
-                element.style.top = coords.y + "px";
-                element.value = document.getElementById("textid" + t).innerHTML;
-                window.selectedtextid = "textid" + t;
+                //console.log('set data' + strTop + ' == ' + strleft);
+                window.selectedtextid = t;
+                window.selectedtextx = Math.round(-23);
+                window.selectedtexty = Math.round(30);                 
+                //setEventName(selectedtextid, selectedtextx, selectedtexty);               
             });
         })
         .on("mouseout", function () {
@@ -131,6 +135,10 @@ var endeventdevider = function (eid, subElement, svg, xvalue, yvalue) {
             tooltipDiv.transition()
                 .duration(3200)
                 .style("opacity", 0);
+
+            setTimeout(function(){
+                $('.setting-box').hide();// or fade, css display however you'd like.
+                }, 5000);
         })
         .on("click", function () {
             var t = d3.select(this).attr("id");
