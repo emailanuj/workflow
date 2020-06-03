@@ -134,8 +134,7 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue, status) 
                 //console.log('set data' + strTop + ' == ' + strleft);
                 window.selectedtextid = t;
                 window.selectedtextx = Math.round(-23);
-                window.selectedtexty = Math.round(30);
-                console.log(selectedtextid);
+                window.selectedtexty = Math.round(30);                 
                 //setEventName(selectedtextid, selectedtextx, selectedtexty);               
             });
 
