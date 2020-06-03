@@ -3,7 +3,7 @@ var selectedId=0;
 var elementType='';
 var elementSubType='';
 var width = 120, height = 80, dragbarw = 20;
-var starteventdevider = function (eid,subElement,svg,xvalue,yvalue,status){    
+var starteventdevider = function (eid,subElement,svg,xvalue,yvalue){    
     var group = svg.append('g')
         .attr('transform', 'translate(' + xvalue + ',' + yvalue + ')')
         .attr('id', 'startEvnet' + (++idstartelement))
