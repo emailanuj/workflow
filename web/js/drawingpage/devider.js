@@ -10,6 +10,8 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
     // console.log(bpmnElement);
     if (bpmnElement === "startEvent") {
         window.bpmnElement = null;
+        console.log(d3.event.pageX);
+        console.log(d3.event.pageY);
         starteventdevider(null, subElement, svg, d3.event.pageX, d3.event.pageY);
     } else if (bpmnElement === "endEvent") {
         window.bpmnElement = null;

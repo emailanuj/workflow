@@ -393,9 +393,11 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     //var svg = d3.select("body > #mySvg").append("svg")
     // cwidth = '100%';
     // height = '100%';
+    $("#mySvg").css('left', '0');
     var svg = d3.select("#mySvg").append("svg")
         .attr("width", cwidth)
-        .attr("height", height);
+        .attr("height", height)
+        .attr("left", "0");
     // .append('g').attr('class', 'viewport');
 
     svg.on("click", function () {
