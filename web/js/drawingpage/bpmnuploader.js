@@ -6,15 +6,15 @@ function uploadgraphCreator(data) {
                 if (bpmnelement.type === "startEvnet") {
                     console.log("oki se")
                     console.log(bpmnelement.subtype)
-                    starteventdevider(bpmnelement.id,bpmnelement.subtype,sampleSVG,bpmnelement.x,bpmnelement.y,bpmnelement.status)
+                    starteventdevider(bpmnelement.id,bpmnelement.subtype,sampleSVG,bpmnelement.x,bpmnelement.y)
                 }else if (bpmnelement.type === "endEvent") {
-                    endeventdevider(bpmnelement.id,bpmnelement.subtype,sampleSVG,bpmnelement.x,bpmnelement.y,bpmnelement.status)
+                    endeventdevider(bpmnelement.id,bpmnelement.subtype,sampleSVG,bpmnelement.x,bpmnelement.y)
                 } else if (bpmnelement.type === "gateway") {
-                    gatewaydevider(bpmnelement.id,bpmnelement.subtype,sampleSVG,bpmnelement.x,bpmnelement.y,bpmnelement.status)
+                    gatewaydevider(bpmnelement.id,bpmnelement.subtype,sampleSVG,bpmnelement.x,bpmnelement.y)
                 } 
                 else if (bpmnelement.type === "task") {
-                    taskdevider(bpmnelement.id,bpmnelement.subtype,sampleSVG,bpmnelement.x,bpmnelement.y,bpmnelement.status)
-                }else if (bpmnelement.type === "flow") {
+                    taskdevider(bpmnelement.id,bpmnelement.subtype,sampleSVG,bpmnelement.x,bpmnelement.y)
+                } else if (bpmnelement.type === "flow") {
                     starttype= bpmnelement.start_type;
                     endtype = bpmnelement.end_type;
                     startx = bpmnelement.start_x;

@@ -1,12 +1,13 @@
 "use strict";
-var flowcreator = function (eid,subElement,svg,xvalue,yvalue){
-    console.log(eid+'---'+svg+'----'+xvalue+'-----'+yvalue);
-    // var group = svg.append('g')
-    //     .attr('transform', 'translate(' + xvalue + ',' + yvalue + ')')
-    //     .attr('id', 'flow' + (++idflow))
-    //     .call(drag) 
-    // var groupSelect = svg.append('g')
-    if(midx == 0 ||  endx == 0 || endy == 0 || startx == 0 || starty == 0) {
+var flowcreator = function (eid){
+     console.log("startx : "+ startx);
+     console.log("starty : "+ starty);
+     console.log("midx : "+ midx);
+     console.log("endx : "+ endx);
+     console.log("endy : "+ endy);
+    var xdeficit = 30;
+    var ydeficit = 30;
+    if(midx == 0 ||  endx == 0 || endy == 0 || startx == 0 || starty == 0){
         return false;
     } 
     if (eid === null || eid == undefined) {
@@ -17,7 +18,8 @@ var flowcreator = function (eid,subElement,svg,xvalue,yvalue){
             .on('dragend', function(d){
                 dragging = false;
             });
-    var sampleSVGflow = sampleSVG.append('g')    
+    var sampleSVGflow = sampleSVG.append('g')
+    // var sampleSVGflow = svg.append('g')
                         .attr("id", "group"+eid);
     
         sampleSVG.append("marker")
@@ -32,66 +34,26 @@ var flowcreator = function (eid,subElement,svg,xvalue,yvalue){
                         .append('svg:path')
                         .attr('d', 'M 0 0 L 10 5 L 0 10 z');
         
-    
         
-        // var strPoints = 'M'+startx + ','+ starty;
-        // if( endx >  startx ){
-        //     if( endy >  starty ){
-        //         strPoints += ' L'+ endx +','+ starty;
-        //     } else if( endy <  starty ){
-        //         strPoints += ' L'+ endx +','+ starty;
-        //     }
-        // } else if( endx <  startx ){
-        //     if( endy >  starty ){
-        //         strPoints += ' L'+ endx +','+ starty;
-        //     } else if( endy <  starty ){
-        //         strPoints += ' L'+ endx +','+ starty;
-        //     }
-        // }
-        // strPoints += ' L'+ endx +','+ endy;
+        var strPoints = 'M'+startx + ','+ starty;
+        if( endx >  startx ){
+            if( endy >  starty ){
+                strPoints += ' L'+ endx +','+ starty;
+            } else if( endy <  starty ){
+                strPoints += ' L'+ endx +','+ starty;
+            }
+        } else if( endx <  startx ){
+            if( endy >  starty ){
+                strPoints += ' L'+ endx +','+ starty;
+            } else if( endy <  starty ){
+                strPoints += ' L'+ endx +','+ starty;
+            }
+        }
+        strPoints += ' L'+ endx +','+ endy;
         
-
-        /*
-            Case 1 : ( end.x > start.x ) && ( end.y > start.y )
-            Case 2 : ( end.x > start.x ) && ( end.y < start.y )
-
-            Case 3 : ( end.x < start.x ) && ( end.y > start.y )
-            Case 4 : ( end.x < start.x ) && ( end.y < start.y )
-        */
-        
-       var strPoints = 'M'+startx + ','+ starty;
-        
-       if( endx >  startx ){
-           var newMidPts = (startx + ((endx - startx)/2) );
-           // console.log('NOT TO GO..'+ coordsY +' @@@@ '+ starty +' @@@ '+ (starty + 60 ));
-           if( coordsY < (starty + 60 ) ){
-               strPoints += ' L'+ newMidPts +','+ starty;
-               strPoints += ' L'+ newMidPts +','+ endy;
-           } else {
-               strPoints += ' L'+ endx +','+ starty;
-           }
-       } else if( endx <  startx ){
-           var newMidPts = (startx - (( startx - endx)/2) );
-           if( coordsY < (starty + 60 ) ){
-               strPoints += ' L'+ newMidPts +','+ starty;
-               strPoints += ' L'+ newMidPts +','+ endy;
-           } else {
-               strPoints += ' L'+ endx +','+ starty;
-           }
-       }
-
-       strPoints += ' L'+ endx +','+ endy;
-       
         console.log( 'PRINCE  :  '+strPoints);
     
         var pathPoints = strPoints;
-
-        // group.append("polyline")
-        //     .attr("stroke", "black")
-        //     .attr("points", pathPoints)
-        //     .attr("fill", 'none')
-        //     .attr("stroke-width", "2")
-
         sampleSVGflow.append('path')
                     .attr("id", eid)
                     .attr("marker-end", "url(#triangle"+idflow+")")
