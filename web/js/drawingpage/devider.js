@@ -38,11 +38,14 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
             console.log(window.selectedtextx);
             console.log(window.selectedtexty);
             var textToElement = d3.select("#"+selectedtextid);
+            var replacedTextId = selectedtextid.replace(/\d+/g, '');
+            if(replacedTextId !== 'task') {
             var textGroup = textToElement                
                 .append('g')
                 .attr('transform', 'translate(' + window.selectedtextx + ',' + window.selectedtexty + ')')
                 .attr('id', window.selectedtextid + '_label')
                 .call(drag);
+            }
                 for (var i = 0; i < bpmnjson.length; i++) {
                     var eventelement = bpmnjson[i]
                     if (eventelement.id === selectedtextid) {
