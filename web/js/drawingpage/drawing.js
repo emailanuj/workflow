@@ -7,10 +7,10 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     window.idgatewayelement = 0;
     window.idelement = 0;
     window.idflow = 0;
-   // var arrowbuttonclick = 0;
+    // var arrowbuttonclick = 0;
     var taskbuttonclick = 0;
-    window.endid =0;
-    window.startid =0;
+    window.endid = 0;
+    window.startid = 0;
     window.starttype = "";
     window.endtype = "";
     window.startx = 0;
@@ -25,16 +25,20 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     window.bpmnjson = [];
     window.bpmnElement = null;
     window.subElement = null;
-    window.selectedId =0;
-    window.selectedtextid =null;
-    window.dragFlows =[];
+    window.selectedId = 0;
+    
+    window.selectedtextid = null;
+    window.selectedtextx = 0;
+    window.selectedtexty = 0;
+
+    window.dragFlows = [];
     window.dragging = false;
     window.drawing = false;
     window.taskwidth = 0;
-    
-//     window.sampleSVG ;
 
-   
+    //     window.sampleSVG ;
+
+
     //element tooltip div
     window.tooltipDiv = d3.select("body")
         .append("div")
@@ -50,54 +54,54 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
 
 
     // define property creator object
-        window.semodal = document.getElementById('SEModal');
-//        var sepropertyclose = document.getElementById('SEClose');
-//        sepropertyclose.onclick = function () {
-//            semodal.style.display = "none";
-//        }
+    window.semodal = document.getElementById('SEModal');
+    //        var sepropertyclose = document.getElementById('SEClose');
+    //        sepropertyclose.onclick = function () {
+    //            semodal.style.display = "none";
+    //        }
 
 
-        // window.tsemodal = document.getElementById('TSEModal');
-        // var tsepropertyclose = document.getElementById('TSEClose');
-        // tsepropertyclose.onclick = function () {
-        //     tsemodal.style.display = "none";
-        // }
-        
-        // window.msemodal = document.getElementById('MSEModal');
-        // var msepropertyclose = document.getElementById('MSEClose');
-        // msepropertyclose.onclick = function () {
-        //     msemodal.style.display = "none";
-        // }
-        
-        // window.esemodal = document.getElementById('ESEModal');
-        // var esepropertyclose = document.getElementById('ESEClose');
-        // esepropertyclose.onclick = function () {
-        //     esemodal.style.display = "none";
-        // }
-        
-        // window.eemodal = document.getElementById('EEModal');
-        // var eepropertyclose = document.getElementById('EEClose');
-        // eepropertyclose.onclick = function () {
-        //     eemodal.style.display = "none";
-        // }
+    // window.tsemodal = document.getElementById('TSEModal');
+    // var tsepropertyclose = document.getElementById('TSEClose');
+    // tsepropertyclose.onclick = function () {
+    //     tsemodal.style.display = "none";
+    // }
 
-        // window.tmodal = document.getElementById('TModal');
-        // var tpropertyclose = document.getElementById('TClose');
-        // tpropertyclose.onclick = function () {
-        //     tmodal.style.display = "none";
-        // }
+    // window.msemodal = document.getElementById('MSEModal');
+    // var msepropertyclose = document.getElementById('MSEClose');
+    // msepropertyclose.onclick = function () {
+    //     msemodal.style.display = "none";
+    // }
 
-        // window.gmodal = document.getElementById('GModal');
-        // var gpropertycloses = document.getElementById('GClose');
-        // gpropertycloses.onclick = function () {
-        //     gmodal.style.display = "none";
-        // }
+    // window.esemodal = document.getElementById('ESEModal');
+    // var esepropertyclose = document.getElementById('ESEClose');
+    // esepropertyclose.onclick = function () {
+    //     esemodal.style.display = "none";
+    // }
 
-//        window.fmodal = document.getElementById('FModal');
-//        var fpropertycloses = document.getElementById('FClose');
-//        fpropertycloses.onclick = function () {
-//            fmodal.style.display = "none";
-//        }
+    // window.eemodal = document.getElementById('EEModal');
+    // var eepropertyclose = document.getElementById('EEClose');
+    // eepropertyclose.onclick = function () {
+    //     eemodal.style.display = "none";
+    // }
+
+    // window.tmodal = document.getElementById('TModal');
+    // var tpropertyclose = document.getElementById('TClose');
+    // tpropertyclose.onclick = function () {
+    //     tmodal.style.display = "none";
+    // }
+
+    // window.gmodal = document.getElementById('GModal');
+    // var gpropertycloses = document.getElementById('GClose');
+    // gpropertycloses.onclick = function () {
+    //     gmodal.style.display = "none";
+    // }
+
+    //        window.fmodal = document.getElementById('FModal');
+    //        var fpropertycloses = document.getElementById('FClose');
+    //        fpropertycloses.onclick = function () {
+    //            fmodal.style.display = "none";
+    //        }
 
 
 
@@ -125,13 +129,13 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
         // handle download data
         d3.select("#download-input").on("click", function () {
             console.log("downlaod button clicked")
-            
+
             var bpmn = [];
             for (var i = 0; i < bpmnjson.length; i++) {
                 var bpmnnode = bpmnjson[i];
                 if (bpmnnode.id != 0) {
                     bpmn.push(bpmnnode)
-                    
+
 
                 }
             }
@@ -148,12 +152,12 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
             // });
             var blob = new Blob([window.JSON.stringify({
                 bpmn
-              //  bpmnjson
+                //  bpmnjson
                 // "nodes": thisGraph.nodes,
                 // "edges": saveEdges
                 // "nodes": "hello",
                 //  "edges": "saveEdges"
-            })], {type: "text/plain;charset=utf-8"});
+            })], { type: "text/plain;charset=utf-8" });
             saveAs(blob, "bpmn.json");
         });
 
@@ -195,7 +199,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
             document.body.style.cursor = "copy";
             bpmnElement = "endEvent";
             subElement = "EndEvent";
-            
+
 
         });
         d3.select("#error-end-button").on("click", function () {
@@ -301,7 +305,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
             svg.append('path')
                 .attr('class', 'link dragline hidden')
                 .attr('d', 'M0,0L0,0')
-                .style('marker-end', 'url(#mark-end-arrow)'); 
+                .style('marker-end', 'url(#mark-end-arrow)');
         });
 
         d3.select("#upload-input").on("click", function () {
@@ -317,9 +321,9 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
                     // TODO better error handling
                     try {
                         var jsonObj = JSON.parse(txtRes);
-                      //  console.log(jsonObj)
+                        //  console.log(jsonObj)
                         uploadgraphCreator(jsonObj)
-                        
+
                     } catch (err) {
                         window.alert("Error parsing uploaded file\nerror message: " + err.message);
                         return;
@@ -356,9 +360,9 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
         nodeRadius: 50
     };
 
-    
 
-    
+
+
 
     GraphCreator.prototype.zoomed = function () {
         this.state.justScaleTransGraph = true;
@@ -366,11 +370,11 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
             .attr("transform", "translate(" + d3.event.translate + ") scale(" + d3.event.scale + ")");
     };
 
-   
+
 
     /**** MAIN ****/
 
-        // warn the user when leaving
+    // warn the user when leaving
     window.onbeforeunload = function () {
         return "Make sure to save your graph locally before leaving :-)";
     };
@@ -386,42 +390,38 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
         yLoc = 100;
 
     // initial node data
-    var nodes = [{title: "new concept", id: 0, x: xLoc, y: yLoc},
-        {title: "new concept", id: 1, x: xLoc, y: yLoc + 200}];
-    var edges = [{source: nodes[1], target: nodes[0]}];
+    var nodes = [{ title: "new concept", id: 0, x: xLoc, y: yLoc },
+    { title: "new concept", id: 1, x: xLoc, y: yLoc + 200 }];
+    var edges = [{ source: nodes[1], target: nodes[0] }];
 
     // console.log(cwidth +' <<<==>>>'+height);
     /** MAIN SVG **/
     //var svg = d3.select("body > #mySvg").append("svg")
+    cwidth = '100%';
+    height = '100%';
     var svg = d3.select("#mySvg").append("svg")
         .attr("width", cwidth)
         .attr("height", height);
-
+    // .append('g').attr('class', 'viewport');
 
     svg.on("click", function () {
         console.log("svg onclick")
-        
+
         // console.log(d3.mouse(this));
         let WindowXCordinate = d3.event.x;
         let WindowYCordinate = d3.event.y;
-        console.log( ' X : '+ WindowXCordinate + ' # Y : ' + WindowYCordinate);
-        
-        bpmnEventDivider(bpmnElement,subElement,svg);
+        console.log(' X : ' + WindowXCordinate + ' # Y : ' + WindowYCordinate);
+
+        bpmnEventDivider(bpmnElement, subElement, svg);
         d3.select('body').style("cursor", "auto");
-        var element = document.getElementById('edittext');
-        var textvalue = element.value;
-        element.value = "";
-        element.style.display = "none";
-        if (window.selectedtextid != null) {
-            // console.log(window.selectedtextid)
-            document.getElementById(window.selectedtextid).innerHTML=textvalue; 
-            window.selectedtextid = null;
-        }
-        
+        // var element = document.getElementById('edittext');
+        // var textvalue = element.value;
+        // element.value = "";
+        // element.style.display = "none";
     });
 
     window.sampleSVG = svg;
-    
+
     var graph = new GraphCreator(svg, nodes, edges);
     graph.setIdCt(2);
 
