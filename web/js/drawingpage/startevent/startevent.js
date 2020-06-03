@@ -127,14 +127,14 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue, status) 
                 var strTop = coords.y + 22;
                 var strleft = coords.x - 30;
                 element.style.width = textWidth + "px";
-                element.style.height = textHeight + "px";                
+                element.style.height = textHeight + "px";
                 element.style.left = strleft + "px";
                 element.style.top = strTop + "px";
                 element.style.display = "block";
                 //console.log('set data' + strTop + ' == ' + strleft);
                 window.selectedtextid = t;
                 window.selectedtextx = Math.round(-23);
-                window.selectedtexty = Math.round(30); 
+                window.selectedtexty = Math.round(30);
                 console.log(selectedtextid);
                 //setEventName(selectedtextid, selectedtextx, selectedtexty);               
             });
@@ -178,8 +178,8 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue, status) 
                 cy = +circle.getAttribute('cy'),
                 ctm = circle.getCTM(),
                 coords = getScreenCoords(cx, cy, ctm);
-                // coordsX = coords.x
-                // coordsY = coords.y;
+            // coordsX = coords.x
+            // coordsY = coords.y;
             if (window.bpmnElement === "flowselect") {
                 endtype = "endEvent";
                 endid = t;
