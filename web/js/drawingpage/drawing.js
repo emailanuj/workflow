@@ -26,7 +26,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     window.bpmnElement = null;
     window.subElement = null;
     window.selectedId = 0;
-    
+
     window.selectedtextid = null;
     window.selectedtextx = 0;
     window.selectedtexty = 0;

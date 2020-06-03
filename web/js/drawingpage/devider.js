@@ -39,8 +39,8 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
         if (textvalue != '') {
             console.log(window.selectedtextx);
             console.log(window.selectedtexty);
-            var textToElement = d3.select("#"+selectedtextid);
-            var textGroup = textToElement                
+            var textToElement = d3.select("#" + selectedtextid);
+            var textGroup = textToElement
                 .append('g')
                 .attr('transform', 'translate(' + window.selectedtextx + ',' + window.selectedtexty + ')')
                 .attr('id', window.selectedtextid + '_label')
@@ -143,8 +143,8 @@ var drag = d3.behavior.drag()
     .on("dragstart", function () {
         console.log('DRAG START');
         var elementid = d3.select(this).attr("id");
-         console.log(elementid);
-         console.log(bpmnjson);
+        console.log(elementid);
+        console.log(bpmnjson);
         for (var i = 0; i < bpmnjson.length; i++) {
             var bpmnobject = bpmnjson[i];
 
