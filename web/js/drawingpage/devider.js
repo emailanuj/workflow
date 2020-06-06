@@ -10,8 +10,6 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
     // console.log(bpmnElement);
     if (bpmnElement === "startEvent") {
         window.bpmnElement = null;
-        console.log(d3.event.pageX);
-        console.log(d3.event.pageY);
         starteventdevider(null, subElement, svg, d3.event.pageX, d3.event.pageY);
     } else if (bpmnElement === "endEvent") {
         window.bpmnElement = null;
@@ -39,12 +37,15 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
         if (textvalue != '') {
             console.log(window.selectedtextx);
             console.log(window.selectedtexty);
-            var textToElement = d3.select("#" + selectedtextid);
-            var textGroup = textToElement
+            var textToElement = d3.select("#"+selectedtextid);
+            var replacedTextId = selectedtextid.replace(/\d+/g, '');
+            if(replacedTextId !== 'task') {
+            var textGroup = textToElement                
                 .append('g')
                 .attr('transform', 'translate(' + window.selectedtextx + ',' + window.selectedtexty + ')')
                 .attr('id', window.selectedtextid + '_label')
                 .call(drag);
+            }
                 for (var i = 0; i < bpmnjson.length; i++) {
                     var eventelement = bpmnjson[i]
                     if (eventelement.id === selectedtextid) {
@@ -143,8 +144,8 @@ var drag = d3.behavior.drag()
     .on("dragstart", function () {
         console.log('DRAG START');
         var elementid = d3.select(this).attr("id");
-        console.log(elementid);
-        console.log(bpmnjson);
+         console.log(elementid);
+         console.log(bpmnjson);
         for (var i = 0; i < bpmnjson.length; i++) {
             var bpmnobject = bpmnjson[i];
 

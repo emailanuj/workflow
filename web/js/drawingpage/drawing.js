@@ -401,8 +401,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     // .append('g').attr('class', 'viewport');
 
     svg.on("click", function () {
-        console.log("svg onclick")
-
+        console.log("svg onclick")        
         // console.log(d3.mouse(this));
         let WindowXCordinate = d3.event.x;
         let WindowYCordinate = d3.event.y;
