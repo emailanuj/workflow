@@ -231,3 +231,13 @@ vendor/bin/codecept run functional,unit -- --coverage-html --coverage-xml
 ```
 
 You can see code coverage output under the `tests/_output` directory.
+
+
+
+##########################################################################################
+
+php yii migrate/up all
+php yii migrate/down all
+
+php yii migrate --migrationPath=@mdm/admin/migrations
+yii migrate --migrationPath=@yii/rbac/migrations

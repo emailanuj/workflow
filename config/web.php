@@ -10,6 +10,7 @@ $config = [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
+        // '@mdm/admin' => '@app/extensions/mdmsoft/yii2-admin',
     ],
     'timeZone' => 'Asia/Calcutta',
     'modules' => [
@@ -19,11 +20,24 @@ $config = [
         'threshold' => [
             'class' => 'app\modules\threshold\Module',
         ],
+        'admin' => [
+            'class' => 'mdm\admin\Module',         
+        ],
         'gridview' =>  [
             'class' => '\kartik\grid\Module',
             'downloadAction' => 'gridview/export/download',
             'i18n' => []
         ],
+    ],
+    'as access' => [
+        'class' => 'mdm\admin\components\AccessControl',
+        'allowActions' => [
+            // 'admin/*',
+            // 'site/*',
+        'admin/user/request-password-reset',
+		'admin/user/reset-password',
+		'admin/user/signup',
+        ]
     ],
     'components' => [
         'request' => [
@@ -34,8 +48,9 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'identityClass' => 'mdm\admin\models\User',
+            'loginUrl' => ['admin/user/login'],
+			'enableAutoLogin' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -62,6 +77,10 @@ $config = [
             ],
         ],
         'db' => $db,
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['guest', 'user'],
+        ],
         'urlManager' => [
             'showScriptName' => false,
             'enablePrettyUrl' => true,
@@ -74,20 +93,20 @@ $config = [
             'dsn' => 'mongodb://localhost:27017/cisco_workflow',
         ],
     ],
-    'as beforeRequest' =>
-    [
-        'class' => 'yii\filters\AccessControl',
-        'rules' =>  [
-            [
-                'actions' => ['login', 'error'],
-                'allow' => true,
-            ],
-            [
-                'allow' => true,
-                'roles' => ['@'],
-            ],
-        ],
-    ],
+    // 'as beforeRequest' =>
+    // [
+    //     'class' => 'yii\filters\AccessControl',
+    //     'rules' =>  [
+    //         [
+    //             'actions' => ['login', 'error'],
+    //             'allow' => true,
+    //         ],
+    //         [
+    //             'allow' => true,
+    //             'roles' => ['@'],
+    //         ],
+    //     ],
+    // ],
     // 'modules' => [
     //     'gridview' =>  [
     //         'class' => '\kartik\grid\Module',
