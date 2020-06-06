@@ -11,8 +11,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
-use app\models\Workflow;
-use app\models\WorkflowExecution;
+use app\modules\workflow\models\Workflow;
+use app\modules\workflow\models\WorkflowExecution;
 
 class SiteController extends Controller
 {

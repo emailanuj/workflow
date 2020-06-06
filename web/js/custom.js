@@ -36,7 +36,7 @@
 $(document).on('click',"#executeProcess",function(){	
 	var workflow_id = $("#workflow_id").val();
 	$.ajax({
-		url: baseURL +'/workflow-execution/get-running-process/',
+		url: baseURL +'/workflow/workflow-execution/get-running-process/',
 		data : {'workflow-id' : workflow_id, 'form-type' : 'create-clone' },
 		type: 'POST',
 		dataType:'json',
@@ -64,7 +64,7 @@ function executeRunningProcessSequence(data,workflow_id) {
 		ajaxes.push( 
 			{
 				diagram_id: key,				
-				url      : baseURL +'/workflow-execution/execute-running-process/',
+				url      : baseURL +'/workflow/workflow-execution/execute-running-process/',
 				data     : {'workflow-id' : $("#workflow_id").val(), 'diagram-id' : key, 'execution-id' : value },
 				callback : function (data) { /*do work on data*/ }
 			});		

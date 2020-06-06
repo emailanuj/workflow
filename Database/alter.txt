@@ -1,2 +1,0 @@
-ALTER TABLE `tbl_workflow_execution` ADD `next_step` INT(11) UNSIGNED NOT NULL AFTER `request_params`;
-

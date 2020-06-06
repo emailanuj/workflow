@@ -13,11 +13,13 @@ class m200521_175204_create_tbl_workflow_execution_table extends Migration
      */
     public function safeUp()
     {
+
         $this->createTable('{{%tbl_workflow_execution}}', [
             'id' => $this->primaryKey(),
             'instance_id' => $this->integer()->notNull(),
             'execution_id' => $this->string(100),
             'request_params' => $this->getDb()->getSchema()->createColumnSchemaBuilder('longtext'),
+            'next_step' => $this->integer(),
             'response_params' => $this->getDb()->getSchema()->createColumnSchemaBuilder('longtext'),
             'api_domain' => $this->string(),
             'auth_token' => $this->string(),

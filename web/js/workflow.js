@@ -15,7 +15,7 @@ $(document).on('click',"#savestartevent",function(){
 	 
 	$.ajax({
 	    type: "post",
-	    url: baseURL + '/workflow/mongo-create',
+	    url: baseURL + '/workflow/workflow/mongo-create',
 	    data:formdata,
 	    dataType: "json",
 	    success: function (jsonData) {
@@ -54,7 +54,7 @@ $(document).on('click',"#saveWorkflowModal",function(){
 // 	workflowmodal.style.display = "block";
 	clearLocalStorage();
 	$.ajax({
-		url: baseURL +'/workflow/create-workflow/',
+		url: baseURL +'/workflow/workflow/create-workflow/',
 		type: 'POST',
 		success: function(data) {
 			$('#modal').modal('show');
@@ -68,7 +68,7 @@ $(document).on('click',"#saveWorkflowModal",function(){
 
 $(document).on('click',"#save-workflow-data",function(){
 	$.ajax({
-		url: baseURL +'/workflow/create-workflow/',
+		url: baseURL +'/workflow/workflow/create-workflow/',
 		type: 'POST',
 		dataType:'json',
 		data: $('#workflow_save').serializeArray(),
@@ -83,7 +83,7 @@ $(document).on('click',"#save-workflow-data",function(){
 
 $(document).on('click',"#createWorkflowClone",function(){
 	$.ajax({
-		url: baseURL +'/workflow/create-workflow-clone/',
+		url: baseURL +'/workflow/workflow/create-workflow-clone/',
 		data : {'workflow-id' : $(this).attr('actual-id'), 'form-type' : 'create-clone' },
 		type: 'POST',
 		success: function(data) {
@@ -98,7 +98,7 @@ $(document).on('click',"#createWorkflowClone",function(){
 
 $(document).on('click',"#clone-workflow-data",function(){
 	$.ajax({
-		url: baseURL +'/workflow/create-workflow-clone/',
+		url: baseURL +'/workflow/workflow/create-workflow-clone/',
 		type: 'POST',
 		dataType:'json',
 		data: $('#formclone').serializeArray(),
@@ -124,7 +124,7 @@ function showFunction(element_id,form_type){
 	// debugger;
 	$.ajax({
 		type: "post",
-		url: baseURL + '/workflow/get-ajax-form',
+		url: baseURL + '/workflow/workflow/get-ajax-form',
 		data: {'element_id':element_id,'form_type':form_type,'workflow_id':workflow_id},
 		dataType: "json",
 		success: function (jsonData) {

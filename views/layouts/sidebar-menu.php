@@ -3,7 +3,17 @@ use yii\helpers\Url;
 ?>
 <ul class="sidebar-menu" data-widget="tree">
     <li>
-        <a href="<?= Url::to(['/tbl-keywords']) ?>">
+        <a href="<?= Url::to(['/threshold/service-threshold/index']) ?>">
+            <i class="fa fa-circle-o"></i>  
+            <span>
+                <span class="nav-icon">
+                    <img src="<?= Url::base() .'/images/icons/workflow-execution.png' ?>" />
+                </span> Service Threshold
+              </span>
+        </a>
+    </li>
+    <li>
+        <a href="<?= Url::to(['/workflow/tbl-keywords']) ?>">
             <i class="fa fa-circle-o"></i>  
             <span>
                 <span class="nav-icon">
@@ -14,7 +24,7 @@ use yii\helpers\Url;
         </a>
     </li>
     <li>
-        <a href="<?= Url::to(['/tbl-commands']) ?>">
+        <a href="<?= Url::to(['/workflow/tbl-commands']) ?>">
             <i class="fa fa-circle-o"></i>  
             <span>
                 <span class="nav-icon">
@@ -25,7 +35,7 @@ use yii\helpers\Url;
         </a>
     </li>
     <li>
-        <a href="<?= Url::to(['/workflow']) ?>">
+        <a href="<?= Url::to(['/workflow/workflow']) ?>">
             <i class="fa fa-circle-o"></i>  
             <span>
                 <span class="nav-icon">
@@ -36,7 +46,7 @@ use yii\helpers\Url;
         </a>
     </li>
      <li>
-        <a href="<?= Url::to(['/workflow-execution-reports']) ?>">
+        <a href="<?= Url::to(['/workflow/workflow-execution-reports']) ?>">
             <i class="fa fa-circle-o"></i>  
             <span>
                 <span class="nav-icon">
@@ -46,7 +56,7 @@ use yii\helpers\Url;
             </span>
         </a>
     </li>
-
+    
     <!-- <li class="active">
         <a href="<?= Url::to(['/']) ?>">
             <i class="fa fa-circle-o"></i>  

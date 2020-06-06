@@ -12,6 +12,19 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'timeZone' => 'Asia/Calcutta',
+    'modules' => [
+        'workflow' => [
+            'class' => 'app\modules\workflow\Module',
+        ],
+        'threshold' => [
+            'class' => 'app\modules\threshold\Module',
+        ],
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module',
+            'downloadAction' => 'gridview/export/download',
+            'i18n' => []
+        ],
+    ],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -37,7 +50,7 @@ $config = [
                 'password' => '8cc0de7e1b11d3',
                 'port' => '2525', // Port 25 is a very common port too
                 'encryption' => 'tls', // It is often used, check your provider or mail server specs
-            ],            
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -52,15 +65,14 @@ $config = [
         'urlManager' => [
             'showScriptName' => false,
             'enablePrettyUrl' => true,
-            'rules' => [
-            ],
+            'rules' => [],
         ],
         'mongodb' => [
             'class' => '\yii\mongodb\Connection',
             // 'dsn' => 'mongodb://bpnmroot:password@localhost:27017/bpnm',
             // 'dsn' => 'mongodb://cisco:password@localhost:27017/cisco_workflow',
             'dsn' => 'mongodb://localhost:27017/cisco_workflow',
-        ],        
+        ],
     ],
     'as beforeRequest' =>
     [
@@ -76,16 +88,16 @@ $config = [
             ],
         ],
     ],
-    'modules' => [
-        'gridview' =>  [
-             'class' => '\kartik\grid\Module',
-             // enter optional module parameters below - only if you need to  
-             // use your own export download action or custom translation 
-             // message source
-              'downloadAction' => 'gridview/export/download',
-              'i18n' => []
-         ]
-        ],
+    // 'modules' => [
+    //     'gridview' =>  [
+    //         'class' => '\kartik\grid\Module',
+    //         // enter optional module parameters below - only if you need to  
+    //         // use your own export download action or custom translation 
+    //         // message source
+    //         'downloadAction' => 'gridview/export/download',
+    //         'i18n' => []
+    //     ]
+    // ],
     'params' => $params,
 ];
 
@@ -111,4 +123,5 @@ if (YII_ENV_DEV) {
     ];
 }
 
+// echo '<pre>'; print_r($config);die;
 return $config;
