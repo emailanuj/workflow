@@ -65,9 +65,9 @@ AppAsset::register($this);
                                         <div class="page-title-div">
                                             <h3 class="page-title">
                                                 <!-- <span><img src="public/images/icons/title-workflow-execution.png"> </span>Workflow Execution -->
-                                                <?= Breadcrumbs::widget([
+                                                <!-- <?= Breadcrumbs::widget([
                                                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                                                ]) ?>
+                                                ]) ?> -->
                                                 <?= Alert::widget() ?>
                                             </h3>
                                         </div>
