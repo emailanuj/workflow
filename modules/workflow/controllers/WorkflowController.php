@@ -153,6 +153,15 @@ class WorkflowController extends Controller
                         'element_type'=>$strFormType
                     ]
                     );
+            } else if( $strFormType == 'datastore'){
+                $arrOutputForm['html'] = $this->renderPartial('_customDataStoreForm',
+                    [
+                        'workflowStartEventModel' => $workflowStartEventModel,
+                        'element_id'=>$element_id,
+                        'workflow_id'=>$workflow_id,
+                        'element_type'=>$strFormType
+                    ]
+                    );
             }
             
             else if(!empty($strFormType)){
@@ -266,6 +275,8 @@ class WorkflowController extends Controller
             if( $element_type == 'parallel' || $element_type == 'inclusive' || $element_type == 'exclusive' || $element_type=='event'){
                 $workflowStartEventModel->scenario=$element_type;
             } else if( $element_type == 'MessageStartEvent'){
+                $workflowStartEventModel->scenario=$element_type;
+            } else if( $element_type == 'datastore'){
                 $workflowStartEventModel->scenario=$element_type;
             } else{
                 $keywords=$json_array[$post_data['element_id']]['keywords'];

@@ -32,6 +32,8 @@ class WorkflowStartEventModel extends Model
     public $email_to;
     public $subject;
     public $message;   
+    public $datastore_name;
+    public $collection_name;
 
     /**
      * {@inheritdoc}
@@ -51,6 +53,7 @@ class WorkflowStartEventModel extends Model
             [['api_post_params'], 'required', 'on'=>'rest'],
             [['step_no','next_process'], 'number'],
             [['email_from','email_to','subject','message'], 'required','on'=>'MessageStartEvent'],
+            [['datastore_name', 'collection_name'], 'required', 'on'=>'datastore']
         ];
     }
     public function scenarios() {
@@ -87,7 +90,9 @@ class WorkflowStartEventModel extends Model
             'email_from' => 'Email From',
             'email_to'   => 'Email To',
             'subject'=> 'Subject',
-            'message' => 'Message'            
+            'message' => 'Message',
+            'datastore_name' => 'Database Name',
+            'collection_name' => 'Collection Name'            
         ];
     }
     
