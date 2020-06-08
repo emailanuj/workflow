@@ -69,7 +69,7 @@ class WorkflowController extends Controller
 
 
     public function actionCreateWorkflow()
-    {
+    {        
         $objWorkflow = new Workflow();
         if(Yii::$app->request->isAjax && !empty(Yii::$app->request->post())  ){
             if ( $objWorkflow->load(Yii::$app->request->post()) && $objWorkflow->save() ) {
@@ -90,7 +90,7 @@ class WorkflowController extends Controller
      * @return mixed
      */
     public function actionCreate($id=null)
-    {
+    {        
         $this->layout = '//workflowLayout';
         $post_data='';
         $model = new Workflow();

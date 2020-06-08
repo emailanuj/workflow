@@ -1,7 +1,8 @@
 "use strict";
 function uploadgraphCreator(data) {
             for (var i = 0; i < data.bpmn.length ; i++) {
-                var bpmnelement = data.bpmn[i]
+                var bpmnelement = data.bpmn[i];
+                console.log(bpmnelement);
                 
                 if (bpmnelement.type === "startEvnet") {
                     console.log("oki se")
@@ -11,8 +12,9 @@ function uploadgraphCreator(data) {
                     endeventdevider(bpmnelement.id,bpmnelement.subtype,sampleSVG,bpmnelement.x,bpmnelement.y)
                 } else if (bpmnelement.type === "gateway") {
                     gatewaydevider(bpmnelement.id,bpmnelement.subtype,sampleSVG,bpmnelement.x,bpmnelement.y)
-                } 
-                else if (bpmnelement.type === "task") {
+                } else if (bpmnelement.type === "datastore") {
+                    datastoredevider(bpmnelement.id,bpmnelement.subtype,sampleSVG,bpmnelement.x,bpmnelement.y)
+                } else if (bpmnelement.type === "task") {
                     taskdevider(bpmnelement.id,bpmnelement.subtype,sampleSVG,bpmnelement.x,bpmnelement.y)
                 } else if (bpmnelement.type === "flow") {
                     starttype= bpmnelement.start_type;

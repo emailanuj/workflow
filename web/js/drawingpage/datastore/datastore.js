@@ -91,15 +91,13 @@ var group = svg.append('g')
                         //setEventName(selectedtextid, selectedtextx, selectedtexty);               
                     });
         
-        
-                    var CircleWidth = this.getBoundingClientRect().width;
-                    var CircleHeight = this.getBoundingClientRect().height;
+                    
                     tooltipDiv.select("#arrow-button").on("click", function () {
                         console.log('datastore arrow 1');
                         tooltipDiv.style("opacity", 0);
                         $(".setting-box").css("display","none");
                         // console.log("end arrow button clicked ")
-                        starttype = "startEvent";
+                        starttype = "datastore";
                         startid = t;
                         startx = coords.x + 20;
                         starty = coords.y;
@@ -138,7 +136,7 @@ var group = svg.append('g')
                     // coordsX = coords.x
                     // coordsY = coords.y;
                     if (window.bpmnElement === "flowselect") {
-                        endtype = "endEvent";
+                        endtype = "datastore";
                         endid = t;
                         // endx = coords.x - 30;
                         endx = coords.x - 20;
