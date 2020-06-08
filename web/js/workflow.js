@@ -6,7 +6,12 @@ var currFormArr={};
 var fieldsArray=[];
 var diagram_json={};
 $(document).on('click',"#savestartevent",function(){
-	// debugger;
+	for(bj = 0; bj < bpmnjson.length; bj++) {
+		if(bpmnjson[bj].id == 0) {
+			delete bpmnjson[bj];
+		}
+	}
+	console.log(bpmnjson);
 	 var diagram_json={};
 	 diagram_json['bpmn'] = bpmnjson;
 	 diagram_json=JSON.stringify(diagram_json);
