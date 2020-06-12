@@ -11,8 +11,8 @@ $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row">
-    <div class="col-md-6 ">
-        <div class="login-box" style="width: auto; padding: 5px 15px 15px; border: 1px solid #bbb; border-radius: 10px;margin:0px">
+    <div class="col-md-6 col-md-offset-2">
+        <div class="login-box" style="width: auto; margin:0px; padding: 5px 15px 15px; border: 1px solid #bbb; border-radius: 10px;">
             <div class="row">
                 <div class="col-md-12">
                     <h3 class="text-center"><?= Html::encode($this->title) ?></h3>

@@ -1,0 +1,181 @@
+2020-06-06 19:28:51 [::1][-][ch8m1cjg34dp94p22oh68kf914][error][Error] Error: Class 'app\models\MasterSetting' not found in C:\xampp\htdocs\workflow\vendor\mdmsoft\yii2-admin\views\user\login.php:13
+Stack trace:
+#0 C:\xampp\htdocs\workflow\vendor\yiisoft\yii2\base\View.php(348): require()
+#1 C:\xampp\htdocs\workflow\vendor\yiisoft\yii2\base\View.php(257): yii\base\View->renderPhpFile('C:\\xampp\\htdocs...', Array)
+#2 C:\xampp\htdocs\workflow\vendor\yiisoft\yii2\base\View.php(156): yii\base\View->renderFile('C:\\xampp\\htdocs...', Array, Object(mdm\admin\controllers\UserController))
+#3 C:\xampp\htdocs\workflow\vendor\yiisoft\yii2\base\Controller.php(386): yii\base\View->render('login', Array, Object(mdm\admin\controllers\UserController))
+#4 C:\xampp\htdocs\workflow\vendor\mdmsoft\yii2-admin\controllers\UserController.php(129): yii\base\Controller->render('login', Array)
+#5 [internal function]: mdm\admin\controllers\UserController->actionLogin()
+#6 C:\xampp\htdocs\workflow\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#7 C:\xampp\htdocs\workflow\vendor\yiisoft\yii2\base\Controller.php(157): yii\base\InlineAction->runWithParams(Array)
+#8 C:\xampp\htdocs\workflow\vendor\yiisoft\yii2\base\Module.php(528): yii\base\Controller->runAction('login', Array)
+#9 C:\xampp\htdocs\workflow\vendor\yiisoft\yii2\web\Application.php(103): yii\base\Module->runAction('admin/user/logi...', Array)
+#10 C:\xampp\htdocs\workflow\vendor\yiisoft\yii2\base\Application.php(386): yii\web\Application->handleRequest(Object(yii\web\Request))
+#11 C:\xampp\htdocs\workflow\web\index.php(12): yii\base\Application->run()
+#12 {main}
+2020-06-06 19:28:50 [::1][-][ch8m1cjg34dp94p22oh68kf914][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = [
+    'advanced-backend' => '44bkeorfelcje6n9dg98df78r6'
+    '_csrf-backend' => 'ae04f8d9c56d7c371d4d8b9c49a0baca58fa0b4530ef44ba0994166e18909e2da:2:{i:0;s:13:\"_csrf-backend\";i:1;s:32:\"YJHijlW7ARwNVZU0LxCvWn4Lr4eUA_9b\";}'
+    '_csrf-frontend' => 'f748ccfabc1bd35fbf1f4b5cd382ee457cbeccd4b36ee18bb40d869dd858018ea:2:{i:0;s:14:\"_csrf-frontend\";i:1;s:32:\"Po5VW9ITSL4nVZI7CzZV_qvz1bgUOZ-t\";}'
+    'advanced-frontend' => '4tg4vngg19bgss4mlrgktcio0p'
+    '_csrf' => 'b5cdfee104dc03da0c4cbfd0d20f322a85c2eb8f91aae441af320ca5afcbac1fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"hlv2efHTbYkomLc_jYPJyoUSCPSymM3C\";}'
+    'PHPSESSID' => 'ch8m1cjg34dp94p22oh68kf914'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__returnUrl' => 'http://localhost:81/workflow/web/'
+]
+
+$_SERVER = [
+    'REDIRECT_MIBDIRS' => 'C:/xampp/php/extras/mibs'
+    'REDIRECT_MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'REDIRECT_OPENSSL_CONF' => 'C:/xampp/apache/bin/openssl.cnf'
+    'REDIRECT_PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'REDIRECT_PHPRC' => '\\xampp\\php'
+    'REDIRECT_TMP' => '\\xampp\\tmp'
+    'REDIRECT_STATUS' => '200'
+    'MIBDIRS' => 'C:/xampp/php/extras/mibs'
+    'MYSQL_HOME' => '\\xampp\\mysql\\bin'
+    'OPENSSL_CONF' => 'C:/xampp/apache/bin/openssl.cnf'
+    'PHP_PEAR_SYSCONF_DIR' => '\\xampp\\php'
+    'PHPRC' => '\\xampp\\php'
+    'TMP' => '\\xampp\\tmp'
+    'HTTP_HOST' => 'localhost:81'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9'
+    'HTTP_SEC_FETCH_SITE' => 'same-origin'
+    'HTTP_SEC_FETCH_MODE' => 'navigate'
+    'HTTP_SEC_FETCH_USER' => '?1'
+    'HTTP_SEC_FETCH_DEST' => 'document'
+    'HTTP_REFERER' => 'http://localhost:81/workflow/web/workflow/workflow'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate, br'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.9'
+    'HTTP_COOKIE' => 'advanced-backend=44bkeorfelcje6n9dg98df78r6; _csrf-backend=ae04f8d9c56d7c371d4d8b9c49a0baca58fa0b4530ef44ba0994166e18909e2da%3A2%3A%7Bi%3A0%3Bs%3A13%3A%22_csrf-backend%22%3Bi%3A1%3Bs%3A32%3A%22YJHijlW7ARwNVZU0LxCvWn4Lr4eUA_9b%22%3B%7D; _csrf-frontend=f748ccfabc1bd35fbf1f4b5cd382ee457cbeccd4b36ee18bb40d869dd858018ea%3A2%3A%7Bi%3A0%3Bs%3A14%3A%22_csrf-frontend%22%3Bi%3A1%3Bs%3A32%3A%22Po5VW9ITSL4nVZI7CzZV_qvz1bgUOZ-t%22%3B%7D; advanced-frontend=4tg4vngg19bgss4mlrgktcio0p; _csrf=b5cdfee104dc03da0c4cbfd0d20f322a85c2eb8f91aae441af320ca5afcbac1fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22hlv2efHTbYkomLc_jYPJyoUSCPSymM3C%22%3B%7D; PHPSESSID=ch8m1cjg34dp94p22oh68kf914'
+    'PATH' => 'C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files (x86)\\Sennheiser\\SoftphoneSDK\\;C:\\Program Files\\Git\\cmd;C:\\ProgramData\\ComposerSetup\\bin;C:\\Program Files\\nodejs\\;C:\\Program Files\\PuTTY\\;C:\\Users\\kulpande\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\kulpande\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\xampp\\php;C:\\Users\\kulpande\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\kulpande\\AppData\\Roaming\\npm'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'COMSPEC' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\WINDOWS'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.41 (Win64) OpenSSL/1.1.1c PHP/7.4.3 Server at localhost Port 81</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.41 (Win64) OpenSSL/1.1.1c PHP/7.4.3'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '::1'
+    'SERVER_PORT' => '81'
+    'REMOTE_ADDR' => '::1'
+    'DOCUMENT_ROOT' => 'C:/xampp/htdocs'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/xampp/htdocs'
+    'SERVER_ADMIN' => 'postmaster@localhost'
+    'SCRIPT_FILENAME' => 'C:/xampp/htdocs/workflow/web/index.php'
+    'REMOTE_PORT' => '63450'
+    'REDIRECT_URL' => '/workflow/web/admin/user/login'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/workflow/web/admin/user/login'
+    'SCRIPT_NAME' => '/workflow/web/index.php'
+    'PHP_SELF' => '/workflow/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1591451930.754
+    'REQUEST_TIME' => 1591451930
+]
+2020-06-09 14:47:00 [-][-][-][error][yii\console\UnknownCommandException] yii\base\InvalidRouteException: Unable to resolve the request "mirgate/create". in C:\xampp\htdocs\workflow\vendor\yiisoft\yii2\base\Module.php:537
+Stack trace:
+#0 C:\xampp\htdocs\workflow\vendor\yiisoft\yii2\console\Application.php(180): yii\base\Module->runAction('mirgate/create', Array)
+#1 C:\xampp\htdocs\workflow\vendor\yiisoft\yii2\console\Application.php(147): yii\console\Application->runAction('mirgate/create', Array)
+#2 C:\xampp\htdocs\workflow\vendor\yiisoft\yii2\base\Application.php(386): yii\console\Application->handleRequest(Object(yii\console\Request))
+#3 C:\xampp\htdocs\workflow\yii(20): yii\base\Application->run()
+#4 {main}
+
+Next yii\console\UnknownCommandException: Unknown command "mirgate/create". in C:\xampp\htdocs\workflow\vendor\yiisoft\yii2\console\Application.php:183
+Stack trace:
+#0 C:\xampp\htdocs\workflow\vendor\yiisoft\yii2\console\Application.php(147): yii\console\Application->runAction('mirgate/create', Array)
+#1 C:\xampp\htdocs\workflow\vendor\yiisoft\yii2\base\Application.php(386): yii\console\Application->handleRequest(Object(yii\console\Request))
+#2 C:\xampp\htdocs\workflow\yii(20): yii\base\Application->run()
+#3 {main}
+2020-06-09 14:47:00 [-][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'APPDATA' => 'C:\\Users\\kulpande\\AppData\\Roaming'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'KULPANDE-8T7GT'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'DriverData' => 'C:\\Windows\\System32\\Drivers\\DriverData'
+    'FPS_BROWSER_APP_PROFILE_STRING' => 'Internet Explorer'
+    'FPS_BROWSER_USER_PROFILE_STRING' => 'Default'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\kulpande'
+    'LOCALAPPDATA' => 'C:\\Users\\kulpande\\AppData\\Local'
+    'LOGONSERVER' => '\\\\ADC-BGL-C-3'
+    'NUMBER_OF_PROCESSORS' => '8'
+    'OneDrive' => 'C:\\Users\\kulpande\\OneDrive'
+    'OS' => 'Windows_NT'
+    'Path' => 'C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files (x86)\\Sennheiser\\SoftphoneSDK\\;C:\\Program Files\\Git\\cmd;C:\\ProgramData\\ComposerSetup\\bin;C:\\Program Files\\nodejs\\;C:\\Program Files\\PuTTY\\;C:\\Users\\kulpande\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\kulpande\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\xampp\\php;C:\\Users\\kulpande\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\kulpande\\AppData\\Roaming\\npm'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 142 Stepping 10, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => '8e0a'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\Users\\kulpande\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules;C:\\Program Files\\Thycotic\\Powershell\\'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\kulpande\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\kulpande\\AppData\\Local\\Temp'
+    'UATDATA' => 'C:\\WINDOWS\\CCM\\UATData\\D9F8C395-CAB8-491d-B8AC-179A1FE1BE77'
+    'USERDNSDOMAIN' => 'CISCO.COM'
+    'USERDOMAIN' => 'CISCO'
+    'USERDOMAIN_ROAMINGPROFILE' => 'CISCO'
+    'USERNAME' => 'kulpande'
+    'USERPROFILE' => 'C:\\Users\\kulpande'
+    'VBOX_MSI_INSTALL_PATH' => 'C:\\Program Files\\Oracle\\VirtualBox\\'
+    'windir' => 'C:\\WINDOWS'
+    'TERM_PROGRAM' => 'vscode'
+    'TERM_PROGRAM_VERSION' => '1.45.1'
+    'LANG' => 'en_US.UTF-8'
+    'COLORTERM' => 'truecolor'
+    'VSCODE_GIT_IPC_HANDLE' => '\\\\.\\pipe\\vscode-git-a8c08e4742-sock'
+    'GIT_ASKPASS' => 'c:\\Users\\kulpande\\AppData\\Local\\Programs\\Microsoft VS Code\\resources\\app\\extensions\\git\\dist\\askpass.sh'
+    'VSCODE_GIT_ASKPASS_NODE' => 'C:\\Users\\kulpande\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe'
+    'VSCODE_GIT_ASKPASS_MAIN' => 'c:\\Users\\kulpande\\AppData\\Local\\Programs\\Microsoft VS Code\\resources\\app\\extensions\\git\\dist\\askpass-main.js'
+    'PHP_SELF' => 'yii'
+    'SCRIPT_NAME' => 'yii'
+    'SCRIPT_FILENAME' => 'yii'
+    'PATH_TRANSLATED' => 'yii'
+    'DOCUMENT_ROOT' => ''
+    'REQUEST_TIME_FLOAT' => 1591706820.4459
+    'REQUEST_TIME' => 1591706820
+    'argv' => [
+        0 => 'yii'
+        1 => 'mirgate/create'
+        2 => 'create_tbl_module_table.php'
+    ]
+    'argc' => 3
+]
