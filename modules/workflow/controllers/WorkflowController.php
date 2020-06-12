@@ -69,7 +69,7 @@ class WorkflowController extends Controller
 
 
     public function actionCreateWorkflow()
-    {
+    {        
         $objWorkflow = new Workflow();
         if(Yii::$app->request->isAjax && !empty(Yii::$app->request->post())  ){
             if ( $objWorkflow->load(Yii::$app->request->post()) && $objWorkflow->save() ) {
@@ -90,7 +90,7 @@ class WorkflowController extends Controller
      * @return mixed
      */
     public function actionCreate($id=null)
-    {
+    {        
         $this->layout = '//workflowLayout';
         $post_data='';
         $model = new Workflow();
@@ -146,6 +146,15 @@ class WorkflowController extends Controller
                     );
             } else if( $strFormType == 'MessageStartEvent'){
                 $arrOutputForm['html'] = $this->renderPartial('_customEmailEventForm',
+                    [
+                        'workflowStartEventModel' => $workflowStartEventModel,
+                        'element_id'=>$element_id,
+                        'workflow_id'=>$workflow_id,
+                        'element_type'=>$strFormType
+                    ]
+                    );
+            } else if( $strFormType == 'datastore'){
+                $arrOutputForm['html'] = $this->renderPartial('_customDataStoreForm',
                     [
                         'workflowStartEventModel' => $workflowStartEventModel,
                         'element_id'=>$element_id,
@@ -266,6 +275,8 @@ class WorkflowController extends Controller
             if( $element_type == 'parallel' || $element_type == 'inclusive' || $element_type == 'exclusive' || $element_type=='event'){
                 $workflowStartEventModel->scenario=$element_type;
             } else if( $element_type == 'MessageStartEvent'){
+                $workflowStartEventModel->scenario=$element_type;
+            } else if( $element_type == 'datastore'){
                 $workflowStartEventModel->scenario=$element_type;
             } else{
                 $keywords=$json_array[$post_data['element_id']]['keywords'];

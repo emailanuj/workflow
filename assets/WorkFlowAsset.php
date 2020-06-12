@@ -36,6 +36,7 @@ class WorkFlowAsset extends AssetBundle
         'js/drawingpage/startevent/startevent.js',
         'js/drawingpage/gateway/gateway.js',
         'js/drawingpage/task/task.js',
+        'js/drawingpage/datastore/datastore.js',
         'js/drawingpage/flow/flow.js',
         'js/drawingpage/endevent/endevent.js',
         'js/drawingpage/drawing.js',

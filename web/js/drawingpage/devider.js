@@ -21,8 +21,10 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
     } else if (bpmnElement === "gateway") {
         window.bpmnElement = null;
         gatewaydevider(null, subElement, svg, d3.event.pageX, d3.event.pageY);
-    }
-    else if (bpmnElement === "flow" || bpmnElement === "flowselect") {
+    } else if (bpmnElement === "datastore") {
+        window.bpmnElement = null;
+        datastoredevider(null, subElement, svg, d3.event.pageX, d3.event.pageY);
+    } else if (bpmnElement === "flow" || bpmnElement === "flowselect") {
         window.bpmnElement = null;
         flowcreator(null, subElement, svg, d3.event.pageX, d3.event.pageY);
     }

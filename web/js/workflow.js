@@ -5,11 +5,20 @@ var formDBArray={};
 var currFormArr={};
 var fieldsArray=[];
 var diagram_json={};
+var bpmnjsonnew=[];
 $(document).on('click',"#savestartevent",function(){
-	// debugger;
+	for(bj = 0; bj < bpmnjson.length; bj++) {
+		if(bpmnjson[bj].id == 0) {
+			delete bpmnjson[bj];
+		} else {
+			bpmnjsonnew.push(bpmnjson[bj]);
+		}
+	}
+	console.log(bpmnjsonnew);
 	 var diagram_json={};
-	 diagram_json['bpmn'] = bpmnjson;
+	 diagram_json['bpmn'] = bpmnjsonnew;
 	 diagram_json=JSON.stringify(diagram_json);
+	 console.log(diagram_json);
 	 $('#form_json_data').val(diagram_json);
 	 formdata=$('#seModal0').serializeArray();
 	 

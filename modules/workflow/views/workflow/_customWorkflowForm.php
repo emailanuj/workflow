@@ -56,6 +56,10 @@ if(!empty($model['id'])){
             <input id="event-gateway-button" type="image" title="Event Gateway" src="<?= Url::base() .'/img/Eventgateway.png' ?>" alt="Event Gateway" style="width: 30px;height: 30px"><br>
             
             <hr>
+
+            <input id="data-store-button" type="image" title="Data Store" src="<?= Url::base() .'/img/data-store.png' ?>" alt="Data Store" style="width: 30px;height: 30px">
+
+
             
             <!--     <span><b>Connections</b></span><br> -->
             <!-- <input id="arrow-button" type="image" title="Sequence Flow" src="<?= Url::base() .'/img/arrow.png' ?>" alt="Sequence Flow" style="width: 30px;height: 30px"><br> -->
