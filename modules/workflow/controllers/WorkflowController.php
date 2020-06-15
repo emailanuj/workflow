@@ -162,6 +162,15 @@ class WorkflowController extends Controller
                         'element_type'=>$strFormType
                     ]
                     );
+            } else if($strFormType == 'flow') {
+                $arrOutputForm['html'] = $this->renderPartial('_customFlowEventForm',
+                    [
+                        'workflowStartEventModel' => $workflowStartEventModel,
+                        'element_id'=>$element_id,
+                        'workflow_id'=>$workflow_id,
+                        'element_type'=>$strFormType
+                    ]
+                    );
             }
             
             else if(!empty($strFormType)){

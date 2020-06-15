@@ -53,7 +53,8 @@ class WorkflowStartEventModel extends Model
             [['api_post_params'], 'required', 'on'=>'rest'],
             [['step_no','next_process'], 'number'],
             [['email_from','email_to','subject','message'], 'required','on'=>'MessageStartEvent'],
-            [['datastore_name', 'collection_name'], 'required', 'on'=>'datastore']
+            [['datastore_name', 'collection_name'], 'required', 'on'=>'datastore'],
+            [['step_no','if_fail','condition_statement','next_process'], 'required','on'=>'flow']
         ];
     }
     public function scenarios() {
