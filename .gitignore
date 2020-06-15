@@ -1,4 +1,4 @@
-config/
+config/db.php
 vendor/*
 runtime/*
 web/assets/*
