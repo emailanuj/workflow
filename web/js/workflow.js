@@ -9,7 +9,7 @@ var bpmnjsonnew=[];
 $(document).on('click',"#savestartevent",function(){
 	for(bj = 0; bj < bpmnjson.length; bj++) {
 		if(bpmnjson[bj].id == 0) {
-			delete bpmnjson[bj];
+			//delete bpmnjson[bj];
 		} else {
 			bpmnjsonnew.push(bpmnjson[bj]);
 		}
@@ -230,12 +230,29 @@ $(document).on('change',"#workflowstarteventmodel-data_source",function(){
 });
 
 function completeWorkflow(){
+	//console.log('workflow complete');
 	w_id=$('#workflow_id').val();
+	var bpmnjsondb = [];
+	for(bj = 0; bj < bpmnjson.length; bj++) {
+		if(bpmnjson[bj].id == 0) {
+			delete bpmnjson[bj];
+		} else {
+			bpmnjsondb.push(bpmnjson[bj]);
+		}
+	}
+	console.log(bpmnjsondb);
+	 var diagram_json={};
+	 diagram_json['bpmn'] = bpmnjsondb;
+	 diagram_json=JSON.stringify(diagram_json);
+	 console.log(diagram_json);
+	 $('#form_json_data').val(diagram_json);	 
+	 localStorage.setItem('form_json',diagram_json);
+	
 	workflow_data=localStorage.getItem(w_id);
 	workflow_json=localStorage.getItem('form_json');
 	$('#workflow_json').val(workflow_json);
 	$('#workflow_data').val(workflow_data);
-	$('#w_id').val(w_id);
+	$('#w_id').val(w_id);	
 	clearLocalStorage();
 }
 function clearLocalStorage(){

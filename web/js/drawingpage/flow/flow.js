@@ -133,10 +133,12 @@ var flowcreator = function (eid) {
 
             tooltipDiv.select("#property-button").on("click", function () {
                 tooltipDiv.style("opacity", 0);  
-                $(".setting-box").css("display","none");              
+                $(".setting-box").css("display","none"); 
+                //console.log(bpmnjson);             
                 for (var i = 0; i < bpmnjson.length; i++) {
                     var element = bpmnjson[i];
                     console.log(t);
+                    console.log(bpmnjson); //exit;
                     if (element.id === t) {
                         console.log(bpmnjson[i]);
                         selectedId = t;

@@ -158,7 +158,7 @@ class WorkflowExecutionController extends Controller
         $workflowDiagram = $workflowDiagram['bpmn'];
         if(!empty($workflowStepToExecute)) { if($currentStep !== $workflowStepToExecute) { $output = 'blank'; return json_encode($output);  } }
         
-        if(strpos($diagramChId, 'PGgateway') !== 0 && strpos($diagramChId, 'MSEstartEvnet') !== 0) {         
+        if(strpos($diagramChId, 'Fflow') !== 0 && strpos($diagramChId, 'MSEstartEvnet') !== 0) {         
         switch ($workflowExecutableData['keywords']) {
             case "API":
                 $apiUrl        = $workflowExecutableData['api_url'];
@@ -231,7 +231,7 @@ class WorkflowExecutionController extends Controller
             default:
                 $result = "Default";
          }
-        } else if(strpos($diagramChId, 'PGgateway') === 0) {
+        } else if(strpos($diagramChId, 'Fflow') === 0) {
             if($workflowExecutableData['condition_statement'] == $previousResponse) {
                 $nextStep = $workflowExecutableData['next_process'];
                 $result = 'condition executed';
@@ -257,7 +257,7 @@ class WorkflowExecutionController extends Controller
          $executionModelArr = array();
          $executionModel = WorkflowExecution::findOne(['request_params' => $diagramId, 'execution_id' => $executionId]);                  
          $executionModel->response_params  = $result;             
-            if((@$workflowExecutableData['keywords'] == 'API') && strpos($diagramChId, 'PGgateway') !== 0) {
+            if((@$workflowExecutableData['keywords'] == 'API') && strpos($diagramChId, 'Fflow') !== 0) {
                 $executionModel->api_domain       = $tokenUrl;
                 $executionModel->auth_token       = $tokenBearer; 
             }             

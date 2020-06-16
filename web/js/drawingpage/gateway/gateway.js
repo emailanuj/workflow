@@ -92,7 +92,7 @@ var g2 = svg.append('g')
                     .duration(200)
                     .style("opacity", 1.9);
                     $(".setting-box").css("display","block");
-                tooltipDiv.html("<input id=" + "trash-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/trash-icon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >"+"&nbsp"+"<input id=" + "arrow-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/arrow.png" + " alt=" + "arrow" + " style=" + "width:25px;" + " >" + "<br>" + "<input id=" + "property-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/settingsicon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >"+"<input id=" + "text-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/review.png" + " alt=" + "Text" + " style=" + "width:25px;" + " >")
+                tooltipDiv.html("<input id=" + "trash-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/trash-icon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >"+"&nbsp"+"<input id=" + "arrow-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/arrow.png" + " alt=" + "arrow" + " style=" + "width:25px;" + " >" +"<input id=" + "text-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/review.png" + " alt=" + "Text" + " style=" + "width:25px;" + " >")
                     .style("left", coords.x + 45 + "px")
                     .style("top", (coords.y + 20) + "px");
 
@@ -104,34 +104,34 @@ var g2 = svg.append('g')
                     // semodal.style.display = "block";
                 });
 
-                tooltipDiv.select("#property-button").on("click", function () {
-                    $(".setting-box").css("display","none");
-                	for (var i = 0; i < bpmnjson.length ; i++) {
-                        var element = bpmnjson[i]
-                        if (element.id === t) {
-                            selectedId=t;
-                            elementType="Gateway";
-                            elementSubType=element.subtype;
-                            console.log(element.subtype)
-                            if (element.subtype === "parallel") {
-                                selectedId="PG"+t;
-                                showFunction(selectedId,element.subtype);
-                            console.log("-----------"+elementSubType)
-                            }else if (element.subtype === "exclusive") {
-                                selectedId="EG"+t;
-                                showFunction(selectedId,element.subtype);
-                            }else if (element.subtype === "inclusive") {
-                                selectedId="IG"+t;
-                                showFunction(selectedId,element.subtype);
-                            }else if (element.subtype === "event") {
-                                selectedId="EG"+t;
-                                showFunction(selectedId,element.subtype);
-                            }
-                        }
-                    }
-                   tooltipDiv.style("opacity", 0);
-                   console.log("gateway evnt button clicked ")
-                });
+                // tooltipDiv.select("#property-button").on("click", function () {
+                //     $(".setting-box").css("display","none");
+                // 	for (var i = 0; i < bpmnjson.length ; i++) {
+                //         var element = bpmnjson[i]
+                //         if (element.id === t) {
+                //             selectedId=t;
+                //             elementType="Gateway";
+                //             elementSubType=element.subtype;
+                //             console.log(element.subtype)
+                //             if (element.subtype === "parallel") {
+                //                 selectedId="PG"+t;
+                //                 showFunction(selectedId,element.subtype);
+                //             console.log("-----------"+elementSubType)
+                //             }else if (element.subtype === "exclusive") {
+                //                 selectedId="EG"+t;
+                //                 showFunction(selectedId,element.subtype);
+                //             }else if (element.subtype === "inclusive") {
+                //                 selectedId="IG"+t;
+                //                 showFunction(selectedId,element.subtype);
+                //             }else if (element.subtype === "event") {
+                //                 selectedId="EG"+t;
+                //                 showFunction(selectedId,element.subtype);
+                //             }
+                //         }
+                //     }
+                //    tooltipDiv.style("opacity", 0);
+                //    console.log("gateway evnt button clicked ")
+                // });
                 tooltipDiv.select("#text-button").on("click", function () {
                     tooltipDiv.style("opacity", 0);
                     $(".setting-box").css("display","none");
