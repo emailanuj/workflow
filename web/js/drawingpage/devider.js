@@ -39,31 +39,32 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
         if (textvalue != '') {
             console.log(window.selectedtextx);
             console.log(window.selectedtexty);
-            var textToElement = d3.select("#"+selectedtextid);
+            var textToElement = d3.select("#" + selectedtextid);
             var replacedTextId = selectedtextid.replace(/\d+/g, '');
-            if(replacedTextId !== 'task') {
-            var textGroup = textToElement                
-                .append('g')
-                .attr('transform', 'translate(' + window.selectedtextx + ',' + window.selectedtexty + ')')
-                .attr('id', window.selectedtextid + '_label')
-                .call(drag);
+            if (replacedTextId !== 'task') {
+                var textGroup = textToElement
+                    .append('g')
+                    .attr('transform', 'translate(' + window.selectedtextx + ',' + window.selectedtexty + ')')
+                    .attr('id', window.selectedtextid + '_label')
+                    .call(drag);
             }
-                for (var i = 0; i < bpmnjson.length; i++) {
-                    var eventelement = bpmnjson[i]
-                    if (eventelement.id === selectedtextid) {
-                        console.log(bpmnjson[i]);
-                        bpmnjson[i].name = textvalue;
-                    }
+            for (var i = 0; i < bpmnjson.length; i++) {
+                var eventelement = bpmnjson[i]
+                if (eventelement.id === selectedtextid) {
+                    console.log(bpmnjson[i]);
+                    bpmnjson[i].name = textvalue;
                 }
-                // var result = bpmnjson.filter(obj => {
-                //     return obj.id === selectedtextid
-                //   })
-                // console.log(result);
+            }
+            // var result = bpmnjson.filter(obj => {
+            //     return obj.id === selectedtextid
+            //   })
+            // console.log(result);
             textGroup.append('text').text(textvalue);
         }
     }
 
 }
+
 
 // function setEventName(selectedtextid, selectedtextx, selectedtexty) {
 //     if (selectedtextid != null) {
@@ -137,22 +138,28 @@ function getScreenCoords(x, y, ctm) {
     return { x: xn, y: yn };
 }
 
+// d3.select('svg').on('mousemove', function() {
+//     if (dragging) {
+//         var rad = 5;
+//         var x = d3.mouse(d3.select('#a').node())[0],
+//             y = d3.mouse(d3.select('#a').node())[1];
+//         d3.select('#dummyPath').attr('x2', x - rad).attr('y2', y - rad);
+//         d3.select('#dummyPath').style("display", "block")
+//     }
+// });
+
 var drag = d3.behavior.drag()
     .on('drag', function (d) {
-        // console.log("--dvalue--"+ d )
-        // console.log("--dvalues--"+this)
         dragMove(this)
     })
     .on("dragstart", function () {
-        console.log('DRAG START');
+        // console.log('DRAG START');
         var elementid = d3.select(this).attr("id");
-         console.log(elementid);
-         console.log(bpmnjson);
+        //  console.log(elementid);
+        //  console.log(bpmnjson);
         for (var i = 0; i < bpmnjson.length; i++) {
             var bpmnobject = bpmnjson[i];
-
             // console.log(bpmnobject.start_id +'==>>>'+ bpmnobject.end_id +'==>>>>'+ elementid +'===>>>>'+ bpmnobject.id );
-
             if (bpmnobject.start_id === elementid && bpmnobject.id != 0) {
                 console.log("Gone in first condition");
                 dragFlows.push({
