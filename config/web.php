@@ -23,6 +23,9 @@ $config = [
         'admin' => [
             'class' => 'mdm\admin\Module',         
         ],
+        'api' => [
+            'class' => 'app\modules\api\Module',
+        ],
         'gridview' =>  [
             'class' => '\kartik\grid\Module',
             'downloadAction' => 'gridview/export/download',
