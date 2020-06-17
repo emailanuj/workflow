@@ -266,6 +266,7 @@ function drawGraph(grapOBJ,formObj,workflow_id){
 
 $(document).on('click','#searchbpareport',function(){
 	searchformdata=$('#bpa-search').serializeArray();
+	$("#bpareportdata").empty();
 	$.ajax({
 	    type: "post",
 	    url: baseURL + '/threshold/bpa-use-case/index',
