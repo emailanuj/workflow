@@ -135,16 +135,17 @@ class WorkflowController extends Controller
             $workflow_id=Yii::$app->request->post('workflow_id');
             $arrOutputForm = [];
             $arrOutputForm['status'] = 'success';
-            if( $strFormType == 'parallel' || $strFormType == 'inclusive' || $strFormType == 'exclusive' || $strFormType=='event'){
-                $arrOutputForm['html'] = $this->renderPartial('_customConditionEventForm',
-                    [
-                        'workflowStartEventModel' => $workflowStartEventModel,
-                        'element_id'=>$element_id,
-                        'workflow_id'=>$workflow_id,
-                        'element_type'=>$strFormType
-                    ]
-                    );
-            } else if( $strFormType == 'MessageStartEvent'){
+            // if( $strFormType == 'parallel' || $strFormType == 'inclusive' || $strFormType == 'exclusive' || $strFormType=='event'){
+            //     $arrOutputForm['html'] = $this->renderPartial('_customConditionEventForm',
+            //         [
+            //             'workflowStartEventModel' => $workflowStartEventModel,
+            //             'element_id'=>$element_id,
+            //             'workflow_id'=>$workflow_id,
+            //             'element_type'=>$strFormType
+            //         ]
+            //         );
+            // } else 
+            if( $strFormType == 'MessageStartEvent'){
                 $arrOutputForm['html'] = $this->renderPartial('_customEmailEventForm',
                     [
                         'workflowStartEventModel' => $workflowStartEventModel,
@@ -276,16 +277,12 @@ class WorkflowController extends Controller
             // Workflow Validation
             $json_array=array();
             Yii::$app->response->format = Response::FORMAT_JSON;
-            $post_data=Yii::$app->request->post();
+            $post_data=Yii::$app->request->post();            
             $json_array[$post_data['element_id']]=$post_data['WorkflowStartEventModel'];
             $workflowStartEventModel = new WorkflowStartEventModel();
             // Adding Scenario Based on Keywords
             $element_type=$post_data['element_type'];
-            if( $element_type == 'parallel' || $element_type == 'inclusive' || $element_type == 'exclusive' || $element_type=='event'){
-                $workflowStartEventModel->scenario=$element_type;
-            } else if( $element_type == 'MessageStartEvent'){
-                $workflowStartEventModel->scenario=$element_type;
-            } else if( $element_type == 'datastore'){
+            if( $element_type == 'MessageStartEvent' || $element_type == 'datastore' || $element_type == 'flow'){
                 $workflowStartEventModel->scenario=$element_type;
             } else{
                 $keywords=$json_array[$post_data['element_id']]['keywords'];
@@ -378,7 +375,7 @@ class WorkflowController extends Controller
             $logged_in_user_id='';
         }
         $workflowDataModel = new WorkflowDataModel();
-        $post_data=Yii::$app->request->post();
+        $post_data=Yii::$app->request->post();        
         if(!empty(Yii::$app->request->post())){
             
             $post_data=Yii::$app->request->post();

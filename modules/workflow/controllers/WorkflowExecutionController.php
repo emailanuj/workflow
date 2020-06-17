@@ -108,6 +108,7 @@ class WorkflowExecutionController extends Controller
 
     public function preExecutionSave($model) {
         $workflowData = json_decode($model->workflow_data,true);
+        //echo '<pre/>'; print_r($workflowData); exit;    
         uasort($workflowData, function($a, $b) {
             return $a['step_no'] <=> $b['step_no'];
         });        
@@ -158,7 +159,7 @@ class WorkflowExecutionController extends Controller
         $workflowDiagram = $workflowDiagram['bpmn'];
         if(!empty($workflowStepToExecute)) { if($currentStep !== $workflowStepToExecute) { $output = 'blank'; return json_encode($output);  } }
         
-        if(strpos($diagramChId, 'PGgateway') !== 0 && strpos($diagramChId, 'MSEstartEvnet') !== 0) {         
+        if(strpos($diagramChId, 'Fflow') !== 0 && strpos($diagramChId, 'MSEstartEvnet') !== 0) {         
         switch ($workflowExecutableData['keywords']) {
             case "API":
                 $apiUrl        = $workflowExecutableData['api_url'];
@@ -231,10 +232,10 @@ class WorkflowExecutionController extends Controller
             default:
                 $result = "Default";
          }
-        } else if(strpos($diagramChId, 'PGgateway') === 0) {
-            if($workflowExecutableData['condition_statement'] == $previousResponse) {
+        } else if(strpos($diagramChId, 'Fflow') === 0) {
+            if(!empty($workflowExecutableData['condition_statement'])) {
                 $nextStep = $workflowExecutableData['next_process'];
-                $result = 'condition executed';
+                $result = $workflowExecutableData['condition_statement'];
             } else {
                 $result = '';
             }           
@@ -257,7 +258,7 @@ class WorkflowExecutionController extends Controller
          $executionModelArr = array();
          $executionModel = WorkflowExecution::findOne(['request_params' => $diagramId, 'execution_id' => $executionId]);                  
          $executionModel->response_params  = $result;             
-            if((@$workflowExecutableData['keywords'] == 'API') && strpos($diagramChId, 'PGgateway') !== 0) {
+            if((@$workflowExecutableData['keywords'] == 'API') && strpos($diagramChId, 'Fflow') !== 0) {
                 $executionModel->api_domain       = $tokenUrl;
                 $executionModel->auth_token       = $tokenBearer; 
             }             
