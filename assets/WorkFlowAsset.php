@@ -25,7 +25,7 @@ class WorkFlowAsset extends AssetBundle
         'css/app.css',
         'css/workflow.css',
         'font-awesome/css/font-awesome.min.css',
-        'css/custom-style.css',
+        'css/custom-style.css',    
     ];
     public $js = [
         'js/d3.js',
@@ -42,7 +42,7 @@ class WorkFlowAsset extends AssetBundle
         'js/drawingpage/drawing.js',
         'js/workflow.js',
         'js/jquery.validate.min.js',
-        'js/form-validation.js',
+        'js/form-validation.js',        
         // 'js/adminlte.min.js',
     ];
     public $depends = [

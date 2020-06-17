@@ -23,12 +23,14 @@ class AppAsset extends AssetBundle
         // 'css/site.css',
         'font-awesome/css/font-awesome.min.css',
         'css/custom-style.css',
+        'css/dataTable.css',
         // 'css/ie10-viewport-bug-workaround.css',
     ];
     public $js = [
         'js/adminlte.min.js',
         'js/custom.js',
         'js/workflow.js',
+        'js/dataTable.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

@@ -273,7 +273,8 @@ $(document).on('click','#searchbpareport',function(){
 	    dataType: "json",
 	    success: function (bpaData) {
 	    	if(bpaData.status=="success"){	    		
-	    		alert(bpaData.html);	    		
+				//alert(bpaData.html);
+				$("#bpareportdata").append(bpaData.html );	    		
 	    	}else if(bpaData.status=="error"){
 	    		
 	    	}

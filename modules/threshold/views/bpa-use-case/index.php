@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 //use yii\helpers\BaseUrl;
 use yii\helpers\ArrayHelper;
-use fedemotta\datatables\DataTables;
+//use fedemotta\datatables\DataTables;
 
 /* @var $this yii\web\View */
 
@@ -46,7 +46,8 @@ $utilizationType    = array("QOSclassbased" => "Class Based", "combined" => "Com
     </div>
     <?= Html::endForm(); ?>
 
-    <?php //$this->render('bpadata'); ?>
+    <div class="bpa-usecase-data" id="bpareportdata">
 
+    </div>
     
 </div>

@@ -42,7 +42,7 @@ use fedemotta\datatables\DataTables;
 // ]); 
 
 ?>
-    <!-- <table id="bpa-table" class="display" style="width:100%">
+<table id="bpa-table" class="display" style="width:100%">
         <thead>
             <tr>
                 <th>Id</th>
@@ -51,12 +51,30 @@ use fedemotta\datatables\DataTables;
                 <th>Actual Bandwidth</th>
             </tr>
         </thead>
+        <tbody>
+            <?php 
+            if(!empty($bpaReports)) {
+                $row = '';
+                $bpaReports = json_decode($bpaReports,true);               
+                foreach($bpaReports as $reportKey => $reportValue) {
+                $row  .= '<tr>';
+                $row .= '<td>'.$reportValue['id'].'</td><td>'.$reportValue['segment_mapping'].'</td><td>'.$reportValue['provisioned_bandwidth'].'</td><td>'.$reportValue['actual_bandwidth'].'</td>';
+                $row .= '</tr>';
+                } 
+                echo $row;
+            } ?>
+        </tbody>
         <tfoot>
             <tr>
-                <td>dd</td>
-                <td>dd</td>
-                <td>dd</td>
-                <td>dd</td>
+            <th>Id</th>
+                <th>Segment Mapping</th>
+                <th>Provisioned Bandwidth</th>
+                <th>Actual Bandwidth</th>
             </tr>
         </tfoot>
-    </table>     -->
+    </table>
+<script>
+$(document).ready(function(){
+    $('#bpa-table').DataTable({ 'pagingType': 'full_numbers', })
+});
+</script>
