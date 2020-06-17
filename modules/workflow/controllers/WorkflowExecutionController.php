@@ -108,6 +108,7 @@ class WorkflowExecutionController extends Controller
 
     public function preExecutionSave($model) {
         $workflowData = json_decode($model->workflow_data,true);
+        //echo '<pre/>'; print_r($workflowData); exit;    
         uasort($workflowData, function($a, $b) {
             return $a['step_no'] <=> $b['step_no'];
         });        
@@ -232,9 +233,9 @@ class WorkflowExecutionController extends Controller
                 $result = "Default";
          }
         } else if(strpos($diagramChId, 'Fflow') === 0) {
-            if($workflowExecutableData['condition_statement'] == $previousResponse) {
+            if(!empty($workflowExecutableData['condition_statement'])) {
                 $nextStep = $workflowExecutableData['next_process'];
-                $result = 'condition executed';
+                $result = $workflowExecutableData['condition_statement'];
             } else {
                 $result = '';
             }           
