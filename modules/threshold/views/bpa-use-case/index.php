@@ -1,5 +1,4 @@
 <?php
-
 use yii\helpers\Html;
 //use yii\helpers\BaseUrl;
 use yii\helpers\ArrayHelper;
@@ -10,87 +9,44 @@ use fedemotta\datatables\DataTables;
 $this->title = 'BPA AUC 2.1 UI Reports';
 $this->params['breadcrumbs'][] = $this->title;
 
-$utilization        = array("peak" => "peak", "average" => "average", "95 precentile" => "95precentile");
-$duration           = array("1 HR" => "1hr", "1 Day" => "1day", "7 Days" => "7days");
-$utilizationType    = array("Class Based" => "QOSclassbased", "Combined" => "combined");
+$utilization        = array("peak" => "peak", "average" => "average", "95precentile" => "95 precentile");
+$duration           = array("1hr" => "1 HR", "1day" => "1 Day", "7days" => "7 Days");
+$utilizationType    = array("QOSclassbased" => "Class Based", "combined" => "Combined");
 ?>
 <div class="bpa-usecase-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php echo '<pre/>'; print_r($data); ?>
+    <h1><?= Html::encode($this->title) ?></h1><br/>
+    <?php //echo '<pre/>'; print_r($data); ?>
     
 
-    <?= Html::beginForm(['id' => 'bpa-search'], 'POST'); ?>
-    <?= Html::dropDownList('BPA', '', $utilization)->label(false); ?>
-    <?= Html::dropDownList('BPA', '', $duration)->label(false); ?>
-    <?= Html::dropDownList('BPA', '', $utilizationType)->label(false); ?>
-    <?= Html::text('BPA', 'Aend host')->label('A End Host'); ?>
-    <?= Html::text('BPA', 'Aend IP')->label('A End IP'); ?>
-    <?= Html::text('BPA', 'Zend host')->label('Z End Host'); ?>
-    <?= Html::text('BPA', 'Zend IP')->label('Z End IP'); ?>
-    <div class="form-group">
-        <?= Html::submitButton('POST', ['class' => 'btn btn-primary']); ?>
+    <?= Html::beginForm(['bpa-use-case/topology'], 'POST', ['class' => 'form-vertical','name' => 'bpa-search','id' => 'bpa-search','onsubmit' => 'return false']); ?>
+    <div class="form-group col-md-2">
+        <?= Html::dropDownList('utilization', '', $utilization, ['class' => 'form-control']); ?>
+    </div>
+    <div class="form-group col-md-2">
+        <?= Html::dropDownList('duration', '', $duration, ['class' => 'form-control']); ?>
+    </div>
+    <div class="form-group col-md-2">
+        <?= Html::dropDownList('utilization_type', '', $utilizationType, ['class' => 'form-control']); ?>
+    </div>
+    <div class="form-group col-md-2">
+        <?= Html::textInput('Aend_host', '', ['class' => 'form-control','placeholder' =>'AEnd Host']) ?>
+    </div>
+    <div class="form-group col-md-2">
+        <?= Html::textInput('Aend_ip', '', ['class' => 'form-control','placeholder' =>'AEnd IP']); ?>
+    </div>
+    <div class="form-group col-md-2">
+        <?= Html::textInput('Zend_host', '', ['class' => 'form-control','placeholder' =>'ZEnd Host']); ?>
+    </div>
+    <div class="form-group col-md-2">
+        <?= Html::textInput('Zend_ip', '', ['class' => 'form-control','placeholder' =>'ZEnd IP']); ?>
+    </div>
+    <div class="form-group col-md-2">
+        <?= Html::Button('Search', ['class' => 'btn btn-primary', 'id' => 'searchbpareport']); ?>
     </div>
     <?= Html::endForm(); ?>
 
-    <?php
-    //$searchModel = new ModelSearch();
-    //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-?>
-<?php 
+    <?php //$this->render('bpadata'); ?>
 
-// DataTables::widget([
-//     'dataProvider' => $data,
-//     'filterModel' => $searchModel,
-//     'id' => 'bpa-list',
-//     'clientOptions' => [
-//         "lengthMenu"=> [[20,-1], [20,Yii::t('app',"All")]],
-//         "info"=>false,
-//         "responsive"=>true, 
-//         "dom"=> 'lfTrtip',
-//         "tableTools"=>[
-//             "aButtons"=> [  
-//                 [
-//                 "sExtends"=> "copy",
-//                 "sButtonText"=> Yii::t('app',"Copy to clipboard")
-//                 ],[
-//                 "sExtends"=> "csv",
-//                 "sButtonText"=> Yii::t('app',"Save to CSV")
-//                 ],[
-//                 "sExtends"=> "xls",
-//                 "oSelectorOpts"=> ["page"=> 'current']
-//                 ],[
-//                 "sExtends"=> "pdf",
-//                 "sButtonText"=> Yii::t('app',"Save to PDF")
-//                 ],[
-//                 "sExtends"=> "print",
-//                 "sButtonText"=> Yii::t('app',"Print")
-//                 ],
-//             ]
-//         ]
-//     ],
-// ]); 
-
-?>
-    <!-- <table id="bpa-table" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Segment Mapping</th>
-                <th>Provisioned Bandwidth</th>
-                <th>Actual Bandwidth</th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <td>dd</td>
-                <td>dd</td>
-                <td>dd</td>
-                <td>dd</td>
-            </tr>
-        </tfoot>
-    </table>     -->
+    
 </div>
-<script>
-
-</script>

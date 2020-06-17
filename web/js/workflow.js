@@ -263,3 +263,27 @@ function drawGraph(grapOBJ,formObj,workflow_id){
     localStorage.setItem(workflow_id, JSON.stringify(formObj));
     localStorage.setItem('form_json', JSON.stringify(grapOBJ));
 }
+
+$(document).on('click','#searchbpareport',function(){
+	searchformdata=$('#bpa-search').serializeArray();
+	$.ajax({
+	    type: "post",
+	    url: baseURL + '/threshold/bpa-use-case/index',
+	    data:searchformdata,
+	    dataType: "json",
+	    success: function (bpaData) {
+	    	if(bpaData.status=="success"){	    		
+	    		alert(bpaData.html);	    		
+	    	}else if(bpaData.status=="error"){
+	    		
+	    	}
+	    },
+	    error: function (xhr, status, errorThrown) {
+	    	alert('Something went wrong !')
+	    	console.log('Error');
+	    	console.log(errorThrown);
+	        console.log(xhr.status);
+	        //console.log(xhr.responseText);
+	    },
+	});
+});
