@@ -57,13 +57,13 @@ use yii\helpers\Url;
         </a>
     </li>
     <li>
-        <a href="<?= Url::to(['/threshold/bpa-use-case']) ?>">
+        <a href="<?= Url::to(['/bpaService/bandwidth-service']) ?>">
             <i class="fa fa-circle-o"></i>  
             <span>
                 <span class="nav-icon">
                     <img src="<?= Url::base() .'/images/icons/workflow-template.png' ?>" />
                 </span> 
-                BPA Reports
+                Bandwidth Service
             </span>
         </a>
     </li>

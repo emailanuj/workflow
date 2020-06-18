@@ -7,14 +7,23 @@ use yii\base\Exception;
 
 class TopologyServiceComponent
 {
-    public function getSegmentLists()
+
+    public static function createPayloadData()
     {
         $arrData = [
-            "aend_hostname"=> [20524,20525],
-            "aend_intrface" => "false",
+            "aend_hostname"=> 'abc',
+            "aend_intrface" => "inter1",
             "zend_hostname" => "7d",
             "zend_intrface" => "all"
         ];
+
+        
+
     }
 
+    public static function getSegmentLists()
+    {
+     
+
+    }
 }

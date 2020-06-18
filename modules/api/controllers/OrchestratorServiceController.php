@@ -12,36 +12,34 @@ use app\modules\api\components\BandwidthServiceComponent;
  */
 class OrchestratorServiceController extends BaseController
 {
-    private function moduleRequestType()
-    {
-        return ['SCCM', 'BPA', 'SRA'];
-    }
+    // private function moduleRequestType()
+    // {
+    //     return ['SCCM', 'CCSM', 'BPA', 'SRA'];
+    // }
 
     public function actionGetBestPath()
     {
-        // echo '<pre>'; print_r(Yii::$app->request->post());
-        return $this->manipulatedRequestData();
+        $arrRequestData = [];
+        return $this->manipulatedRequestData($arrRequestData);
     }
 
-    private function manipulatedRequestData()
+    private function manipulatedRequestData($arrRequestData)
     {
-        // $arrTopologyServiceData = $this->getTopologyService();
-        // $arrBandwidthServiceData = $this->getBandwidthService();
-        $arrData = BandwidthServiceComponent::getActualUtilization();
-        return $this->apiResponse(200, $arrData, "Customer Created Successfully");
+        $arrSegmentBestPathLists = $this->getSegmentBestPath($arrRequestData);
+
+        $arrData = [];
+        // $arrData = BandwidthServiceComponent::getActualUtilization();
+        return $this->apiResponse(200, $arrData, "Bandwidth Service: criteria passed for provisioning");
     }
 
-    /**
-     * Renders the index view for the module
-     * @return string
-     */
-    private function getTopologyService()
+    private function getSegmentBestPath($arrRequestData)
     {
-        // $arrData = CurlServiceComponent::getTopologySegmentLists();
-
+        $arrTopologyBestPathLists = TopologyServiceComponent::getSegmentLists($arrRequestData);
+        $this->getBandwidthService($arrTopologyBestPathLists);
     }
 
     private function getBandwidthService()
     {
+        return BandwidthServiceComponent::getActualUtilization();
     }
 }

@@ -26,6 +26,9 @@ $config = [
         'api' => [
             'class' => 'app\modules\api\Module',
         ],
+        'bpaService' => [
+            'class' => 'app\modules\bpaService\Module',
+        ],
         'gridview' =>  [
             'class' => '\kartik\grid\Module',
             'downloadAction' => 'gridview/export/download',
@@ -39,7 +42,8 @@ $config = [
             // 'site/*',
         'admin/user/request-password-reset',
 		'admin/user/reset-password',
-		'admin/user/signup',
+        'admin/user/signup',
+        'api/orchestrator-service/get-best-path',
         ]
     ],
     'components' => [
