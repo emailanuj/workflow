@@ -23,7 +23,7 @@ if (!empty($model['id'])) {
 
     <div id="toolbox">
         <div class="back-app">
-            <a href="<?= Url::to(['/workflow']) ?>">
+            <a href="<?= Url::to(['/workflow/workflow']) ?>">
                 <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> <span>Back to Application</span>
             </a>
         </div>
