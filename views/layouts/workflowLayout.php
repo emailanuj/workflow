@@ -43,7 +43,7 @@ WorkFlowAsset::register($this);
             </div>
         </div>
 
-        <div id="page-wrapper" class="gray-bg">
+        <div id="page-wrapper" class="gray-bg" style="width:100%;">
             <?php echo $this->render('top-menu')  ?>
             <div class="wrapper wrapper-content animated fadeInRight">
                 <?= $content ?>
