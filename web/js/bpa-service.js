@@ -30,10 +30,8 @@ var count = 1;
 $(function(){
     $('#addfields').click(function(){
         $("#multicircuit")
-        .clone()
-        .appendTo($("#multicircuit"))
-		.find("input[type='text']").val(" ")
-    
+        .append('<div class="col-md-3"><div class="form-group field-bandwidthcircuitservicemodel-a_end_host required"> <label class="control-label" for="bandwidthcircuitservicemodel-a_end_host">Aend Hostname</label> <input type="text" id="bandwidthcircuitservicemodel-a_end_host" class="form-control" name="BandwidthCircuitServiceModel[a_end_host][]"><div class="help-block"></div></div></div><div class="col-md-3"><div class="form-group field-bandwidthcircuitservicemodel-a_end_ip required"> <label class="control-label" for="bandwidthcircuitservicemodel-a_end_ip">Aend IP</label> <input type="text" id="bandwidthcircuitservicemodel-a_end_ip" class="form-control" name="BandwidthCircuitServiceModel[a_end_ip][]"><div class="help-block"></div></div></div><div class="col-md-3"><div class="form-group field-bandwidthcircuitservicemodel-z_end_host required"> <label class="control-label" for="bandwidthcircuitservicemodel-z_end_host">Zend Hostname</label> <input type="text" id="bandwidthcircuitservicemodel-z_end_host" class="form-control" name="BandwidthCircuitServiceModel[z_end_host][]"><div class="help-block"></div></div></div><div class="col-md-3"><div class="form-group field-bandwidthcircuitservicemodel-z_end_ip required"> <label class="control-label" for="bandwidthcircuitservicemodel-z_end_ip">Zend IP</label> <input type="text" id="bandwidthcircuitservicemodel-z_end_ip" class="form-control" name="BandwidthCircuitServiceModel[z_end_ip][]"><div class="help-block"></div></div></div>')        
+		//.find("input[type='text']").val(" ")    
     return false;
     });
 });
@@ -48,7 +46,7 @@ $(document).on('click', '#searchbpacircuitreport', function () {
 		dataType: "json",
 		success: function (bpaData) {
 			if (bpaData.status == "success") {
-				alert(bpaData.html);
+				//alert(bpaData.html);
 				$("#bpacircuitreportdata").append(bpaData.html);
 			} else if (bpaData.status == "failed") {
                 $.each(bpaData.html, function (index, value) {
