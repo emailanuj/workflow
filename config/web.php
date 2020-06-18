@@ -21,7 +21,7 @@ $config = [
             'class' => 'app\modules\threshold\Module',
         ],
         'admin' => [
-            'class' => 'mdm\admin\Module',         
+            'class' => 'mdm\admin\Module',
         ],
         'api' => [
             'class' => 'app\modules\api\Module',
@@ -40,10 +40,10 @@ $config = [
         'allowActions' => [
             // 'admin/*',
             // 'site/*',
-        'admin/user/request-password-reset',
-		'admin/user/reset-password',
-        'admin/user/signup',
-        'api/orchestrator-service/get-best-path',
+            'admin/user/request-password-reset',
+            'admin/user/reset-password',
+            'admin/user/signup',
+            'api/orchestrator-service/get-best-path',
         ]
     ],
     'components' => [
@@ -57,10 +57,24 @@ $config = [
         'user' => [
             'identityClass' => 'mdm\admin\models\User',
             'loginUrl' => ['admin/user/login'],
-			'enableAutoLogin' => true,
+            'enableAutoLogin' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
+        ],
+        'assetManager' => [
+            'bundles' => [
+                // 'yii\web\JqueryAsset' => [
+                //     'js'=>[]
+                // ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'js'=>[]
+                ],
+                'yii\bootstrap\BootstrapAsset' => [
+                    'css' => [],
+                ],
+        
+            ],
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -100,30 +114,7 @@ $config = [
             'dsn' => 'mongodb://localhost:27017/cisco_workflow',
         ],
     ],
-    // 'as beforeRequest' =>
-    // [
-    //     'class' => 'yii\filters\AccessControl',
-    //     'rules' =>  [
-    //         [
-    //             'actions' => ['login', 'error'],
-    //             'allow' => true,
-    //         ],
-    //         [
-    //             'allow' => true,
-    //             'roles' => ['@'],
-    //         ],
-    //     ],
-    // ],
-    // 'modules' => [
-    //     'gridview' =>  [
-    //         'class' => '\kartik\grid\Module',
-    //         // enter optional module parameters below - only if you need to  
-    //         // use your own export download action or custom translation 
-    //         // message source
-    //         'downloadAction' => 'gridview/export/download',
-    //         'i18n' => []
-    //     ]
-    // ],
+
     'params' => $params,
 ];
 

@@ -11,9 +11,6 @@ $this->title = 'Service Thresholds';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="service-threshold-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a('Create Service Threshold', ['create'], ['class' => 'btn btn-success']) ?>
     </p>

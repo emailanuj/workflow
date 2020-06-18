@@ -22,23 +22,23 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
+            // 'access' => [
+            //     'class' => AccessControl::className(),
+            //     'only' => ['logout'],
+            //     'rules' => [
+            //         [
+            //             'actions' => ['logout'],
+            //             'allow' => true,
+            //             'roles' => ['@'],
+            //         ],
+            //     ],
+            // ],
+            // 'verbs' => [
+            //     'class' => VerbFilter::className(),
+            //     'actions' => [
+            //         'logout' => ['post'],
+            //     ],
+            // ],
         ];
     }
 
@@ -65,10 +65,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        // $this->layout = '//inspire-layout/inspire-main-layout';
+        $this->layout = '//dashboard-layout';
         $arrCountList = [];
         $arrCountList['workflow_count'] = Workflow::find()->count();
         $arrCountList['workflow_execution'] = WorkflowExecution::find()->count();
-        return $this->render('index', $arrCountList);
+        return $this->render('main-index', $arrCountList);
     }
 
     /**

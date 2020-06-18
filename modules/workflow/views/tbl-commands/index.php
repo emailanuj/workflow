@@ -7,12 +7,12 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\TblCommandsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tbl Commands';
+$this->title = 'Commands';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tbl-commands-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <!-- <h1><?= Html::encode($this->title) ?></h1> -->
 
     <p>
         <?= Html::a('Create Tbl Commands', ['create'], ['class' => 'btn btn-success']) ?>

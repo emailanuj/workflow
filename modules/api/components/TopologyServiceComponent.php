@@ -11,19 +11,14 @@ class TopologyServiceComponent
     public static function createPayloadData()
     {
         $arrData = [
-            "aend_hostname"=> 'abc',
+            "aend_hostname" => 'abc',
             "aend_intrface" => "inter1",
             "zend_hostname" => "7d",
             "zend_intrface" => "all"
         ];
-
-        
-
     }
 
     public static function getSegmentLists()
     {
-     
-
     }
 }

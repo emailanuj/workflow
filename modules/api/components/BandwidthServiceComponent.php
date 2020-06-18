@@ -11,12 +11,13 @@ class BandwidthServiceComponent
 {
     private static $bandwidthServiceUrl = 'http://bharti-bs01:5000/bws/api/v1/utilization';
 
+
     public static function getAllUtilization()
     {
         //https://jsonplaceholder.typicode.com/todos/
         $arrRequest['url'] = self::$bandwidthServiceUrl;
         $arrRequest['data'] = [
-            "segment_ids"=> [20524,20525],
+            "segment_ids" => [20524, 20525],
             "class" => "false",
             "interval" => "7d",
             "type" => "all"
@@ -29,7 +30,7 @@ class BandwidthServiceComponent
     {
         $arrRequest['url'] = self::$bandwidthServiceUrl;
         $arrRequest['data'] = Json::encode([
-            "segment_ids"=> [20524,20525],
+            "segment_ids" => [20524, 20525],
             "class" => "false"
         ]);
         //http_build_query
@@ -42,7 +43,7 @@ class BandwidthServiceComponent
     {
         $arrRequest['url'] = self::$bandwidthServiceUrl;
         $arrRequest['data'] = [
-            "segment_ids"=> [20524,20525],
+            "segment_ids" => [20524, 20525],
             "class" => "true"
         ];
 
@@ -53,7 +54,7 @@ class BandwidthServiceComponent
     {
         $arrRequest['url'] = self::$bandwidthServiceUrl;
         $arrRequest['data'] = [
-            "segment_ids"=> [20524,20525],
+            "segment_ids" => [20524, 20525],
             "class" => "false",
             "interval" => "7d",
             "type" => "peak"
@@ -66,7 +67,7 @@ class BandwidthServiceComponent
     {
         $arrRequest['url'] = self::$bandwidthServiceUrl;
         $arrRequest['data'] = [
-            "segment_ids"=> [20524,20525],
+            "segment_ids" => [20524, 20525],
             "class" => "true",
             "interval" => "7d",
             "type" => "peak"
@@ -78,7 +79,7 @@ class BandwidthServiceComponent
     {
         $arrRequest['url'] = self::$bandwidthServiceUrl;
         $arrRequest['data'] = [
-            "segment_ids"=> [20524,20525],
+            "segment_ids" => [20524, 20525],
             "class" => "false",
             "interval" => "7d",
             "type" => "avg"
@@ -91,7 +92,7 @@ class BandwidthServiceComponent
     {
         $arrRequest['url'] = self::$bandwidthServiceUrl;
         $arrRequest['data'] = [
-            "segment_ids"=> [20524,20525],
+            "segment_ids" => [20524, 20525],
             "class" => "true",
             "interval" => "7d",
             "type" => "avg"
@@ -104,7 +105,7 @@ class BandwidthServiceComponent
     {
         $arrRequest['url'] = self::$bandwidthServiceUrl;
         $arrRequest['data'] = [
-            "segment_ids"=> [20524,20525],
+            "segment_ids" => [20524, 20525],
             "class" => "false",
             "interval" => "7d",
             "type" => "pctl95"
@@ -117,7 +118,7 @@ class BandwidthServiceComponent
     {
         $arrRequest['url'] = self::$bandwidthServiceUrl;
         $arrRequest['data'] = [
-            "segment_ids"=> [20524,20525],
+            "segment_ids" => [20524, 20525],
             "class" => "true",
             "interval" => "7d",
             "type" => "pctl95"

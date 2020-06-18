@@ -32,6 +32,7 @@ class OrchestratorServiceController extends BaseController
         return $this->apiResponse(200, $arrData, "Bandwidth Service: criteria passed for provisioning");
     }
 
+
     private function getSegmentBestPath($arrRequestData)
     {
         $arrTopologyBestPathLists = TopologyServiceComponent::getSegmentLists($arrRequestData);

@@ -20,14 +20,40 @@ class WorkFlowAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        // 'css/site.css',
+        'themes/inspire/css/bootstrap.min.css',
+        'themes/inspire/font-awesome/css/font-awesome.min.css',
+        'themes/inspire/css/animate.css',
+        'themes/inspire/css/style.css',
+
         'css/toolbox.css',
-        'css/app.css',
+        // 'css/app.css',
         'css/workflow.css',
-        'font-awesome/css/font-awesome.min.css',
+        // 'font-awesome/css/font-awesome.min.css',
         'css/custom-style.css',    
     ];
     public $js = [
+        'themes/inspire/js/popper.min.js',
+        'themes/inspire/js/bootstrap.js',
+        'themes/inspire/js/plugins/metisMenu/jquery.metisMenu.js',
+        'themes/inspire/js/plugins/slimscroll/jquery.slimscroll.min.js',
+        'themes/inspire/js/plugins/flot/jquery.flot.js',
+        'themes/inspire/js/plugins/flot/jquery.flot.tooltip.min.js',
+        'themes/inspire/js/plugins/flot/jquery.flot.spline.js',
+        'themes/inspire/js/plugins/flot/jquery.flot.resize.js',
+        'themes/inspire/js/plugins/flot/jquery.flot.pie.js',
+        'themes/inspire/js/plugins/flot/jquery.flot.symbol.js',
+        'themes/inspire/js/plugins/flot/jquery.flot.time.js',
+        'themes/inspire/js/plugins/peity/jquery.peity.min.js',
+        'themes/inspire/js/demo/peity-demo.js',
+        'themes/inspire/js/inspinia.js',
+        'themes/inspire/js/plugins/pace/pace.min.js',
+        'themes/inspire/js/plugins/jquery-ui/jquery-ui.min.js',
+        'themes/inspire/js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js',
+        'themes/inspire/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js',
+        'themes/inspire/js/plugins/easypiechart/jquery.easypiechart.js',
+        'themes/inspire/js/plugins/sparkline/jquery.sparkline.min.js',
+        'themes/inspire/js/demo/sparkline-demo.js',
+        
         'js/d3.js',
         'js/FileSaver.min.js',
         'js/drawingpage/bpmnuploader.js',

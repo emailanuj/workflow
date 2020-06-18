@@ -12,16 +12,17 @@ $this->title = 'Workflows';
 $this->params['breadcrumbs'][] = $this->title;
 // $this->registerJsFile('@web/js/workflow.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
+
 <div class="workflow-index">    
     <div id="form-popup">   
-    <div id="loading" style="position:absolute;display:none;">
+    <!-- <div id="loading" style="position:absolute;display:none;">
         <img src="<?= Url::base().'/images/loading.gif'; ?>" style="margin-left:400px;"/></div>     
         <span id="close" onclick="closeForm()" style="margin-top:0px!important;">
             <img src="<?= Url::base().'/images/pop-close.png'; ?>" />
         </span>    
-    </div>
+    </div> -->
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <!-- <h1><?= Html::encode($this->title) ?></h1> -->
 
     <p>
     	<button id="saveWorkflowModal" class="btn btn-success" data-toggle="modal" data-target="#FModal">Create Workflow</button>

@@ -25,31 +25,35 @@ $this->registerJsFile('@web/js/bpa-service.js', ['depends' => [\yii\web\JqueryAs
     ]);
     ?>
 
-    <div class="form-group col-md-2">
+<div class="form-group row">
+<div class="col-md-2">
         <?= $form->field($bandwidthServiceModel, 'utilization')->dropDownList($utilization, ['prompt' => 'Please Select']) ?>
     </div>
-    <div class="form-group col-md-2">
+    <div class="col-md-2">
         <?= $form->field($bandwidthServiceModel, 'duration')->dropDownList($duration, ['prompt' => 'Please Select']) ?>
     </div>
-    <div class="form-group col-md-2">
+    <div class="col-md-2">
         <?= $form->field($bandwidthServiceModel, 'utilization_type')->dropDownList($utilizationType, ['prompt' => 'Please Select']) ?>
     </div>
-    <div class="form-group col-md-2">
+    <div class="col-md-2">
         <?= $form->field($bandwidthServiceModel, 'a_end_host')->textInput([]) ?>
     </div>
-    <div class="form-group col-md-2">
+    <div class="col-md-2">
         <?= $form->field($bandwidthServiceModel, 'a_end_ip')->textInput([]) ?>
     </div>
-    <div class="form-group col-md-2">
+    <div class="col-md-2">
         <?= $form->field($bandwidthServiceModel, 'z_end_host')->textInput([]) ?>
     </div>
-    <div class="form-group col-md-2">
+    <div class="col-md-2">
         <?= $form->field($bandwidthServiceModel, 'z_end_ip')->textInput([]) ?>
     </div>
-    <div class="form-group col-md-2">
+    <div class="col-md-2">
 
         <?= Html::Button('Search', ['class' => 'btn btn-primary', 'id' => 'searchbpareport']); ?>
     </div>
+</div>
+    
+
     <?php ActiveForm::end(); ?>
 
     <div class="bpa-usecase-data" id="bpareportdata">

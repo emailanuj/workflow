@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <div class="workflow-index">    
-    <div id="form-popup">   
+    <!-- <div id="form-popup">   
     <div id="loading" style="position:absolute;display:none;">
         <img src="<?= Url::base().'/images/loading.gif'; ?>" style="margin-left:400px;"/></div>     
         <span id="close" onclick="closeForm()" style="margin-top:0px!important;">
@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </span>    
     </div>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1> -->
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

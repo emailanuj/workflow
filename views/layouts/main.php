@@ -8,15 +8,17 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-use app\assets\AppAsset;
-use yii\helpers\Url;
-// use yii\bootstrap\Modal;
+use app\assets\InspireAsset;
 
-AppAsset::register($this);
+use yii\helpers\Url;
+
+InspireAsset::register($this);
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
+
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,156 +26,109 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-     <script type="text/javascript">
+    <script type="text/javascript">
         var baseURL = "<?= \yii\helpers\Url::base(true) ?>";
     </script>
 </head>
-<body class="skin-blue">
+
+<body>
     <?php $this->beginBody() ?>
-    <div id="PopoverBackdrop" class="pop-backdrop"></div>
-    <!-- <div class="custom-loader"></div> -->
-    <div class="se-pre-con"></div>
-    <div class="wrapper">
-        <!-- Header Starts -->
-        <header class="main-header">
-            <a class="logo" href="<?= Yii::$app->homeUrl ?>">
-                <img src="<?= Url::base() .'/images/logo-cisco.png' ?>">
-            </a>
-            
-            <nav class="navbar navbar-static-top" role="navigation">
-                <a href="javascript:void(0)" class="sidebar-toggle" data-toggle="push-menu" role="button"><span class="sr-only">Toggle navigation</span></a>
-                <div class="navbar-custom-menu">
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown user user-menu">
-                            <a href="javascript:void(0)" class="dropdown-toggle clearfix" data-toggle="dropdown">
-                                <span class="hidden-xs">
-                                    <div class="user-icon pull-left">
-                                        <img src="<?= Url::base() .'/images/user-icon.png' ?>" class="user-image" alt="User Image"/>
-                                    </div>
-                                    <!-- --------- ------------------ Check for Login ------------------->
-                                    <?php if(Yii::$app->user->isGuest){?>
-                                    <div class="pull-left"><a href="<?= Url::to(['site/login']) ?>">Login</a></div>
-                                    <?php }else {?>
-                                    <div class="pull-left"><?= Html::beginForm(['/site/logout'], 'post')
-                                    . Html::submitButton(
-                                        'Logout (' .  Yii::$app->user->identity->username . ')',
-                                        ['class' => 'btn btn-link logout']
-                                    )
-                                    . Html::endForm();?>
-                					</div>
-               					    <?php }?>
-                                </span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <!-- Menu Footer-->
-                                <li class="user-footer">
-                                    <div class="">
-                                        <a href="javascript:void(0)" class="user-footer-links"><i class="fa fa-fw fa-user fa-lg"></i>My Profile</a>
-                                    </div>
-                                    <div class="">
-                                        <a class="user-footer-links" href="javascript:void(0)" data-method="post">Sign Out</a>
-                                    </div>
-                                </li>
-                            </ul>
+
+    <div id="wrapper">
+
+        <?= $this->render('sidebar-menu')  ?>
+        <div class="preloader" style="display:none;">
+            <div class="loader-container">
+                <div class="loader-img"><img src="<?= Url::base() . '/images/loading.gif' ?>" alt="preloader">
+                    <p class="preloader_message"></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="page-wrapper" class="gray-bg">
+            <?= $this->render('top-menu')  ?>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <!-- <h2>Basic Form</h2>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">Home</a>
                         </li>
-                    </ul>
+                        <li class="breadcrumb-item">
+                            <a>Forms</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <strong>Basic Form</strong>
+                        </li>
+                    </ol> -->
+                    <h2><?= $this->title ?></h2>
+                    <?= 
+                        Breadcrumbs::widget([
+                            'tag' => 'ol',
+                            'itemTemplate' => "<li class='breadcrumb-item'>{link}</li>",
+                            'activeItemTemplate' => "<li class='breadcrumb-item active'><strong>{link}</strong></li>",
+                            'homeLink' => [ 
+                                            'label' => Yii::t('yii', 'Dashboard'),
+                                            'url' => Yii::$app->homeUrl,
+                                        ],
+                            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                        ]) 
+                    ?>
+
                 </div>
-            </nav>
-        </header>
+               
+            </div>
 
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <?= $content ?>
 
-
-        <div class="alert-wrap error_display_div" style="display:none;">
-                <div class="alert alert-danger alert-dismissible ">
-                    <div class="error_display"></div>
+            </div>
+            <div class="footer">
+                <!-- <div class="float-right">
+                    10GB of <strong>250GB</strong> Free.
+                </div> -->
+                <div>
+                    <strong>Copyright</strong> CISCO &copy; 2020
                 </div>
             </div>
-            <div class="alert-wrap success_display_div" style="display:none;">
-                <div class="alert alert-success alert-dismissible ">
-                    <div class="error_display"></div>
-                </div>
-            </div>
-            <div class="preloader" style="display:none;">
-                <div class="loader-container">
-                    <div class="loader-img"><img src="<?= Url::base() .'/images/loading.gif' ?>" alt="preloader"><p class="preloader_message"></p></div>
-                </div>
-            </div>
-            <aside class="main-sidebar">
-                <section class="sidebar">
-                     <?= $this->render('sidebar-menu') ?>
-                </section>
-                <!--<section class="version"><p>Version 4.0</p></section>-->
-            </aside>
+        </div>
+        <div id="right-sidebar">
+           
 
-            <div class="content-wrapper">
-                <section class="content">
-                    <div>
-                        
-                        <div class="title-breadcrumb">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="page-title-div">
-                                            <h3 class="page-title">
-                                                <!-- <span><img src="public/images/icons/title-workflow-execution.png"> </span>Workflow Execution -->
-                                                <?= Breadcrumbs::widget([
-                                                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                                                ]) ?>
-                                                <?= Alert::widget() ?>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <!-- <div class="col-md-6 absoluteClm">
-                                        <div class="page-action-wrapper text-right">
-                                            <span class="table-search-icon">
-                                                <button class="btn-transparent btn-search" id="TableSearch"><img src="public/images/search-icon.png"></button>
-                                            </span>                                           
-                                            <button class="btn btn-update">Create Workflow</button>
-                                        </div>
-                                    </div> -->
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="container-fluid">
-                            <div class="row">
-                                <?= $content ?>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-            <div class='control-sidebar-bg'></div>
+        </div>
+
     </div>
     <?php $this->endBody() ?>
-    
+
     <?php
-        yii\bootstrap\Modal::begin([
-            'options' => [
-                'tabindex' => false // important for Select2 to work properly
-            ],
-            'header'=>'<h4 class="modal-title" id="modalHeader"></h4>',
-            'footer'=>'
+    yii\bootstrap\Modal::begin([
+        'options' => [
+            'tabindex' => false, // important for Select2 to work properly
+            'class' => 'inmodal'
+        ],
+        'header' => '<h4 class="modal-title" id="modalHeader"></h4>',
+        'footer' => '
                 <button type="button" class="btn btn-success save-ajax-btn" >Save</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
             ',
-            'id' => 'modal',
-            //'size' => 'modal-lg',
-            //keeps from closing modal with esc key or by clicking out of the modal.
-            // user must click cancel or X to close
-            'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+        'id' => 'modal',
+        //'size' => 'modal-lg',
+        //keeps from closing modal with esc key or by clicking out of the modal.
+        // user must click cancel or X to close
+        'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
 
-        ]);
-        echo "<div class='batch-info'></div>
+    ]);
+    echo "<div class='batch-info'></div>
              <div id='modalContent'></div>";
-        yii\bootstrap\Modal::end();
+    yii\bootstrap\Modal::end();
     ?>
 
 
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function() {
             //Table Filter
-            $("#TableSearch").click(function(){
+            $("#TableSearch").click(function() {
                 $(".table-filter").toggle();
             });
 
@@ -181,5 +136,6 @@ AppAsset::register($this);
         });
     </script>
 </body>
+
 </html>
 <?php $this->endPage() ?>

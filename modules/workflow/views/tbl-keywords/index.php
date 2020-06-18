@@ -8,19 +8,19 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\TblKeywordsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tbl Keywords';
+$this->title = 'Keywords';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tbl-keywords-index">
 
-    <div class="col-md-6 absoluteClm">
+    <!-- <div class="col-md-6 absoluteClm">
         <div class="page-action-wrapper text-right">
             <span class="table-search-icon">
                 <button class="btn-transparent btn-search" id="TableSearch"><img src="<?= Url::base() .'/images/search-icon.png'?>"></button>
             </span>                                           
             <button class="btn btn-update"><?= Html::encode($this->title) ?></button>
         </div>
-    </div>
+    </div> -->
 
     <p>
         <?= Html::a('Create Tbl Keywords', ['create'], ['class' => 'btn btn-success']) ?>
