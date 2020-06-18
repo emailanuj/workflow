@@ -24,9 +24,8 @@ class WorkFlowAsset extends AssetBundle
         'themes/inspire/font-awesome/css/font-awesome.min.css',
         'themes/inspire/css/animate.css',
         'themes/inspire/css/style.css',
-
         'css/toolbox.css',
-        // 'css/app.css',
+        'css/app.css',
         'css/workflow.css',
         // 'font-awesome/css/font-awesome.min.css',
         'css/custom-style.css',    
