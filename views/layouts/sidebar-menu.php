@@ -69,7 +69,7 @@ use yii\helpers\Url;
     </li>
     
     <li class="active">
-        <a href="<?= Url::to(['/']) ?>">
+        <a href="<?= Url::to(['/bpaService/bandwidth-circuit-service']) ?>">
             <i class="fa fa-circle-o"></i>  
             <span>
                 <span class="nav-icon">
