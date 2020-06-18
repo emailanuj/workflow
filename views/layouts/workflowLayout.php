@@ -34,7 +34,7 @@ WorkFlowAsset::register($this);
 <body>
     <?php $this->beginBody() ?>
     <div id="wrapper">
-        <?php echo $this->render('sidebar-menu')  ?>
+    <?php //echo $this->render('sidebar-menu')  ?>
         <div class="preloader" style="display:none;">
             <div class="loader-container">
                 <div class="loader-img"><img src="<?= Url::base() . '/images/loading.gif' ?>" alt="preloader">
@@ -44,7 +44,7 @@ WorkFlowAsset::register($this);
         </div>
 
         <div id="page-wrapper" class="gray-bg">
-            <?= $this->render('top-menu')  ?>
+            <?php echo $this->render('top-menu')  ?>
             <div class="wrapper wrapper-content animated fadeInRight">
                 <?= $content ?>
             </div>
