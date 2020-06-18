@@ -32,6 +32,11 @@ $arrMenuLists = [
         'title' => 'Bandwidth Service',
         'url' => '/bpaService/bandwidth-service',
         'controllerName' => 'bandwidth-service'
+    ],
+    [
+        'title' => 'Segment Wise Utilization',
+        'url' => '/bpaService/bandwidth-circuit-service',
+        'controllerName' => 'bandwidth-circuit-service'
     ]
 ];
 
