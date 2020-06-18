@@ -68,17 +68,17 @@ use yii\helpers\Url;
         </a>
     </li>
     
-    <!-- <li class="active">
+    <li class="active">
         <a href="<?= Url::to(['/']) ?>">
             <i class="fa fa-circle-o"></i>  
             <span>
                 <span class="nav-icon">
-                    <img src="<?= Url::base() .'/images/icons/workflow-execution.png' ?>" />
-                </span> Workflow Execution
+                    <img src="<?= Url::base() .'/images/icons/workflow-template.png' ?>" />
+                </span> Segment Wise Utilization
               </span>
         </a>
     </li>
-
+    <!--
     <li class="treeview">
         <a href="<?= Url::to(['/']) ?>;">
             <i class="fa fa-circle-o"></i>  
