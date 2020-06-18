@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div> -->
 
     <p>
-        <?= Html::a('Create Tbl Keywords', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Tbl Keywords', ['create'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

@@ -33,7 +33,7 @@ class CurlServiceComponent
                 ->post($arrRequest['url']);
         }
 
-        return $arrOutputResponse;
+        return json_decode($arrOutputResponse,true);
     }
 
     /**

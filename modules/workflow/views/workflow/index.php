@@ -15,17 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="workflow-index">    
     <div id="form-popup">   
-    <!-- <div id="loading" style="position:absolute;display:none;">
-        <img src="<?= Url::base().'/images/loading.gif'; ?>" style="margin-left:400px;"/></div>     
-        <span id="close" onclick="closeForm()" style="margin-top:0px!important;">
-            <img src="<?= Url::base().'/images/pop-close.png'; ?>" />
-        </span>    
-    </div> -->
-
-    <!-- <h1><?= Html::encode($this->title) ?></h1> -->
 
     <p>
-    	<button id="saveWorkflowModal" class="btn btn-success" data-toggle="modal" data-target="#FModal">Create Workflow</button>
+    	<button id="saveWorkflowModal" class="btn btn-primary" data-toggle="modal" data-target="#FModal">Create Workflow</button>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -62,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
 
                     'update' => function ($url, $model) {
-                        return Html::a('<button type="button" class="btn btn-sm btn-primary marginRight5Px">Edit</button>', $url, [
+                        return Html::a('<button type="button" class="btn btn-sm btn-success marginRight5Px">Edit</button>', $url, [
                                     'title' => Yii::t('app', 'Edit'),
                         ]);
                     },

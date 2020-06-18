@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Exception;
 use yii\helpers\Json;
 use app\modules\api\components\CurlServiceComponent;
+use yii\helpers\ArrayHelper;
 
 class BandwidthServiceComponent
 {
@@ -26,17 +27,21 @@ class BandwidthServiceComponent
         return CurlServiceComponent::postRequest($arrRequest);
     }
 
-    public static function getActualUtilization()
+    public static function getActualUtilization($arrSegmentId)
     {
         $arrRequest['url'] = self::$bandwidthServiceUrl;
         $arrRequest['data'] = Json::encode([
-            "segment_ids" => [20524, 20525],
+            // "segment_ids" => [20524, 20525],
+            "segment_ids" => $arrSegmentId,
             "class" => "false"
         ]);
         //http_build_query
         // echo '<pre>'; print_r($arrRequest);die;
 
-        return CurlServiceComponent::postRequest($arrRequest);
+        $arrResponse =  CurlServiceComponent::postRequest($arrRequest);
+        
+        return ArrayHelper::index($arrResponse, 'segment_id');
+
     }
 
     public static function getActualClassUtilization()

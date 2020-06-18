@@ -12,10 +12,10 @@ use app\modules\api\components\BandwidthServiceComponent;
  */
 class OrchestratorServiceController extends BaseController
 {
-    // private function moduleRequestType()
-    // {
-    //     return ['SCCM', 'CCSM', 'BPA', 'SRA'];
-    // }
+    private function moduleRequestType()
+    {
+        return ['SCCM', 'CCSM', 'BPA', 'SRA'];
+    }
 
     public function actionGetBestPath()
     {
@@ -27,20 +27,36 @@ class OrchestratorServiceController extends BaseController
     {
         $arrSegmentBestPathLists = $this->getSegmentBestPath($arrRequestData);
 
-        $arrData = [];
+        // echo '<pre>';
+        // print_r($arrSegmentBestPathLists);
+        // die;
+        // $arrData = [];
         // $arrData = BandwidthServiceComponent::getActualUtilization();
-        return $this->apiResponse(200, $arrData, "Bandwidth Service: criteria passed for provisioning");
+        return $this->apiResponse(200, $arrSegmentBestPathLists, "Bandwidth Service: criteria passed for provisioning");
     }
 
 
     private function getSegmentBestPath($arrRequestData)
     {
-        $arrTopologyBestPathLists = TopologyServiceComponent::getSegmentLists($arrRequestData);
-        $this->getBandwidthService($arrTopologyBestPathLists);
+        $arrTopologyBestPathLists = TopologyServiceComponent::createPayloadData($arrRequestData);
+        $arrSegmentLists = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists); 
+        $arrBandwidthResponce = BandwidthServiceComponent::getActualUtilization($arrSegmentLists);
+
+
+
+
+        
+        // echo '<pre>';
+        // print_r($arrTopologyBestPathLists);
+        // print_r($arrBandwidthResponce);
+        // die;
+        // return $this->getBandwidthService($arrSegmentLists);
     }
 
-    private function getBandwidthService()
-    {
-        return BandwidthServiceComponent::getActualUtilization();
-    }
+
+
+    // private function getBandwidthService($arrSegmentIdLists)
+    // {
+    //     return BandwidthServiceComponent::getActualUtilization($arrSegmentIdLists);
+    // }
 }

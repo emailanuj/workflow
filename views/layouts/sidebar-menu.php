@@ -5,8 +5,8 @@ use yii\helpers\Url;
 $arrMenuLists = [
     [
         'title' => 'Service Threshold',
-        'url' => '/threshold/service-threshold/index',
-        'controllerName' => 'service-threshold'
+        'url' => '/threshold/threshold-setting/index',
+        'controllerName' => 'threshold-setting'
     ],
     [
         'title' => 'Keywords',
