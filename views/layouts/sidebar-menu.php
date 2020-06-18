@@ -47,7 +47,7 @@ $arrMenuLists = [
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element">
-                    <img alt="image" width="40%" src="<?= Url::base() . '/images/cisco-cx-logo.png' ?>" />
+                    <img alt="image" width="60%" src="<?= Url::base() . '/images/cisco-cx-logo.png' ?>" />
 
                 </div>
                 <div class="logo-element">
