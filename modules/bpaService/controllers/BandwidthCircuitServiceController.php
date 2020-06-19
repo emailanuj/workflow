@@ -39,7 +39,7 @@ class BandwidthCircuitServiceController extends Controller
             $reportOutputData = [];            
             $postdata = Yii::$app->request->post();
             $host_count = count($postdata['BandwidthCircuitServiceModel']['z_end_host']);            
-            if ( $objBandwidthServiceModel->load(Yii::$app->request->post()) && $objBandwidthServiceModel->validate() ) {
+            if ( $objBandwidthServiceModel->load(Yii::$app->request->post())) {
                 $validcount = 0;
                 for($hc=0;$hc<$host_count;$hc++) {
                     $objBandwidthServiceMultiModel = new BandwidthCircuitServiceModel();

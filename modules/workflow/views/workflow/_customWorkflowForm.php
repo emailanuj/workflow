@@ -23,7 +23,8 @@ if (!empty($model['id'])) {
 
     <div id="toolbox">
         <div class="back-app">
-            <a href="<?= Url::to(['/workflow/workflow']) ?>">
+            <a href="<?= Url::to(['/site/logout']) ?>" style="float:right;"><i class="fa fa-sign-out"></i>Logout</a>
+            <br/><a href="<?= Url::to(['/workflow/workflow']) ?>">
                 <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> <span>Back to Application</span>
             </a>
         </div>

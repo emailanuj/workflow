@@ -330,7 +330,7 @@ a:hover, a:active, a:focus {
 }
 
 .content-wrapper-app .page-title-div {
-    margin-top: 10px;
+    margin-top: 0px;
 }
 
 .content-wrapper-app .page-title-div .input-text {
