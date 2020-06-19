@@ -55,7 +55,8 @@ $arrMenuLists = [
                 </div>
             </li>
             <?php
-            foreach ($arrMenuLists as $strKey => $arrLists) {
+            $sideIcons = array("fa-tachometer","fa-lightbulb-o","fa-terminal","fa-sitemap","fa-file","fa-cube","fa-cubes");
+            foreach ($arrMenuLists as $strKey => $arrLists) {                
                 $strIsActive = '';
                 if(Yii::$app->controller->id == $arrLists['controllerName']){
                     $strIsActive = 'active';
@@ -63,7 +64,7 @@ $arrMenuLists = [
             ?>
                 <li class="<?= $strIsActive ?>">
                     <a href="<?= Url::to([$arrLists['url']]) ?>">
-                        <!-- <i class="fa fa-diamond"></i> -->
+                        <i class="fa <?php echo $sideIcons[$strKey]; ?>"></i>
                         <span class="nav-label"><?= $arrLists['title'] ?></span>
                     </a>
                 </li>
