@@ -41,7 +41,6 @@ class BandwidthServiceComponent
         $arrResponse =  CurlServiceComponent::postRequest($arrRequest);
         
         return ArrayHelper::index($arrResponse, 'segment_id');
-
     }
 
     public static function getActualClassUtilization()

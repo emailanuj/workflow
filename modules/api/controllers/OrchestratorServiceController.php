@@ -35,7 +35,6 @@ class OrchestratorServiceController extends BaseController
         return $this->apiResponse(200, $arrSegmentBestPathLists, "Bandwidth Service: criteria passed for provisioning");
     }
 
-
     private function getSegmentBestPath($arrRequestData)
     {
         $arrTopologyBestPathLists = TopologyServiceComponent::createPayloadData($arrRequestData);
@@ -43,8 +42,13 @@ class OrchestratorServiceController extends BaseController
         $arrBandwidthResponce = BandwidthServiceComponent::getActualUtilization($arrSegmentLists);
 
 
+        $arrOutputLists = [];
+        foreach( $arrTopologyBestPathLists as $strKey => $strData ){
+            foreach( $strData as $strIndex => $arrDataLists ){
+                $arrOutputLists['segment_id'] = '';
+            }
 
-
+        }
         
         // echo '<pre>';
         // print_r($arrTopologyBestPathLists);
