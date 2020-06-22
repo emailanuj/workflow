@@ -4,6 +4,7 @@ namespace app\modules\bpaService\models;
 
 use Yii;
 use yii\base\Model;
+use yii\validators\EachValidator;
 
 /**
  * This is the model class for table "bpaService".
