@@ -73,10 +73,7 @@ class BandwidthCircuitServiceController extends Controller
         }
 
         return $this->render('index', [
-            'bandwidthCircuitServiceModel' => $objBandwidthServiceModel,
-            'utilization' => BandwidthCircuitServiceModel::getUtilization(),
-            'duration' => BandwidthCircuitServiceModel::getDuration(),
-            'utilizationType' => BandwidthCircuitServiceModel::getUtilizationType()
+            'bandwidthCircuitServiceModel' => $objBandwidthServiceModel
         ]);
     }
 }

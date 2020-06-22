@@ -20,7 +20,7 @@ $this->registerJsFile('@web/js/bpa-service.js', ['depends' => [\yii\web\JqueryAs
             'onsubmit' => 'return false',
             'name' => 'bandwidth_circuit_service'
         ],
-        'enableAjaxValidation' => true,
+        'enableAjaxValidation' => false,
         'enableClientValidation' => true,
     ]);
     ?>
