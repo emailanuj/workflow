@@ -64,29 +64,16 @@ function clone(){
 		$("#multicircuit0 .addfields").show();
 
 
-
-		// $("#multicircuit"+ multicircuitIndex).find("[name*=BandwidthCircuitServiceModel]").each(function() {
-        //     var name = $(this).attr('name');
-        //     var id = $(this).attr('id');
-        //     var splittedStr = id.split("-");
-        //     var modelName = 'BandwidthCircuitServiceModel';           
-        //     var index = parseInt(splittedStr[1]) + 1;
-        //     var newId = modelName + "-" + index;
-        //     var newName = modelName + "[" + index;
-        //     var ind = name.indexOf("]");
-        //     //update the id 
-        //     id = id.replace(id.substr(0, modelName.length + 2), newId);
-        //     //update the name
-        //     name = name.replace(name.substr(0, ind), newName);
-        //     $(this).attr('id', id);
-        //     $(this).attr('name', name);
-        //     $(this).val('');
-        // });
-
-
-
-
-
+		$("#multicircuit"+ multicircuitIndex).find("[name*=BandwidthCircuitServiceModel]").each(function() {			
+            var id = $(this).attr('id');
+            var splittedStr = id.split("-");
+			var modelName = splittedStr[0]; var columnName = splittedStr[1]; var index = multicircuitIndex;			
+            var newId = modelName + "-" + columnName + index;
+            //update the id 
+            id = id.replace(id,newId);
+            $(this).attr('id', id);            
+            $(this).val('');
+        });
 		multicircuitIndex++;	
 }
 function remove(){
