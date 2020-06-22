@@ -41,8 +41,9 @@ $(document).on('click', '#searchbpareport', function () {
 
 var ctregex = /^(.+?)(\d+)$/i;
 var multicircuitIndex = $(".multicircuit").length;
-
+$("#multicircuit0 .rmfields").hide();
 function clone(){
+	console.log(multicircuitIndex);
     $(this).parents(".multicircuit").clone()
         .appendTo(".circuitgroup")
         .attr("id", "multicircuit" +  multicircuitIndex)
@@ -53,10 +54,16 @@ function clone(){
             if (match.length == 3) {
                 this.id = match[1] + (multicircuitIndex);
             }
-        })
-        .on('click', '.addfields', clone)
-        .on('click', '.rmfields', remove);
+		})
+        // .on('click', '.addfields', clone)
+		.on('click', '.rmfields', remove);
+		if(multicircuitIndex > '0') {
+			$("#multicircuit"+ multicircuitIndex + ' .addfields').hide();
+			$("#multicircuit"+ multicircuitIndex + ' .rmfields').show();
+		}
+		$("#multicircuit0 .addfields").show();
 		multicircuitIndex++;
+	
 }
 function remove(){
     $(this).parents(".multicircuit").remove();

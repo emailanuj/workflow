@@ -25,7 +25,7 @@ $this->registerJsFile('@web/js/bpa-service.js', ['depends' => [\yii\web\JqueryAs
     ]);
     ?>
     <div class="form-group row circuitgroup">
-        <div class="row multicircuit" id="multicircuit1">
+        <div class="row multicircuit" id="multicircuit0">
             <div class="col-md-3">
                 <?= $form->field($bandwidthCircuitServiceModel, 'a_end_host[]')->textInput([]) ?>
             </div>
@@ -44,7 +44,7 @@ $this->registerJsFile('@web/js/bpa-service.js', ['depends' => [\yii\web\JqueryAs
     </div>
     
     <div class="row">
-        <div class="col-md-8"></div>        
+        <div class="col-md-10"></div>        
         <div class="col-md-2">
             <?= Html::Button('Search', ['class' => 'btn btn-primary', 'id' => 'searchbpacircuitreport']); ?>
         </div>
