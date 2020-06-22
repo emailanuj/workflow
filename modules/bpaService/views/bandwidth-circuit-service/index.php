@@ -24,25 +24,28 @@ $this->registerJsFile('@web/js/bpa-service.js', ['depends' => [\yii\web\JqueryAs
         'enableClientValidation' => true,
     ]);
     ?>
-    <div class="form-group row">
-        <div class="row" id="multicircuit">
+    <div class="form-group row circuitgroup">
+        <div class="row multicircuit" id="multicircuit1">
             <div class="col-md-3">
                 <?= $form->field($bandwidthCircuitServiceModel, 'a_end_host[]')->textInput([]) ?>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <?= $form->field($bandwidthCircuitServiceModel, 'a_end_ip[]')->textInput([]) ?>
             </div>
             <div class="col-md-3">
                 <?= $form->field($bandwidthCircuitServiceModel, 'z_end_host[]')->textInput([]) ?>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <?= $form->field($bandwidthCircuitServiceModel, 'z_end_ip[]')->textInput([]) ?>
-            </div>
-        </div>
-        <div class="col-md-6"></div>
-        <div class="col-md-2"><a id="addfields" style="margin-top:10px;cursor:pointer;">Add Circuit</a></div>
+            </div> 
+            <div class="col-md-1" style="margin-top:30px!important;"><a class="addfields" style="margin-top:10px;cursor:pointer;"><i class="fa fa-plus-circle"></i></a></div>           
+            <div class="col-md-1" style="margin-top:30px!important;"><a class="rmfields" style="margin-top:10px;cursor:pointer;"><i class="fa fa-minus-circle"></i></a></div>           
+        </div>                
+    </div>
+    
+    <div class="row">
+        <div class="col-md-8"></div>        
         <div class="col-md-2">
-
             <?= Html::Button('Search', ['class' => 'btn btn-primary', 'id' => 'searchbpacircuitreport']); ?>
         </div>
     </div>

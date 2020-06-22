@@ -43,10 +43,10 @@ class BandwidthCircuitServiceController extends Controller
                 $validcount = 0;
                 for($hc=0;$hc<$host_count;$hc++) {
                     $objBandwidthServiceMultiModel = new BandwidthCircuitServiceModel();
-                    $objBandwidthServiceMultiModel->a_end_host = $postdata['BandwidthCircuitServiceModel']['a_end_host'][$hc];
-                    $objBandwidthServiceMultiModel->a_end_ip = $postdata['BandwidthCircuitServiceModel']['a_end_ip'][$hc];
-                    $objBandwidthServiceMultiModel->z_end_host = $postdata['BandwidthCircuitServiceModel']['z_end_host'][$hc];
-                    $objBandwidthServiceMultiModel->z_end_ip = $postdata['BandwidthCircuitServiceModel']['z_end_ip'][$hc];
+                    $objBandwidthServiceMultiModel->a_end_host  = $postdata['BandwidthCircuitServiceModel']['a_end_host'][$hc];
+                    $objBandwidthServiceMultiModel->a_end_ip    = $postdata['BandwidthCircuitServiceModel']['a_end_ip'][$hc];
+                    $objBandwidthServiceMultiModel->z_end_host  = $postdata['BandwidthCircuitServiceModel']['z_end_host'][$hc];
+                    $objBandwidthServiceMultiModel->z_end_ip    = $postdata['BandwidthCircuitServiceModel']['z_end_ip'][$hc];
                     $valid=$objBandwidthServiceMultiModel->validate();
                     if($valid) { $validcount++; }
                 }
