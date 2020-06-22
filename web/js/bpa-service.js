@@ -44,7 +44,7 @@ var multicircuitIndex = $(".multicircuit").length;
 $("#multicircuit0 .rmfields").hide();
 function clone(){
 	console.log(multicircuitIndex);
-    $(this).parents(".multicircuit").clone()
+    $(this).parents(".multicircuit").clone(true)
         .appendTo(".circuitgroup")
         .attr("id", "multicircuit" +  multicircuitIndex)
         .find("*")
@@ -82,6 +82,44 @@ function remove(){
 $(".addfields").on("click", clone);
 $(".rmfields").on("click", remove);
 
+$(function(){
+$(".multicircuit input[name*=BandwidthCircuitServiceModel]").blur(function(){
+	var cicuitId = $(this).attr('id');
+	var circuitValue = $("#"+cicuitId).val();
+	if(circuitValue == '') {		
+		$("#"+cicuitId).parent().addClass("has-error");
+		$("#"+cicuitId).children().addClass(".help-block");
+		return false;
+	} else {
+		$("#"+cicuitId).parent().removeClass("has-error");
+		$("#"+cicuitId).children().removeClass(".help-block");
+	}
+});
+
+$("#searchbpacircuitreport").on('click', function(){
+	$(".multicircuit input").each(function(){
+		var cicuitId = $(this).attr('id');
+		var circuitValue = $("#"+cicuitId).val();		
+		if(circuitValue == '') {			
+			$("#"+cicuitId).parent().addClass("has-error");
+			$("#"+cicuitId).children().addClass(".help-block");
+			return false;
+		} else {
+			$("#"+cicuitId).parent().removeClass("has-error");
+			$("#"+cicuitId).children().removeClass(".help-block");
+		}
+	});
+});
+
+});
+
+
+// $(function(){
+// 	for (var mci=1;mci<multicircuitIndex;mci++) {
+// 		console.log(mci);
+		
+// 	}
+// });
 
 
 
