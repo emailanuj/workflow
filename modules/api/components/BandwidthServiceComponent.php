@@ -26,6 +26,7 @@ class BandwidthServiceComponent
 
         return CurlServiceComponent::postRequest($arrRequest);
     }
+    
 
     public static function getActualUtilization($arrSegmentId)
     {

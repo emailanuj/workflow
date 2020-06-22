@@ -17,6 +17,7 @@ class CurlServiceComponent
         $curl = new curl\Curl();
         return $curl->get('http://example.com/');
     }
+    
 
     public static function postRequest($arrRequest = [])
     {
