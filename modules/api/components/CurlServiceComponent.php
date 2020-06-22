@@ -22,7 +22,6 @@ class CurlServiceComponent
     {
         // echo '<pre>'; print_r($arrRequest);die;
         // echo '<pre>'; print_r(http_build_query($arrRequest['data']));die;
-
         $arrOutputResponse = [];
         if (!empty($arrRequest)) {
             $curl = new curl\Curl();
