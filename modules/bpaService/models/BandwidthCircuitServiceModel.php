@@ -15,10 +15,7 @@ use yii\base\Model;
 
 class BandwidthCircuitServiceModel extends Model
 {
-
-    public $utilization;
-    public $duration;
-    public $utilization_type;
+    
     public $a_end_host;
     public $a_end_ip;
     public $z_end_host;
@@ -31,7 +28,7 @@ class BandwidthCircuitServiceModel extends Model
     public function rules()
     {
         return [
-            [['a_end_host', 'a_end_ip', 'z_end_host', 'z_end_ip'],'each', 'rule' => ['required']],
+            [['a_end_host', 'a_end_ip', 'z_end_host', 'z_end_ip'], 'each', 'rule' => ['required']],
 
         ];
     }
@@ -49,18 +46,4 @@ class BandwidthCircuitServiceModel extends Model
         ];
     }
 
-    public static function getUtilization()
-    {
-        return ["peak" => "peak", "average" => "average", "95precentile" => "95 precentile"];
-    }
-
-    public static function getDuration()
-    {
-        return ["1h" => "1 HR", "1d" => "1 Day", "7d" => "7 Days"];
-    }
-
-    public static function getUtilizationType()
-    {
-        return ["QOSclassbased" => "Class Based", "combined" => "Combined"];
-    }
 }
