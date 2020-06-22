@@ -62,8 +62,32 @@ function clone(){
 			$("#multicircuit"+ multicircuitIndex + ' .rmfields').show();
 		}
 		$("#multicircuit0 .addfields").show();
-		multicircuitIndex++;
-	
+
+
+
+		// $("#multicircuit"+ multicircuitIndex).find("[name*=BandwidthCircuitServiceModel]").each(function() {
+        //     var name = $(this).attr('name');
+        //     var id = $(this).attr('id');
+        //     var splittedStr = id.split("-");
+        //     var modelName = 'BandwidthCircuitServiceModel';           
+        //     var index = parseInt(splittedStr[1]) + 1;
+        //     var newId = modelName + "-" + index;
+        //     var newName = modelName + "[" + index;
+        //     var ind = name.indexOf("]");
+        //     //update the id 
+        //     id = id.replace(id.substr(0, modelName.length + 2), newId);
+        //     //update the name
+        //     name = name.replace(name.substr(0, ind), newName);
+        //     $(this).attr('id', id);
+        //     $(this).attr('name', name);
+        //     $(this).val('');
+        // });
+
+
+
+
+
+		multicircuitIndex++;	
 }
 function remove(){
     $(this).parents(".multicircuit").remove();

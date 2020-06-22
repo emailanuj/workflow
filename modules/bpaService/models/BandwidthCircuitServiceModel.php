@@ -31,7 +31,7 @@ class BandwidthCircuitServiceModel extends Model
     public function rules()
     {
         return [
-            [['a_end_host', 'a_end_ip', 'z_end_host', 'z_end_ip'], 'required'],
+            [['a_end_host', 'a_end_ip', 'z_end_host', 'z_end_ip'],'each', 'rule' => ['required']],
 
         ];
     }
