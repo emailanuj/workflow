@@ -24,14 +24,15 @@ class MyThresholdSettings extends ThresholdSettings
         return $final_result;
     }
 
-    public static function getThresholdList(){
+    public static function getThresholdList()
+    {
         $objLabels = self::find()->all();
-        return ArrayHelper::map($objLabels,'threshold_name','threshold_name');
+        return ArrayHelper::map($objLabels, 'threshold_name', 'threshold_name');
     }
     /**
      * @inheritdoc
      */
-   
+
     /**
      * Creates data provider instance with search query applied
      *
