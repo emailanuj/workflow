@@ -16,10 +16,10 @@ use yii\base\Model;
 class BandwidthCircuitServiceModel extends Model
 {
     
-    public $a_end_host;
-    public $a_end_ip;
-    public $z_end_host;
-    public $z_end_ip;
+    public $a_end_host = [];
+    public $a_end_ip = [];
+    public $z_end_host = [];
+    public $z_end_ip = [];
 
 
     /**
