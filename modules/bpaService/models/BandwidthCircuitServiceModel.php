@@ -31,7 +31,7 @@ class BandwidthCircuitServiceModel extends Model
     public function rules()
     {
         return [
-            [['utilization', 'duration', 'utilization_type', 'a_end_host', 'a_end_ip', 'z_end_host', 'z_end_ip'], 'required'],
+            [['a_end_host', 'a_end_ip', 'z_end_host', 'z_end_ip'], 'required'],
 
         ];
     }
@@ -41,10 +41,7 @@ class BandwidthCircuitServiceModel extends Model
      */
     public function attributeLabels()
     {
-        return [
-            'utilization' => 'Select Utilization',
-            'duration' => 'Select Duration',
-            'utilization_type' => 'Type Of Utilization',
+        return [            
             'a_end_host' => 'Aend Hostname',
             'a_end_ip' => 'Aend IP',
             'z_end_host' => 'Zend Hostname',

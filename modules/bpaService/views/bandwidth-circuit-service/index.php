@@ -25,15 +25,6 @@ $this->registerJsFile('@web/js/bpa-service.js', ['depends' => [\yii\web\JqueryAs
     ]);
     ?>
     <div class="form-group row">
-        <div class="col-md-4">
-            <?= $form->field($bandwidthCircuitServiceModel, 'utilization')->dropDownList($utilization, ['prompt' => 'Please Select']) ?>
-        </div>
-        <div class="col-md-4">
-            <?= $form->field($bandwidthCircuitServiceModel, 'duration')->dropDownList($duration, ['prompt' => 'Please Select']) ?>
-        </div>
-        <div class="col-md-4">
-            <?= $form->field($bandwidthCircuitServiceModel, 'utilization_type')->dropDownList($utilizationType, ['prompt' => 'Please Select']) ?>
-        </div>
         <div class="row" id="multicircuit">
             <div class="col-md-3">
                 <?= $form->field($bandwidthCircuitServiceModel, 'a_end_host[]')->textInput([]) ?>

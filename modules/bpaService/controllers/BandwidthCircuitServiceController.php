@@ -47,9 +47,6 @@ class BandwidthCircuitServiceController extends Controller
                     $objBandwidthServiceMultiModel->a_end_ip = $postdata['BandwidthCircuitServiceModel']['a_end_ip'][$hc];
                     $objBandwidthServiceMultiModel->z_end_host = $postdata['BandwidthCircuitServiceModel']['z_end_host'][$hc];
                     $objBandwidthServiceMultiModel->z_end_ip = $postdata['BandwidthCircuitServiceModel']['z_end_ip'][$hc];
-                    $objBandwidthServiceMultiModel->utilization = $postdata['BandwidthCircuitServiceModel']['utilization'];
-                    $objBandwidthServiceMultiModel->duration = $postdata['BandwidthCircuitServiceModel']['duration'];
-                    $objBandwidthServiceMultiModel->utilization_type = $postdata['BandwidthCircuitServiceModel']['utilization_type'];
                     $valid=$objBandwidthServiceMultiModel->validate();
                     if($valid) { $validcount++; }
                 }
