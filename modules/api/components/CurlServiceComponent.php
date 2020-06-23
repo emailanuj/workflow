@@ -17,7 +17,7 @@ class CurlServiceComponent
         $curl = new curl\Curl();
         return $curl->get('http://example.com/');
     }
-    
+
 
     public static function postRequest($arrRequest = [])
     {
@@ -33,7 +33,7 @@ class CurlServiceComponent
                 ->post($arrRequest['url']);
         }
 
-        return json_decode($arrOutputResponse,true);
+        return json_decode($arrOutputResponse, true);
     }
 
     /**

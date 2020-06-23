@@ -30,70 +30,73 @@ class OrchestratorServiceController extends BaseController
         // $sraRequest = '{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10","flap_link":"AHD-MUM","bandwidth_provision":"9000"}';
         // $closeloopRequest = '{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10"}';
         $moduleRequestType = 'CCSM';
-        $arrRequestData   =  '{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10"}'; 
-        
+        $arrRequestData   =  '{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10"}';
+
         switch ($moduleRequestType) {
             case "BPA":
-                $arrSegmentBestPathLists = $this->getBpaBestPath($arrRequestData);               
-            break;
+                $arrSegmentBestPathLists = $this->getBpaBestPath($arrRequestData);
+                break;
 
             case "SRA":
-                $arrSegmentBestPathLists = $this->getSraBestPath($arrRequestData);                
-            break;
+                $arrSegmentBestPathLists = $this->getSraBestPath($arrRequestData);
+                break;
 
             case "CCSM":
-                $arrSegmentBestPathLists = $this->getCcsmBestPath($arrRequestData);                
-            break;
+                $arrSegmentBestPathLists = $this->getCcsmBestPath($arrRequestData);
+                break;
 
             default:
-            $arrSegmentBestPathLists = '';
-            break;
+                $arrSegmentBestPathLists = '';
+                break;
         }
-         
-        if(!empty($arrSegmentBestPathLists)) {
+
+        if (!empty($arrSegmentBestPathLists)) {
             return $this->apiResponse(200, $arrSegmentBestPathLists, "Bandwidth Service: criteria passed for provisioning");
         } else {
             return $this->apiResponse(402, "Bandwidth Service: criteria passed for provisioning");
         }
     }
 
-    private function getCcsmBestPath($arrRequestData) {
+    private function getCcsmBestPath($arrRequestData)
+    {
 
         //validate Request
-        
-        $requestArrData = json_decode($arrRequestData,true);
+
+        $requestArrData = json_decode($arrRequestData, true);
         // get flap link's bandwidth
         // $segmentId  = TopologyServiceComponent::getSegmentId($arrRequestData);
         // $peakBandwidth = BandWidthServiceComponent::getPeakUtilization($segmentId);
         // $strAffixUtilization = $peakBandwidth['peak_bw'];
         $strAffixUtilization = '9000';
-        $arrOutputLists = $this->getModuleBestPath($arrRequestData,$strAffixUtilization);
+        $arrOutputLists = $this->getModuleBestPath($arrRequestData, $strAffixUtilization);
 
         // change response
 
         return $arrOutputLists;
     }
 
-    private function getSraBestPath($arrRequestData) {
+    private function getSraBestPath($arrRequestData)
+    {
 
         //validate Request
 
-        $requestArrData = json_decode($arrRequestData,true);        
+        $requestArrData = json_decode($arrRequestData, true);
         $strAffixUtilization = $requestArrData['bandwidth_provision'];
-        $arrOutputLists = $this->getModuleBestPath($arrRequestData,$strAffixUtilization);
+        $arrOutputLists = $this->getModuleBestPath($arrRequestData, $strAffixUtilization);
 
         // change response
-        
+
         return $arrOutputLists;
     }
 
-    private function getBpaBestPath($arrRequestData) {
+    private function getBpaBestPath($arrRequestData)
+    {
 
         //validate Request
 
-        $requestArrData = json_decode($arrRequestData,true);        
+        $requestArrData = json_decode($arrRequestData, true);
         $strAffixUtilization = $requestArrData['bandwidth_provision'];
-        $arrOutputLists = $this->getModuleBestPath($arrRequestData,$strAffixUtilization);
+        $arrOutputLists = $this->getModuleBestPath($arrRequestData, $strAffixUtilization);
 
         // change response
 
@@ -101,21 +104,25 @@ class OrchestratorServiceController extends BaseController
     }
 
 
-    private function getModuleBestPath($arrRequestData,$strAffixUtilization)
-    {        
-        $arrTopologyBestPathLists   = TopologyServiceComponent::getRankwisePath($arrRequestData);        
+    private function getModuleBestPath($arrRequestData, $strAffixUtilization)
+    {
+        $arrTopologyBestPathLists   = TopologyServiceComponent::getRankwisePath($arrRequestData);
         $arrSegmentLists            = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
         $arrBandwidthResponse       = BandwidthServiceComponent::getAllUtilization($arrSegmentLists);
         //pe($arrBandwidthResponse);
-        
-        $bestPaths = $this->calculateBestPath($arrRequestData,$arrTopologyBestPathLists,$arrSegmentLists,$arrBandwidthResponse,$strAffixUtilization);
+
+        $bestPaths = $this->calculateBestPath($arrRequestData, $arrTopologyBestPathLists, $arrSegmentLists, $arrBandwidthResponse, $strAffixUtilization);
         return $bestPaths;
     }
 
-    
 
-    private function calculateBestPath($arrRequestData,$arrTopologyBestPathLists,$arrSegmentLists,$arrBandwidthResponse,$strAffixUtilization) {
-        $arrOutputLists = []; $arrBwsOutputLists = []; $strBwsStatusCheck = 0; $strBwsIndexCounter = 0;
+
+    private function calculateBestPath($arrRequestData, $arrTopologyBestPathLists, $arrSegmentLists, $arrBandwidthResponse, $strAffixUtilization)
+    {
+        $arrOutputLists = [];
+        $arrBwsOutputLists = [];
+        $strBwsStatusCheck = 0;
+        $strBwsIndexCounter = 0;
         foreach ($arrTopologyBestPathLists as $strHostKey => $arrPayloadData) {
             $arrPathDetails = [];
             $strSuccessCounter = 0;
@@ -184,5 +191,4 @@ class OrchestratorServiceController extends BaseController
         $arrOutputLists['bws_output'] = $arrBwsOutputLists;
         return $arrOutputLists;
     }
-
 }
