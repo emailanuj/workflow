@@ -117,6 +117,10 @@ class OrchestratorServiceController extends BaseController
             $strBwsMsg = 'Bandwidth Service: criteria passed for provisioning.';
         }
 
+        if ($strModuleName == 'BPA') {
+            $arrOutputLists['CircuitID'] = 'MWRTN-P2P-62207-ABIS-P-C';
+        }
+
         $arrOutputLists['status'] = $strBwsStatus;
         $arrOutputLists['statusMessage'] = $strBwsMsg;
         $arrOutputLists['bws_output'] = $arrBwsOutputLists;
