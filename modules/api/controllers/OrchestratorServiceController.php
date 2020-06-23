@@ -39,15 +39,14 @@ class OrchestratorServiceController extends BaseController
     private function getSegmentBestPath($arrRequestData)
     {
         $arrTopologyBestPathLists = TopologyServiceComponent::createPayloadData($arrRequestData);
+        // pe($arrTopologyBestPathLists);
         $arrSegmentLists = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
-
-        $arrBandwidthResponce = BandwidthServiceComponent::getActualUtilization($arrSegmentLists);
-
+        $arrBandwidthResponce = BandwidthServiceComponent::getAllUtilization($arrSegmentLists);
+        // pe($arrBandwidthResponce);
         // echo '<pre>';
         // print_r($arrTopologyBestPathLists);
         // print_r($arrBandwidthResponce);
         // die;
-
         $strFlapedUtilization = '9000';
         // sra me bandwith milega jo add karna hai actual me.
         $arrOutputLists = [];
@@ -63,11 +62,13 @@ class OrchestratorServiceController extends BaseController
                 if (array_key_exists($strPayloadValue['seg_id'], $arrBandwidthResponce)) {
 
                     $intActualUtilization = isset($arrBandwidthResponce[$strPayloadValue['seg_id']]['actual_bw']) ? $arrBandwidthResponce[$strPayloadValue['seg_id']]['actual_bw'] : 0;
-                    $intTotalUtilization = isset($arrBandwidthResponce[$strPayloadValue['seg_id']]['configured_capacity']) ? $arrBandwidthResponce[$strPayloadValue['seg_id']]['configured_capacity'] : 0;
+                    $intTotalUtilization = isset($arrBandwidthResponce[$strPayloadValue['seg_id']]['actual_capacity']) ? $arrBandwidthResponce[$strPayloadValue['seg_id']]['actual_capacity'] : 0;
 
                     $strModuleName = 'CCSM';
                     // $intThresholdValue = 79;
                     // Yii::$app->formatter->asPercent(0.125, 2);
+                    // pe($arrBandwidthResponce[$strPayloadValue['seg_id']]);
+
                     $intCurrentPercentage = Yii::$app->formatter->asPercent((($intActualUtilization + $strFlapedUtilization) / $intTotalUtilization));
                     $intCurrentPercentage = str_replace('%', '', $intCurrentPercentage);
                     $bolGetThresholdCheckData = ThresholdSettings::boolCheckThresholdPercentage($strModuleName, $intCurrentPercentage);
@@ -111,7 +112,7 @@ class OrchestratorServiceController extends BaseController
         $strBwsStatus = 'Failed';
         $strBwsMsg = 'Bandwidth Service: criteria failed for provisioning.';
         // if ($strBwsStatusCheck == count($arrTopologyBestPathLists)) {
-        if ( $strBwsStatusCheck > 0 ) {
+        if ($strBwsStatusCheck > 0) {
             $strBwsStatus = 'Success';
             $strBwsMsg = 'Bandwidth Service: criteria passed for provisioning.';
         }
@@ -120,15 +121,10 @@ class OrchestratorServiceController extends BaseController
         $arrOutputLists['statusMessage'] = $strBwsMsg;
         $arrOutputLists['bws_output'] = $arrBwsOutputLists;
 
+        pe($arrOutputLists);
         return $arrOutputLists;
-
-        // echo '<pre>'; print_r($arrOutputLists); // print_r($arrBandwidthResponce);
-        // die;
-
         // return $this->getBandwidthService($arrSegmentLists);
     }
-
-
 
     // private function getBandwidthService($arrSegmentIdLists)
     // {

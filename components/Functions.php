@@ -1,5 +1,5 @@
 <?php
-use Yii;
+// use Yii;
 /* ---------------------------------------------------------------------------------------------
  * Common Helper functions 
  * Don't put any query related method here. Below funcitons only for debug purpose
