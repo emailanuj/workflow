@@ -58,16 +58,15 @@ class BandwidthServiceComponent
         return CurlServiceComponent::postRequest($arrRequest);
     }
 
-    public static function getPeakUtilization()
+    public static function getPeakUtilization($arrSegmentId)
     {
         $arrRequest['url'] = self::$bandwidthServiceUrl;
         $arrRequest['data'] = [
-            "segment_ids" => [20524, 20525],
+            "segment_ids" => $arrSegmentId,
             "class" => "false",
             "interval" => "7d",
             "type" => "peak"
         ];
-
         return CurlServiceComponent::postRequest($arrRequest);
     }
 
