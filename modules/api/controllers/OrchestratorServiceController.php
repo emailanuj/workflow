@@ -75,7 +75,7 @@ class OrchestratorServiceController extends BaseController
 
                     $strCurrentStatus = 'rejected';
                     if ($bolGetThresholdCheckData['status'] == 'success') {
-                        $strCurrentStatus = 'success';
+                        $strCurrentStatus = 'selected';
                         $strSuccessCounter++;
                     }
                     $arrPathDetails[$strPayloadKey]['status'] =  $strCurrentStatus;
