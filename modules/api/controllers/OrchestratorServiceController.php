@@ -27,6 +27,7 @@ class OrchestratorServiceController extends BaseController
     private function manipulatedRequestData($arrRequestData)
     {
         $arrSegmentBestPathLists = $this->getSegmentBestPath($arrRequestData);
+        // pe($arrSegmentBestPathLists);
         // echo '<pre>'; print_r($arrSegmentBestPathLists); die;
 
         // $arrData = [];
