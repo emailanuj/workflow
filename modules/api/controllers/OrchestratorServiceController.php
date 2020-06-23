@@ -75,7 +75,7 @@ class OrchestratorServiceController extends BaseController
 
                     $strCurrentStatus = 'rejected';
                     if ($bolGetThresholdCheckData['status'] == 'success') {
-                        $strCurrentStatus = 'success';
+                        $strCurrentStatus = 'selected';
                         $strSuccessCounter++;
                     }
                     $arrPathDetails[$strPayloadKey]['status'] =  $strCurrentStatus;
@@ -115,6 +115,10 @@ class OrchestratorServiceController extends BaseController
         if ($strBwsStatusCheck > 0) {
             $strBwsStatus = 'Success';
             $strBwsMsg = 'Bandwidth Service: criteria passed for provisioning.';
+        }
+
+        if ($strModuleName == 'BPA') {
+            $arrOutputLists['CircuitID'] = 'MWRTN-P2P-62207-ABIS-P-C';
         }
 
         $arrOutputLists['status'] = $strBwsStatus;
