@@ -21,7 +21,7 @@ $this->registerJsFile('@web/js/bpa-service.js', ['depends' => [\yii\web\JqueryAs
             'name' => 'bandwidth_circuit_service'
         ],
         'enableAjaxValidation' => false,
-        'enableClientValidation' => true,
+        'enableClientValidation' => false,
     ]);
     ?>
     <div class="form-group row circuitgroup">

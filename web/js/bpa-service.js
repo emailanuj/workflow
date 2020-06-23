@@ -97,7 +97,7 @@ $(".multicircuit input[name*=BandwidthCircuitServiceModel]").blur(function(){
 });
 
 $("#searchbpacircuitreport").on('click', function(){
-	$(".multicircuit input").each(function(){
+	$(".multicircuit input[name*=BandwidthCircuitServiceModel]").each(function(){
 		var cicuitId = $(this).attr('id');
 		var circuitValue = $("#"+cicuitId).val();		
 		if(circuitValue == '') {			
