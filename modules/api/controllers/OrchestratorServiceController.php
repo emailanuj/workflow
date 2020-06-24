@@ -64,98 +64,73 @@ class OrchestratorServiceController extends BaseController
 
     private function getCcsmBestPath($arrRequestData)
     {
-
         //validate Request        
         try{ 
             $requestArrData = json::decode($arrRequestData, true);
         } catch(InvalidArgumentException $jsonError) {
             return $jsonError->getMessage();
-        }
-        
-        
-        //$source_hostname = $requestArrData['source_hostname']; $destination_hostname = $requestArrData['destination_hostname'];
-        // $model = DynamicModel::validateData(compact($requestArrData['source_hostname'], $requestArrData['destination_hostname']), [
-        //     [[$requestArrData['source_hostname'],$requestArrData['destination_hostname']], 'required'],            
-        // ]);
-        // $model = new \yii\base\DynamicModel([
-        //     'source_hostname', 'source_interface', 'destination_hostname','destination_interface'
-        // ]);
-        // $model->addRule(['source_hostname', 'source_interface', 'destination_hostname','destination_interface'], 'required');
-    
-        // if($model->load($requestArrData)){
-        //     if ($model->hasErrors()) {
-        //         return $model->errors();
-        //     }
-        // }
-        
-
+        }        
         // get flap link's bandwidth
         // $segmentId  = TopologyServiceComponent::getSegmentId($arrRequestData);
         // $peakBandwidth = BandWidthServiceComponent::getPeakUtilization($segmentId);
         // $strAffixUtilization = $peakBandwidth['peak_bw'];
         $strAffixUtilization = '9000';
-        $arrOutputLists = $this->getModuleBestPath($arrRequestData, $strAffixUtilization);
-
+        $arrTopologyBestPathLists = $this->getModuleBestPath($arrRequestData);
+        $arrPathsBandwidths = $this->getModulePathBandwidth($arrTopologyBestPathLists);
+        $arrOutputLists = $this->calculateBestPath($arrTopologyBestPathLists,$arrPathsBandwidths,$strAffixUtilization);
         // change response
-
         //pe($arrOutputLists);
-
         return $arrOutputLists;
     }
 
     private function getSraBestPath($arrRequestData)
     {
-
         //validate Request        
         try{ 
             $requestArrData = json::decode($arrRequestData, true);
         } catch(InvalidArgumentException $jsonError) {
             return $jsonError->getMessage();
         }
-
         $strAffixUtilization = $requestArrData['bandwidth_provision'];
-        $arrOutputLists = $this->getModuleBestPath($arrRequestData, $strAffixUtilization);
-
+        $arrTopologyBestPathLists = $this->getModuleBestPath($arrRequestData);
+        $arrPathsBandwidths = $this->getModulePathBandwidth($arrTopologyBestPathLists);
+        $arrOutputLists = $this->calculateBestPath($arrTopologyBestPathLists,$arrPathsBandwidths,$strAffixUtilization);
         // change response
-
         return $arrOutputLists;
     }
 
     private function getBpaBestPath($arrRequestData)
     {
-
         //validate Request        
         try{ 
             $requestArrData = json::decode($arrRequestData, true);
         } catch(InvalidArgumentException $jsonError) {
             return $jsonError->getMessage();
         }
-
         $strAffixUtilization = $requestArrData['bandwidth_provision'];
-        $arrOutputLists = $this->getModuleBestPath($arrRequestData, $strAffixUtilization);
-
+        $arrTopologyBestPathLists = $this->getModuleBestPath($arrRequestData);
+        $arrPathsBandwidths = $this->getModulePathBandwidth($arrTopologyBestPathLists);
+        $arrOutputLists = $this->calculateBestPath($arrTopologyBestPathLists,$arrPathsBandwidths,$strAffixUtilization);
         // change response
-
         return $arrOutputLists;
     }
 
 
-    private function getModuleBestPath($arrRequestData, $strAffixUtilization)
+    private function getModuleBestPath($arrRequestData)
     {
-        $arrTopologyBestPathLists   = TopologyServiceComponent::getRankwisePath($arrRequestData);
+        $arrTopologyBestPathLists   = TopologyServiceComponent::getRankwisePath($arrRequestData);        
+        return $arrTopologyBestPathLists;
+    }
+
+    private function getModulePathBandwidth($arrTopologyBestPathLists) {
         $arrSegmentLists            = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
         $arrBandwidthResponse       = BandwidthServiceComponent::getAllUtilization($arrSegmentLists);
-        //pe($arrTopologyBestPathLists);
-        // create single array for all path utilization
-        //pe($arrBandwidthResponse);
-
-        $bestPaths = $this->calculateBestPath($arrTopologyBestPathLists, $arrBandwidthResponse, $strAffixUtilization);
-        return $bestPaths;
+        return $arrBandwidthResponse;
     }
 
 
 
-    private function calculateBestPath($arrTopologyBestPathLists, $arrBandwidthResponse, $strAffixUtilization)
+    private function calculateBestPath($arrTopologyBestPathLists,$arrBandwidthResponse, $strAffixUtilization)
     {
         $arrOutputLists = [];
         $arrBwsOutputLists = [];
