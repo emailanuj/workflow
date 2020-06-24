@@ -7,7 +7,8 @@ use app\modules\api\components\BaseController;
 use app\modules\api\components\TopologyServiceComponent;
 use app\modules\api\components\BandwidthServiceComponent;
 use app\modules\threshold\models\ThresholdSettings;
-
+use yii\helpers\json;
+use yii\base\InvalidArgumentException;
 /**
  * OrchestratorService controller for the `api` module
  */
@@ -31,8 +32,9 @@ class OrchestratorServiceController extends BaseController
         // $sraRequest = '{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10","flap_link":"AHD-MUM","bandwidth_provision":"9000"}';
 
         // $closeloopRequest = '{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10"}';
+        //AHD-CGR-ISP-ACC-RTR-221
         $moduleRequestType = 'CCSM';
-        $arrRequestData   =  '{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10"}';
+        $arrRequestData   =  '{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221",source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10"}';
 
         switch ($moduleRequestType) {
             case "BPA":
@@ -53,6 +55,7 @@ class OrchestratorServiceController extends BaseController
         }
 
         if (!empty($arrSegmentBestPathLists)) {
+            pe($arrSegmentBestPathLists);
             return $this->apiResponse(200, $arrSegmentBestPathLists, "Bandwidth Service: criteria passed for provisioning");
         } else {
             return $this->apiResponse(402, "Bandwidth Service: criteria passed for provisioning");
@@ -62,9 +65,30 @@ class OrchestratorServiceController extends BaseController
     private function getCcsmBestPath($arrRequestData)
     {
 
-        //validate Request
+        //validate Request        
+        try{ 
+            $requestArrData = json::decode($arrRequestData, true);
+        } catch(InvalidArgumentException $jsonError) {
+            return $jsonError;
+        }
+        
+        
+        //$source_hostname = $requestArrData['source_hostname']; $destination_hostname = $requestArrData['destination_hostname'];
+        // $model = DynamicModel::validateData(compact($requestArrData['source_hostname'], $requestArrData['destination_hostname']), [
+        //     [[$requestArrData['source_hostname'],$requestArrData['destination_hostname']], 'required'],            
+        // ]);
+        // $model = new \yii\base\DynamicModel([
+        //     'source_hostname', 'source_interface', 'destination_hostname','destination_interface'
+        // ]);
+        // $model->addRule(['source_hostname', 'source_interface', 'destination_hostname','destination_interface'], 'required');
+    
+        // if($model->load($requestArrData)){
+        //     if ($model->hasErrors()) {
+        //         return $model->errors();
+        //     }
+        // }
+        
 
-        $requestArrData = json_decode($arrRequestData, true);
         // get flap link's bandwidth
         // $segmentId  = TopologyServiceComponent::getSegmentId($arrRequestData);
         // $peakBandwidth = BandWidthServiceComponent::getPeakUtilization($segmentId);
@@ -74,7 +98,7 @@ class OrchestratorServiceController extends BaseController
 
         // change response
 
-        pe($arrOutputLists);
+        //pe($arrOutputLists);
 
         return $arrOutputLists;
     }
@@ -82,9 +106,13 @@ class OrchestratorServiceController extends BaseController
     private function getSraBestPath($arrRequestData)
     {
 
-        //validate Request
+        //validate Request        
+        try{ 
+            $requestArrData = json::decode($arrRequestData, true);
+        } catch(InvalidArgumentException $jsonError) {
+            return $jsonError;
+        }
 
-        $requestArrData = json_decode($arrRequestData, true);
         $strAffixUtilization = $requestArrData['bandwidth_provision'];
         $arrOutputLists = $this->getModuleBestPath($arrRequestData, $strAffixUtilization);
 
@@ -96,9 +124,13 @@ class OrchestratorServiceController extends BaseController
     private function getBpaBestPath($arrRequestData)
     {
 
-        //validate Request
+        //validate Request        
+        try{ 
+            $requestArrData = json::decode($arrRequestData, true);
+        } catch(InvalidArgumentException $jsonError) {
+            return $jsonError;
+        }
 
-        $requestArrData = json_decode($arrRequestData, true);
         $strAffixUtilization = $requestArrData['bandwidth_provision'];
         $arrOutputLists = $this->getModuleBestPath($arrRequestData, $strAffixUtilization);
 
