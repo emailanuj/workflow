@@ -34,7 +34,7 @@ class OrchestratorServiceController extends BaseController
         // $closeloopRequest = '{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10"}';
         //AHD-CGR-ISP-ACC-RTR-221
         $moduleRequestType = 'CCSM';
-        $arrRequestData   =  '{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221",source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10"}';
+        $arrRequestData   =  '{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10"}';
 
         switch ($moduleRequestType) {
             case "BPA":
@@ -55,7 +55,7 @@ class OrchestratorServiceController extends BaseController
         }
 
         if (!empty($arrSegmentBestPathLists)) {
-            pe($arrSegmentBestPathLists);
+            //pe($arrSegmentBestPathLists);
             return $this->apiResponse(200, $arrSegmentBestPathLists, "Bandwidth Service: criteria passed for provisioning");
         } else {
             return $this->apiResponse(402, "Bandwidth Service: criteria passed for provisioning");
@@ -69,7 +69,7 @@ class OrchestratorServiceController extends BaseController
         try{ 
             $requestArrData = json::decode($arrRequestData, true);
         } catch(InvalidArgumentException $jsonError) {
-            return $jsonError;
+            return $jsonError->getMessage();
         }
         
         
@@ -110,7 +110,7 @@ class OrchestratorServiceController extends BaseController
         try{ 
             $requestArrData = json::decode($arrRequestData, true);
         } catch(InvalidArgumentException $jsonError) {
-            return $jsonError;
+            return $jsonError->getMessage();
         }
 
         $strAffixUtilization = $requestArrData['bandwidth_provision'];
@@ -128,7 +128,7 @@ class OrchestratorServiceController extends BaseController
         try{ 
             $requestArrData = json::decode($arrRequestData, true);
         } catch(InvalidArgumentException $jsonError) {
-            return $jsonError;
+            return $jsonError->getMessage();
         }
 
         $strAffixUtilization = $requestArrData['bandwidth_provision'];
