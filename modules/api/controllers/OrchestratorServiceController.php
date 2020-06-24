@@ -27,12 +27,12 @@ class OrchestratorServiceController extends BaseController
 
     private function manipulatedRequestData($arrRequestData)
     {
+        //$moduleRequestType = 'BPA';
         // $bpaRequest = '{"status":"Success","code":"2001","OrderNumber":223006,"OrderId":"6df67f79-0640-59c2-83c7-208149e7aff5","data":[{"CircuitID":"MWRTN-P2P-62208-ABIS-P-C","status":"Success","message":"Bandwidth Service: criteria passed for provisioning","bws_output":[{"configured_capacity":100000.0,"peak_time":"2020-03-31 21:00:49","peak_value":0.743,"segment_id":22042,"segment_mapping":"AHD-CGR-ISP-ACC-RTR-221__et-0/1/1.10__MUM-SC-ISPNGW-RTR-055__et-11/1/0.10","tag":1,"utilization_actual":0.743},{"configured_capacity":100000.0,"peak_time":"2020-03-31 21:00:49","peak_value":0.743,"segment_id":22043,"segment_mapping":"AHD-CGR-ISP-ACC-RTR-221__et-0/1/1.10__MUMSC-ISP-NGW-RTR-055__et-11/1/0.10","tag":1,"utilization_actual":0.743}]},{"CircuitID ":"MWRTN - P2P - 62205 - ABIS - P - C ","status":"","Success":"","message ":"","Bandwidth Service":"criteria passed","for provisioning ":"","bws_output ":[{"configured_capacity ":100000.0,"peak_time ":"2020 - 03 - 31 21: 00: 49 ","peak_value ":0.743,"segment_id ":22010,"segment_mapping ":"AHD - CGR - ISP - ACC - RTR - 221 __et - 0 / 1 / 1.10 __MUM - SC - ISPNGW - RTR - 055 __et - 11 / 1 / 0.10 ","tag ":1,"utilization_actual ":0.743},{"configured_capacity ":100000.0,"peak_time ":"2020 - 03 - 31 21: 00: 49 ","peak_value ":0.743,"segment_id ":22011,"segment_mapping ":"AHD - CGR - ISP - ACC - RTR - 221 __et - 0 / 1 / 1.10 __MUMSC - ISP - NGW - RTR - 055 __et - 11 / 1 / 0.10 ","tag ":1,"utilization_actual ":0.743}]}]}';
 
-        // $sraRequest = '{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10","flap_link":"AHD-MUM","bandwidth_provision":"9000"}';
+        //$moduleRequestType = 'SRA';
+         //$arrRequestData = '{"segment_ids":"[2025,2024]","bandwidth_provision":"9000"}';
 
-        // $closeloopRequest = '{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10"}';
-        //AHD-CGR-ISP-ACC-RTR-221
         $moduleRequestType = 'CCSM';
         $arrRequestData   =  '{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10"}';
 
@@ -92,9 +92,9 @@ class OrchestratorServiceController extends BaseController
             return $jsonError->getMessage();
         }
         $strAffixUtilization = $requestArrData['bandwidth_provision'];
-        $arrTopologyBestPathLists = $this->getModuleBestPath($arrRequestData);
-        $arrPathsBandwidths = $this->getModulePathBandwidth($arrTopologyBestPathLists);
-        $arrOutputLists = $this->calculateBestPath($arrTopologyBestPathLists,$arrPathsBandwidths,$strAffixUtilization);
+        $arrSegments         = $requestArrData['segment_ids'];
+        $arrPathsBandwidths = $this->getModulePathBandwidth($topologyarr=[],$arrSegments);
+        $arrOutputLists = $this->calculateBestPath($topologyarr=[],$arrPathsBandwidths,$strAffixUtilization);
         // change response
         return $arrOutputLists;
     }
@@ -122,9 +122,11 @@ class OrchestratorServiceController extends BaseController
         return $arrTopologyBestPathLists;
     }
 
-    private function getModulePathBandwidth($arrTopologyBestPathLists) {
-        $arrSegmentLists            = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
-        $arrBandwidthResponse       = BandwidthServiceComponent::getAllUtilization($arrSegmentLists);
+    private function getModulePathBandwidth($arrTopologyBestPathLists,$arrSegmentLists = []) {
+        if(empty($arrSegmentLists) && !empty($arrTopologyBestPathLists)) {
+            $arrSegmentLists    = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
+        }
+        $arrBandwidthResponse   = BandwidthServiceComponent::getAllUtilization($arrSegmentLists);
         return $arrBandwidthResponse;
     }
 
