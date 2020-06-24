@@ -142,8 +142,9 @@ class ThresholdSettings extends ActiveRecord
         } elseif ($strCondition == 'less_than_equal') {
             if ($intThresholdValue <= $intSetting) {
                 $arrOutput['status'] = 'success';
+                $arrOutput['message'] = 'not more than ' . $intSetting . '%';
             } else {
-                $arrOutput['message'] = '';
+                $arrOutput['message'] = 'more than ' . $intSetting . '%';
             }
         } elseif ($strCondition == 'greater_than') {
             if ($intThresholdValue > $intSetting) {
