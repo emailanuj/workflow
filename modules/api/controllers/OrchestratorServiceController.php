@@ -28,13 +28,21 @@ class OrchestratorServiceController extends BaseController
 
     private function manipulatedRequestData($jsonRequestData)
     {
-        // $bpaRequest = '{"status":"Success","code":"2001","OrderNumber":223006,"OrderId":"6df67f79-0640-59c2-83c7-208149e7aff5","data":[{"CircuitID":"MWRTN-P2P-62208-ABIS-P-C","status":"Success","message":"Bandwidth Service: criteria passed for provisioning","bws_output":[{"configured_capacity":100000.0,"peak_time":"2020-03-31 21:00:49","peak_value":0.743,"segment_id":22042,"segment_mapping":"AHD-CGR-ISP-ACC-RTR-221__et-0/1/1.10__MUM-SC-ISPNGW-RTR-055__et-11/1/0.10","tag":1,"utilization_actual":0.743},{"configured_capacity":100000.0,"peak_time":"2020-03-31 21:00:49","peak_value":0.743,"segment_id":22043,"segment_mapping":"AHD-CGR-ISP-ACC-RTR-221__et-0/1/1.10__MUMSC-ISP-NGW-RTR-055__et-11/1/0.10","tag":1,"utilization_actual":0.743}]},{"CircuitID ":"MWRTN - P2P - 62205 - ABIS - P - C ","status":"","Success":"","message ":"","Bandwidth Service":"criteria passed","for provisioning ":"","bws_output ":[{"configured_capacity ":100000.0,"peak_time ":"2020 - 03 - 31 21: 00: 49 ","peak_value ":0.743,"segment_id ":22010,"segment_mapping ":"AHD - CGR - ISP - ACC - RTR - 221 __et - 0 / 1 / 1.10 __MUM - SC - ISPNGW - RTR - 055 __et - 11 / 1 / 0.10 ","tag ":1,"utilization_actual ":0.743},{"configured_capacity ":100000.0,"peak_time ":"2020 - 03 - 31 21: 00: 49 ","peak_value ":0.743,"segment_id ":22011,"segment_mapping ":"AHD - CGR - ISP - ACC - RTR - 221 __et - 0 / 1 / 1.10 __MUMSC - ISP - NGW - RTR - 055 __et - 11 / 1 / 0.10 ","tag ":1,"utilization_actual ":0.743}]}]}';
-        //$jsonRequestData = '{"segment_ids":"[20525,20524,20526]","bandwidth_provision":"9000"}';
-        //$jsonRequestData = '{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221","destination_hostname":"MUM-SC-ISPNGW-RTR-055"}';
-        // $jsonRequestData   =  '{"module_type": "CCSM","source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10"}';
-        $arrRequestData = json_decode($jsonRequestData, true);
+        // $bpaRequest = '{"module_type": "BPA","status":"Success","code":"2001","OrderNumber":223006,"OrderId":"6df67f79-0640-59c2-83c7-208149e7aff5","data":[{"CircuitID":"MWRTN-P2P-62208-ABIS-P-C","status":"Success","message":"Bandwidth Service: criteria passed for provisioning","bws_output":[{"configured_capacity":100000.0,"peak_time":"2020-03-31 21:00:49","peak_value":0.743,"segment_id":22042,"segment_mapping":"AHD-CGR-ISP-ACC-RTR-221__et-0/1/1.10__MUM-SC-ISPNGW-RTR-055__et-11/1/0.10","tag":1,"utilization_actual":0.743},{"configured_capacity":100000.0,"peak_time":"2020-03-31 21:00:49","peak_value":0.743,"segment_id":22043,"segment_mapping":"AHD-CGR-ISP-ACC-RTR-221__et-0/1/1.10__MUMSC-ISP-NGW-RTR-055__et-11/1/0.10","tag":1,"utilization_actual":0.743}]},{"CircuitID ":"MWRTN - P2P - 62205 - ABIS - P - C ","status":"","Success":"","message ":"","Bandwidth Service":"criteria passed","for provisioning ":"","bws_output ":[{"configured_capacity ":100000.0,"peak_time ":"2020 - 03 - 31 21: 00: 49 ","peak_value ":0.743,"segment_id ":22010,"segment_mapping ":"AHD - CGR - ISP - ACC - RTR - 221 __et - 0 / 1 / 1.10 __MUM - SC - ISPNGW - RTR - 055 __et - 11 / 1 / 0.10 ","tag ":1,"utilization_actual ":0.743},{"configured_capacity ":100000.0,"peak_time ":"2020 - 03 - 31 21: 00: 49 ","peak_value ":0.743,"segment_id ":22011,"segment_mapping ":"AHD - CGR - ISP - ACC - RTR - 221 __et - 0 / 1 / 1.10 __MUMSC - ISP - NGW - RTR - 055 __et - 11 / 1 / 0.10 ","tag ":1,"utilization_actual ":0.743}]}]}';
 
-        switch ($this->moduleType) {
+        //$jsonRequestData = '{"module_type": "SRA","segment_ids":"[20525,20524,20526]","bandwidth_provision":"9000"}';
+        //$jsonRequestData = '{"module_type": "SRA","source_hostname":"AHD-CGR-ISP-ACC-RTR-221","destination_hostname":"MUM-SC-ISPNGW-RTR-055"}';
+        //$jsonRequestData   =  '{"module_type": "CCSM","source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10"}';
+        $jsonRequestData   =  '{"module_type": "BPA","source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10","bandwidth_provision":"9000"}';
+
+        try {
+            $arrRequestData = json::decode($jsonRequestData, true);
+        } catch (InvalidArgumentException $jsonError) {
+            $msg =  $jsonError->getMessage();
+            return $this->apiResponse(401, 'Failed', $msg);
+        }
+
+        switch ($arrRequestData['module_type']) {
             case "BPA":
                 $this->moduleType = 'BPA';
                 $arrSegmentBestPathLists = $this->getBpaBestPath($jsonRequestData);
@@ -60,23 +68,24 @@ class OrchestratorServiceController extends BaseController
     private function getCcsmBestPath($jsonRequestData)
     {
         try {
-            // get flap link's bandwidth
-            $arrTopologyBestPathLists   = TopologyServiceComponent::getRankwisePath($jsonRequestData);
+            $arrRequestData = json::decode($jsonRequestData, true);
+            $arrTopologyBestPathLists   = TopologyServiceComponent::getRankwisePath($arrRequestData);
             $this->intCurrentBandwidth = '9000';
 
             if (!empty($arrTopologyBestPathLists)) {
                 $arrSegmentLists    = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
                 $arrPathsBandwidths = BandwidthServiceComponent::getAllUtilization($arrSegmentLists);
                 $arrResponseResult = $this->calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths);
-                
-                if($arrResponseResult['status'] == 'Success'){
-                    return $this->apiResponse(200, 'Success' , $arrResponseResult);
-                } else{
-                    return $this->apiResponse(404,'Failed', $arrResponseResult);
+
+                if ($arrResponseResult['status'] == 'Success') {
+                    return $this->apiResponse(200, 'Success', $arrResponseResult);
+                } else {
+                    return $this->apiResponse(404, 'Failed', $arrResponseResult);
                 }
             }
         } catch (InvalidArgumentException $jsonError) {
-            return $jsonError->getMessage();
+            $msg =  $jsonError->getMessage();
+            return $this->apiResponse(401, 'Failed', $msg);
         }
     }
 
@@ -84,7 +93,7 @@ class OrchestratorServiceController extends BaseController
     {
         try {
             $arrRequestData = json::decode($jsonRequestData, true);
-            
+
             $arrOutputResult = [];
             if (!empty($arrRequestData['bandwidth_provision']) && !empty($arrRequestData['segment_ids'])) {
                 $this->intCurrentBandwidth = $arrRequestData['bandwidth_provision'];
@@ -107,13 +116,14 @@ class OrchestratorServiceController extends BaseController
                 }
             }
 
-            if($arrOutputResult['status'] == 'Success'){
-                return $this->apiResponse(200, 'Success' , $arrOutputResult);
-            } else{
-                return $this->apiResponse(404,'Failed', $arrOutputResult);
+            if ($arrOutputResult['status'] == 'Success') {
+                return $this->apiResponse(200, 'Success', $arrOutputResult);
+            } else {
+                return $this->apiResponse(404, 'Failed', $arrOutputResult);
             }
         } catch (InvalidArgumentException $jsonError) {
-            return $jsonError->getMessage();
+            $msg =  $jsonError->getMessage();
+            return $this->apiResponse(401, 'Failed', $msg);
         }
     }
 
@@ -125,12 +135,16 @@ class OrchestratorServiceController extends BaseController
             $arrTopologyBestPathLists = TopologyServiceComponent::getRankwisePath($arrRequestData);
             $arrSegmentLists          = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
             $arrPathsBandwidths       = BandwidthServiceComponent::getAllUtilization($arrSegmentLists);
-            $arrOutputLists           = $this->calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths);
+            $arrOutputResult           = $this->calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths);
+            if ($arrOutputResult['status'] == 'Success') {
+                return $this->apiResponse(200, 'Success', $arrOutputResult);
+            } else {
+                return $this->apiResponse(404, 'Failed', $arrOutputResult);
+            }
         } catch (InvalidArgumentException $jsonError) {
-            return $jsonError->getMessage();
+            $msg =  $jsonError->getMessage();
+            return $this->apiResponse(401, 'Failed', $msg);
         }
-
-        return $arrOutputLists;
     }
 
     private function calculateBestPath($arrBestPathLists, $arrBandwidthResponse)
@@ -146,10 +160,10 @@ class OrchestratorServiceController extends BaseController
                 if (array_key_exists($strPayloadValue['seg_id'], $arrBandwidthResponse)) {
 
                     // to avoid code replication
-                    $sendBandwidthArray = array($strPayloadValue['seg_id'] => $arrBandwidthResponse[$strPayloadValue['seg_id']]);                    
+                    $sendBandwidthArray = array($strPayloadValue['seg_id'] => $arrBandwidthResponse[$strPayloadValue['seg_id']]);
                     $bandwidthDetails = $this->setModulePathBandwidth($sendBandwidthArray);
-                    $arrPathDetails[$strPayloadKey] = $bandwidthDetails;                    
-                    if($arrPathDetails[$strPayloadKey][$strPayloadValue['seg_id']]['status'] == 'selected') {
+                    $arrPathDetails[$strPayloadKey] = $bandwidthDetails;
+                    if ($arrPathDetails[$strPayloadKey][$strPayloadValue['seg_id']]['status'] == 'selected') {
                         $strSuccessCounter++;
                     }
                     // $arrPathDetails[$strPayloadKey][$strPayloadValue['seg_id']]['segment_mapping']  =  $strPayloadValue['segement_mapping'];
@@ -203,8 +217,8 @@ class OrchestratorServiceController extends BaseController
             $strBwsMsg    = 'Bandwidth Service: criteria passed for provisioning.';
         }
 
-        if($this->moduleType == 'BPA'){
-            $arrOutputLists['CircuitID'] = "MWRTN-P2P-62207-ABIS-P-C";    
+        if ($this->moduleType == 'BPA') {
+            $arrOutputLists['CircuitID'] = "MWRTN-P2P-62207-ABIS-P-C";
         }
         $arrOutputLists['status']           = $strBwsStatus;
         $arrOutputLists['statusMessage']    = $strBwsMsg;
