@@ -31,7 +31,7 @@ class OrchestratorServiceController extends BaseController
         // $bpaRequest = '{"status":"Success","code":"2001","OrderNumber":223006,"OrderId":"6df67f79-0640-59c2-83c7-208149e7aff5","data":[{"CircuitID":"MWRTN-P2P-62208-ABIS-P-C","status":"Success","message":"Bandwidth Service: criteria passed for provisioning","bws_output":[{"configured_capacity":100000.0,"peak_time":"2020-03-31 21:00:49","peak_value":0.743,"segment_id":22042,"segment_mapping":"AHD-CGR-ISP-ACC-RTR-221__et-0/1/1.10__MUM-SC-ISPNGW-RTR-055__et-11/1/0.10","tag":1,"utilization_actual":0.743},{"configured_capacity":100000.0,"peak_time":"2020-03-31 21:00:49","peak_value":0.743,"segment_id":22043,"segment_mapping":"AHD-CGR-ISP-ACC-RTR-221__et-0/1/1.10__MUMSC-ISP-NGW-RTR-055__et-11/1/0.10","tag":1,"utilization_actual":0.743}]},{"CircuitID ":"MWRTN - P2P - 62205 - ABIS - P - C ","status":"","Success":"","message ":"","Bandwidth Service":"criteria passed","for provisioning ":"","bws_output ":[{"configured_capacity ":100000.0,"peak_time ":"2020 - 03 - 31 21: 00: 49 ","peak_value ":0.743,"segment_id ":22010,"segment_mapping ":"AHD - CGR - ISP - ACC - RTR - 221 __et - 0 / 1 / 1.10 __MUM - SC - ISPNGW - RTR - 055 __et - 11 / 1 / 0.10 ","tag ":1,"utilization_actual ":0.743},{"configured_capacity ":100000.0,"peak_time ":"2020 - 03 - 31 21: 00: 49 ","peak_value ":0.743,"segment_id ":22011,"segment_mapping ":"AHD - CGR - ISP - ACC - RTR - 221 __et - 0 / 1 / 1.10 __MUMSC - ISP - NGW - RTR - 055 __et - 11 / 1 / 0.10 ","tag ":1,"utilization_actual ":0.743}]}]}';
         // $jsonRequestData = '{"segment_ids":"[20525,20524,20526]","bandwidth_provision":"9000"}';
         //$jsonRequestData = '{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221","destination_hostname":"MUM-SC-ISPNGW-RTR-055"}';
-        $jsonRequestData   =  '{"module_type": "CCSM","source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10"}';
+        // $jsonRequestData   =  '{"module_type": "CCSM","source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10"}';
         $arrRequestData = json_decode($jsonRequestData, true);
 
         switch ($arrRequestData['module_type']) {
@@ -51,7 +51,7 @@ class OrchestratorServiceController extends BaseController
                 break;
 
             default:
-                $arrSegmentBestPathLists = $this->apiNotMached(404, "Incompleate information, for which module you need data.");
+                $arrSegmentBestPathLists = $this->apiNotMached("Incompleate information, for which module you need data.");
                 break;
         }
         return $arrSegmentBestPathLists;
@@ -61,12 +61,12 @@ class OrchestratorServiceController extends BaseController
     {
         try {
             // get flap link's bandwidth
-            $this->intCurrentBandwidth = '9000';
             $arrTopologyBestPathLists   = TopologyServiceComponent::getRankwisePath($jsonRequestData);
+            $this->intCurrentBandwidth = '9000';
 
             if (!empty($arrTopologyBestPathLists)) {
                 $arrSegmentLists    = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
-                $arrPathsBandwidths         = BandwidthServiceComponent::getAllUtilization($arrSegmentLists);
+                $arrPathsBandwidths = BandwidthServiceComponent::getAllUtilization($arrSegmentLists);
                 $arrResponseResult = $this->calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths);
                 
                 if($arrResponseResult['status'] == 'Success'){
@@ -93,9 +93,8 @@ class OrchestratorServiceController extends BaseController
                 $arrTopologyBestPathLists = [];
                 $arrOutputResult = $this->calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths);
             } else if (!empty($arrRequestData['source_hostname']) && !empty($arrRequestData['destination_hostname'])) {
-                
-                $this->intCurrentBandwidth = '9000';
                 $arrTopologyBestPathLists = TopologyServiceComponent::getRankwisePath($arrRequestData);
+                $this->intCurrentBandwidth = '9000';
 
                 if (!empty($arrTopologyBestPathLists)) {
                     $arrSegmentLists    = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
@@ -163,8 +162,8 @@ class OrchestratorServiceController extends BaseController
                     $arrPathDetails[$strPayloadKey]['peak_capacity']    =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['peak_capacity'];
                     $arrPathDetails[$strPayloadKey]['avg_bw']           =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['avg_bw'];
                     $arrPathDetails[$strPayloadKey]['percentile95_bw']  =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['percentile95_bw'];
-                    $arrPathDetails[$strPayloadKey]['segment_mapping']  =  $strPayloadValue['segement_mapping'];
-                    $arrPathDetails[$strPayloadKey]['tag']              =  $strPayloadValue['tag'];
+                    $arrPathDetails[$strPayloadKey]['segment_mapping']  =  isset($strPayloadValue['segement_mapping']) ? $strPayloadValue['segement_mapping'] : '';
+                    $arrPathDetails[$strPayloadKey]['tag']              =  isset($strPayloadValue['tag']) ? $strPayloadValue['tag'] : '';
                 }
             }
 
