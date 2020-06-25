@@ -101,29 +101,30 @@ class BaseController extends Controller
         ];
     }
 
-    
+    public function apiNotMached($strMessage = false)
+    {
+        Yii::$app->response->statusCode = 404;
+        return [
+            'statusCode' => 404,
+            'message' => $strMessage ? $strMessage : 'Success',
+        ];
+    }
+
     /**
      * Api response
      */
-    public function apiResponse($strStatusCode,  $data = [], $strMessage = '', $error = '')
+    public function apiResponse($strStatusCode, $strStatus = '',  $data = [], $arrOptionalParam = [])
     {
         // Yii::$app->response->format = \yii\web\Response::FORMAT_XML;
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         Yii::$app->response->statusCode = $strStatusCode;
-        $return_arr = [
-            'status_code' => $strStatusCode,
-        ];
-        if (!empty($strMessage)) {
-            if (is_array($strMessage)) {
-                $strMessage = implode(", ", $strMessage);
+        $return_arr['code'] = $strStatusCode;
+        $return_arr['status'] = $strStatus;
+
+        if(!empty($arrOptionalParam)){
+            foreach( $arrOptionalParam as $strIndex => $strValue){
+                $return_arr[$strIndex] = $strValue;
             }
-            $return_arr['message'] = ucwords($strMessage);
-        }
-        if (!empty($error)) {
-            if (is_array($error)) {
-                $error = implode(", ", $error);
-            }
-            $return_arr['error'] = ucwords($error);
         }
         $return_arr['data'] = $data;
         return $return_arr;
