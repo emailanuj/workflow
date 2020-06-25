@@ -155,32 +155,40 @@ class OrchestratorServiceController extends BaseController
             foreach ($arrPayloadData as $strPayloadKey => $strPayloadValue) {
                 if (array_key_exists($strPayloadValue['seg_id'], $arrBandwidthResponse)) {
 
-                    $intActualUtilization = isset($arrBandwidthResponse[$strPayloadValue['seg_id']]['actual_bw']) ? $arrBandwidthResponse[$strPayloadValue['seg_id']]['actual_bw'] : 0;
-                    $intTotalUtilization = isset($arrBandwidthResponse[$strPayloadValue['seg_id']]['actual_capacity']) ? $arrBandwidthResponse[$strPayloadValue['seg_id']]['actual_capacity'] : 0;
+                    // to avoid code replication
+                    $sendBandwidthArray = array($strPayloadValue['seg_id'] => $arrBandwidthResponse[$strPayloadValue['seg_id']]);                    
+                    $bandwidthDetails = $this->setModulePathBandwidth($sendBandwidthArray, $strAffixUtilization);
+                    $arrPathDetails[$strPayloadKey] = $bandwidthDetails;
+                    $arrPathDetails[$strPayloadKey][$strPayloadValue['seg_id']]['segment_mapping']  =  $strPayloadValue['segement_mapping'];
+                    $arrPathDetails[$strPayloadKey][$strPayloadValue['seg_id']]['tag']              =  $strPayloadValue['tag'];                    
+                    
+                    
+                    // $intActualUtilization = isset($arrBandwidthResponse[$strPayloadValue['seg_id']]['actual_bw']) ? $arrBandwidthResponse[$strPayloadValue['seg_id']]['actual_bw'] : 0;
+                    // $intTotalUtilization = isset($arrBandwidthResponse[$strPayloadValue['seg_id']]['actual_capacity']) ? $arrBandwidthResponse[$strPayloadValue['seg_id']]['actual_capacity'] : 0;
 
-                    $strModuleName = 'CCSM';
-                    $intCurrentPercentage = Yii::$app->formatter->asPercent((($intActualUtilization + $strAffixUtilization) / $intTotalUtilization));
-                    $intCurrentPercentage = str_replace('%', '', $intCurrentPercentage);
-                    $bolGetThresholdCheckData = ThresholdSettings::boolCheckThresholdPercentage($strModuleName, $intCurrentPercentage);
+                    // $strModuleName = 'CCSM';
+                    // $intCurrentPercentage = Yii::$app->formatter->asPercent((($intActualUtilization + $strAffixUtilization) / $intTotalUtilization));
+                    // $intCurrentPercentage = str_replace('%', '', $intCurrentPercentage);
+                    // $bolGetThresholdCheckData = ThresholdSettings::boolCheckThresholdPercentage($strModuleName, $intCurrentPercentage);
 
-                    $strCurrentStatus = 'rejected';
-                    if ($bolGetThresholdCheckData['status'] == 'success') {
-                        $strCurrentStatus = 'selected';
-                        $strSuccessCounter++;
-                    }
-                    $arrPathDetails[$strPayloadKey]['status']       =  $strCurrentStatus;
-                    $arrPathDetails[$strPayloadKey]['reason']       =  $bolGetThresholdCheckData['message'];
-                    $arrPathDetails[$strPayloadKey]['segment_id']   =  $strPayloadValue['seg_id'];
-                    $arrPathDetails[$strPayloadKey]['actual_time']  =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['actual_time'];
-                    $arrPathDetails[$strPayloadKey]['actual_bw']    =  $intActualUtilization;
-                    $arrPathDetails[$strPayloadKey]['actual_capacity']  =  $intTotalUtilization;
-                    $arrPathDetails[$strPayloadKey]['peak_time']        =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['peak_time'];
-                    $arrPathDetails[$strPayloadKey]['peak_bw']          =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['peak_bw'];
-                    $arrPathDetails[$strPayloadKey]['peak_capacity']    =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['peak_capacity'];
-                    $arrPathDetails[$strPayloadKey]['avg_bw']           =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['avg_bw'];
-                    $arrPathDetails[$strPayloadKey]['percentile95_bw']  =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['percentile95_bw'];
-                    $arrPathDetails[$strPayloadKey]['segment_mapping']  =  $strPayloadValue['segement_mapping'];
-                    $arrPathDetails[$strPayloadKey]['tag']              =  $strPayloadValue['tag'];
+                    // $strCurrentStatus = 'rejected';
+                    // if ($bolGetThresholdCheckData['status'] == 'success') {
+                    //     $strCurrentStatus = 'selected';
+                    //     $strSuccessCounter++;
+                    // }
+                    // $arrPathDetails[$strPayloadKey]['status']       =  $strCurrentStatus;
+                    // $arrPathDetails[$strPayloadKey]['reason']       =  $bolGetThresholdCheckData['message'];
+                    // $arrPathDetails[$strPayloadKey]['segment_id']   =  $strPayloadValue['seg_id'];
+                    // $arrPathDetails[$strPayloadKey]['actual_time']  =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['actual_time'];
+                    // $arrPathDetails[$strPayloadKey]['actual_bw']    =  $intActualUtilization;
+                    // $arrPathDetails[$strPayloadKey]['actual_capacity']  =  $intTotalUtilization;
+                    // $arrPathDetails[$strPayloadKey]['peak_time']        =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['peak_time'];
+                    // $arrPathDetails[$strPayloadKey]['peak_bw']          =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['peak_bw'];
+                    // $arrPathDetails[$strPayloadKey]['peak_capacity']    =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['peak_capacity'];
+                    // $arrPathDetails[$strPayloadKey]['avg_bw']           =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['avg_bw'];
+                    // $arrPathDetails[$strPayloadKey]['percentile95_bw']  =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['percentile95_bw'];
+                    // $arrPathDetails[$strPayloadKey]['segment_mapping']  =  $strPayloadValue['segement_mapping'];
+                    // $arrPathDetails[$strPayloadKey]['tag']              =  $strPayloadValue['tag'];
                 }
             }
 
