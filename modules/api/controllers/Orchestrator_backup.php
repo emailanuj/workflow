@@ -15,129 +15,149 @@ use yii\base\InvalidArgumentException;
  */
 class OrchestratorServiceController extends BaseController
 {
-    private $moduleType = '';
-    private $intCurrentBandwidth = '';
+    private function moduleRequestType()
+    {
+        return ['SCCM', 'CCSM', 'BPA', 'SRA'];
+    }
 
     public function actionGetBestPath()
     {
-        // ['SCCM', 'CCSM', 'BPA', 'SRA'];
-        //Yii::$app->request->post() |  Yii::$app->request->queryParams; || Yii::$app->request->getRawBody()
-        $jsonRequestData = Yii::$app->request->getRawBody();
-        return $this->manipulatedRequestData($jsonRequestData);
+        $arrRequestData = [];
+        return $this->manipulatedRequestData($arrRequestData);
     }
 
-    private function manipulatedRequestData($jsonRequestData)
+    private function manipulatedRequestData($arrRequestData)
     {
+        //$moduleRequestType = 'BPA';
         // $bpaRequest = '{"status":"Success","code":"2001","OrderNumber":223006,"OrderId":"6df67f79-0640-59c2-83c7-208149e7aff5","data":[{"CircuitID":"MWRTN-P2P-62208-ABIS-P-C","status":"Success","message":"Bandwidth Service: criteria passed for provisioning","bws_output":[{"configured_capacity":100000.0,"peak_time":"2020-03-31 21:00:49","peak_value":0.743,"segment_id":22042,"segment_mapping":"AHD-CGR-ISP-ACC-RTR-221__et-0/1/1.10__MUM-SC-ISPNGW-RTR-055__et-11/1/0.10","tag":1,"utilization_actual":0.743},{"configured_capacity":100000.0,"peak_time":"2020-03-31 21:00:49","peak_value":0.743,"segment_id":22043,"segment_mapping":"AHD-CGR-ISP-ACC-RTR-221__et-0/1/1.10__MUMSC-ISP-NGW-RTR-055__et-11/1/0.10","tag":1,"utilization_actual":0.743}]},{"CircuitID ":"MWRTN - P2P - 62205 - ABIS - P - C ","status":"","Success":"","message ":"","Bandwidth Service":"criteria passed","for provisioning ":"","bws_output ":[{"configured_capacity ":100000.0,"peak_time ":"2020 - 03 - 31 21: 00: 49 ","peak_value ":0.743,"segment_id ":22010,"segment_mapping ":"AHD - CGR - ISP - ACC - RTR - 221 __et - 0 / 1 / 1.10 __MUM - SC - ISPNGW - RTR - 055 __et - 11 / 1 / 0.10 ","tag ":1,"utilization_actual ":0.743},{"configured_capacity ":100000.0,"peak_time ":"2020 - 03 - 31 21: 00: 49 ","peak_value ":0.743,"segment_id ":22011,"segment_mapping ":"AHD - CGR - ISP - ACC - RTR - 221 __et - 0 / 1 / 1.10 __MUMSC - ISP - NGW - RTR - 055 __et - 11 / 1 / 0.10 ","tag ":1,"utilization_actual ":0.743}]}]}';
-        // $jsonRequestData = '{"segment_ids":"[20525,20524,20526]","bandwidth_provision":"9000"}';
-        //$jsonRequestData = '{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221","destination_hostname":"MUM-SC-ISPNGW-RTR-055"}';
-        // $jsonRequestData   =  '{"module_type": "CCSM","source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10"}';
-        $arrRequestData = json_decode($jsonRequestData, true);
 
-        switch ($arrRequestData['module_type']) {
+        $moduleRequestType = 'SRA';
+        $arrRequestData = '{"segment_ids":"[20525,20524,20526]","bandwidth_provision":"9000"}';
+        //$arrRequestData = '{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221","destination_hostname":"MUM-SC-ISPNGW-RTR-055"}';
+
+        //$moduleRequestType = 'CCSM';
+        //$arrRequestData   =  '{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10"}';
+
+        switch ($moduleRequestType) {
             case "BPA":
-                $this->moduleType = 'BPA';
-                $arrSegmentBestPathLists = $this->getBpaBestPath($jsonRequestData);
+                $arrSegmentBestPathLists = $this->getBpaBestPath($arrRequestData);
                 break;
 
             case "SRA":
-                $this->moduleType = 'SRA';
-                $arrSegmentBestPathLists = $this->getSraBestPath($jsonRequestData);
+                $arrSegmentBestPathLists = $this->getSraBestPath($arrRequestData);
                 break;
 
             case "CCSM":
-                $this->moduleType = 'CCSM';
-                $arrSegmentBestPathLists = $this->getCcsmBestPath($jsonRequestData);
+                $arrSegmentBestPathLists = $this->getCcsmBestPath($arrRequestData);
                 break;
 
             default:
-                $arrSegmentBestPathLists = $this->apiNotMached("Incompleate information, for which module you need data.");
+                $arrSegmentBestPathLists = '';
                 break;
         }
-        return $arrSegmentBestPathLists;
+
+        if (!empty($arrSegmentBestPathLists)) {
+            //pe($arrSegmentBestPathLists);
+            return $this->apiResponse(200, $arrSegmentBestPathLists, "Bandwidth Service: criteria passed for provisioning");
+        } else {
+            return $this->apiResponse(402, "Bandwidth Service: criteria passed for provisioning");
+        }
     }
 
-    private function getCcsmBestPath($jsonRequestData)
+    private function getCcsmBestPath($arrRequestData)
     {
+        //validate Request        
         try {
+            $requestArrData = json::decode($arrRequestData, true);
             // get flap link's bandwidth
-            $arrTopologyBestPathLists   = TopologyServiceComponent::getRankwisePath($jsonRequestData);
-            $this->intCurrentBandwidth = '9000';
-
-            if (!empty($arrTopologyBestPathLists)) {
-                $arrSegmentLists    = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
-                $arrPathsBandwidths = BandwidthServiceComponent::getAllUtilization($arrSegmentLists);
-                $arrResponseResult = $this->calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths);
-                
-                if($arrResponseResult['status'] == 'Success'){
-                    return $this->apiResponse(200, 'Success' , $arrResponseResult);
-                } else{
-                    return $this->apiResponse(404,'Failed', $arrResponseResult);
-                }
-            }
-        } catch (InvalidArgumentException $jsonError) {
-            return $jsonError->getMessage();
-        }
-    }
-
-    private function getSraBestPath($jsonRequestData)
-    {
-        try {
-            $arrRequestData = json::decode($jsonRequestData, true);
-            
-            $arrOutputResult = [];
-            if (!empty($arrRequestData['bandwidth_provision']) && !empty($arrRequestData['segment_ids'])) {
-                $strAffixUtilization = $arrRequestData['bandwidth_provision'];
-                $arrSegments         = $arrRequestData['segment_ids'];
-                $arrSegments         = json::decode($arrSegments);
-                $arrPathsBandwidths  = $this->getModulePathBandwidth($topologyarr = [], $arrSegments);
-                $arrOutputLists      = $this->setModulePathBandwidth($arrPathsBandwidths, $strAffixUtilization);
-                // Need to discuss from where will get the best path.
-                $arrTopologyBestPathLists = [];
-                $arrOutputResult = $this->calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths);
-            } else if (!empty($arrRequestData['source_hostname']) && !empty($arrRequestData['destination_hostname'])) {
-                $arrTopologyBestPathLists = TopologyServiceComponent::getRankwisePath($arrRequestData);
-                $this->intCurrentBandwidth = '9000';
-
-                if (!empty($arrTopologyBestPathLists)) {
-                    $arrSegmentLists    = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
-                    $arrPathsBandwidths         = BandwidthServiceComponent::getAllUtilization($arrSegmentLists);
-                    $arrOutputResult = $this->calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths);
-                }
-            }
-
-            if($arrOutputResult['status'] == 'Success'){
-                return $this->apiResponse(200, 'Success' , $arrOutputResult);
-            } else{
-                return $this->apiResponse(404,'Failed', $arrOutputResult);
-            }
-        } catch (InvalidArgumentException $jsonError) {
-            return $jsonError->getMessage();
-        }
-    }
-
-    private function getBpaBestPath($jsonRequestData)
-    {
-        try {
-            $arrRequestData = json::decode($jsonRequestData, true);
-            $this->intCurrentBandwidth = $arrRequestData['bandwidth_provision'];
-            $arrTopologyBestPathLists = TopologyServiceComponent::getRankwisePath($arrRequestData);
-            $arrPathsBandwidths       = $this->getModulePathBandwidth($arrTopologyBestPathLists, $arrSegments = []);
-            $arrOutputLists           = $this->calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths);
+            // $segmentId  = TopologyServiceComponent::getSegmentId($arrRequestData);
+            // $peakBandwidth = BandWidthServiceComponent::getPeakUtilization($segmentId);
+            // $strAffixUtilization = $peakBandwidth['peak_bw'];
+            $strAffixUtilization = '9000';
+            $arrTopologyBestPathLists   = $this->getModuleBestPath($arrRequestData);
+            $arrPathsBandwidths         = $this->getModulePathBandwidth($arrTopologyBestPathLists, $arrSegments = []);
+            $arrOutputLists             = $this->calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths, $strAffixUtilization);
         } catch (InvalidArgumentException $jsonError) {
             return $jsonError->getMessage();
         }
 
+        // change response
+        //pe($arrOutputLists);
         return $arrOutputLists;
     }
 
-    private function calculateBestPath($arrBestPathLists, $arrBandwidthResponse)
+    private function getSraBestPath($arrRequestData)
     {
-        $arrOutputLists = $arrBwsOutputLists = [];
+        //validate Request        
+        try {
+            $requestArrData = json::decode($arrRequestData, true);
+            if (!empty($requestArrData['bandwidth_provision']) && !empty($requestArrData['segment_ids'])) {
+                $strAffixUtilization = $requestArrData['bandwidth_provision'];
+                $arrSegments         = $requestArrData['segment_ids'];
+                $arrSegments         = json::decode($arrSegments);
+                $arrPathsBandwidths  = $this->getModulePathBandwidth($topologyarr = [], $arrSegments);
+                $arrOutputLists      = $this->setModulePathBandwidth($arrPathsBandwidths, $strAffixUtilization);
+            } else if (!empty($requestArrData['source_hostname']) && !empty($requestArrData['destination_hostname'])) {
+                // get flap link's bandwidth
+                // $segmentId  = TopologyServiceComponent::getSegmentId($arrRequestData);
+                // $peakBandwidth = BandWidthServiceComponent::getPeakUtilization($segmentId);
+                // $strAffixUtilization = $peakBandwidth['peak_bw'];
+                $strAffixUtilization = '9000';
+                $arrTopologyBestPathLists = $this->getModuleBestPath($arrRequestData);
+                $arrPathsBandwidths       = $this->getModulePathBandwidth($arrTopologyBestPathLists, $arrSegments = []);
+                $arrOutputLists           = $this->calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths, $strAffixUtilization);
+            }
+        } catch (InvalidArgumentException $jsonError) {
+            return $jsonError->getMessage();
+        }
+
+        // change response
+        return $arrOutputLists;
+    }
+
+    private function getBpaBestPath($arrRequestData)
+    {
+        //validate Request        
+        try {
+            $requestArrData = json::decode($arrRequestData, true);
+            $strAffixUtilization = $requestArrData['bandwidth_provision'];
+            $arrTopologyBestPathLists = $this->getModuleBestPath($arrRequestData);
+            $arrPathsBandwidths       = $this->getModulePathBandwidth($arrTopologyBestPathLists, $arrSegments = []);
+            $arrOutputLists           = $this->calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths, $strAffixUtilization);
+        } catch (InvalidArgumentException $jsonError) {
+            return $jsonError->getMessage();
+        }
+
+        // change response
+        return $arrOutputLists;
+    }
+
+
+    private function getModuleBestPath($arrRequestData)
+    {
+        $arrTopologyBestPathLists   = TopologyServiceComponent::getRankwisePath($arrRequestData);
+        return $arrTopologyBestPathLists;
+    }
+
+    private function getModulePathBandwidth($arrTopologyBestPathLists, $arrSegmentLists)
+    {
+        if (empty($arrSegmentLists) && !empty($arrTopologyBestPathLists)) {
+            $arrSegmentLists    = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
+        }
+        $arrBandwidthResponse   = BandwidthServiceComponent::getAllUtilization($arrSegmentLists);
+        return $arrBandwidthResponse;
+    }
+
+
+
+    private function calculateBestPath($arrTopologyBestPathLists, $arrBandwidthResponse, $strAffixUtilization)
+    {
+
+        $arrOutputLists = [];
+        $arrBwsOutputLists = [];
         $strBwsStatusCheck = 0;
         $strBwsIndexCounter = 0;
-        // echo '<pre>'; print_r($arrBestPathLists); print_r($arrBandwidthResponse);die;
-        foreach ($arrBestPathLists as $arrPayloadData) {
+        foreach ($arrTopologyBestPathLists as $strHostKey => $arrPayloadData) {
             $arrPathDetails = [];
             $strSuccessCounter = 0;
             foreach ($arrPayloadData as $strPayloadKey => $strPayloadValue) {
@@ -148,32 +168,35 @@ class OrchestratorServiceController extends BaseController
                     $bandwidthDetails = $this->setModulePathBandwidth($sendBandwidthArray, $strAffixUtilization);
                     $arrPathDetails[$strPayloadKey] = $bandwidthDetails;
                     $arrPathDetails[$strPayloadKey][$strPayloadValue['seg_id']]['segment_mapping']  =  $strPayloadValue['segement_mapping'];
-                    $arrPathDetails[$strPayloadKey][$strPayloadValue['seg_id']]['tag']              =  $strPayloadValue['tag'];  
-
+                    $arrPathDetails[$strPayloadKey][$strPayloadValue['seg_id']]['tag']              =  $strPayloadValue['tag'];                    
+                    
+                    
                     // $intActualUtilization = isset($arrBandwidthResponse[$strPayloadValue['seg_id']]['actual_bw']) ? $arrBandwidthResponse[$strPayloadValue['seg_id']]['actual_bw'] : 0;
                     // $intTotalUtilization = isset($arrBandwidthResponse[$strPayloadValue['seg_id']]['actual_capacity']) ? $arrBandwidthResponse[$strPayloadValue['seg_id']]['actual_capacity'] : 0;
-                    // $intCurrentPercentage = Yii::$app->formatter->asPercent((($intActualUtilization + $this->intCurrentBandwidth) / $intTotalUtilization));
+
+                    // $strModuleName = 'CCSM';
+                    // $intCurrentPercentage = Yii::$app->formatter->asPercent((($intActualUtilization + $strAffixUtilization) / $intTotalUtilization));
                     // $intCurrentPercentage = str_replace('%', '', $intCurrentPercentage);
-                    // $bolGetThresholdCheckData = ThresholdSettings::boolCheckThresholdPercentage($this->moduleType, $intCurrentPercentage);
+                    // $bolGetThresholdCheckData = ThresholdSettings::boolCheckThresholdPercentage($strModuleName, $intCurrentPercentage);
 
                     // $strCurrentStatus = 'rejected';
                     // if ($bolGetThresholdCheckData['status'] == 'success') {
                     //     $strCurrentStatus = 'selected';
                     //     $strSuccessCounter++;
                     // }
-                    // $arrPathDetails[$strPayloadKey]['status']           =  $strCurrentStatus;
-                    // $arrPathDetails[$strPayloadKey]['reason']           =  $bolGetThresholdCheckData['message'];
-                    // $arrPathDetails[$strPayloadKey]['segment_id']       =  $strPayloadValue['seg_id'];
-                    // $arrPathDetails[$strPayloadKey]['actual_time']      =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['actual_time'];
-                    // $arrPathDetails[$strPayloadKey]['actual_bw']        =  $intActualUtilization;
+                    // $arrPathDetails[$strPayloadKey]['status']       =  $strCurrentStatus;
+                    // $arrPathDetails[$strPayloadKey]['reason']       =  $bolGetThresholdCheckData['message'];
+                    // $arrPathDetails[$strPayloadKey]['segment_id']   =  $strPayloadValue['seg_id'];
+                    // $arrPathDetails[$strPayloadKey]['actual_time']  =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['actual_time'];
+                    // $arrPathDetails[$strPayloadKey]['actual_bw']    =  $intActualUtilization;
                     // $arrPathDetails[$strPayloadKey]['actual_capacity']  =  $intTotalUtilization;
                     // $arrPathDetails[$strPayloadKey]['peak_time']        =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['peak_time'];
                     // $arrPathDetails[$strPayloadKey]['peak_bw']          =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['peak_bw'];
                     // $arrPathDetails[$strPayloadKey]['peak_capacity']    =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['peak_capacity'];
                     // $arrPathDetails[$strPayloadKey]['avg_bw']           =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['avg_bw'];
                     // $arrPathDetails[$strPayloadKey]['percentile95_bw']  =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['percentile95_bw'];
-                    // $arrPathDetails[$strPayloadKey]['segment_mapping']  =  isset($strPayloadValue['segement_mapping']) ? $strPayloadValue['segement_mapping'] : '';
-                    // $arrPathDetails[$strPayloadKey]['tag']              =  isset($strPayloadValue['tag']) ? $strPayloadValue['tag'] : '';
+                    // $arrPathDetails[$strPayloadKey]['segment_mapping']  =  $strPayloadValue['segement_mapping'];
+                    // $arrPathDetails[$strPayloadKey]['tag']              =  $strPayloadValue['tag'];
                 }
             }
 
@@ -190,7 +213,6 @@ class OrchestratorServiceController extends BaseController
             $arrBwsOutputLists[$strBwsIndexCounter]['path_detail']  = $arrPathDetails;
             $strBwsIndexCounter++;
         }
-
         $strBwsStatus   = 'Failed';
         $strBwsMsg      = 'Bandwidth Service: criteria failed for provisioning.';
         if ($strBwsStatusCheck > 0) {
@@ -198,9 +220,6 @@ class OrchestratorServiceController extends BaseController
             $strBwsMsg    = 'Bandwidth Service: criteria passed for provisioning.';
         }
 
-        if($this->moduleType == 'BPA'){
-            $arrOutputLists['CircuitID'] = "MWRTN-P2P-62207-ABIS-P-C";    
-        }
         $arrOutputLists['status']           = $strBwsStatus;
         $arrOutputLists['statusMessage']    = $strBwsMsg;
         $arrOutputLists['bws_output']       = $arrBwsOutputLists;
