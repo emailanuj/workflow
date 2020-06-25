@@ -230,7 +230,7 @@ class OrchestratorServiceController extends BaseController
     {
         //echo $this->intCurrentBandwidth; exit;
         //pe($arrBandwidthResponse);
-        foreach ($arrBandwidthResponse as $bandwithKey => $bandwidthValue) {
+        foreach ($arrBandwidthResponse as $bandwidthKey => $bandwidthValue) {
             $strModuleName = 'SRA';
             $intActualUtilization = isset($bandwidthValue['actual_bw']) ? $bandwidthValue['actual_bw'] : 0;
             $intTotalUtilization = isset($bandwidthValue['actual_capacity']) ? $bandwidthValue['actual_capacity'] : 0;
@@ -243,10 +243,10 @@ class OrchestratorServiceController extends BaseController
             if ($bolGetThresholdCheckData['status'] == 'success') {
                 $strCurrentStatus = 'selected';
             }
-            $arrBandwidthResponse[$bandwithKey]['status']       =  $strCurrentStatus;
-            $arrBandwidthResponse[$bandwithKey]['reason']       =  $bolGetThresholdCheckData['message'];
-            $arrBandwidthResponse[$bandwithKey]['actual_bw']    =  $intActualUtilization;
-            $arrBandwidthResponse[$bandwithKey]['actual_capacity']  =  $intTotalUtilization;
+            $arrBandwidthResponse[$bandwidthKey]['status']       =  $strCurrentStatus;
+            $arrBandwidthResponse[$bandwidthKey]['reason']       =  $bolGetThresholdCheckData['message'];
+            $arrBandwidthResponse[$bandwidthKey]['actual_bw']    =  $intActualUtilization;
+            $arrBandwidthResponse[$bandwidthKey]['actual_capacity']  =  $intTotalUtilization;
         }
         return  $arrBandwidthResponse;
     }
