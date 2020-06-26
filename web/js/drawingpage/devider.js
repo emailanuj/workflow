@@ -29,22 +29,31 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
         flowcreator(null, subElement, svg, d3.event.pageX, d3.event.pageY);
     }
 
-    console.log(window.selectedtextid);
-    if (window.selectedtextid != null) {
-        console.log(window.selectedtextid);
+    
+    if (window.selectedtextid != null) {        
         var element = document.getElementById('edittext');
         var textvalue = element.value;
+        textvalue.trim();
         element.value = "";
         element.style.display = "none";
-        if (textvalue != '') {
-            console.log(window.selectedtextx);
-            console.log(window.selectedtexty);
+        if (textvalue != '') {            
             var textToElement = d3.select("#" + selectedtextid);
             var replacedTextId = selectedtextid.replace(/\d+/g, '');
-            if (replacedTextId !== 'task') {
+            if (replacedTextId !== 'task' && replacedTextId !== 'flow') {                              
                 var textGroup = textToElement
                     .append('g')
                     .attr('transform', 'translate(' + window.selectedtextx + ',' + window.selectedtexty + ')')
+                    .attr('id', window.selectedtextid + '_label')
+                    .call(drag);
+            }
+            if (replacedTextId == 'flow') {            
+                var flowElementSelector = $("#"+selectedtextid).parents("g").attr('id');  
+                var flowElementSelectordiv = d3.select("#" + flowElementSelector); 
+                var flowElementselectivex = Number($("#"+selectedtextid).attr('x')) + Number(50);
+                var flowElementselectivey = Number($("#"+selectedtextid).attr('y')) + Number(50);                        
+                var textGroup = flowElementSelectordiv
+                    .insert('g')
+                    .attr('transform', 'translate(' + flowElementselectivex + ',' + flowElementselectivey + ')')
                     .attr('id', window.selectedtextid + '_label')
                     .call(drag);
             }
@@ -52,7 +61,7 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
                 var eventelement = bpmnjson[i]
                 if (eventelement.id === selectedtextid) {
                     console.log(bpmnjson[i]);
-                    bpmnjson[i].name = textvalue;
+                    bpmnjson[i].name = textvalue.trim();
                 }
             }
             // var result = bpmnjson.filter(obj => {
