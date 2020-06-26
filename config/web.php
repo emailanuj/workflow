@@ -10,7 +10,7 @@ $config = [
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
-        // '@mdm/admin' => '@app/extensions/mdmsoft/yii2-admin',
+        '@mdm/admin' => '@app/extensions/mdmsoft/yii2-admin',
     ],
     'timeZone' => 'Asia/Calcutta',
     'modules' => [
