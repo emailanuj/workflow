@@ -59,7 +59,7 @@ class OrchestratorServiceController extends BaseController
                 break;
 
             default:
-                $arrSegmentBestPathLists = $this->apiNotMached("Incompleate information, for which module you need data.");
+                $arrSegmentBestPathLists = $this->apiNotMatched("Incomplete information, for which module you need data.");
                 break;
         }
         return $arrSegmentBestPathLists;
@@ -166,7 +166,7 @@ class OrchestratorServiceController extends BaseController
                     if ($arrPathDetails[$strPayloadKey][$strPayloadValue['seg_id']]['status'] == 'selected') {
                         $strSuccessCounter++;
                     }
-                    // $arrPathDetails[$strPayloadKey][$strPayloadValue['seg_id']]['segment_mapping']  =  $strPayloadValue['segement_mapping'];
+                    // $arrPathDetails[$strPayloadKey][$strPayloadValue['seg_id']]['segment_mapping']  =  $strPayloadValue['segment_mapping'];
                     // $arrPathDetails[$strPayloadKey][$strPayloadValue['seg_id']]['tag']              =  $strPayloadValue['tag'];  
 
                     // $intActualUtilization = isset($arrBandwidthResponse[$strPayloadValue['seg_id']]['actual_bw']) ? $arrBandwidthResponse[$strPayloadValue['seg_id']]['actual_bw'] : 0;
@@ -191,7 +191,7 @@ class OrchestratorServiceController extends BaseController
                     // $arrPathDetails[$strPayloadKey]['peak_capacity']    =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['peak_capacity'];
                     // $arrPathDetails[$strPayloadKey]['avg_bw']           =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['avg_bw'];
                     // $arrPathDetails[$strPayloadKey]['percentile95_bw']  =  $arrBandwidthResponse[$strPayloadValue['seg_id']]['percentile95_bw'];
-                    // $arrPathDetails[$strPayloadKey]['segment_mapping']  =  isset($strPayloadValue['segement_mapping']) ? $strPayloadValue['segement_mapping'] : '';
+                    // $arrPathDetails[$strPayloadKey]['segment_mapping']  =  isset($strPayloadValue['segment_mapping']) ? $strPayloadValue['segment_mapping'] : '';
                     // $arrPathDetails[$strPayloadKey]['tag']              =  isset($strPayloadValue['tag']) ? $strPayloadValue['tag'] : '';
                 }
             }

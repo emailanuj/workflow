@@ -18,13 +18,13 @@ class TopologyServiceComponent
 
     public static function getSegmentLists($arrRequestData)
     {
-        $arrSegmentids = [];
+        $arrSegmentIds = [];
         foreach ($arrRequestData as $strPath => $arrRequestLists) {
             foreach ($arrRequestLists as $strIndex => $arrRequest) {
-                $arrSegmentids[] = $arrRequest['seg_id'];
+                $arrSegmentIds[] = $arrRequest['seg_id'];
             }
-            // $arrSegmentids[] = ArrayHelper::getColumn($arrRequestLists, 'seg_id');            
+            // $arrSegmentIds[] = ArrayHelper::getColumn($arrRequestLists, 'seg_id');            
         }
-        return $arrSegmentids;
+        return $arrSegmentIds;
     }
 }
