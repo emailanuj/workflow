@@ -88,11 +88,12 @@ $(".multicircuit input[name*=BandwidthCircuitServiceModel]").blur(function(){
 	var circuitValue = $("#"+cicuitId).val();
 	if(circuitValue == '') {		
 		$("#"+cicuitId).parent().addClass("has-error");
-		$("#"+cicuitId).children().addClass(".help-block");
+		$("#"+cicuitId).next(".help-block").text("Field Value is required");		
+		$("#"+cicuitId).next(".help-block").css("display","block");
 		return false;
 	} else {
 		$("#"+cicuitId).parent().removeClass("has-error");
-		$("#"+cicuitId).children().removeClass(".help-block");
+		$("#"+cicuitId).next(".help-block").css("display","none");
 	}
 });
 
@@ -102,11 +103,12 @@ $("#searchbpacircuitreport").on('click', function(){
 		var circuitValue = $("#"+cicuitId).val();		
 		if(circuitValue == '') {			
 			$("#"+cicuitId).parent().addClass("has-error");
-			$("#"+cicuitId).children().addClass(".help-block");
+			$("#"+cicuitId).next(".help-block").text("Field Value is required");
+			$("#"+cicuitId).next(".help-block").css("display","block");
 			return false;
 		} else {
 			$("#"+cicuitId).parent().removeClass("has-error");
-			$("#"+cicuitId).children().removeClass(".help-block");
+			$("#"+cicuitId).next(".help-block").css("display","none");
 		}
 	});
 });
