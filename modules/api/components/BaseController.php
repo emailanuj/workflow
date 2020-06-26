@@ -101,7 +101,7 @@ class BaseController extends Controller
         ];
     }
 
-    public function apiNotMached($strMessage = false)
+    public function apiNotMatched($strMessage = false)
     {
         Yii::$app->response->statusCode = 404;
         return [
