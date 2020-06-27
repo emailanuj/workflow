@@ -42,13 +42,13 @@ use fedemotta\datatables\DataTables;
 // ]); 
 
 ?>
-<table id="bpa-circuit-table" class="display" style="width:100%">
+<table id="bpa-circuit-table" class="footable table table-stripped toggle-arrow-tiny" style="width:100%">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Segment Mapping</th>
-                <th>Provisioned Bandwidth</th>
-                <th>Actual Bandwidth</th>
+                <th data-toggle="true">Segment Mapping</th>
+                <th data-hide="all">Provisioned Bandwidth</th>
+                <th data-hide="all">Actual Bandwidth</th>
             </tr>
         </thead>
         <tbody>

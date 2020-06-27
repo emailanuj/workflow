@@ -42,13 +42,13 @@ use fedemotta\datatables\DataTables;
 // ]); 
 
 ?>
-<table id="bpa-table" class="display" style="width:100%">
+<table id="bpa-table" class="footable table table-stripped toggle-arrow-tiny" style="width:100%">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Segment Mapping</th>
-                <th>Provisioned Bandwidth</th>
-                <th>Actual Bandwidth</th>
+                <th data-toggle="true">Segment Mapping</th>
+                <th data-hide="all">Provisioned Bandwidth</th>
+                <th data-hide="all">Actual Bandwidth</th>
             </tr>
         </thead>
         <tbody>
@@ -64,14 +64,14 @@ use fedemotta\datatables\DataTables;
                 echo $row;
             } ?>
         </tbody>
-        <tfoot>
+        <!-- <tfoot>
             <tr>
             <th>Id</th>
                 <th>Segment Mapping</th>
                 <th>Provisioned Bandwidth</th>
                 <th>Actual Bandwidth</th>
             </tr>
-        </tfoot>
+        </tfoot> -->
     </table>
 <script>
 $(document).ready(function(){
