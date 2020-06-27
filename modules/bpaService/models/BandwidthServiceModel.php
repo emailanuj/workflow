@@ -16,6 +16,9 @@ use yii\base\Model;
 class BandwidthServiceModel extends Model
 {
 
+    public $network;
+    public $service;
+    public $tag;
     public $utilization;
     public $duration;
     public $hour_duration;
@@ -31,7 +34,7 @@ class BandwidthServiceModel extends Model
     public function rules()
     {
         return [
-            [['utilization', 'duration', 'utilization_type'], 'required'], 
+            [['network','service','tag','utilization', 'duration', 'utilization_type'], 'required'], 
             [['a_end_host', 'z_end_host'], 'each', 'rule' => ['required']],           
             [['hour_duration'], 'required','on'=>'hour'],
             [['day_duration'], 'required','on'=>'day']
@@ -49,6 +52,9 @@ class BandwidthServiceModel extends Model
     public function attributeLabels()
     {
         return [
+            'network'   => 'Select Network',
+            'service'   => 'Select Service',
+            'tag'       => 'Select Tag',
             'utilization' => 'Select Utilization',
             'duration' => 'Select Duration',
             'hour_duration' => 'Select Hour',

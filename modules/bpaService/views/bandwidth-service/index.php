@@ -28,6 +28,15 @@ $this->registerJsFile('@web/js/bpa-service.js', ['depends' => [\yii\web\JqueryAs
 <div class="form-group circuitgroup">
 <div class="row">
     <div class="col-md-3">
+        <?= $form->field($bandwidthServiceModel, 'network')->dropDownList($networks, ['prompt' => 'Please Select']) ?>
+    </div>
+    <div class="col-md-3">
+        <?= $form->field($bandwidthServiceModel, 'service')->dropDownList($services, ['prompt' => 'Please Select']) ?>
+    </div>
+    <div class="col-md-3">
+        <?= $form->field($bandwidthServiceModel, 'tag')->dropDownList($tags, ['prompt' => 'Please Select']) ?>
+    </div>
+    <div class="col-md-3">
         <?= $form->field($bandwidthServiceModel, 'utilization')->dropDownList($utilization, ['prompt' => 'Please Select']) ?>
     </div>
     <div class="col-md-3">

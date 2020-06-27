@@ -7,6 +7,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\modules\bpaService\models\BandwidthServiceModel;
+use app\modules\threshold\models\MyThresholdSettings;
+use app\modules\threshold\models\ThresholdSettings;
 
 /**
  * BandwidthServiceController implements the CRUD actions for BandwidthService model.
@@ -57,6 +59,9 @@ class BandwidthServiceController extends Controller
 
         return $this->render('index', [
             'bandwidthServiceModel' => $objBandwidthServiceModel,
+            'networks' => ThresholdSettings::networkList(),
+            'services' => ThresholdSettings::serviceList(),
+            'tags' => ThresholdSettings::tags(),
             'utilization' => BandwidthServiceModel::getUtilization(),
             'duration' => BandwidthServiceModel::getDuration(),
             'hour_duration'    => BandwidthServiceModel::getHours(),
