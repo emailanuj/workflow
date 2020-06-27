@@ -59,6 +59,8 @@ class BandwidthServiceController extends Controller
             'bandwidthServiceModel' => $objBandwidthServiceModel,
             'utilization' => BandwidthServiceModel::getUtilization(),
             'duration' => BandwidthServiceModel::getDuration(),
+            'hour_duration'    => BandwidthServiceModel::getHours(),
+            'day_duration'    => BandwidthServiceModel::getDays(),
             'utilizationType' => BandwidthServiceModel::getUtilizationType()
         ]);
     }

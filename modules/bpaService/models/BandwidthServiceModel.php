@@ -18,11 +18,11 @@ class BandwidthServiceModel extends Model
 
     public $utilization;
     public $duration;
+    public $hour_duration;
+    public $day_duration;
     public $utilization_type;
-    public $a_end_host;
-    public $a_end_ip;
-    public $z_end_host;
-    public $z_end_ip;
+    public $a_end_host = [];
+    public $z_end_host = [];
 
 
     /**
@@ -31,9 +31,16 @@ class BandwidthServiceModel extends Model
     public function rules()
     {
         return [
-            [['utilization', 'duration', 'utilization_type', 'a_end_host', 'a_end_ip', 'z_end_host', 'z_end_ip'], 'required'],
-
+            [['utilization', 'duration', 'utilization_type'], 'required'], 
+            [['a_end_host', 'z_end_host'], 'each', 'rule' => ['required']],           
+            [['hour_duration'], 'required','on'=>'hour'],
+            [['day_duration'], 'required','on'=>'day']
         ];
+    }
+
+    public function scenarios() {
+        $scenarios = parent::scenarios();
+        return $scenarios;
     }
 
     /**
@@ -44,11 +51,11 @@ class BandwidthServiceModel extends Model
         return [
             'utilization' => 'Select Utilization',
             'duration' => 'Select Duration',
+            'hour_duration' => 'Select Hour',
+            'day_duration'  => 'Select Day',
             'utilization_type' => 'Type Of Utilization',
-            'a_end_host' => 'Aend Hostname',
-            'a_end_ip' => 'Aend IP',
-            'z_end_host' => 'Zend Hostname',
-            'z_end_ip' => 'Zend IP'
+            'a_end_host' => 'A End Hostname',
+            'z_end_host' => 'Z End Hostname',
         ];
     }
 
@@ -59,7 +66,19 @@ class BandwidthServiceModel extends Model
 
     public static function getDuration()
     {
-        return ["1h" => "1 HR", "1d" => "1 Day", "7d" => "7 Days"];
+        return ["hour" => "hour", "day" => "day"];
+    }
+
+    public static function getHours()
+    {
+        $hours = range(1,24);
+        return $hours;
+    }
+
+    public static function getDays()
+    {
+        $days = range(1,30);
+        return $days;
     }
 
     public static function getUtilizationType()

@@ -24,22 +24,16 @@ $this->registerJsFile('@web/js/bpa-service.js', ['depends' => [\yii\web\JqueryAs
         'enableClientValidation' => false,
     ]);
     ?>
-    <div class="form-group row circuitgroup">
+    <div class="form-group circuitgroup">
         <div class="row multicircuit" id="multicircuit0">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <?= $form->field($bandwidthCircuitServiceModel, 'a_end_host[]')->textInput([]) ?>
-            </div>
-            <div class="col-md-2">
-                <?= $form->field($bandwidthCircuitServiceModel, 'a_end_ip[]')->textInput([]) ?>
-            </div>
-            <div class="col-md-3">
+            </div>            
+            <div class="col-md-4">
                 <?= $form->field($bandwidthCircuitServiceModel, 'z_end_host[]')->textInput([]) ?>
-            </div>
-            <div class="col-md-2">
-                <?= $form->field($bandwidthCircuitServiceModel, 'z_end_ip[]')->textInput([]) ?>
-            </div> 
-            <div class="col-md-1" style="margin-top:30px!important;"><a class="addfields" style="margin-top:10px;cursor:pointer;"><i class="fa fa-plus-circle"></i></a></div>           
-            <div class="col-md-1" style="margin-top:30px!important;"><a class="rmfields" style="margin-top:10px;cursor:pointer;"><i class="fa fa-minus-circle"></i></a></div>           
+            </div>            
+            <div class="col-md-2" style="margin-top:30px!important;"><a class="addfields" style="margin-top:10px;cursor:pointer;"><i class="fa fa-plus-circle"></i></a></div>           
+            <div class="col-md-2" style="margin-top:30px!important;"><a class="rmfields" style="margin-top:10px;cursor:pointer;"><i class="fa fa-minus-circle"></i></a></div>           
         </div>                
     </div>
     

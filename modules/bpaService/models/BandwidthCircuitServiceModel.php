@@ -18,9 +18,7 @@ class BandwidthCircuitServiceModel extends Model
 {
     
     public $a_end_host = [];
-    public $a_end_ip = [];
-    public $z_end_host = [];
-    public $z_end_ip = [];
+    public $z_end_host = [];    
 
 
     /**
@@ -29,7 +27,7 @@ class BandwidthCircuitServiceModel extends Model
     public function rules()
     {
         return [
-            [['a_end_host', 'a_end_ip', 'z_end_host', 'z_end_ip'], 'each', 'rule' => ['required']],
+            [['a_end_host', 'z_end_host'], 'each', 'rule' => ['required']],
 
         ];
     }
@@ -40,10 +38,8 @@ class BandwidthCircuitServiceModel extends Model
     public function attributeLabels()
     {
         return [            
-            'a_end_host' => 'Aend Hostname',
-            'a_end_ip' => 'Aend IP',
-            'z_end_host' => 'Zend Hostname',
-            'z_end_ip' => 'Zend IP'
+            'a_end_host' => 'A End Hostname',            
+            'z_end_host' => 'Z End Hostname',            
         ];
     }
 

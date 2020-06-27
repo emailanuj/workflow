@@ -25,34 +25,38 @@ $this->registerJsFile('@web/js/bpa-service.js', ['depends' => [\yii\web\JqueryAs
     ]);
     ?>
 
-<div class="form-group row">
-<div class="col-md-2">
+<div class="form-group circuitgroup">
+<div class="row">
+    <div class="col-md-3">
         <?= $form->field($bandwidthServiceModel, 'utilization')->dropDownList($utilization, ['prompt' => 'Please Select']) ?>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
         <?= $form->field($bandwidthServiceModel, 'duration')->dropDownList($duration, ['prompt' => 'Please Select']) ?>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3 hourSelector" style="display:none">
+        <?= $form->field($bandwidthServiceModel, 'hour_duration')->dropDownList($hour_duration, ['prompt' => 'Please Select']) ?>
+    </div>
+    <div class="col-md-3 daySelector" style="display:none">
+        <?= $form->field($bandwidthServiceModel, 'day_duration')->dropDownList($day_duration, ['prompt' => 'Please Select']) ?>
+    </div>
+    <div class="col-md-3">
         <?= $form->field($bandwidthServiceModel, 'utilization_type')->dropDownList($utilizationType, ['prompt' => 'Please Select']) ?>
     </div>
-    <div class="col-md-2">
-        <?= $form->field($bandwidthServiceModel, 'a_end_host')->textInput([]) ?>
     </div>
-    <div class="col-md-2">
-        <?= $form->field($bandwidthServiceModel, 'a_end_ip')->textInput([]) ?>
+    <div class="row multicircuit" id="multicircuit0">
+    <div class="col-md-3">
+        <?= $form->field($bandwidthServiceModel, 'a_end_host[]')->textInput([]) ?>
     </div>
-    <div class="col-md-2">
-        <?= $form->field($bandwidthServiceModel, 'z_end_host')->textInput([]) ?>
+    <div class="col-md-3">
+        <?= $form->field($bandwidthServiceModel, 'z_end_host[]')->textInput([]) ?>
     </div>
-    <div class="col-md-2">
-        <?= $form->field($bandwidthServiceModel, 'z_end_ip')->textInput([]) ?>
-    </div>
-    <div class="col-md-2">
-
+        <div class="col-md-1" style="margin-top:30px!important;"><a class="addfields" style="margin-top:10px;cursor:pointer;"><i class="fa fa-plus-circle"></i></a></div>           
+        <div class="col-md-1" style="margin-top:30px!important;"><a class="rmfields" style="margin-top:10px;cursor:pointer;"><i class="fa fa-minus-circle"></i></a></div>           
+    </div>    
+</div>
+    <div class="col-md-12" style="float:right;">
         <?= Html::Button('Search', ['class' => 'btn btn-primary', 'id' => 'searchbpareport']); ?>
     </div>
-</div>
-    
 
     <?php ActiveForm::end(); ?>
 
