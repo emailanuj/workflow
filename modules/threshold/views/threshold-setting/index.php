@@ -14,6 +14,7 @@ $arrGridColumn = [
 
     // 'id',
     'threshold_name',
+    'network_type',
     'threshold_condition',
     'value',
     // 'is_deleted',
