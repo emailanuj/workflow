@@ -42,12 +42,9 @@ $this->registerJsFile('@web/js/bpa-service.js', ['depends' => [\yii\web\JqueryAs
     <div class="col-md-3">
         <?= $form->field($bandwidthServiceModel, 'duration')->dropDownList($duration, ['prompt' => 'Please Select']) ?>
     </div>
-    <div class="col-md-3 hourSelector" style="display:none">
-        <?= $form->field($bandwidthServiceModel, 'hour_duration')->dropDownList($hour_duration, ['prompt' => 'Please Select']) ?>
-    </div>
-    <div class="col-md-3 daySelector" style="display:none">
-        <?= $form->field($bandwidthServiceModel, 'day_duration')->dropDownList($day_duration, ['prompt' => 'Please Select']) ?>
-    </div>
+    <div class="col-md-3 durationfilterselector" style="display:none">
+        <?= $form->field($bandwidthServiceModel, 'duration_filter')->dropDownList(['prompt' => 'Please Select']) ?>
+    </div>    
     <div class="col-md-3">
         <?= $form->field($bandwidthServiceModel, 'utilization_type')->dropDownList($utilizationType, ['prompt' => 'Please Select']) ?>
     </div>

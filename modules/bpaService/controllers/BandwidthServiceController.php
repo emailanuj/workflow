@@ -63,9 +63,7 @@ class BandwidthServiceController extends Controller
             'services' => ThresholdSettings::serviceList(),
             'tags' => ThresholdSettings::tags(),
             'utilization' => BandwidthServiceModel::getUtilization(),
-            'duration' => BandwidthServiceModel::getDuration(),
-            'hour_duration'    => BandwidthServiceModel::getHours(),
-            'day_duration'    => BandwidthServiceModel::getDays(),
+            'duration' =>   BandwidthServiceModel::getDuration(),            
             'utilizationType' => BandwidthServiceModel::getUtilizationType()
         ]);
     }

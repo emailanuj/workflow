@@ -21,8 +21,7 @@ class BandwidthServiceModel extends Model
     public $tag;
     public $utilization;
     public $duration;
-    public $hour_duration;
-    public $day_duration;
+    public $duration_filter;    
     public $utilization_type;
     public $a_end_host = [];
     public $z_end_host = [];
@@ -34,17 +33,11 @@ class BandwidthServiceModel extends Model
     public function rules()
     {
         return [
-            [['network','service','tag','utilization', 'duration', 'utilization_type'], 'required'], 
-            [['a_end_host', 'z_end_host'], 'each', 'rule' => ['required']],           
-            [['hour_duration'], 'required','on'=>'hour'],
-            [['day_duration'], 'required','on'=>'day']
+            [['network','service','tag','utilization', 'duration', 'duration_filter', 'utilization_type'], 'required'], 
+            [['a_end_host', 'z_end_host'], 'each', 'rule' => ['required']]            
         ];
     }
 
-    public function scenarios() {
-        $scenarios = parent::scenarios();
-        return $scenarios;
-    }
 
     /**
      * {@inheritdoc}
@@ -57,8 +50,7 @@ class BandwidthServiceModel extends Model
             'tag'       => 'Select Tag',
             'utilization' => 'Select Utilization',
             'duration' => 'Select Duration',
-            'hour_duration' => 'Select Hour',
-            'day_duration'  => 'Select Day',
+            'duration_filter'  => 'Select',
             'utilization_type' => 'Type Of Utilization',
             'a_end_host' => 'A End Hostname',
             'z_end_host' => 'Z End Hostname',
@@ -75,17 +67,17 @@ class BandwidthServiceModel extends Model
         return ["hour" => "hour", "day" => "day"];
     }
 
-    public static function getHours()
-    {
-        $hours = range(1,24);
-        return $hours;
-    }
+    // public static function getHours()
+    // {
+    //     $hours = range(1,24);
+    //     return $hours;
+    // }
 
-    public static function getDays()
-    {
-        $days = range(1,30);
-        return $days;
-    }
+    // public static function getDays()
+    // {
+    //     $days = range(1,30);
+    //     return $days;
+    // }
 
     public static function getUtilizationType()
     {

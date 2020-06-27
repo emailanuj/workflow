@@ -105,19 +105,33 @@ $("#searchbpacircuitreport").on('click', function(){
 	});
 });
 
-$(".hourSelector").css('display','none');
-$(".daySelector").css('display','none');
+function range(start, end) {
+    if(start === end) return [start];
+    return [start, ...range(start + 1, end)];
+}
+
+$(".durationfilterselector").css('display','none');
 $("#bandwidthservicemodel-duration").on('change',function(){
 	var duration = $(this).val();
 	if(duration == 'hour') {
-		$(".hourSelector").css('display','block');
-		$(".daySelector").css('display','none');
+		$(".durationfilterselector").css('display','block');
+		var hours = range(1,24);
+		hourHtml = '';
+		$.each(hours, function(key,val){
+			hourHtml += '<option value='+key+'>'+val+'</option>';
+		});		
+		$("#bandwidthservicemodel-duration_filter").append(hourHtml);	
 	} else if(duration == 'day'){
-		$(".daySelector").css('display','block');
-		$(".hourSelector").css('display','none');
+		var days = range(1,31);
+		dayHtml = '';
+		$.each(days, function(key,val){
+			dayHtml += '<option value='+key+'>'+val+'</option>';
+		});
+		$(".durationfilterselector").css('display','block');	
+		$("#bandwidthservicemodel-duration_filter").append(dayHtml);	
 	} else {
-		$(".hourSelector").css('display','none');
-		$(".daySelector").css('display','none');
+		$(".durationfilterselector").css('display','none');	
+		$("#bandwidthservicemodel-duration_filter").append('');	
 	}
 });
 
