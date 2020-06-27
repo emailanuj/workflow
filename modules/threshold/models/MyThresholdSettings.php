@@ -18,6 +18,7 @@ class MyThresholdSettings extends ThresholdSettings
     {
         $staticKpiList = ThresholdSettings::ThresholdList();
         $dbKpiList = self::getThresholdList();
+        unset($dbKpiList['BPA']);
 
         $result = array_diff($staticKpiList, $dbKpiList);
         $final_result = array_combine($result, $result);

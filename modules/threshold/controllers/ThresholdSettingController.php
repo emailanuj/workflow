@@ -66,17 +66,20 @@ class ThresholdSettingController extends Controller
      */
     public function actionCreate()
     {
-        $kpiList = MyThresholdSettings::getThresholdDropDown();
-        $thresholdCondition = ThresholdSettings::thresholdConditions();
-        $status = ThresholdSettings::thresholdStatus();
+        $kpiList                = MyThresholdSettings::getThresholdDropDown();
+        $thresholdNetworks      = ThresholdSettings::networkList();
+        $thresholdServices       = ThresholdSettings::serviceList();
+        $thresholdTags          = ThresholdSettings::tags();
+        $thresholdUtilizations  = ThresholdSettings::utilizationList();
+        $thresholdCondition     = ThresholdSettings::thresholdConditions();
+        $status                 = ThresholdSettings::thresholdStatus();
 
         $model = new ThresholdSettings();
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect('index');
         } else {
             return $this->render('create', [
-                'model' => $model, 'kpiList' => $kpiList, 'thresholdCondition' => $thresholdCondition, 'status' => $status
+                'model' => $model, 'kpiList' => $kpiList, 'thresholdNetworks' => $thresholdNetworks,'thresholdServices' => $thresholdServices,'thresholdTags' => $thresholdTags,'thresholdUtilizations' => $thresholdUtilizations, 'thresholdCondition' => $thresholdCondition, 'status' => $status
             ]);
         }
     }

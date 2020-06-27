@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php
 
-$this->registerJsFile('@web/js/modules/thresholdSetting/thresholdSetting.js',['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/thresholdsetting.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
 <div class="threshold-settings-create">
@@ -27,7 +27,7 @@ $this->registerJsFile('@web/js/modules/thresholdSetting/thresholdSetting.js',['d
 			<div class="card">
 				<div class="card-body">
 					<?= $this->render('_form', [
-						'model' => $model, 'kpiList' => $kpiList, 'thresholdCondition' => $thresholdCondition, 'status' => $status
+						'model' => $model, 'kpiList' => $kpiList, 'thresholdNetworks' => $thresholdNetworks,'thresholdServices' => $thresholdServices,'thresholdTags' => $thresholdTags,'thresholdUtilizations' => $thresholdUtilizations, 'thresholdCondition' => $thresholdCondition, 'status' => $status
 					]) ?>
 				</div>
 			</div>

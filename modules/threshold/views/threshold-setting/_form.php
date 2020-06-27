@@ -15,8 +15,13 @@ use yii\widgets\ActiveForm;
 ]); ?>
     
         <?php if($model->isNewRecord){ ?>
-            <?= $form->field($model, 'threshold_name')->dropDownList($kpiList, ['prompt'=>'Select KPI']); ?>
-
+            <?= $form->field($model, 'threshold_name')->dropDownList($kpiList, ['prompt'=>'Select KPI', 'id' => 'kpiname']); ?>
+            <div class="bpafields" style="display:none;">
+                <?= $form->field($model, 'network_type')->dropDownList($thresholdNetworks, ['prompt'=>'Select  Network']); ?>
+                <?= $form->field($model, 'service_type')->dropDownList($thresholdServices, ['prompt'=>'Select  Service']); ?>
+                <?= $form->field($model, 'tag')->dropDownList($thresholdTags, ['prompt'=>'Select  Tag']); ?>
+                <?= $form->field($model, 'utilization_type')->dropDownList($thresholdUtilizations, ['prompt'=>'Select  Utilization']); ?>
+            </div>
             <?= $form->field($model, 'threshold_condition')->dropDownList($thresholdCondition, ['prompt'=>'Select  Condition']); ?>
 
             <div id="customOption" style="display: none"> 
@@ -42,8 +47,13 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'updated_at')->hiddenInput(['value'=> date('Y-m-d H:i:s')])->label(false); ?>
         <?php } 
         else { ?>
-            <?= $form->field($model, 'threshold_name')->textInput(['maxlength' => true, 'disabled' => true]) ?>
-
+            <?= $form->field($model, 'threshold_name')->textInput(['maxlength' => true, 'disabled' => true, 'id' => 'kpiname']) ?>
+            <div class="bpafields" style="display:none;">
+                <?= $form->field($model, 'network_type')->textInput(['maxlength' => true, 'disabled' => true]) ?>
+                <?= $form->field($model, 'service_type')->textInput(['maxlength' => true, 'disabled' => true]) ?>
+                <?= $form->field($model, 'tag')->textInput(['maxlength' => true, 'disabled' => true]) ?>
+                <?= $form->field($model, 'utilization_type')->textInput(['maxlength' => true, 'disabled' => true]) ?>
+            </div>
             <?= $form->field($model, 'threshold_condition')->dropDownList( $thresholdCondition, ['prompt'=>'Select Condition'] ); ?>
             <?php //$form->field($model, 'condition')->textInput(['maxlength' => true]) ?>
 

@@ -9,6 +9,8 @@ $this->title = 'Update Threshold Settings: ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Threshold Settings', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
+
+$this->registerJsFile('@web/js/thresholdsetting.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 <div class="threshold-settings-update">
 	<div class="row">

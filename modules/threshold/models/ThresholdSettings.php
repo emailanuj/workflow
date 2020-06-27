@@ -12,6 +12,10 @@ use \yii\db\ActiveRecord;
  *
  * @property integer $id
  * @property string $threshold_name
+ * @property string $network_type
+ * @property string $service_type
+ * @property integer $tag
+ * @property string $utilization_type
  * @property string $threshold_condition
  * @property string $value
  * @property integer $is_deleted
@@ -51,12 +55,11 @@ class ThresholdSettings extends ActiveRecord
     public function rules()
     {
         return [
-            // [['threshold_name', 'threshold_condition','value'], 'required'],
-            [['created_by', 'updated_by'], 'integer'],
-            // [['created_at', 'updated_at'], 'safe'],
+            [['created_by', 'updated_by', 'tag'], 'integer'],
             [['threshold_name', 'threshold_condition', 'value'], 'safe'],
-            [['threshold_name', 'threshold_condition'], 'string', 'max' => 200],
+            [['threshold_name', 'network_type', 'service_type', 'utilization_type', 'threshold_condition'], 'string', 'max' => 200],
             [['value'], 'string', 'max' => 250],
+            // [['network_type','service_type','tag','utilization_type'], 'required', 'on' => 'BPA'],
         ];
     }
 
@@ -68,6 +71,10 @@ class ThresholdSettings extends ActiveRecord
         return [
             'id' => 'ID',
             'threshold_name' => 'Threshold Name',
+            'network_type'  => 'Network Type',
+            'service_type'  => 'Service Type',
+            'tag'  => 'Tag',
+            'utilization_type'  => 'Utilization Type',
             'threshold_condition' => 'Condition',
             'value' => 'Value',
             'is_deleted' => 'Is Active',
@@ -84,6 +91,47 @@ class ThresholdSettings extends ActiveRecord
             'CCSM',
             'BPA',
             'SRA',
+        );
+    }
+    
+
+    public static function networkList()
+    {
+        return array(
+            'IPMPLS' => 'IPMPLS',
+            'CEN' => 'CEN',
+            'ISP' =>'ISP',
+        );
+    }
+
+    public static function serviceList()
+    {
+        return array(
+            'L2VPN' => 'L2VPN',
+            'ISP' => 'ISP',
+        );
+    }
+
+    public static function tags()
+    {
+        return array(
+            '1' => 'NNI',
+            '2' => 'Expressway',
+            '3' => 'Backbone',
+            '4' => 'Backbone B2B',
+            '5' => 'Access Links',
+            '6' => 'Access Links B2B',
+            '7' => 'Internet Links IBR to IBR',
+            '8' => 'IBR to IGW',
+        );
+    }
+
+    public static function utilizationList()
+    {
+        return array(
+            'peak' => 'Peak',
+            'average' => 'Average',
+            '95precentile' => '95 Precentile',
         );
     }
 
@@ -114,7 +162,7 @@ class ThresholdSettings extends ActiveRecord
 
     public static function getAllThresholdSetting()
     {
-        $arrLists = self::find()->select(['threshold_name', 'threshold_condition', 'value'])->where(['is_deleted' => 0])->AsArray()->all();
+        $arrLists = self::find()->select(['threshold_name', 'network_type', 'service_type', 'tag', 'utilization_type', 'threshold_condition', 'value'])->where(['is_deleted' => 0])->AsArray()->all();
         $arrSettingData = [];
         foreach ($arrLists as $key => $arrList) {
             $arrSettingData[$arrList['threshold_name']] = $arrList;
