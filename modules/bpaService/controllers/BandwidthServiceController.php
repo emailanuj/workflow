@@ -56,14 +56,15 @@ class BandwidthServiceController extends Controller
             $reportOutputData['html'] = $objBandwidthServiceModel->getErrors();
             return json_encode($reportOutputData);
         }
-
+        $durationFilter = array("0" => "0");
         return $this->render('index', [
             'bandwidthServiceModel' => $objBandwidthServiceModel,
             'networks' => ThresholdSettings::networkList(),
             'services' => ThresholdSettings::serviceList(),
             'tags' => ThresholdSettings::tags(),
             'utilization' => BandwidthServiceModel::getUtilization(),
-            'duration' =>   BandwidthServiceModel::getDuration(),            
+            'duration' =>   BandwidthServiceModel::getDuration(), 
+            'duration_filter' => $durationFilter,           
             'utilizationType' => BandwidthServiceModel::getUtilizationType()
         ]);
     }

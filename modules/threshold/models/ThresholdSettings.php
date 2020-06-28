@@ -55,13 +55,15 @@ class ThresholdSettings extends ActiveRecord
     public function rules()
     {
         return [
-            [['created_by', 'updated_by', 'tag'], 'integer'],
-            [['threshold_name', 'threshold_condition', 'value'], 'safe'],
+            [['created_by', 'updated_by', 'tag'], 'integer'],            
+            [['threshold_name', 'threshold_condition', 'value'], 'required'],
             [['threshold_name', 'network_type', 'service_type', 'utilization_type', 'threshold_condition'], 'string', 'max' => 200],
             [['value'], 'string', 'max' => 250],
-            // [['network_type','service_type','tag','utilization_type'], 'required', 'on' => 'BPA'],
+            [['network_type','service_type','tag','utilization_type'], 'required', 'on' => 'BPA'],
         ];
     }
+
+    
 
     /**
      * @inheritdoc

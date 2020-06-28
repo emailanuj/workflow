@@ -9,6 +9,7 @@ use yii\filters\VerbFilter;
 use yii\web\Controller;
 use app\modules\threshold\models\MyThresholdSettings;
 use app\modules\threshold\models\ThresholdSettings;
+use yii\widgets\ActiveForm;
 
 
 /**
@@ -74,9 +75,24 @@ class ThresholdSettingController extends Controller
         $thresholdCondition     = ThresholdSettings::thresholdConditions();
         $status                 = ThresholdSettings::thresholdStatus();
 
-        $model = new ThresholdSettings();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect('index');
+        $model = new ThresholdSettings();        
+        if(Yii::$app->request->post()) {             
+            if (yii::$app->request->post('ThresholdSettings')['threshold_name'] == 'BPA') {
+                $model->scenario = 'BPA';
+            } 
+            if($model->load(yii::$app->request->post())) {
+                ActiveForm::validate($model);
+                $errors = $model->errors;
+                if(!$errors) {
+                    $model->save();
+                    return $this->redirect('index');
+                } else {
+                    return $this->render('create', [
+                        'error' => $errors,'model' => $model, 'kpiList' => $kpiList, 'thresholdNetworks' => $thresholdNetworks,'thresholdServices' => $thresholdServices,'thresholdTags' => $thresholdTags,'thresholdUtilizations' => $thresholdUtilizations, 'thresholdCondition' => $thresholdCondition, 'status' => $status
+                    ]);
+                }
+            }               
+                        
         } else {
             return $this->render('create', [
                 'model' => $model, 'kpiList' => $kpiList, 'thresholdNetworks' => $thresholdNetworks,'thresholdServices' => $thresholdServices,'thresholdTags' => $thresholdTags,'thresholdUtilizations' => $thresholdUtilizations, 'thresholdCondition' => $thresholdCondition, 'status' => $status
