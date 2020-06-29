@@ -120,16 +120,16 @@ $("#bandwidthservicemodel-duration").on('change',function(){
 			hourHtml += '<option value='+key+'>'+val+'</option>';
 		});		
 		$(".durationfilterselector").css('display','block');
-		$("#bandwidthservicemodel-duration_filter option[value='0']").remove();
+		$("#bandwidthservicemodel-duration_filter option").remove();
 		$("#bandwidthservicemodel-duration_filter").append(hourHtml);	
 	} else if(duration == 'day'){
-		var days = range(1,31);
+		var days = range(1,60);
 		dayHtml = '';
 		$.each(days, function(key,val){
 			dayHtml += '<option value='+key+'>'+val+'</option>';
 		});
 		$(".durationfilterselector").css('display','block');	
-		$("#bandwidthservicemodel-duration_filter option[value='0']").remove();
+		$("#bandwidthservicemodel-duration_filter option").remove();
 		$("#bandwidthservicemodel-duration_filter").append(dayHtml);	
 	} else {
 		$(".durationfilterselector").css('display','none');	
