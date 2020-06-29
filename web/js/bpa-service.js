@@ -115,7 +115,7 @@ $("#bandwidthservicemodel-duration").on('change',function(){
 	var duration = $(this).val();
 	if(duration == 'hour') {		
 		var hours = range(1,24);
-		hourHtml = '';
+		hourHtml = '<option value>Please Select</option>';
 		$.each(hours, function(key,val){
 			hourHtml += '<option value='+key+'>'+val+'</option>';
 		});		
@@ -124,7 +124,7 @@ $("#bandwidthservicemodel-duration").on('change',function(){
 		$("#bandwidthservicemodel-duration_filter").append(hourHtml);	
 	} else if(duration == 'day'){
 		var days = range(1,60);
-		dayHtml = '';
+		dayHtml = '<option value>Please Select</option>';
 		$.each(days, function(key,val){
 			dayHtml += '<option value='+key+'>'+val+'</option>';
 		});
