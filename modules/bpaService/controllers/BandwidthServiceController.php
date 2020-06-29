@@ -42,7 +42,7 @@ class BandwidthServiceController extends Controller
             if ( $objBandwidthServiceModel->load(Yii::$app->request->post()) && $objBandwidthServiceModel->validate() ) {
                 // echo '<pre>'; print_r(Yii::$app->request->post());die;
                 $reportOutputData['status'] = 'success';
-                $json = '[{"id":"1","segment_mapping":"A/B","provisioned_bandwidth":"100MB","actual_bandwidth":"120MB"},{"id":"2","segment_mapping":"B/C","provisioned_bandwidth":"200MB","actual_bandwidth":"220MB"},{"id":"3","segment_mapping":"C/D","provisioned_bandwidth":"300MB","actual_bandwidth":"320MB"},{"id":"4","segment_mapping":"D/E","provisioned_bandwidth":"400MB","actual_bandwidth":"420MB"}]';
+                $json = '[{"id":"1","segment_mapping":"A/B","is_provisioned":"true","actual_bandwidth":"120MB","commision_bandwidth":"100MB"},{"id":"2","segment_mapping":"B/C","is_provisioned":"false","actual_bandwidth":"220MB","commision_bandwidth":"100MB"},{"id":"3","segment_mapping":"C/D","is_provisioned":"true","actual_bandwidth":"320MB","commision_bandwidth":"100MB"},{"id":"4","segment_mapping":"D/E","is_provisioned":"false","actual_bandwidth":"420MB","commision_bandwidth":"100MB"}]';
                 $reportOutputData['html'] = $this->renderPartial(
                     'bpaReports',
                     [

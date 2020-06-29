@@ -47,18 +47,20 @@ use fedemotta\datatables\DataTables;
             <tr>
                 <th>Id</th>
                 <th data-toggle="true">Segment Mapping</th>
-                <th data-hide="all">Provisioned Bandwidth</th>
+                <th data-hide="all">Is Provisioned</th>
                 <th data-hide="all">Actual Bandwidth</th>
+                <th data-hide="all">Commission Bandwidth</th>
             </tr>
         </thead>
         <tbody>
             <?php 
-            if(!empty($bpaReports)) {
+            if(!empty($bpaReports)) {                
                 $row = '';
-                $bpaReports = json_decode($bpaReports,true);               
+                $bpaReports = json_decode($bpaReports,true);   
+                //echo '<pre/>'; print_r($bpaReports); exit;            
                 foreach($bpaReports as $reportKey => $reportValue) {
                 $row  .= '<tr>';
-                $row .= '<td>'.$reportValue['id'].'</td><td>'.$reportValue['segment_mapping'].'</td><td>'.$reportValue['provisioned_bandwidth'].'</td><td>'.$reportValue['actual_bandwidth'].'</td>';
+                $row .= '<td>'.$reportValue['id'].'</td><td>'.$reportValue['segment_mapping'].'</td><td>'.$reportValue['is_provisioned'].'</td><td>'.$reportValue['actual_bandwidth'].'</td><td>'.$reportValue['commision_bandwidth'].'</td>';
                 $row .= '</tr>';
                 } 
                 echo $row;
