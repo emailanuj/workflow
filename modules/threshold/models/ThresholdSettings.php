@@ -110,6 +110,7 @@ class ThresholdSettings extends ActiveRecord
     {
         return array(
             'L2VPN' => 'L2VPN',
+            'L3VPN' => 'L3VPN',
             'ISP' => 'ISP',
         );
     }
@@ -134,6 +135,7 @@ class ThresholdSettings extends ActiveRecord
             'peak' => 'Peak',
             'average' => 'Average',
             '95precentile' => '95 Precentile',
+            'actual'    => 'Actual'
         );
     }
 
