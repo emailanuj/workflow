@@ -21,7 +21,7 @@ $(document).on('click', "#savestartevent", function () {
 			if (jsonData.status == "success") {
 				console.log(jsonData.json_data);
 				sessionStorage.setItem(jsonData.id, jsonData.json_data);
-				sessionStorage.setItem('form_json', diagram_json);
+				sessionStorage.setItem('form_json'+workflowId, diagram_json);
 				$('.workflow_form').empty();
 				alert('Data saved successfully !');
 			} else if (jsonData.status == "error") {
@@ -254,9 +254,9 @@ function completeWorkflow() {
 	diagram_json = JSON.stringify(diagram_json);
 	console.log(diagram_json);
 	$('#form_json_data').val(diagram_json);
-	sessionStorage.setItem('form_json', diagram_json);
+	sessionStorage.setItem('form_json'+w_id, diagram_json);
 	workflow_data = sessionStorage.getItem(w_id);
-	workflow_json = sessionStorage.getItem('form_json');
+	workflow_json = sessionStorage.getItem('form_json'+w_id);
 	workflow_title = $("#workflow_title").val();
 	$('#workflow_json').val(workflow_json);
 	$('#workflow_data').val(workflow_data);
@@ -293,6 +293,6 @@ function clearSessionStorage() {
 function drawGraph(grapOBJ, formObj, workflow_id) {
 	uploadgraphCreator(grapOBJ);
 	sessionStorage.setItem(workflow_id, JSON.stringify(formObj));
-	sessionStorage.setItem('form_json', JSON.stringify(grapOBJ));
+	sessionStorage.setItem('form_json'+workflow_id, JSON.stringify(grapOBJ));
 }
 /** graph draw for create update pages */

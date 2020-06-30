@@ -175,15 +175,15 @@ class WorkflowController extends Controller
             ActiveForm::validate($WorkflowDataModel);
             $errors=$WorkflowDataModel->errors;
             $workflowId=$ajaxFormPostData['workflow_id'];
-            $workflowUniqueId = uniqid($workflowId,$userId);
+            //$workflowUniqueId = uniqid($workflowId,$userId);
             if(!empty($ajaxFormPostData['saved_form_data'])) {
                 $savedFormDataJson = json_decode($ajaxFormPostData['saved_form_data'],true);
                 $finalFormJson = array_merge($savedFormDataJson,$ajaxFormJson);                
-                $uniqueFormJson[$workflowUniqueId] = $finalFormJson;
-                $ajaxFormJsonData=json_encode($uniqueFormJson);
+                //$uniqueFormJson[$workflowUniqueId] = $finalFormJson;
+                $ajaxFormJsonData=json_encode($finalFormJson);
             } else {
-                $uniqueFormJson[$workflowUniqueId] = $ajaxFormJson;
-                $ajaxFormJsonData=json_encode($uniqueFormJson);
+                //$uniqueFormJson[$workflowUniqueId] = $ajaxFormJson;
+                $ajaxFormJsonData=json_encode($ajaxFormJson);
             }
             if(!$errors){                
                     return ['status'=>'success','json_data'=>$ajaxFormJsonData,'id'=>$workflowId];
