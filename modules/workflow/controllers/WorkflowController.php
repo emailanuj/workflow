@@ -11,7 +11,6 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Html;
 use app\modules\workflow\models\WorkflowDataModel;
-use app\modules\workflow\models\WorkflowStartEventModel;
 use app\modules\workflow\models\TblFunctions;
 use app\modules\workflow\models\TblKeywords;
 use yii\widgets\ActiveForm;
@@ -92,22 +91,20 @@ class WorkflowController extends Controller
     {        
         $this->layout = '//workflowLayout';
         $post_data='';
-        $model = new Workflow();        
-        $workflowDataModel = new WorkflowDataModel();
+        $model = new Workflow();
         if(!empty($id)){
             $model = $this->findModel($id);
         }
         $title=$model['workflow_title'];
         return $this->render('create', [
-            'model' => $model,
-            'workflowDataModel' => $workflowDataModel,
+            'model' => $model,            
             'workflow_id'=>$id
         ]);
     }
 
     public function actionGetAjaxForm()
     {
-        $workflowStartEventModel = new WorkflowStartEventModel();
+        $WorkflowDataModel = new WorkflowDataModel();
         if(Yii::$app->request->isAjax && Yii::$app->request->post('form_type') ){            
             $strFormType=Yii::$app->request->post('form_type');
             $element_id=Yii::$app->request->post('element_id');
@@ -117,7 +114,7 @@ class WorkflowController extends Controller
             if( $strFormType == 'MessageStartEvent'){
                 $arrOutputForm['html'] = $this->renderPartial('_customEmailEventForm',
                     [
-                        'workflowStartEventModel' => $workflowStartEventModel,
+                        'WorkflowDataModel' => $WorkflowDataModel,
                         'element_id'=>$element_id,
                         'workflow_id'=>$workflow_id,
                         'element_type'=>$strFormType
@@ -126,7 +123,7 @@ class WorkflowController extends Controller
             } else if( $strFormType == 'datastore'){
                 $arrOutputForm['html'] = $this->renderPartial('_customDataStoreForm',
                     [
-                        'workflowStartEventModel' => $workflowStartEventModel,
+                        'WorkflowDataModel' => $WorkflowDataModel,
                         'element_id'=>$element_id,
                         'workflow_id'=>$workflow_id,
                         'element_type'=>$strFormType
@@ -135,7 +132,7 @@ class WorkflowController extends Controller
             } else if($strFormType == 'flow') {
                 $arrOutputForm['html'] = $this->renderPartial('_customFlowEventForm',
                     [
-                        'workflowStartEventModel' => $workflowStartEventModel,
+                        'WorkflowDataModel' => $WorkflowDataModel,
                         'element_id'=>$element_id,
                         'workflow_id'=>$workflow_id,
                         'element_type'=>$strFormType
@@ -145,7 +142,7 @@ class WorkflowController extends Controller
             else if(!empty($strFormType)){
                 $arrOutputForm['html'] = $this->renderPartial('_customStartEventForm',
                     [
-                        'workflowStartEventModel' => $workflowStartEventModel,
+                        'WorkflowDataModel' => $WorkflowDataModel,
                         'keywordsList' => TblKeywords::getAllKeywordLists(),
                         'functions_exe_list' => TblFunctions::getAllExecutableFunction(),
                         'functions_get_data_list'=>TblFunctions::getAllDataFunction(),
@@ -157,24 +154,24 @@ class WorkflowController extends Controller
             }
             return json_encode($arrOutputForm);
         }
-        if(Yii::$app->request->isAjax && Yii::$app->request->post('WorkflowStartEventModel')) {            
+        if(Yii::$app->request->isAjax && Yii::$app->request->post('WorkflowDataModel')) {            
             $ajaxFormJson=array();
             Yii::$app->response->format = Response::FORMAT_JSON;
             $ajaxFormPostData=Yii::$app->request->post();            
-            $ajaxFormJson[$ajaxFormPostData['element_id']]=$ajaxFormPostData['WorkflowStartEventModel'];            
+            $ajaxFormJson[$ajaxFormPostData['element_id']]=$ajaxFormPostData['WorkflowDataModel'];            
             // Adding Scenario Based on Keywords
             $elementType=$ajaxFormPostData['element_type'];
             if( $elementType == 'MessageStartEvent' || $elementType == 'datastore' || $elementType == 'flow'){
-                $workflowStartEventModel->scenario=$elementType;
+                $WorkflowDataModel->scenario=$elementType;
             } else{
                 $keywords=$ajaxFormJson[$ajaxFormPostData['element_id']]['keywords'];
                 if(!empty($keywords)){
-                    $workflowStartEventModel->scenario=$keywords;
+                    $WorkflowDataModel->scenario=$keywords;
                 }
             }
-            $workflowStartEventModel->load($ajaxFormPostData);
-            ActiveForm::validate($workflowStartEventModel);
-            $errors=$workflowStartEventModel->errors;
+            $WorkflowDataModel->load($ajaxFormPostData);
+            ActiveForm::validate($WorkflowDataModel);
+            $errors=$WorkflowDataModel->errors;
             $workflowId=$ajaxFormPostData['workflow_id'];
             $ajaxFormJsonData=json_encode($ajaxFormJson);
             if(!$errors){                
@@ -301,8 +298,7 @@ class WorkflowController extends Controller
         }
         catch (\Exception $ex){
             $logged_in_user_id='';
-        }
-        $workflowDataModel = new WorkflowDataModel();
+        }        
         $post_data=Yii::$app->request->post(); 
         //echo '<pre/>'; print_r($post_data); exit;       
         if(!empty(Yii::$app->request->post())){            

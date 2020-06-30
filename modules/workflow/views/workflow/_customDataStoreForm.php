@@ -8,7 +8,7 @@ use app\models\TblFunctions;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $workflowStartEventModel app\models\WorkflowStartEventModel */
+/* @var $WorkflowDataModel app\models\WorkflowDataModel */
 /* @var $form yii\widgets\ActiveForm */
 
 
@@ -31,11 +31,11 @@ $form = ActiveForm::begin([
     <div id="proplist">
     <div class="container-fluid">
         <div class="panel-body">
-            <?= $form->field($workflowStartEventModel, 'step_no')->textInput(['autofocus' => true,'placeholder'=>'Step No', 'type' => 'number']) ?>                
-                <?= $form->field($workflowStartEventModel, 'next_process')->textInput(['placeholder'=>'Step No', 'type' => 'number']) ?>
-                <?= $form->field($workflowStartEventModel, 'datastore_name')->textInput(['placeholder'=>'Database']) ?>
-                <?= $form->field($workflowStartEventModel, 'collection_name')->textInput(['placeholder'=>'Collection']) ?>                                
-                <?= $form->field($workflowStartEventModel, 'if_fail')->dropDownList(['stop' => 'Stop','continue'=>'Continue'],['prompt'=>'Please Select']) ?>
+            <?= $form->field($WorkflowDataModel, 'step_no')->textInput(['autofocus' => true,'placeholder'=>'Step No', 'type' => 'number']) ?>                
+                <?= $form->field($WorkflowDataModel, 'next_process')->textInput(['placeholder'=>'Step No', 'type' => 'number']) ?>
+                <?= $form->field($WorkflowDataModel, 'datastore_name')->textInput(['placeholder'=>'Database']) ?>
+                <?= $form->field($WorkflowDataModel, 'collection_name')->textInput(['placeholder'=>'Collection']) ?>                                
+                <?= $form->field($WorkflowDataModel, 'if_fail')->dropDownList(['stop' => 'Stop','continue'=>'Continue'],['prompt'=>'Please Select']) ?>
      			<input type="hidden" name="element_id" value="<?php echo $element_id;?>">
      			<input type="hidden" name="element_type" value="<?php echo $element_type;?>">
      			<input type="hidden" name="workflow_id" value="<?php echo $workflow_id;?>">
