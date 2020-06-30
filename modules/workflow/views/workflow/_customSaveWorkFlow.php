@@ -10,7 +10,11 @@ use yii\helpers\Url;
 <!-- <form id="seModal0" action="" name="seModal0"> -->
 <?php $form = ActiveForm::begin([
     'id' => 'workflow_save',
-    'action'  => 'save-workflow',
+    'options' => [
+        'onsubmit' => 'return false'
+    ],
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => true,
 ]); ?>
 <form id="w0" action="" method="post">
     <section class="content">
@@ -22,7 +26,7 @@ use yii\helpers\Url;
                             <div class="page-title-div">
                                 <span>
                                     <img src="<?= Url::base() . '/images/icons/title-workflow-execution-dark.png' ?>">
-                                    <input type="text" class="input-text" name="workflow_title" placeholder="" value="<?php echo $model['workflow_title']; ?>">
+                                    <input type="text" class="input-text" name="workflow_title" id="workflow_title" placeholder="" value="<?php echo $model['workflow_title']; ?>">
                                     <input type="hidden" name="workflow_json" id="workflow_json" value="">
                                     <input type="hidden" name="workflow_data" id="workflow_data" value="">
                                     <input type="hidden" name="w_id" id="w_id" value="">

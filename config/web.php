@@ -106,13 +106,7 @@ $config = [
             'showScriptName' => false,
             'enablePrettyUrl' => true,
             'rules' => [],
-        ],
-        'mongodb' => [
-            'class' => '\yii\mongodb\Connection',
-            // 'dsn' => 'mongodb://bpnmroot:password@localhost:27017/bpnm',
-            // 'dsn' => 'mongodb://cisco:password@localhost:27017/cisco_workflow',
-            'dsn' => 'mongodb://localhost:27017/cisco_workflow',
-        ],
+        ],        
     ],
 
     'params' => $params,
@@ -130,10 +124,7 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
-        'generators' => [
-            'mongoDbModel' => [
-                'class' => 'yii\mongodb\gii\model\Generator'
-            ]
+        'generators' => [            
         ],
         // uncomment the following to add your IP if you are not connecting from localhost.
         //'allowedIPs' => ['127.0.0.1', '::1'],

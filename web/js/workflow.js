@@ -1,5 +1,4 @@
 $(".se-pre-con").fadeOut("slow");
-
 var elementArray = {};
 var formDBArray = {};
 var currFormArr = {};
@@ -24,11 +23,14 @@ $(document).on('click', "#savestartevent", function () {
 
 	$.ajax({
 		type: "post",
-		url: baseURL + '/workflow/workflow/mongo-create',
+		url: baseURL + '/workflow/workflow/get-ajax-form',
 		data: formdata,
 		dataType: "json",
-		success: function (jsonData) {
+		success: function (jsonData) {			
 			if (jsonData.status == "success") {
+				console.log(jsonData.id);
+				console.log(jsonData.json_data);
+				console.log(diagram_json);
 				localStorage.setItem(jsonData.id, jsonData.json_data);
 				localStorage.setItem('form_json', diagram_json);
 				$('.workflow_form').empty();
@@ -240,20 +242,37 @@ function completeWorkflow() {
 			bpmnjsondb.push(bpmnjson[bj]);
 		}
 	}
-	console.log(bpmnjsondb);
 	var diagram_json = {};
 	diagram_json['bpmn'] = bpmnjsondb;
 	diagram_json = JSON.stringify(diagram_json);
 	console.log(diagram_json);
 	$('#form_json_data').val(diagram_json);
 	localStorage.setItem('form_json', diagram_json);
-
 	workflow_data = localStorage.getItem(w_id);
 	workflow_json = localStorage.getItem('form_json');
+	workflow_title = $("#workflow_title").val();
 	$('#workflow_json').val(workflow_json);
 	$('#workflow_data').val(workflow_data);
-	$('#w_id').val(w_id);
-	clearLocalStorage();
+	$('#w_id').val(w_id);	
+	$.ajax({
+		type: "post",
+		url: baseURL + '/workflow/workflow/save-workflow',
+		data: { 'w_id': w_id, 'workflow_title': workflow_title, 'workflow_json': workflow_json, 'workflow_data': workflow_data },
+		dataType: "json",
+		success: function (jsonData) {
+			clearLocalStorage();			
+			if(jsonData == "success") {
+				window.location = baseURL + '/workflow/workflow/index';
+			}
+		},
+		error: function (xhr, status, errorThrown) {
+			console.log('Error');
+			console.log(errorThrown);
+			console.log(xhr.status);
+			console.log(xhr.responseText);
+		},
+	});
+
 }
 function clearLocalStorage() {
 	localStorage.clear();

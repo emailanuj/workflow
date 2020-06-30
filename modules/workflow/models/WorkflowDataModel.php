@@ -21,17 +21,6 @@ class WorkflowDataModel extends Model
     public $if_fail;
     public $next_process;
 
-    
-    // public $abc;
-    // public $def;
-    // public $ghi;
-
-
-
-    // public $jkl;
-    // public $mnp;
-    // public $pqr;
-
 
     /**
      * {@inheritdoc}
