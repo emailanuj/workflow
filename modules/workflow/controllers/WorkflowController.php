@@ -154,8 +154,10 @@ class WorkflowController extends Controller
             }
             return json_encode($arrOutputForm);
         }
+        
         if(Yii::$app->request->isAjax && Yii::$app->request->post('WorkflowDataModel')) {            
             $ajaxFormJson=array();
+            $userId=Yii::$app->user->identity->id;
             Yii::$app->response->format = Response::FORMAT_JSON;
             $ajaxFormPostData=Yii::$app->request->post();            
             $ajaxFormJson[$ajaxFormPostData['element_id']]=$ajaxFormPostData['WorkflowDataModel'];            
@@ -173,7 +175,16 @@ class WorkflowController extends Controller
             ActiveForm::validate($WorkflowDataModel);
             $errors=$WorkflowDataModel->errors;
             $workflowId=$ajaxFormPostData['workflow_id'];
-            $ajaxFormJsonData=json_encode($ajaxFormJson);
+            $workflowUniqueId = uniqid($workflowId,$userId);
+            if(!empty($ajaxFormPostData['saved_form_data'])) {
+                $savedFormDataJson = json_decode($ajaxFormPostData['saved_form_data'],true);
+                $finalFormJson = array_merge($savedFormDataJson,$ajaxFormJson);                
+                $uniqueFormJson[$workflowUniqueId] = $finalFormJson;
+                $ajaxFormJsonData=json_encode($uniqueFormJson);
+            } else {
+                $uniqueFormJson[$workflowUniqueId] = $ajaxFormJson;
+                $ajaxFormJsonData=json_encode($uniqueFormJson);
+            }
             if(!$errors){                
                     return ['status'=>'success','json_data'=>$ajaxFormJsonData,'id'=>$workflowId];
             } else{

@@ -2,11 +2,14 @@ $(".se-pre-con").fadeOut("slow");
 
 /** save each entity form */
 $(document).on('click', "#savestartevent", function () {
-	var diagram_json = {};
-	diagram_json['bpmn'] = bpmnjson;
-	diagram_json = JSON.stringify(diagram_json);
-	console.log(diagram_json);
+	var diagram_json 		= {};
+	var entityFormSavedData = {};
+	var workflowId 			= $("#workflow_id").val();
+	diagram_json['bpmn'] 	= bpmnjson;
+	diagram_json 			= JSON.stringify(diagram_json);	
+	entityFormSavedData 	= sessionStorage.getItem(workflowId);	
 	$('#form_json_data').val(diagram_json);
+	$('#saved_form_data').val(entityFormSavedData);
 	formdata = $('#seModal0').serializeArray();
 
 	$.ajax({
@@ -16,9 +19,7 @@ $(document).on('click', "#savestartevent", function () {
 		dataType: "json",
 		success: function (jsonData) {			
 			if (jsonData.status == "success") {
-				console.log(jsonData.id);
 				console.log(jsonData.json_data);
-				console.log(diagram_json);
 				sessionStorage.setItem(jsonData.id, jsonData.json_data);
 				sessionStorage.setItem('form_json', diagram_json);
 				$('.workflow_form').empty();
