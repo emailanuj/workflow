@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 /* @var $this yii\web\View */
-/* @var $workflowDataModel app\models\Workflow */
 /* @var $form yii\widgets\ActiveForm */
 ?>
   <?php $form = ActiveForm::begin([

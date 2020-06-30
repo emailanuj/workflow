@@ -1,42 +1,33 @@
 $(".se-pre-con").fadeOut("slow");
 
-var elementArray = {};
-var formDBArray = {};
-var currFormArr = {};
-var fieldsArray = [];
-var diagram_json = {};
-var bpmnjsonnew = [];
+/** save each entity form */
 $(document).on('click', "#savestartevent", function () {
-	for (bj = 0; bj < bpmnjson.length; bj++) {
-		if (bpmnjson[bj].id == 0) {
-			//delete bpmnjson[bj];
-		} else {
-			bpmnjsonnew.push(bpmnjson[bj]);
-		}
-	}
-	console.log(bpmnjsonnew);
-	var diagram_json = {};
-	diagram_json['bpmn'] = bpmnjsonnew;
-	diagram_json = JSON.stringify(diagram_json);
-	console.log(diagram_json);
+	var diagram_json 		= {};
+	var entityFormSavedData = {};
+	var workflowId 			= $("#workflow_id").val();
+	diagram_json['bpmn'] 	= bpmnjson;
+	diagram_json 			= JSON.stringify(diagram_json);	
+	entityFormSavedData 	= sessionStorage.getItem(workflowId);	
 	$('#form_json_data').val(diagram_json);
+	$('#saved_form_data').val(entityFormSavedData);
 	formdata = $('#seModal0').serializeArray();
 
 	$.ajax({
 		type: "post",
-		url: baseURL + '/workflow/workflow/mongo-create',
+		url: baseURL + '/workflow/workflow/get-ajax-form',
 		data: formdata,
 		dataType: "json",
-		success: function (jsonData) {
+		success: function (jsonData) {			
 			if (jsonData.status == "success") {
-				localStorage.setItem(jsonData.id, jsonData.json_data);
-				localStorage.setItem('form_json', diagram_json);
+				console.log(jsonData.json_data);
+				sessionStorage.setItem(jsonData.id, jsonData.json_data);
+				sessionStorage.setItem('form_json'+workflowId, diagram_json);
 				$('.workflow_form').empty();
 				alert('Data saved successfully !');
 			} else if (jsonData.status == "error") {
 				$.each(jsonData.error, function (key, value) {
-					$(".field-workflowstarteventmodel-" + key + " .help-block").addClass('errordiv');
-					$(".field-workflowstarteventmodel-" + key + " .help-block").text(value);
+					$(".field-workflowdatamodel-" + key + " .help-block").addClass('errordiv');
+					$(".field-workflowdatamodel-" + key + " .help-block").text(value);
 				});
 			}
 		},
@@ -49,7 +40,9 @@ $(document).on('click', "#savestartevent", function () {
 		},
 	});
 });
+/** save each entity form */
 
+/** Entity form Controls */
 $(document).on('click', "#SEClose", function () {
 	$('.workflow_form').empty();
 });
@@ -57,11 +50,13 @@ $(document).on('click', "#SEClose", function () {
 $(document).on('click', "#close", function () {
 	$('.workflow_form').empty();
 });
+/** Entity form Controls */
 
+/** workflow first time creation popup */
 $(document).on('click', "#saveWorkflowModal", function () {
 	// 	window.workflowmodal = document.getElementById('workflowmodal');
 	// 	workflowmodal.style.display = "block";
-	clearLocalStorage();
+	clearSessionStorage();
 	$.ajax({
 		url: baseURL + '/workflow/workflow/create-workflow/',
 		type: 'POST',
@@ -74,7 +69,9 @@ $(document).on('click', "#saveWorkflowModal", function () {
 		}
 	});
 });
+/** workflow first time creation popup */
 
+/** workflow first time creation save */
 $(document).on('click', "#save-workflow-data", function () {
 	$.ajax({
 		url: baseURL + '/workflow/workflow/create-workflow/',
@@ -89,7 +86,9 @@ $(document).on('click', "#save-workflow-data", function () {
 		}
 	});
 });
+/** workflow first time creation save */
 
+/** workflow clone model popup*/
 $(document).on('click', "#createWorkflowClone", function () {
 	$.ajax({
 		url: baseURL + '/workflow/workflow/create-workflow-clone/',
@@ -104,7 +103,9 @@ $(document).on('click', "#createWorkflowClone", function () {
 		}
 	});
 });
+/** workflow clone model popup*/
 
+/** workflow clone save */
 $(document).on('click', "#clone-workflow-data", function () {
 	$.ajax({
 		url: baseURL + '/workflow/workflow/create-workflow-clone/',
@@ -119,16 +120,18 @@ $(document).on('click', "#clone-workflow-data", function () {
 		}
 	});
 });
+/** workflow clone save */
 
-
+/** workflow cancel entity form */
 $(document).on('click', "#cancelstartevent", function () {
 	window.workflowmodal = document.getElementById('workflowmodal');
 	workflowmodal.style.display = "none";
 });
+/** workflow cancel entity form */
 
-// For Showing Modal
+/** workflow on each entity setting buton sideopen entity form */
 function showFunction(element_id, form_type) {
-	// clearLocalStorage();
+	//clearSessionStorage();
 	var workflow_id = $('#workflow_id').val();
 	// debugger;
 	$.ajax({
@@ -150,9 +153,12 @@ function showFunction(element_id, form_type) {
 		},
 	});
 }
+/** workflow on each entity setting buton sideopen entity form */
+
+/** workflow data of each entity form from local session*/
 function populateData(blockId, workflow_id) {
-	if (localStorage.getItem(workflow_id)) {
-		var localJSONData = JSON.parse(localStorage.getItem(workflow_id));
+	if (sessionStorage.getItem(workflow_id)) {
+		var localJSONData = JSON.parse(sessionStorage.getItem(workflow_id));
 		var localData = localJSONData[blockId];
 		console.log(localData);
 		if (localData) {
@@ -182,7 +188,7 @@ function populateData(blockId, workflow_id) {
 				$('.api_post_field').css("display", "none");
 			}
 			$.each(localJSONData[blockId], function (key, value) {
-				$('#workflowstarteventmodel-' + key).val(value);
+				$('#workflowdatamodel-' + key).val(value);
 			});
 
 		}
@@ -192,9 +198,10 @@ function populateData(blockId, workflow_id) {
 		}
 	}
 }
+/** workflow data of each entity form from local session*/
 
-// For Showing Hiding Dropdowns
-$(document).on('change', "#workflowstarteventmodel-keywords", function () {
+/** Each entity form Dropdown filters */
+$(document).on('change', "#workflowdatamodel-keywords", function () {
 	selected_value = this.value;
 	if (selected_value == 'API') {
 		$('.api_cls').css("display", "block");
@@ -205,7 +212,7 @@ $(document).on('change', "#workflowstarteventmodel-keywords", function () {
 		$('.ds_cls').css("display", "block");
 	}
 });
-$(document).on('change', "#workflowstarteventmodel-api_method", function () {
+$(document).on('change', "#workflowdatamodel-api_method", function () {
 	selected_value = this.value;
 	if (selected_value == 'post') {
 		$('.api_post_field').css("display", "block");
@@ -213,7 +220,7 @@ $(document).on('change', "#workflowstarteventmodel-api_method", function () {
 		$('.api_post_field').css("display", "none");
 	}
 });
-$(document).on('change', "#workflowstarteventmodel-data_source", function () {
+$(document).on('change', "#workflowdatamodel-data_source", function () {
 	selected_value = this.value;
 	if (selected_value == 'function_name') {
 		$('.func_cls').css("display", "block");
@@ -228,7 +235,9 @@ $(document).on('change', "#workflowstarteventmodel-data_source", function () {
 		$('.formdata_cls').css("display", "none");
 	}
 });
+/** Each entity form Dropdown filters */
 
+/** workflow form final data save */
 function completeWorkflow() {
 	//console.log('workflow complete');
 	w_id = $('#workflow_id').val();
@@ -240,26 +249,50 @@ function completeWorkflow() {
 			bpmnjsondb.push(bpmnjson[bj]);
 		}
 	}
-	console.log(bpmnjsondb);
 	var diagram_json = {};
 	diagram_json['bpmn'] = bpmnjsondb;
 	diagram_json = JSON.stringify(diagram_json);
 	console.log(diagram_json);
 	$('#form_json_data').val(diagram_json);
-	localStorage.setItem('form_json', diagram_json);
-
-	workflow_data = localStorage.getItem(w_id);
-	workflow_json = localStorage.getItem('form_json');
+	sessionStorage.setItem('form_json'+w_id, diagram_json);
+	workflow_data = sessionStorage.getItem(w_id);
+	workflow_json = sessionStorage.getItem('form_json'+w_id);
+	workflow_title = $("#workflow_title").val();
 	$('#workflow_json').val(workflow_json);
 	$('#workflow_data').val(workflow_data);
-	$('#w_id').val(w_id);
-	clearLocalStorage();
+	$('#w_id').val(w_id);	
+	$.ajax({
+		type: "post",
+		url: baseURL + '/workflow/workflow/save-workflow',
+		data: { 'w_id': w_id, 'workflow_title': workflow_title, 'workflow_json': workflow_json, 'workflow_data': workflow_data },
+		dataType: "json",
+		success: function (jsonData) {
+			clearSessionStorage();			
+			if(jsonData == "success") {
+				window.location = baseURL + '/workflow/workflow/index';
+			}
+		},
+		error: function (xhr, status, errorThrown) {
+			console.log('Error');
+			console.log(errorThrown);
+			console.log(xhr.status);
+			console.log(xhr.responseText);
+		},
+	});
+
 }
-function clearLocalStorage() {
-	localStorage.clear();
+/** workflow form final data save */
+
+/** clean up storage */
+function clearSessionStorage() {
+	sessionStorage.clear();
 }
+/** clean up storage */
+
+/** graph draw for create update pages */
 function drawGraph(grapOBJ, formObj, workflow_id) {
 	uploadgraphCreator(grapOBJ);
-	localStorage.setItem(workflow_id, JSON.stringify(formObj));
-	localStorage.setItem('form_json', JSON.stringify(grapOBJ));
+	sessionStorage.setItem(workflow_id, JSON.stringify(formObj));
+	sessionStorage.setItem('form_json'+workflow_id, JSON.stringify(grapOBJ));
 }
+/** graph draw for create update pages */

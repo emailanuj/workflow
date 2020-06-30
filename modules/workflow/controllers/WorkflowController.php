@@ -4,7 +4,6 @@ namespace app\modules\workflow\controllers;
 
 use Yii;
 use app\modules\workflow\models\Workflow;
-use app\modules\workflow\models\MongoWorkFlow;
 use app\modules\workflow\models\WorkflowClone;
 use app\modules\workflow\models\WorkflowSearch;
 use yii\web\Controller;
@@ -12,7 +11,6 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Html;
 use app\modules\workflow\models\WorkflowDataModel;
-use app\modules\workflow\models\WorkflowStartEventModel;
 use app\modules\workflow\models\TblFunctions;
 use app\modules\workflow\models\TblKeywords;
 use yii\widgets\ActiveForm;
@@ -79,8 +77,8 @@ class WorkflowController extends Controller
         }
 
         echo $this->renderAjax('_customWorkflowSaveForm', [
-                                                'workflowModel' => $objWorkflow,
-                                            ]
+            'workflowModel' => $objWorkflow,
+        ]
         );
     }
 
@@ -94,61 +92,29 @@ class WorkflowController extends Controller
         $this->layout = '//workflowLayout';
         $post_data='';
         $model = new Workflow();
-        
-        $workflowDataModel = new WorkflowDataModel();
-        // if(!empty(Yii::$app->request->post())){
-        //     $post_data=Yii::$app->request->post();        
-        //     if ($model->load($post_data) && $model->save()) {
-        //         $post_data=Yii::$app->request->post();
-        //         /* -------------------- For Updating Records in MongoDB ------------------------------*/
-        //         $session_id=Yii::$app->session->Id;
-        //         try{
-        //             $logged_in_user_id=Yii::$app->user->identity->id;
-        //         }
-        //         catch (\Exception $ex){
-        //             $logged_in_user_id='';
-        //         }
-        //         /* ------------------------ End ------------------------------------------------------*/
-        //         return $this->redirect(['create', 'id' => $model->id]);
-        //     }
-        // }
         if(!empty($id)){
             $model = $this->findModel($id);
         }
         $title=$model['workflow_title'];
         return $this->render('create', [
-            'model' => $model,
-            'workflowDataModel' => $workflowDataModel,
+            'model' => $model,            
             'workflow_id'=>$id
         ]);
     }
 
-
-
     public function actionGetAjaxForm()
     {
-        $workflowStartEventModel = new WorkflowStartEventModel();
-        if(Yii::$app->request->isAjax && Yii::$app->request->isPost ){
-            
+        $WorkflowDataModel = new WorkflowDataModel();
+        if(Yii::$app->request->isAjax && Yii::$app->request->post('form_type') ){            
             $strFormType=Yii::$app->request->post('form_type');
             $element_id=Yii::$app->request->post('element_id');
             $workflow_id=Yii::$app->request->post('workflow_id');
             $arrOutputForm = [];
-            $arrOutputForm['status'] = 'success';
-            // if( $strFormType == 'parallel' || $strFormType == 'inclusive' || $strFormType == 'exclusive' || $strFormType=='event'){
-            //     $arrOutputForm['html'] = $this->renderPartial('_customConditionEventForm',
-            //         [
-            //             'workflowStartEventModel' => $workflowStartEventModel,
-            //             'element_id'=>$element_id,
-            //             'workflow_id'=>$workflow_id,
-            //             'element_type'=>$strFormType
-            //         ]
-            //         );
-            // } else 
+            $arrOutputForm['status'] = 'success'; 
             if( $strFormType == 'MessageStartEvent'){
                 $arrOutputForm['html'] = $this->renderPartial('_customEmailEventForm',
                     [
-                        'workflowStartEventModel' => $workflowStartEventModel,
+                        'WorkflowDataModel' => $WorkflowDataModel,
                         'element_id'=>$element_id,
                         'workflow_id'=>$workflow_id,
                         'element_type'=>$strFormType
@@ -157,7 +123,7 @@ class WorkflowController extends Controller
             } else if( $strFormType == 'datastore'){
                 $arrOutputForm['html'] = $this->renderPartial('_customDataStoreForm',
                     [
-                        'workflowStartEventModel' => $workflowStartEventModel,
+                        'WorkflowDataModel' => $WorkflowDataModel,
                         'element_id'=>$element_id,
                         'workflow_id'=>$workflow_id,
                         'element_type'=>$strFormType
@@ -166,29 +132,64 @@ class WorkflowController extends Controller
             } else if($strFormType == 'flow') {
                 $arrOutputForm['html'] = $this->renderPartial('_customFlowEventForm',
                     [
-                        'workflowStartEventModel' => $workflowStartEventModel,
+                        'WorkflowDataModel' => $WorkflowDataModel,
                         'element_id'=>$element_id,
                         'workflow_id'=>$workflow_id,
                         'element_type'=>$strFormType
                     ]
                     );
-            }
-            
+            }            
             else if(!empty($strFormType)){
                 $arrOutputForm['html'] = $this->renderPartial('_customStartEventForm',
-                                                [
-                                                    'workflowStartEventModel' => $workflowStartEventModel,
-                                                    'keywordsList' => TblKeywords::getAllKeywordLists(),
-                                                    'functions_exe_list' => TblFunctions::getAllExecutableFunction(),
-                                                    'functions_get_data_list'=>TblFunctions::getAllDataFunction(),
-                                                    'element_id'=>$element_id,
-                                                    'workflow_id'=>$workflow_id,
-                                                    'element_type'=>$strFormType
-                                                ]
-                                            );
+                    [
+                        'WorkflowDataModel' => $WorkflowDataModel,
+                        'keywordsList' => TblKeywords::getAllKeywordLists(),
+                        'functions_exe_list' => TblFunctions::getAllExecutableFunction(),
+                        'functions_get_data_list'=>TblFunctions::getAllDataFunction(),
+                        'element_id'=>$element_id,
+                        'workflow_id'=>$workflow_id,
+                        'element_type'=>$strFormType
+                    ]
+                );
             }
-
             return json_encode($arrOutputForm);
+        }
+        
+        if(Yii::$app->request->isAjax && Yii::$app->request->post('WorkflowDataModel')) {            
+            $ajaxFormJson=array();
+            $userId=Yii::$app->user->identity->id;
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            $ajaxFormPostData=Yii::$app->request->post();            
+            $ajaxFormJson[$ajaxFormPostData['element_id']]=$ajaxFormPostData['WorkflowDataModel'];            
+            // Adding Scenario Based on Keywords
+            $elementType=$ajaxFormPostData['element_type'];
+            if( $elementType == 'MessageStartEvent' || $elementType == 'datastore' || $elementType == 'flow'){
+                $WorkflowDataModel->scenario=$elementType;
+            } else{
+                $keywords=$ajaxFormJson[$ajaxFormPostData['element_id']]['keywords'];
+                if(!empty($keywords)){
+                    $WorkflowDataModel->scenario=$keywords;
+                }
+            }
+            $WorkflowDataModel->load($ajaxFormPostData);
+            ActiveForm::validate($WorkflowDataModel);
+            $errors=$WorkflowDataModel->errors;
+            $workflowId=$ajaxFormPostData['workflow_id'];
+            //$workflowUniqueId = uniqid($workflowId,$userId);
+            if(!empty($ajaxFormPostData['saved_form_data'])) {
+                $savedFormDataJson = json_decode($ajaxFormPostData['saved_form_data'],true);
+                $finalFormJson = array_merge($savedFormDataJson,$ajaxFormJson);                                
+                //$uniqueFormJson[$workflowUniqueId] = $finalFormJson;
+                $ajaxFormJsonData=json_encode($finalFormJson);
+            } else {
+                //$uniqueFormJson[$workflowUniqueId] = $ajaxFormJson;
+                $ajaxFormJsonData=json_encode($ajaxFormJson);
+            }
+            if(!$errors){                
+                    return ['status'=>'success','json_data'=>$ajaxFormJsonData,'id'=>$workflowId];
+            } else{
+                return ['status'=>'error','error'=>$errors];
+            }
         }
     }
 
@@ -213,17 +214,7 @@ class WorkflowController extends Controller
         }
         //$post_data=Yii::$app->request->post();
         
-        if ($model->load($post_data) && $model->save()) {
-            /* -------------------- For Updating Records in MongoDB ------------------------------*/
-            $session_id=Yii::$app->session->Id;
-            try{
-                $logged_in_user_id=Yii::$app->user->identity->id;
-            }
-            catch (\Exception $ex){
-                $logged_in_user_id='';
-            }
-            $updateStatus=MongoWorkFlow::updateAll(['saved_in_db'=>'1','updated_by'=>$logged_in_user_id,'updated_at'=>time(),'id_in_db'=>$model->id],['session_id'=>$session_id]);
-            /* ------------------------ End ------------------------------------------------------*/
+        if ($model->load($post_data) && $model->save()) {            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -262,62 +253,7 @@ class WorkflowController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-    // For Saving Data in MongoDB
-    public function actionMongoCreate()
-    {
-        $model = new MongoWorkFlow();
-        $session_id=Yii::$app->session->Id;
-        try{
-            $logged_in_user_id=Yii::$app->user->identity->id;
-        }
-        catch (\Exception $ex){
-            $logged_in_user_id='';
-        }
-        if (Yii::$app->request->isAjax) {
-            // Workflow Validation
-            $json_array=array();
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            $post_data=Yii::$app->request->post();            
-            $json_array[$post_data['element_id']]=$post_data['WorkflowStartEventModel'];
-            $workflowStartEventModel = new WorkflowStartEventModel();
-            // Adding Scenario Based on Keywords
-            $element_type=$post_data['element_type'];
-            if( $element_type == 'MessageStartEvent' || $element_type == 'datastore' || $element_type == 'flow'){
-                $workflowStartEventModel->scenario=$element_type;
-            } else{
-                $keywords=$json_array[$post_data['element_id']]['keywords'];
-                if(!empty($keywords)){
-                    $workflowStartEventModel->scenario=$keywords;
-                }
-            }
-            $workflowStartEventModel->load($post_data);
-            ActiveForm::validate($workflowStartEventModel);
-            $errors=$workflowStartEventModel->errors;
-            $workflow_id=$post_data['workflow_id'];
-            $json_data=json_encode($json_array);
-            if(!$errors){
-                $updateModel = MongoWorkFlow::findOne(['workflow_id' => $workflow_id]);
-                $data_arr['MongoWorkflow']=array('workflow_id'=>$workflow_id,'workflow_data'=>$json_data,'workflow_json'=>$post_data['form_json_data'],'created_by'=>$logged_in_user_id,'created_at'=>time(),'updated_by'=>$logged_in_user_id,'updated_at'=>time(),'saved_in_db'=>'0');
-                if(!$updateModel){
-                    if ($model->load($data_arr) && $model->save()) {
-                        return ['status'=>'success','json_data'=>$json_data,'id'=>$workflow_id];
-                    }
-                }
-                else{
-                    // Get Data And Insert New Array and Update
-                    $old_data=$updateModel['workflow_data'];
-                    $old_data=json_decode($old_data,true);
-                    $old_data[$post_data['element_id']]=$post_data['WorkflowStartEventModel'];
-                    //array_push($old_data, $json_array);
-                    $json_data=json_encode($old_data);
-                    $updateStatus=MongoWorkFlow::updateAll(['workflow_data'=>$json_data,'updated_by'=>$logged_in_user_id,'updated_at'=>time(),'workflow_json'=>$post_data['form_json_data'],'saved_in_db'=>'0'],['workflow_id'=>$workflow_id]);
-                    return ['status'=>'success','json_data'=>$json_data,'id'=>$workflow_id];
-                }
-            }else{
-                return ['status'=>'error','error'=>$errors];
-            }
-        }
-    }
+    
 
 
     public function actionCreateWorkflowClone()
@@ -373,15 +309,15 @@ class WorkflowController extends Controller
         }
         catch (\Exception $ex){
             $logged_in_user_id='';
-        }
-        $workflowDataModel = new WorkflowDataModel();
-        $post_data=Yii::$app->request->post();        
-        if(!empty(Yii::$app->request->post())){
-            
-            $post_data=Yii::$app->request->post();
+        }        
+        $post_data=Yii::$app->request->post(); 
+        //echo '<pre/>'; print_r($post_data); exit;       
+        if(!empty(Yii::$app->request->post())){            
+            $post_data=Yii::$app->request->post();            
             $updateStatus=Workflow::updateAll(['workflow_title'=>$post_data['workflow_title'],'workflow_data'=>$post_data['workflow_data'],'workflow_json'=>$post_data['workflow_json'],'updated_by'=>$logged_in_user_id,'updated_at'=>time()],['id'=>$post_data['w_id']]);
             if($updateStatus){
-                return $this->redirect(['index']);
+                $outputMessage = 'success';
+                return json_encode($outputMessage);
             }
         }
     }

@@ -8,7 +8,7 @@ use app\models\TblFunctions;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $workflowStartEventModel app\models\WorkflowStartEventModel */
+/* @var $WorkflowDataModel app\models\WorkflowDataModel */
 /* @var $form yii\widgets\ActiveForm */
 
 
@@ -31,17 +31,18 @@ $form = ActiveForm::begin([
           <div id="proplist">
     	<div class="container-fluid">
             <div class="panel-body">                
-                <?= $form->field($workflowStartEventModel, 'step_no')->textInput(['autofocus' => true,'placeholder'=>'Step No', 'type' => 'number']) ?>                
-                <?= $form->field($workflowStartEventModel, 'next_process')->textInput(['placeholder'=>'Step No', 'type' => 'number']) ?>
-                <?= $form->field($workflowStartEventModel, 'email_from')->textInput(['placeholder'=>'Email Id']) ?>
-                <?= $form->field($workflowStartEventModel, 'email_to')->textInput(['placeholder'=>'Email Id\'s  comma separated']) ?>
-                <?= $form->field($workflowStartEventModel, 'subject')->textInput(['placeholder'=>'Subject']) ?>
-                <?= $form->field($workflowStartEventModel, 'message')->textInput(['placeholder'=>'Message']) ?>                
-                <?= $form->field($workflowStartEventModel, 'if_fail')->dropDownList(['stop' => 'Stop','continue'=>'Continue'],['prompt'=>'Please Select']) ?>
+                <?= $form->field($WorkflowDataModel, 'step_no')->textInput(['autofocus' => true,'placeholder'=>'Step No', 'type' => 'number']) ?>                
+                <?= $form->field($WorkflowDataModel, 'next_process')->textInput(['placeholder'=>'Step No', 'type' => 'number']) ?>
+                <?= $form->field($WorkflowDataModel, 'email_from')->textInput(['placeholder'=>'Email Id']) ?>
+                <?= $form->field($WorkflowDataModel, 'email_to')->textInput(['placeholder'=>'Email Id\'s  comma separated']) ?>
+                <?= $form->field($WorkflowDataModel, 'subject')->textInput(['placeholder'=>'Subject']) ?>
+                <?= $form->field($WorkflowDataModel, 'message')->textInput(['placeholder'=>'Message']) ?>                
+                <?= $form->field($WorkflowDataModel, 'if_fail')->dropDownList(['stop' => 'Stop','continue'=>'Continue'],['prompt'=>'Please Select']) ?>
      			<input type="hidden" name="element_id" value="<?php echo $element_id;?>">
      			<input type="hidden" name="element_type" value="<?php echo $element_type;?>">
      			<input type="hidden" name="workflow_id" value="<?php echo $workflow_id;?>">
-     			<input type="hidden" name="form_json_data" id="form_json_data" value="">                 
+     			<input type="hidden" name="form_json_data" id="form_json_data" value="">   
+                 <input type="hidden" name="saved_form_data" id="saved_form_data" value="">              
                 <div class="form-group">
                   <?= Html::submitButton('Save', ['class' => 'btn btn-primary', 'name' => 'contact-button', 'id' => 'savestartevent' ]) ?>
                     <button id="SEClose" type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
