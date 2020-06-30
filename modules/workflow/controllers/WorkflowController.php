@@ -178,7 +178,7 @@ class WorkflowController extends Controller
             //$workflowUniqueId = uniqid($workflowId,$userId);
             if(!empty($ajaxFormPostData['saved_form_data'])) {
                 $savedFormDataJson = json_decode($ajaxFormPostData['saved_form_data'],true);
-                $finalFormJson = array_merge($savedFormDataJson,$ajaxFormJson);                
+                $finalFormJson = array_merge($savedFormDataJson,$ajaxFormJson);                                
                 //$uniqueFormJson[$workflowUniqueId] = $finalFormJson;
                 $ajaxFormJsonData=json_encode($finalFormJson);
             } else {

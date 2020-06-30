@@ -41,7 +41,8 @@ $form = ActiveForm::begin([
      			<input type="hidden" name="element_id" value="<?php echo $element_id;?>">
      			<input type="hidden" name="element_type" value="<?php echo $element_type;?>">
      			<input type="hidden" name="workflow_id" value="<?php echo $workflow_id;?>">
-     			<input type="hidden" name="form_json_data" id="form_json_data" value="">                 
+     			<input type="hidden" name="form_json_data" id="form_json_data" value="">   
+                 <input type="hidden" name="saved_form_data" id="saved_form_data" value="">              
                 <div class="form-group">
                   <?= Html::submitButton('Save', ['class' => 'btn btn-primary', 'name' => 'contact-button', 'id' => 'savestartevent' ]) ?>
                     <button id="SEClose" type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
