@@ -1,6 +1,28 @@
 <?php
-
+use mdm\admin\components\Helper;
+use mdm\admin\components\MenuHelper;
+use yii\bootstrap\NavBar;
+use yii\bootstrap\Nav;
 use yii\helpers\Url;
+use yii\widgets\Menu;
+
+// pe(MenuHelper::getAssignedMenu(Yii::$app->user->id));
+
+// NavBar::begin([
+//     'brandLabel' => Yii::$app->name,
+//     'brandUrl' => Yii::$app->homeUrl,
+//     'renderInnerContainer'=>false,
+//     // 'screenReaderToggleText'=>'prince',
+//     'options' => [
+//         'class' => 'navbar-default navbar-static-side',
+//         'role' => 'navigation',
+//     ],
+// ]);
+// echo Nav::widget([
+//     'options' => ['class' => 'navbar-nav navbar-right'],
+//     'items' => MenuHelper::getAssignedMenu(Yii::$app->user->id)
+// ]);
+// NavBar::end();
 
 $arrMenuLists = [
     [
@@ -47,8 +69,9 @@ $arrMenuLists = [
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element">
+                <a href="<?= Url::base(true) ?>">
                     <img alt="image" width="60%" src="<?= Url::base() . '/images/cisco-cx-logo.png' ?>" />
-
+                </a>
                 </div>
                 <div class="logo-element">
                     CISCO
