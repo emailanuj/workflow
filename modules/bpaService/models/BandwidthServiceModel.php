@@ -33,7 +33,7 @@ class BandwidthServiceModel extends Model
     public function rules()
     {
         return [
-            [['network','service','tag','utilization', 'duration', 'duration_filter', 'utilization_type'], 'required'], 
+            [['utilization', 'duration', 'duration_filter', 'utilization_type'], 'required'], 
             [['a_end_host', 'z_end_host'], 'each', 'rule' => ['required']]            
         ];
     }
@@ -44,22 +44,19 @@ class BandwidthServiceModel extends Model
      */
     public function attributeLabels()
     {
-        return [
-            'network'   => 'Select Network',
-            'service'   => 'Select Service',
-            'tag'       => 'Select Tag',
+        return [            
             'utilization' => 'Select Utilization',
             'duration' => 'Select Duration',
             'duration_filter'  => 'Select',
             'utilization_type' => 'Type Of Utilization',
-            'a_end_host' => 'A End Hostname',
-            'z_end_host' => 'Z End Hostname',
+            'a_end_host' => 'A End',
+            'z_end_host' => 'Z End',
         ];
     }
 
     public static function getUtilization()
     {
-        return ["peak" => "peak", "average" => "average", "95precentile" => "95 precentile"];
+        return ["peak" => "peak", "average" => "average", "95precentile" => "95 precentile", "current" => "current"];
     }
 
     public static function getDuration()
