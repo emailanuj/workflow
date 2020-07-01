@@ -20,7 +20,8 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",        
         "kartik-v/yii2-export": "@dev",
         "fedemotta/yii2-widget-datatables": "*",
-        "linslin/yii2-curl" : "*"
+        "linslin/yii2-curl" : "*",
+        "wbraganca/yii2-dynamicform": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

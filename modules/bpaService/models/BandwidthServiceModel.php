@@ -5,22 +5,14 @@ namespace app\modules\bpaService\models;
 use Yii;
 use yii\base\Model;
 
-/**
- * This is the model class for table "bpaService".
- *
- * @property int $step_no
- * @property string|null $if_fail
- * @property string|null $a_end_host
- */
-
 class BandwidthServiceModel extends Model
 {
-    public $utilization = [];
-    public $duration = [];
-    public $duration_filter = [];    
-    public $utilization_type = [];
-    public $a_end_host = [];
-    public $z_end_host = [];
+    public $utilization;
+    public $duration;
+    public $duration_filter;    
+    public $utilization_type;
+    public $a_end_host;
+    public $z_end_host;
 
 
     /**
@@ -29,7 +21,7 @@ class BandwidthServiceModel extends Model
     public function rules()
     {
         return [
-            [['utilization', 'duration', 'duration_filter', 'utilization_type','a_end_host', 'z_end_host'], 'each', 'rule' => ['required']]            
+            [['utilization', 'duration', 'duration_filter', 'utilization_type','a_end_host', 'z_end_host'], 'required']            
         ];
     }
 
