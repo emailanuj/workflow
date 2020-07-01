@@ -61,43 +61,40 @@ function range(start, end) {
     return [start, ...range(start + 1, end)];
 }
 
-function getDayHours() {
-	var durationfilterCount = $(".durationfclass").length;
-	console.log(durationfilterCount);
+
+	
+
+$(function(){
+$(".durationfilterselector").css('display','none');
+var durationfilterCount = $(".durationfclass").length;
 	for(var du = 0; du < durationfilterCount; du++) {		
 		$("#bandwidthservicemodel-"+du+"-duration").on('change',function(){			
-			var duration = $(this).val();			
+			var duration = $(this).val();
+			var currentString = $(this).attr('id');	
+			var currentID = currentString.match(/\d+/)[0];				
 			if(duration == 'hour') {		
 				var hours = range(1,24);
 				hourHtml = '<option value>Please Select</option>';
 				$.each(hours, function(key,val){
 					hourHtml += '<option value='+key+'>'+val+'</option>';
-				});	
-				console.log(hourHtml);	
+				});					
 				$(".durationfilterselector").css('display','block');
-				$("#bandwidthservicemodel-"+du+"-duration_filter option").remove();
-				$("#bandwidthservicemodel-"+du+"-duration_filter").append(hourHtml);	
+				$("#bandwidthservicemodel-"+currentID+"-duration_filter option").remove();
+				$("#bandwidthservicemodel-"+currentID+"-duration_filter").append(hourHtml);	
 			} else if(duration == 'day'){
 				var days = range(1,60);
 				dayHtml = '<option value>Please Select</option>';
 				$.each(days, function(key,val){
 					dayHtml += '<option value='+key+'>'+val+'</option>';
-				});
-				console.log(dayHtml);
+				});				
 				$(".durationfilterselector").css('display','block');	
-				$("#bandwidthservicemodel-"+du+"-duration_filter option").remove();
-				$("#bandwidthservicemodel-duration_filter").append(dayHtml);	
+				$("#bandwidthservicemodel-"+currentID+"-duration_filter option").remove();
+				$("#bandwidthservicemodel-"+currentID+"-duration_filter").append(dayHtml);	
 			} else {
 				$(".durationfilterselector").css('display','none');	
-				$("#bandwidthservicemodel-"+du+"-duration_filter").append('');	
+				$("#bandwidthservicemodel-"+currentID+"-duration_filter").append('');	
 			}
 		});
 	}
-	
-}
-
-$(function(){
-$(".durationfilterselector").css('display','none');
-
 
 });
