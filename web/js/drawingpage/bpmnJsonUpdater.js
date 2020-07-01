@@ -1,6 +1,6 @@
 "use strict";
 function EventBPMNJsonCreator(id, x, y, width, height, type, subtype) {
-
+    console.log('Pushing Event Json');
     window.bpmnjson.push({
         "id": id,
         "x": x,
@@ -13,7 +13,7 @@ function EventBPMNJsonCreator(id, x, y, width, height, type, subtype) {
     console.log(bpmnjson);
 }
 function TaskBPMNJsonCreator(id, x, y, width, height, type, subtype) {
-
+    console.log('Pushing Task Json');
     window.bpmnjson.push({
         "id": id,
         "x": x,
@@ -29,6 +29,7 @@ function TaskBPMNJsonCreator(id, x, y, width, height, type, subtype) {
 }
 
 function FlowBPMNJsonCreator(id, type, start_id, end_id, start_x, start_y, end_x, end_y, mid_x, start_type, end_type) {
+    console.log('Pushing Flow Json');
     bpmnjson.push({
         "id": id,
         "type": type,

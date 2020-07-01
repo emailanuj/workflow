@@ -61,7 +61,7 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue) {
     }
 
 
-    console.log('called prince' + idstartelement);
+    // console.log('called prince' + idstartelement);
 
     // return false;
     group.append('circle')
@@ -71,11 +71,11 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue) {
         .style("fill-opacity", "0")
         .attr('r', '20')
         .on("mouseover", function () {
-            console.log('mouse moving');
+            // console.log('mouse moving');
             d3.select(this).style("fill", "aliceblue");
         })
         .on("mouseup", function () {
-            console.log("mouse up");
+            // console.log("mouse up");
             d3.select(this).style("fill", "aliceblue");
             var t = d3.select(this).attr("id");
 
@@ -112,7 +112,7 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue) {
                 for (var i = 0; i < bpmnjson.length; i++) {
                     var element = bpmnjson[i]
                     if (element.id === t) {
-                        console.log(bpmnjson[i]);
+                        // console.log(bpmnjson[i]);
                         selectedId = t;
                         elementType = "StartEvent";
                         elementSubType = element.subtype;
@@ -155,7 +155,7 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue) {
             });
 
             tooltipDiv.select("#arrow-button").on("click", function () {
-                console.log('circle arrow 1');
+                // console.log('circle arrow 1');
                 tooltipDiv.style("opacity", 0);
                 $(".setting-box").css("display", "none");
                 // console.log("end arrow button clicked ")
@@ -180,7 +180,7 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue) {
 
         })
         .on("mouseout", function () {
-            console.log('mouse out');
+            // console.log('mouse out');
             d3.select(this).style("fill", "white");
             tooltipDiv.transition()
                 .duration(3200)
@@ -191,7 +191,7 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue) {
             }, 5000);
         })
         .on("click", function () {
-            console.log('Circle clicked');
+            // console.log('Circle clicked');
             d3.select(this).style("fill", "white");
             var t = d3.select(this).attr("id");
 

@@ -29,28 +29,27 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
         flowcreator(null, subElement, svg, d3.event.offsetX, d3.event.offsetY);
     }
 
-    
-    if (window.selectedtextid != null) {        
+    if (window.selectedtextid != null) {
         var element = document.getElementById('edittext');
         var textvalue = element.value;
         textvalue.trim();
         element.value = "";
         element.style.display = "none";
-        if (textvalue != '') {            
+        if (textvalue != '') {
             var textToElement = d3.select("#" + selectedtextid);
             var replacedTextId = selectedtextid.replace(/\d+/g, '');
-            if (replacedTextId !== 'task' && replacedTextId !== 'flow') {                              
+            if (replacedTextId !== 'task' && replacedTextId !== 'flow') {
                 var textGroup = textToElement
                     .append('g')
                     .attr('transform', 'translate(' + window.selectedtextx + ',' + window.selectedtexty + ')')
                     .attr('id', window.selectedtextid + '_label')
                     .call(drag);
             }
-            if (replacedTextId == 'flow') {            
-                var flowElementSelector = $("#"+selectedtextid).parents("g").attr('id');  
-                var flowElementSelectordiv = d3.select("#" + flowElementSelector); 
-                var flowElementselectivex = Number($("#"+selectedtextid).attr('x')) + Number(50);
-                var flowElementselectivey = Number($("#"+selectedtextid).attr('y')) + Number(50);                        
+            if (replacedTextId == 'flow') {
+                var flowElementSelector = $("#" + selectedtextid).parents("g").attr('id');
+                var flowElementSelectordiv = d3.select("#" + flowElementSelector);
+                var flowElementselectivex = Number($("#" + selectedtextid).attr('x')) + Number(50);
+                var flowElementselectivey = Number($("#" + selectedtextid).attr('y')) + Number(50);
                 var textGroup = flowElementSelectordiv
                     .insert('g')
                     .attr('transform', 'translate(' + flowElementselectivex + ',' + flowElementselectivey + ')')
@@ -60,7 +59,7 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
             for (var i = 0; i < bpmnjson.length; i++) {
                 var eventelement = bpmnjson[i]
                 if (eventelement.id === selectedtextid) {
-                    console.log(bpmnjson[i]);
+                    // console.log(bpmnjson[i]);
                     bpmnjson[i].name = textvalue.trim();
                 }
             }
@@ -77,14 +76,14 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
 
 // function setEventName(selectedtextid, selectedtextx, selectedtexty) {
 //     if (selectedtextid != null) {
-//         console.log(selectedtextid);
+// console.log(selectedtextid);
 //         var element = document.getElementById('edittext');
 //         var textvalue = element.value;
 //         element.value = "";
 //         element.style.display = "none";
 //         if (textvalue != '') {
-//             console.log(selectedtextx);
-//             console.log(selectedtexty);
+// console.log(selectedtextx);
+// console.log(selectedtexty);
 //             var textToElement = d3.select("#"+selectedtextid);
 //             var textGroup = textToElement                
 //                 .append('g')
@@ -99,7 +98,7 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
 
 function deleteElement(id) {
     // console.log("ididid : "+id)
-    console.log(id);
+    // console.log(id);
 
     for (var i = 0; i < bpmnjson.length; i++) {
         var bpmnobject = bpmnjson[i];
@@ -123,12 +122,13 @@ function deleteElement(id) {
 }
 
 function dragMove(me) {
-    // console.log('mouse draging');
+    console.log('mouse draging');
+    // console.log(me);
     d3.select(".setting-box").style("opacity", 0);
     //tooltipDiv.transition().style("opacity", 0);
     // console.log(d3.select(me).attr("id"))
-    var x = d3.event.x
-    var y = d3.event.y
+    var x = d3.event.x;
+    var y = d3.event.y;
 
     d3.select(me).attr('transform', 'translate(' + x + ',' + y + ')')
     for (var i = 0; i < bpmnjson.length; i++) {
@@ -162,15 +162,13 @@ var drag = d3.behavior.drag()
         dragMove(this)
     })
     .on("dragstart", function () {
-        // console.log('DRAG START');
+        console.log('DRAG START');
         var elementid = d3.select(this).attr("id");
-        //  console.log(elementid);
-        //  console.log(bpmnjson);
         for (var i = 0; i < bpmnjson.length; i++) {
             var bpmnobject = bpmnjson[i];
-            // console.log(bpmnobject.start_id +'==>>>'+ bpmnobject.end_id +'==>>>>'+ elementid +'===>>>>'+ bpmnobject.id );
+            console.log('dragFlows Check : ' + bpmnobject.start_id + '==>>>' + bpmnobject.end_id + '==>>>>' + elementid + '===>>>>' + bpmnobject.id);
             if (bpmnobject.start_id === elementid && bpmnobject.id != 0) {
-                console.log("Gone in first condition");
+                console.log("Drag Flow Gone in first condition");
                 dragFlows.push({
                     "id": bpmnobject.id,
                     "start_id": bpmnobject.start_id,
@@ -190,11 +188,11 @@ var drag = d3.behavior.drag()
                 sampleSVG.select("#triangle" + traingleId).remove();
 
                 bpmnobject.id = 0;
-                console.log("---slipse---")
-                console.log(bpmnjson)
+                // console.log("---slipse---")
+                // console.log(bpmnjson)
 
             } else if (bpmnobject.end_id === elementid && bpmnobject.id != 0) {
-                console.log("Gone in second condition");
+                console.log("Drag Flow Gone in second condition");
                 dragFlows.push({
                     "id": bpmnobject.id,
                     "start_id": bpmnobject.start_id,
@@ -216,8 +214,8 @@ var drag = d3.behavior.drag()
 
                 bpmnobject.id = 0;
                 // bpmnjson.splice(i, 1);
-                console.log("---slipse---")
-                console.log(bpmnjson)
+                // console.log("---slipse---")
+                // console.log(bpmnjson)
             }
         }
     })
@@ -227,21 +225,19 @@ var drag = d3.behavior.drag()
             var flow = dragFlows[i];
 
             console.log('TEST CONN : ' + flow.connection);
-            console.log(flow);
+            // console.log(flow);
             if (flow.connection === "start") {
                 var circle = document.getElementById(flow.start_id),
                     cx = +circle.getAttribute('cx'),
                     cy = +circle.getAttribute('cy'),
                     ctm = circle.getCTM(),
                     coords = getScreenCoords(cx, cy, ctm);
-                console.log(coords);
+                console.log('PRINCE PANDEY');
                 if (flow.start_x < flow.end_x) {
                     if (flow.end_type === "endEvent") {
                         flow.end_x = flow.end_x + 26;
                         if (coords.x < flow.end_x) {
                             flow.end_x = flow.end_x - 26;
-                            // if( (flow.end_x - coords.x) < 100 ){
-                            // }
                         } else if (coords.x > flow.end_x) {
                             flow.end_x = flow.end_x + 26;
                         }
@@ -315,7 +311,6 @@ var drag = d3.behavior.drag()
                     }
                 }
 
-
                 if ((flow.end_x - coords.x) < 80) {
                     midx = startx;
                 } else {
@@ -338,23 +333,32 @@ var drag = d3.behavior.drag()
 
 
             } else if (flow.connection === "end") {
-
                 var circle = document.getElementById(flow.end_id),
                     cx = +circle.getAttribute('cx'),
                     cy = +circle.getAttribute('cy'),
                     ctm = circle.getCTM(),
                     coords = getScreenCoords(cx, cy, ctm);
 
-                console.log('Flow Start - ' + flow.start_x + ' : CoordsX  - ' + coords.x + ' : Flow End - ' + flow.end_x);
+                console.log('Flow StartX - ' + flow.start_x + ' : CoordsX  - ' + coords.x + ' : Flow EndX - ' + flow.end_x);
+
                 if (flow.start_x > flow.end_x) {
 
                     if (flow.start_type === "startEvent") {
-                        flow.start_x = flow.start_x + 21;
+                        console.log('StartX is Greater go.');
+                        // flow.start_x = flow.start_x - 30;
+                        // flow.start_x = flow.start_x + 21;
+                        // console.log('Plus first 21 : ' + flow.start_x);
 
                         if (coords.x <= flow.start_x) {
-                            flow.start_x = flow.start_x - 21;
+                            // if( coords.x < flow.start_x  ){
+                            //     flow.start_x = flow.start_x - 20;
+                            //     flow.start_y = flow.start_y - 20;
+                            // }
+                            // else {
+                            //     flow.start_x = flow.start_x - 40;
+                            // }
                         } else if (coords.x > flow.start_x) {
-                            flow.start_x = flow.start_x + 21;
+                            flow.start_x = flow.start_x + 40;
                         }
                     } else if (flow.start_type === "task") {
                         flow.start_x = flow.start_x + 67;
@@ -372,20 +376,27 @@ var drag = d3.behavior.drag()
                         }
                     }
                 } else if (flow.start_x < flow.end_x) {
-                    // console.log("in ex > sx")
+                    console.log('EndX is Greater go.');
                     if ((flow.start_type === "startEvent")) {
                         // to get the center cordinate
-                        flow.start_x = flow.start_x - 21;
-                        console.log('Minus first 21 : ' + flow.start_x);
-
-                        if (coords.x > flow.start_x) {
-                            flow.start_x = flow.start_x + 21;
-                        } else if (coords.x <= flow.start_x) {
-                            //flow.start_x = flow.start_x - 21;
-                            flow.start_x = flow.start_x;
+                        console.log(' ==>>>> '+ flow.start_x );
+                        // flow.start_x = flow.start_x - 21;
+                        // if (coords.x > flow.start_x) {
+                        //     flow.start_x = flow.start_x + 21;
+                        // } else if (coords.x <= flow.start_x) {
+                        //     flow.start_x = flow.start_x;
+                        // }
+                        // flow.start_x = flow.start_x;
+                        if (coords.x < flow.start_x) {
+                            //&& ( coords.x < (flow.start_x + 40 )
+                            if( coords.x > (flow.start_x - 40 )  ){
+                                flow.start_x = flow.start_x - 20;
+                                flow.start_y = flow.start_y + 20;
+                            } else {
+                                flow.start_x = flow.start_x - 40;
+                            }
                         }
-
-                        console.log('Current Flow X : ' + flow.start_x);
+                        // console.log('Current Flow X : ' + flow.start_x);
 
                     } else if (flow.start_type === "task") {
                         flow.start_x = flow.start_x - 67;
@@ -411,7 +422,7 @@ var drag = d3.behavior.drag()
                         // console.log('TO Coord X greater : '+ coords.y +' ## '+ flow.start_y + ' ## '+  ( flow.start_y + 60  ) )
 
                         if (coords.y < (flow.start_y + 60)) {
-
+                            // console.log('Gone KP');
                         } else {
                             if (coords.y > flow.start_y) {
                                 endx = coords.x;
