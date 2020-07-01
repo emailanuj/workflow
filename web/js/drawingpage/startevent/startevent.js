@@ -89,8 +89,8 @@ var starteventdevider = function(eid, subElement, svg, xvalue, yvalue) {
                 .style("opacity", 1.9);
             $(".setting-box").css("display", "block");
             tooltipDiv.html("<input id=" + "trash-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/trash-icon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >" + "&nbsp" + "<input id=" + "arrow-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/arrow.png" + " alt=" + "arrow" + " style=" + "width:25px;" + " >" + "<br>" + "<input id=" + "property-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/settingsicon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >" + "<input id=" + "text-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/review.png" + " alt=" + "Text" + " style=" + "width:25px;" + " >")
-                .style("left", coords.x + 30 + "px")
-                .style("top", (coords.y - 30) + "px");
+                .style("left", coords.x + "px")
+                .style("top", (coords.y) + "px");
             tooltipDiv.select("#trash-button").on("click", function() {
                 deleteElement(t);
                 $(".setting-box").css("display", "none");
@@ -205,7 +205,8 @@ var starteventdevider = function(eid, subElement, svg, xvalue, yvalue) {
                 endtype = "endEvent";
                 endid = t;
                 // endx = coords.x - 30;
-                endx = coords.x - 20;
+                // endx = coords.x - 20;
+                endx = coords.x;
                 endy = coords.y;
                 midx = startx + ((endx - startx) / 2);
             }

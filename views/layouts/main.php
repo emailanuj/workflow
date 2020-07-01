@@ -36,7 +36,6 @@ InspireAsset::register($this);
 
     <div id="wrapper">
 
-        <?= $this->render('sidebar-menu')  ?>
         <div class="preloader" style="display:none;">
             <div class="loader-container">
                 <div class="loader-img"><img src="<?= Url::base() . '/images/loading.gif' ?>" alt="preloader">
@@ -44,39 +43,27 @@ InspireAsset::register($this);
                 </div>
             </div>
         </div>
-
+        <?= $this->render('sidebar-menu')  ?>
         <div id="page-wrapper" class="gray-bg">
             <?= $this->render('top-menu')  ?>
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
-                    <!-- <h2>Basic Form</h2>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="index.html">Home</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a>Forms</a>
-                        </li>
-                        <li class="breadcrumb-item active">
-                            <strong>Basic Form</strong>
-                        </li>
-                    </ol> -->
                     <h2><?= $this->title ?></h2>
-                    <?= 
+                    <?=
                         Breadcrumbs::widget([
                             'tag' => 'ol',
                             'itemTemplate' => "<li class='breadcrumb-item'>{link}</li>",
                             'activeItemTemplate' => "<li class='breadcrumb-item active'><strong>{link}</strong></li>",
-                            'homeLink' => [ 
-                                            'label' => Yii::t('yii', 'Dashboard'),
-                                            'url' => Yii::$app->homeUrl,
-                                        ],
+                            'homeLink' => [
+                                'label' => Yii::t('yii', 'Dashboard'),
+                                'url' => Yii::$app->homeUrl,
+                            ],
                             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                        ]) 
+                        ])
                     ?>
 
                 </div>
-               
+
             </div>
 
             <div class="wrapper wrapper-content animated fadeInRight">
@@ -84,20 +71,13 @@ InspireAsset::register($this);
 
             </div>
             <div class="footer">
-                <!-- <div class="float-right">
-                    10GB of <strong>250GB</strong> Free.
-                </div> -->
                 <div>
                     <strong>Copyright</strong> CISCO &copy; 2020
                 </div>
             </div>
         </div>
         <div id="right-sidebar">
-           
-
-
         </div>
-
     </div>
     <?php $this->endBody() ?>
 

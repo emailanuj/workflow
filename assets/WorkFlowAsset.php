@@ -26,9 +26,9 @@ class WorkFlowAsset extends AssetBundle
         'themes/inspire/css/style.css',
         'css/toolbox.css',
         'css/app.css',
-        'css/workflow.css',
+        // 'css/workflow.css',
         // 'font-awesome/css/font-awesome.min.css',
-        'css/custom-style.css',    
+        // 'css/custom-style.css',    
     ];
     public $js = [
         'themes/inspire/js/popper.min.js',

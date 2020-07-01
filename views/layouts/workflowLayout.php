@@ -34,7 +34,6 @@ WorkFlowAsset::register($this);
 <body>
     <?php $this->beginBody() ?>
     <div id="wrapper">
-    <?php //echo $this->render('sidebar-menu')  ?>
         <div class="preloader" style="display:none;">
             <div class="loader-container">
                 <div class="loader-img"><img src="<?= Url::base() . '/images/loading.gif' ?>" alt="preloader">
@@ -42,10 +41,34 @@ WorkFlowAsset::register($this);
                 </div>
             </div>
         </div>
-
-        <div id="page-wrapper" class="gray-bg" style="width:100%;">
-            <?php //echo $this->render('top-menu')  ?>
-            <div class="container-fluid">
+        <?= $this->render('sidebar-workflow-menu')  ?>
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+                    <div style="margin-left: 20px;">
+                        <h2><?= $this->title ?></h2>
+                        <?=
+                            Breadcrumbs::widget([
+                                'tag' => 'ol',
+                                'itemTemplate' => "<li class='breadcrumb-item'>{link}</li>",
+                                'activeItemTemplate' => "<li class='breadcrumb-item active'><strong>{link}</strong></li>",
+                                'homeLink' => [
+                                    'label' => Yii::t('yii', 'Dashboard'),
+                                    'url' => Yii::$app->homeUrl,
+                                ],
+                                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                            ])
+                        ?>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <?= Html::a('<i class="fa fa-sign-out"></i> Log out', ['/site/logout']); ?>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- <div class="container-fluid"> -->
+            <div class="wrapper wrapper-content animated fadeInRight">
                 <?= $content ?>
             </div>
             <div class="footer">

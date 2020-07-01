@@ -39,7 +39,8 @@ body {
     padding: 0;
     height: 100%;
     /*font-family: 'Segoe UI' !important;*/
-    background: #f6f7fc;
+    /* background: #f6f7fc; */
+    background: #2f4050;
     font-family: 'Segoe UI', Arial, Helvetica, sans-serif !important;
     overflow-x: hidden;
     overflow-y: auto;

@@ -88,7 +88,7 @@ class WorkflowController extends Controller
      * @return mixed
      */
     public function actionCreate($id=null)
-    {        
+    {
         $this->layout = '//workflowLayout';
         $post_data='';
         $model = new Workflow();
