@@ -6,27 +6,27 @@ var g2;
 var points = [], g;
 
 var bpmnEventDivider = function (bpmnElement, subElement, svg) {
-
     // console.log(bpmnElement);
+    // d3.event.pageX & d3.event.pageY
     if (bpmnElement === "startEvent") {
         window.bpmnElement = null;
-        starteventdevider(null, subElement, svg, d3.event.pageX, d3.event.pageY);
+        starteventdevider(null, subElement, svg, d3.event.offsetX, d3.event.offsetY);
     } else if (bpmnElement === "endEvent") {
         window.bpmnElement = null;
-        endeventdevider(null, subElement, svg, d3.event.pageX, d3.event.pageY);
+        endeventdevider(null, subElement, svg, d3.event.offsetX, d3.event.offsetY);
     } else if (bpmnElement === "task") {
         window.bpmnElement = null;
         // var sampleSVG = svg;
-        taskdevider(null, subElement, svg, d3.event.pageX, d3.event.pageY);
+        taskdevider(null, subElement, svg, d3.event.offsetX, d3.event.offsetY);
     } else if (bpmnElement === "gateway") {
         window.bpmnElement = null;
-        gatewaydevider(null, subElement, svg, d3.event.pageX, d3.event.pageY);
+        gatewaydevider(null, subElement, svg, d3.event.offsetX, d3.event.offsetY);
     } else if (bpmnElement === "datastore") {
         window.bpmnElement = null;
-        datastoredevider(null, subElement, svg, d3.event.pageX, d3.event.pageY);
+        datastoredevider(null, subElement, svg, d3.event.offsetX, d3.event.offsetY);
     } else if (bpmnElement === "flow" || bpmnElement === "flowselect") {
         window.bpmnElement = null;
-        flowcreator(null, subElement, svg, d3.event.pageX, d3.event.pageY);
+        flowcreator(null, subElement, svg, d3.event.offsetX, d3.event.offsetY);
     }
 
     

@@ -61,14 +61,10 @@ InspireAsset::register($this);
                             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                         ])
                     ?>
-
                 </div>
-
             </div>
-
             <div class="wrapper wrapper-content animated fadeInRight">
                 <?= $content ?>
-
             </div>
             <div class="footer">
                 <div>

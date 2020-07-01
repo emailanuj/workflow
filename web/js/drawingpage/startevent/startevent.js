@@ -7,12 +7,13 @@ var textWidth = 100,
     dragbarw = 20;
 
 var starteventdevider = function(eid, subElement, svg, xvalue, yvalue) {
+    
     var group = svg
         // .append('g').attr('class', 'djs-group')
         .append('g')
         .attr('transform', 'translate(' + xvalue + ',' + yvalue + ')')
         .attr('id', 'startEvnet' + (++idstartelement))
-        .call(drag)
+        .call(drag);
 
     // var groupSelect = svg.append('g');
 
@@ -59,6 +60,10 @@ var starteventdevider = function(eid, subElement, svg, xvalue, yvalue) {
             .attr("transform", "matrix(1.4375,0,0,1.4375,-20.9375,-20.9375)")
     }
 
+
+    console.log('called prince'+idstartelement);
+
+    // return false;
     group.append('circle')
         .attr('id', 'startEvnet' + idstartelement)
         .style("stroke", "black")
@@ -84,17 +89,21 @@ var starteventdevider = function(eid, subElement, svg, xvalue, yvalue) {
                 cy = +circle.getAttribute('cy'),
                 ctm = circle.getCTM(),
                 coords = getScreenCoords(cx, cy, ctm);
+            
+            //  console.log(coords.x +' PRINCE '+ coords.y);
+            //28, 23
+
             tooltipDiv.transition()
                 .duration(200)
                 .style("opacity", 1.9);
             $(".setting-box").css("display", "block");
             tooltipDiv.html("<input id=" + "trash-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/trash-icon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >" + "&nbsp" + "<input id=" + "arrow-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/arrow.png" + " alt=" + "arrow" + " style=" + "width:25px;" + " >" + "<br>" + "<input id=" + "property-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/settingsicon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >" + "<input id=" + "text-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/review.png" + " alt=" + "Text" + " style=" + "width:25px;" + " >")
-                .style("left", coords.x + "px")
-                .style("top", (coords.y) + "px");
+                .style("left", ( coords.x + 28 ) + "px")
+                .style("top", (coords.y - 23 ) + "px");
             tooltipDiv.select("#trash-button").on("click", function() {
                 deleteElement(t);
                 $(".setting-box").css("display", "none");
-                console.log("t click")
+                // console.log("t click")
             });
 
             tooltipDiv.select("#property-button").on("click", function() {
@@ -129,7 +138,6 @@ var starteventdevider = function(eid, subElement, svg, xvalue, yvalue) {
                 $(".setting-box").css("display", "none");
                 //d3.select(document.getElementById('startEvnet' + idstartelement + '_label')).remove();
 
-                //console.log("txt button clicked "+ width +' ==>>>'+ height);
                 var element = document.getElementById('edittext');
                 //console.log(element);
                 var strTop = coords.y + 22;
@@ -186,6 +194,7 @@ var starteventdevider = function(eid, subElement, svg, xvalue, yvalue) {
             }, 5000);
         })
         .on("click", function() {
+            console.log('Circle clicked');
             d3.select(this).style("fill", "white");
             var t = d3.select(this).attr("id");
 

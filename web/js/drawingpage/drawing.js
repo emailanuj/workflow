@@ -41,7 +41,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
 
 
     //element tooltip div
-    window.tooltipDiv = d3.select("body")
+    window.tooltipDiv = d3.select("#mySvg")
         .append("div")
         .attr("class", 'setting-box')
         .style("position", "absolute")
@@ -50,7 +50,6 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
 
     // window.trashfuntion = function () {
     //     console.log("trash");
-
     // }
 
 
@@ -385,6 +384,10 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     var docEl = document.documentElement,
         bodyEl = document.getElementsByTagName('body')[0];
 
+    // console.log(docEl.clientWidth + '==' + docEl.clientHeight);
+    // console.log(bodyEl.clientWidth + '==' + bodyEl.clientHeight);
+    // console.log(window.innerWidth + '==' + window.innerHeight);
+
     var cwidth = window.innerWidth || docEl.clientWidth || bodyEl.clientWidth,
         height = window.innerHeight || docEl.clientHeight || bodyEl.clientHeight;
 
@@ -397,23 +400,25 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     var edges = [{ source: nodes[1], target: nodes[0] }];
 
     // console.log(cwidth +' <<<==>>>'+height);
+
+    // console.log(d.x +' <<<==>>>'+d.y);
     /** MAIN SVG **/
     //var svg = d3.select("body > #mySvg").append("svg")
     // cwidth = '100%';
     // height = '100%';
-    $("#mySvg").css('left', '0');
+    // $("#mySvg").css('left', '0');
     var svg = d3.select("#mySvg").append("svg")
         .attr("width", cwidth)
-        .attr("height", height)
-        .attr("left", "0");
+        .attr("height", height);
+        // .attr("left", "0");
     // .append('g').attr('class', 'viewport');
-
+    
     svg.on("click", function () {
         console.log("svg onclick")
-        // console.log(d3.mouse(this));
-        let WindowXCordinate = d3.event.x;
-        let WindowYCordinate = d3.event.y;
-        console.log(' X : ' + WindowXCordinate + ' # Y : ' + WindowYCordinate);
+        console.log(d3.event);
+        // let WindowXCordinate = d3.event.x;
+        // let WindowYCordinate = d3.event.y;
+        // console.log(' X : ' + WindowXCordinate + ' # Y : ' + WindowYCordinate);
 
         bpmnEventDivider(bpmnElement, subElement, svg);
         d3.select('body').style("cursor", "auto");
@@ -422,7 +427,6 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
         // element.value = "";
         // element.style.display = "none";
     });
-
 
     window.sampleSVG = svg;
 
