@@ -6,8 +6,8 @@ var textWidth = 100,
     textHeight = 30,
     dragbarw = 20;
 
-var starteventdevider = function(eid, subElement, svg, xvalue, yvalue) {
-    
+var starteventdevider = function (eid, subElement, svg, xvalue, yvalue) {
+
     var group = svg
         // .append('g').attr('class', 'djs-group')
         .append('g')
@@ -61,7 +61,7 @@ var starteventdevider = function(eid, subElement, svg, xvalue, yvalue) {
     }
 
 
-    console.log('called prince'+idstartelement);
+    console.log('called prince' + idstartelement);
 
     // return false;
     group.append('circle')
@@ -70,11 +70,11 @@ var starteventdevider = function(eid, subElement, svg, xvalue, yvalue) {
         .style("stroke-width", "2")
         .style("fill-opacity", "0")
         .attr('r', '20')
-        .on("mouseover", function() {
+        .on("mouseover", function () {
             console.log('mouse moving');
             d3.select(this).style("fill", "aliceblue");
         })
-        .on("mouseup", function() {
+        .on("mouseup", function () {
             console.log("mouse up");
             d3.select(this).style("fill", "aliceblue");
             var t = d3.select(this).attr("id");
@@ -89,7 +89,7 @@ var starteventdevider = function(eid, subElement, svg, xvalue, yvalue) {
                 cy = +circle.getAttribute('cy'),
                 ctm = circle.getCTM(),
                 coords = getScreenCoords(cx, cy, ctm);
-            
+
             //  console.log(coords.x +' PRINCE '+ coords.y);
             //28, 23
 
@@ -98,15 +98,15 @@ var starteventdevider = function(eid, subElement, svg, xvalue, yvalue) {
                 .style("opacity", 1.9);
             $(".setting-box").css("display", "block");
             tooltipDiv.html("<input id=" + "trash-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/trash-icon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >" + "&nbsp" + "<input id=" + "arrow-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/arrow.png" + " alt=" + "arrow" + " style=" + "width:25px;" + " >" + "<br>" + "<input id=" + "property-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/settingsicon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >" + "<input id=" + "text-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/review.png" + " alt=" + "Text" + " style=" + "width:25px;" + " >")
-                .style("left", ( coords.x + 28 ) + "px")
-                .style("top", (coords.y - 23 ) + "px");
-            tooltipDiv.select("#trash-button").on("click", function() {
+                .style("left", (coords.x + 28) + "px")
+                .style("top", (coords.y - 23) + "px");
+            tooltipDiv.select("#trash-button").on("click", function () {
                 deleteElement(t);
                 $(".setting-box").css("display", "none");
                 // console.log("t click")
             });
 
-            tooltipDiv.select("#property-button").on("click", function() {
+            tooltipDiv.select("#property-button").on("click", function () {
                 tooltipDiv.style("opacity", 0);
                 $(".setting-box").css("display", "none");
                 for (var i = 0; i < bpmnjson.length; i++) {
@@ -133,7 +133,7 @@ var starteventdevider = function(eid, subElement, svg, xvalue, yvalue) {
                 }
             });
 
-            tooltipDiv.select("#text-button").on("click", function() {
+            tooltipDiv.select("#text-button").on("click", function () {
                 tooltipDiv.style("opacity", 0);
                 $(".setting-box").css("display", "none");
                 //d3.select(document.getElementById('startEvnet' + idstartelement + '_label')).remove();
@@ -154,10 +154,7 @@ var starteventdevider = function(eid, subElement, svg, xvalue, yvalue) {
                 //setEventName(selectedtextid, selectedtextx, selectedtexty);               
             });
 
-
-            // var CircleWidth = this.getBoundingClientRect().width;
-            // var CircleHeight = this.getBoundingClientRect().height;
-            tooltipDiv.select("#arrow-button").on("click", function() {
+            tooltipDiv.select("#arrow-button").on("click", function () {
                 console.log('circle arrow 1');
                 tooltipDiv.style("opacity", 0);
                 $(".setting-box").css("display", "none");
@@ -182,18 +179,18 @@ var starteventdevider = function(eid, subElement, svg, xvalue, yvalue) {
             });
 
         })
-        .on("mouseout", function() {
+        .on("mouseout", function () {
             console.log('mouse out');
             d3.select(this).style("fill", "white");
             tooltipDiv.transition()
                 .duration(3200)
                 .style("opacity", 0)
 
-            setTimeout(function() {
+            setTimeout(function () {
                 $('.setting-box').hide(); // or fade, css display however you'd like.
             }, 5000);
         })
-        .on("click", function() {
+        .on("click", function () {
             console.log('Circle clicked');
             d3.select(this).style("fill", "white");
             var t = d3.select(this).attr("id");
@@ -208,14 +205,13 @@ var starteventdevider = function(eid, subElement, svg, xvalue, yvalue) {
                 cy = +circle.getAttribute('cy'),
                 ctm = circle.getCTM(),
                 coords = getScreenCoords(cx, cy, ctm);
-            // coordsX = coords.x
-            // coordsY = coords.y;
+            
             if (window.bpmnElement === "flowselect") {
                 endtype = "endEvent";
                 endid = t;
                 // endx = coords.x - 30;
                 // endx = coords.x - 20;
-                endx = coords.x;
+                endx = coords.x - 25;
                 endy = coords.y;
                 midx = startx + ((endx - startx) / 2);
             }
