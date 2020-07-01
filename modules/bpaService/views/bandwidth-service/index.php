@@ -28,16 +28,16 @@ $this->registerJsFile('@web/js/bpa-service.js', ['depends' => [\yii\web\JqueryAs
 <div class="form-group circuitgroup">
     <div class="row multicircuit" id="multicircuit0">
         <div class="col-md-2">
-            <?= $form->field($bandwidthServiceModel, 'utilization')->dropDownList($utilization, ['prompt' => 'Please Select']) ?>
+            <?= $form->field($bandwidthServiceModel, 'utilization[]')->dropDownList($utilization, ['prompt' => 'Please Select']) ?>
         </div>
         <div class="col-md-2">
-            <?= $form->field($bandwidthServiceModel, 'duration')->dropDownList($duration, ['prompt' => 'Please Select']) ?>
+            <?= $form->field($bandwidthServiceModel, 'duration[]')->dropDownList($duration, ['prompt' => 'Please Select']) ?>
         </div>
         <div class="col-md-2 durationfilterselector" style="display:none">
-            <?= $form->field($bandwidthServiceModel, 'duration_filter')->dropDownList($duration_filter,['prompt' => 'Please Select']) ?>
+            <?= $form->field($bandwidthServiceModel, 'duration_filter[]')->dropDownList($duration_filter,['prompt' => 'Please Select']) ?>
         </div>    
         <div class="col-md-2">
-            <?= $form->field($bandwidthServiceModel, 'utilization_type')->dropDownList($utilizationType, ['prompt' => 'Please Select']) ?>
+            <?= $form->field($bandwidthServiceModel, 'utilization_type[]')->dropDownList($utilizationType, ['prompt' => 'Please Select']) ?>
         </div>
         <div class="col-md-1">
             <?= $form->field($bandwidthServiceModel, 'a_end_host[]')->textInput([]) ?>

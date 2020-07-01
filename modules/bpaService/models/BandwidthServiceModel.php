@@ -15,14 +15,10 @@ use yii\base\Model;
 
 class BandwidthServiceModel extends Model
 {
-
-    public $network;
-    public $service;
-    public $tag;
-    public $utilization;
-    public $duration;
-    public $duration_filter;    
-    public $utilization_type;
+    public $utilization = [];
+    public $duration = [];
+    public $duration_filter = [];    
+    public $utilization_type = [];
     public $a_end_host = [];
     public $z_end_host = [];
 
@@ -33,8 +29,7 @@ class BandwidthServiceModel extends Model
     public function rules()
     {
         return [
-            [['utilization', 'duration', 'duration_filter', 'utilization_type'], 'required'], 
-            [['a_end_host', 'z_end_host'], 'each', 'rule' => ['required']]            
+            [['utilization', 'duration', 'duration_filter', 'utilization_type','a_end_host', 'z_end_host'], 'each', 'rule' => ['required']]            
         ];
     }
 
@@ -47,7 +42,7 @@ class BandwidthServiceModel extends Model
         return [            
             'utilization' => 'Select Utilization',
             'duration' => 'Select Duration',
-            'duration_filter'  => 'Select',
+            'duration_filter'  => 'Select Hour/Day',
             'utilization_type' => 'Type Of Utilization',
             'a_end_host' => 'A End',
             'z_end_host' => 'Z End',
