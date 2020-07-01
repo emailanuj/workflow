@@ -15,24 +15,6 @@ var flowcreator = function (eid) {
     var sampleSVGflow = sampleSVG.append('g')
         .attr("id", "group" + eid);
 
-
-    // var strPoints = 'M'+startx + ','+ starty;
-    // if( endx >  startx ){
-    //     if( endy >  starty ){
-    //         strPoints += ' L'+ endx +','+ starty;
-    //     } else if( endy <  starty ){
-    //         strPoints += ' L'+ endx +','+ starty;
-    //     }
-    // } else if( endx <  startx ){
-    //     if( endy >  starty ){
-    //         strPoints += ' L'+ endx +','+ starty;
-    //     } else if( endy <  starty ){
-    //         strPoints += ' L'+ endx +','+ starty;
-    //     }
-    // }
-    // strPoints += ' L'+ endx +','+ endy;
-
-
     /*
         Case 1 : ( end.x > start.x ) && ( end.y > start.y )
         Case 2 : ( end.x > start.x ) && ( end.y < start.y )
@@ -42,8 +24,12 @@ var flowcreator = function (eid) {
     */
 
     var strPoints = 'M' + startx + ',' + starty;
+    // console.log(startx +' : '+ starty);
+
+    // console.log('Flow Poists : '+ coordsY);
 
     if (endx > startx) {
+        // console.log('End X Greater.');
         var newMidPts = (startx + ((endx - startx) / 2));
         // console.log('NOT TO GO..'+ coordsY +' @@@@ '+ starty +' @@@ '+ (starty + 60 ));
         if (coordsY < (starty + 60)) {
@@ -53,19 +39,22 @@ var flowcreator = function (eid) {
             strPoints += ' L' + endx + ',' + starty;
         }
     } else if (endx < startx) {
+        // console.log('Start X Greater.');
         var newMidPts = (startx - ((startx - endx) / 2));
+
         if (coordsY < (starty + 60)) {
             strPoints += ' L' + newMidPts + ',' + starty;
             strPoints += ' L' + newMidPts + ',' + endy;
         } else {
             strPoints += ' L' + endx + ',' + starty;
         }
+
     }
 
     strPoints += ' L' + endx + ',' + endy;
 
-    var rectHeight = endy - starty;
-    var rectWidth = endx - startx;
+    // var rectHeight = endy - starty;
+    // var rectWidth = endx - startx;
 
     // console.log('PRINCE  :  ' + strPoints);
 
@@ -94,8 +83,8 @@ var flowcreator = function (eid) {
         .attr("id", eid)
         .attr("x", startx)
         .attr("y", starty)
-        .attr("width", rectWidth)
-        .attr("height", rectHeight)
+        // .attr("width", rectWidth)
+        // .attr("height", rectHeight)
         .on("mouseover", function () {
             // console.log('mouse moving');
             // console.log(bpmnjson);
@@ -138,10 +127,10 @@ var flowcreator = function (eid) {
                 //console.log(bpmnjson);             
                 for (var i = 0; i < bpmnjson.length; i++) {
                     var element = bpmnjson[i];
-                    console.log(t);
-                    console.log(bpmnjson); //exit;
+                    // console.log(t);
+                    // console.log(bpmnjson); //exit;
                     if (element.id === t) {
-                        console.log(bpmnjson[i]);
+                        // console.log(bpmnjson[i]);
                         selectedId = t;
                         elementType = "flow";
                         elementSubType = element.type;
@@ -182,7 +171,7 @@ var flowcreator = function (eid) {
 
         })
         .on("mouseout", function () {
-            console.log('mouse out');
+            // console.log('mouse out');
             tooltipDiv.transition()
                 .duration(3200)
                 .style("opacity", 0)
@@ -194,25 +183,25 @@ var flowcreator = function (eid) {
         .on("click", function () {
             // console.log("clicking circle...");
             d3.select(this).style("fill", "transparent");
-            var t = d3.select(this).attr("id");
+            // var t = d3.select(this).attr("id");
 
-            function getScreenCoords(x, y, ctm) {
-                var xn = ctm.e + x * ctm.a + y * ctm.c;
-                var yn = ctm.f + x * ctm.b + y * ctm.d;
-                return { x: xn, y: yn };
-            }
-            var circle = document.getElementById(t),
-                cx = +circle.getAttribute('cx'),
-                cy = +circle.getAttribute('cy'),
-                ctm = circle.getCTM(),
-                coords = getScreenCoords(cx, cy, ctm);
+            // function getScreenCoords(x, y, ctm) {
+            //     var xn = ctm.e + x * ctm.a + y * ctm.c;
+            //     var yn = ctm.f + x * ctm.b + y * ctm.d;
+            //     return { x: xn, y: yn };
+            // }
+            // var circle = document.getElementById(t),
+            //     cx = +circle.getAttribute('cx'),
+            //     cy = +circle.getAttribute('cy'),
+            //     ctm = circle.getCTM(),
+            //     coords = getScreenCoords(cx, cy, ctm);
 
         })
 
 
     if (startx > 0 && endx > 0 && eid !== 0) {
-        console.log('creating flow');
-        console.log(eid);
+        // console.log('creating flow');
+        // console.log(eid);
         FlowBPMNJsonCreator(eid, "flow", startid, endid, startx, starty, endx, endy, midx, starttype, endtype);
     }
     starttype = "";
@@ -229,7 +218,7 @@ var flowcreator = function (eid) {
 }
 
 function handleDrag() {
-    console.log('dragging');
+    // console.log('dragging');
     if (drawing) return;
     var dragCircle = d3.select(this),
         newPoints = [],
