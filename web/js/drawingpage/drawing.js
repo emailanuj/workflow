@@ -399,14 +399,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     { title: "new concept", id: 1, x: xLoc, y: yLoc + 200 }];
     var edges = [{ source: nodes[1], target: nodes[0] }];
 
-    // console.log(cwidth +' <<<==>>>'+height);
-
-    // console.log(d.x +' <<<==>>>'+d.y);
-    /** MAIN SVG **/
-    //var svg = d3.select("body > #mySvg").append("svg")
-    // cwidth = '100%';
-    // height = '100%';
-    // $("#mySvg").css('left', '0');
+    
     var svg = d3.select("#mySvg").append("svg")
         .attr("width", cwidth)
         .attr("height", height);
@@ -422,10 +415,6 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
 
         bpmnEventDivider(bpmnElement, subElement, svg);
         d3.select('body').style("cursor", "auto");
-        // var element = document.getElementById('edittext');
-        // var textvalue = element.value;
-        // element.value = "";
-        // element.style.display = "none";
     });
 
     window.sampleSVG = svg;
