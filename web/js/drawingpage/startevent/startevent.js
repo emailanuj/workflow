@@ -78,20 +78,7 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue) {
             // console.log("mouse up");
             d3.select(this).style("fill", "aliceblue");
             var t = d3.select(this).attr("id");
-
-            function getScreenCoords(x, y, ctm) {
-                var xn = ctm.e + x * ctm.a + y * ctm.c;
-                var yn = ctm.f + x * ctm.b + y * ctm.d;
-                return { x: xn, y: yn };
-            }
-            var circle = document.getElementById(t),
-                cx = +circle.getAttribute('cx'),
-                cy = +circle.getAttribute('cy'),
-                ctm = circle.getCTM(),
-                coords = getScreenCoords(cx, cy, ctm);
-
-            //  console.log(coords.x +' PRINCE '+ coords.y);
-            //28, 23
+            var coords = getCircleCoordById(t);
 
             tooltipDiv.transition()
                 .duration(200)
@@ -103,7 +90,6 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue) {
             tooltipDiv.select("#trash-button").on("click", function () {
                 deleteElement(t);
                 $(".setting-box").css("display", "none");
-                // console.log("t click")
             });
 
             tooltipDiv.select("#property-button").on("click", function () {
@@ -168,13 +154,6 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue) {
                 window.bpmnElement = "flowselect";
                 document.body.style.cursor = "e-resize";
 
-                // var rad = 5;
-                // var x = d3.mouse(d3.select('#a').node())[0],
-                //     y = d3.mouse(d3.select('#a').node())[1];
-                // d3.select('#dummyPath').attr('x2', x - rad).attr('y2', y - rad);
-                // d3.select('#dummyPath').style("display", "block");
-
-
                 // flowcreator(null);
             });
 
@@ -194,18 +173,8 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue) {
             // console.log('Circle clicked');
             d3.select(this).style("fill", "white");
             var t = d3.select(this).attr("id");
+            var coords = getCircleCoordById(t);
 
-            function getScreenCoords(x, y, ctm) {
-                var xn = ctm.e + x * ctm.a + y * ctm.c;
-                var yn = ctm.f + x * ctm.b + y * ctm.d;
-                return { x: xn, y: yn };
-            }
-            var circle = document.getElementById(t),
-                cx = +circle.getAttribute('cx'),
-                cy = +circle.getAttribute('cy'),
-                ctm = circle.getCTM(),
-                coords = getScreenCoords(cx, cy, ctm);
-            
             if (window.bpmnElement === "flowselect") {
                 endtype = "endEvent";
                 endid = t;

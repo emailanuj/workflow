@@ -7,7 +7,7 @@ use app\modules\api\components\BaseController;
 use app\modules\api\components\TopologyServiceComponent;
 use app\modules\api\components\BandwidthServiceComponent;
 use app\modules\threshold\models\ThresholdSettings;
-use yii\helpers\json;
+use yii\helpers\Json;
 use yii\base\InvalidArgumentException;
 
 /**
@@ -36,7 +36,8 @@ class OrchestratorServiceController extends BaseController
         $jsonRequestData   =  '{"module_type": "BPA","source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10","bandwidth_provision":"9000"}';
 
         try {
-            $arrRequestData = json::decode($jsonRequestData, true);
+            
+            $arrRequestData = Json::decode($jsonRequestData, true);
         } catch (InvalidArgumentException $jsonError) {
             $msg =  $jsonError->getMessage();
             return $this->apiResponse(401, 'Failed', $msg);
