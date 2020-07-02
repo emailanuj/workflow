@@ -75,14 +75,12 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue) {
             d3.select(this).style("fill", "aliceblue");
         })
         .on("mouseup", function () {
-            // console.log("mouse up");
+            console.log("mouse up");
             d3.select(this).style("fill", "aliceblue");
             var t = d3.select(this).attr("id");
             var coords = getCircleCoordById(t);
 
-            tooltipDiv.transition()
-                .duration(200)
-                .style("opacity", 1.9);
+            tooltipDiv.transition().duration(200).style("opacity", 1.9);
             $(".setting-box").css("display", "block");
             tooltipDiv.html("<input id=" + "trash-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/trash-icon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >" + "&nbsp" + "<input id=" + "arrow-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/arrow.png" + " alt=" + "arrow" + " style=" + "width:25px;" + " >" + "<br>" + "<input id=" + "property-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/settingsicon.png" + " alt=" + "trash" + " style=" + "width:25px;" + " >" + "<input id=" + "text-button" + " type=" + "image" + " title=" + "End Event" + " src=" + baseURL + "/img/review.png" + " alt=" + "Text" + " style=" + "width:25px;" + " >")
                 .style("left", (coords.x + 28) + "px")
@@ -162,15 +160,19 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue) {
             // console.log('mouse out');
             d3.select(this).style("fill", "white");
             tooltipDiv.transition()
-                .duration(3200)
+                .duration(5000)
                 .style("opacity", 0)
 
-            setTimeout(function () {
-                $('.setting-box').hide(); // or fade, css display however you'd like.
-            }, 5000);
+            // setTimeout(function () {
+            //     $('.setting-box').hide(); // or fade, css display however you'd like.
+            // }, 5000);
         })
         .on("click", function () {
             // console.log('Circle clicked');
+            // tooltipDiv.transition()
+            //     // .duration(3200)
+            //     .style("opacity", 0)
+
             d3.select(this).style("fill", "white");
             var t = d3.select(this).attr("id");
             var coords = getCircleCoordById(t);

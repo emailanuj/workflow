@@ -343,19 +343,24 @@ var drag = d3.behavior.drag()
                 console.log('Flow StartX - ' + flow.start_x + ' CoordsX : ' + coords.x + ' CoordsY : ' + coords.y + ' : Flow EndX - ' + flow.end_x);
 
                 if ((parentCircleCoords.x - 20) > flow.end_x) {
-                    console.log('StartX is Greater go.');
+                    // console.log('StartX is Greater go.');
 
                     if (flow.start_type === "startEvent") {
                         if (coords.x > (parentCircleCoords.x + 20)) {
                             flow.start_x = parentCircleCoords.x + 20;
                         } else {
-                            // if ((coords.x > (parentCircleCoords.x - 20))) {
-                            //     flow.start_x = parentCircleCoords.x;
-                            //     flow.start_y = parentCircleCoords.y + 20;
-                            // } else {
+                            if ((coords.x > (parentCircleCoords.x - 20))) {
+                                flow.start_x = parentCircleCoords.x;
+                                // flow.start_y = parentCircleCoords.y + 20;
+                                if (parentCircleCoords.y > coords.y) {
+                                    flow.start_y = parentCircleCoords.y - 20;
+                                } else {
+                                    flow.start_y = parentCircleCoords.y + 20;
+                                }
+                            } else {
                                 flow.start_x = parentCircleCoords.x - 20;
                                 flow.start_y = parentCircleCoords.y;
-                            // }
+                            }
                         }
                     } else if (flow.start_type === "task") {
                         flow.start_x = flow.start_x + 67;
@@ -373,22 +378,30 @@ var drag = d3.behavior.drag()
                         }
                     }
                 } else if (((parentCircleCoords.x + 20) >= flow.end_x) && ((parentCircleCoords.x - 20) <= flow.end_x)) {
+                    // console.log('Gone in between Case.');
                     flow.start_x = parentCircleCoords.x;
+
                     if (coords.y < parentCircleCoords.y) {
                         flow.start_y = parentCircleCoords.y - 20;
                     } else {
                         flow.start_y = parentCircleCoords.y + 20;
                     }
+
                 } else if ((parentCircleCoords.x + 20) < flow.end_x) {
                     // SX : 200 , EX : 400
-                    console.log('EndX is Greater go.');
+                    // console.log('EndX is Greater go.');
                     if ((flow.start_type === "startEvent")) {
+
                         if (coords.x < (parentCircleCoords.x - 20)) {
                             flow.start_x = parentCircleCoords.x - 20;
                         } else {
                             if ((coords.x < (parentCircleCoords.x + 20))) {
                                 flow.start_x = parentCircleCoords.x;
-                                flow.start_y = parentCircleCoords.y + 20;
+                                if (parentCircleCoords.y < coords.y) {
+                                    flow.start_y = parentCircleCoords.y + 20;
+                                } else {
+                                    flow.start_y = parentCircleCoords.y - 20;
+                                }
                             } else {
                                 flow.start_x = parentCircleCoords.x + 20;
                                 flow.start_y = parentCircleCoords.y;
@@ -412,18 +425,26 @@ var drag = d3.behavior.drag()
                     }
                 }
 
-                if (coords.x > flow.start_x) {
+                //if ((parentCircleCoords.x - 20) > flow.end_x) {
+                if (coords.x > (parentCircleCoords.x + 20)) {
+                    console.log('CoordX is greater');
                     if (flow.end_type === "endEvent") {
+
                         endx = coords.x - 25;
                         endy = coords.y;
-                        if (coords.y < (flow.start_y + 60)) {
+                        if (coords.y < (parentCircleCoords.y - 20)) {
+                            // console.log('Prince');
                         } else {
-                            if (coords.y > flow.start_y) {
+                            // console.log('Pandey');
+                            if ((coords.y > (parentCircleCoords.y - 20)) && (coords.y < (parentCircleCoords.y + 20))) {
+                                endx = coords.x - 30;
+                                endy = coords.y;
+                            } else if (coords.y > (parentCircleCoords.y + 20)) {
                                 endx = coords.x;
-                                endy = coords.y - 30;
-                            } else if (coords.y < flow.start_y) {
+                                endy = coords.y - 25;
+                            } else if (coords.y < (parentCircleCoords.y - 20)) {
                                 endx = coords.x;
-                                endy = coords.y + 30;
+                                endy = coords.y + 20;
                             }
                         }
                     } else if (flow.end_type === "task") {
@@ -433,8 +454,17 @@ var drag = d3.behavior.drag()
                         endx = coords.x - 35;
                         endy = coords.y + 30;
                     }
-                } else if (coords.x < flow.start_x) {
-                    // console.log('NOT TO GO....');
+                } else if ((coords.x <= (parentCircleCoords.x + 20)) && (coords.x >= (parentCircleCoords.x - 20))) {
+                    console.log('Gone in between Case.');
+                    endx = coords.x;
+                    if (coords.y < parentCircleCoords.y) {
+                        endy = coords.y + 25;
+                    } else {
+                        endy = coords.y - 25;
+                    }
+
+                } else if (coords.x < (parentCircleCoords.x - 20)) {
+                    console.log('CoordX is lesser');
                     if (flow.end_type === "endEvent") {
                         endx = coords.x + 25;
                         endy = coords.y;
