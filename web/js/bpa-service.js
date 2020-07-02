@@ -55,23 +55,14 @@ $(document).on('click', '#searchbpacircuitreport', function () {
 	});
 });
 
-
-function range(start, end) {
-    if(start === end) return [start];
-    return [start, ...range(start + 1, end)];
-}
-
-
-	
-
-$(function(){
-$(".durationfilterselector").css('display','none');
-var durationfilterCount = $(".durationfclass").length;
+function getHourDay() {
+	var durationfilterCount = $(".durationfclass").length;
 	for(var du = 0; du < durationfilterCount; du++) {		
 		$("#bandwidthservicemodel-"+du+"-duration").on('change',function(){			
 			var duration = $(this).val();
 			var currentString = $(this).attr('id');	
-			var currentID = currentString.match(/\d+/)[0];				
+			var currentID = currentString.match(/\d+/)[0];
+			console.log(currentID);				
 			if(duration == 'hour') {		
 				var hours = range(1,24);
 				hourHtml = '<option value>Please Select</option>';
@@ -96,5 +87,14 @@ var durationfilterCount = $(".durationfclass").length;
 			}
 		});
 	}
+}
 
+function range(start, end) {
+    if(start === end) return [start];
+    return [start, ...range(start + 1, end)];
+}
+	
+
+$(function(){
+$(".durationfilterselector").css('display','none');
 });
