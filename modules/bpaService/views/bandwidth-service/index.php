@@ -49,7 +49,7 @@ $this->registerJsFile('@web/js/bpa-service.js', ['depends' => [\yii\web\JqueryAs
                     <div class="col-sm-2">
                         <?= $form->field($modelBandwidth, "[{$i}]duration")->dropDownList($duration, ['class' => 'durationfclass form-control','prompt' => 'Please Select', 'onChange' => 'getHourDay()']) ?>
                     </div>
-                    <div class="col-sm-2 durationfilterselector">
+                    <div class="col-sm-2 durationselect" style="display:none;">
                         <?= $form->field($modelBandwidth, "[{$i}]duration_filter")->dropDownList($duration_filter, ['prompt' => 'Please Select']) ?>
                     </div>                                                
                     <div class="col-sm-2">

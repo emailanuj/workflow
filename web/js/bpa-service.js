@@ -69,7 +69,7 @@ function getHourDay() {
 				$.each(hours, function(key,val){
 					hourHtml += '<option value='+key+'>'+val+'</option>';
 				});					
-				$(".durationfilterselector").css('display','block');
+				$("#bandwidthservicemodel-"+currentID+"-duration_filter").closest(".durationselect").css('display','block');
 				$("#bandwidthservicemodel-"+currentID+"-duration_filter option").remove();
 				$("#bandwidthservicemodel-"+currentID+"-duration_filter").append(hourHtml);	
 			} else if(duration == 'day'){
@@ -78,11 +78,11 @@ function getHourDay() {
 				$.each(days, function(key,val){
 					dayHtml += '<option value='+key+'>'+val+'</option>';
 				});				
-				$(".durationfilterselector").css('display','block');	
+				$("#bandwidthservicemodel-"+currentID+"-duration_filter").closest(".durationselect").css('display','block');	
 				$("#bandwidthservicemodel-"+currentID+"-duration_filter option").remove();
 				$("#bandwidthservicemodel-"+currentID+"-duration_filter").append(dayHtml);	
 			} else {
-				$(".durationfilterselector").css('display','none');	
+				$("#bandwidthservicemodel-"+currentID+"-duration_filter").closest(".durationselect").css('display','none');	
 				$("#bandwidthservicemodel-"+currentID+"-duration_filter").append('');	
 			}
 		});
@@ -93,8 +93,3 @@ function range(start, end) {
     if(start === end) return [start];
     return [start, ...range(start + 1, end)];
 }
-	
-
-$(function(){
-$(".durationfilterselector").css('display','none');
-});
