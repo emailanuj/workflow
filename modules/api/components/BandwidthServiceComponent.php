@@ -79,7 +79,7 @@ class BandwidthServiceComponent
             "interval" => "7d",
             "type" => "peak"
         ];
-        return CurlServiceComponent::postRequest($arrRequest);
+        return CurlServiceComponent::postRequest($arrRequest);        
     }
 
     public static function getAverageUtilization()

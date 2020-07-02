@@ -44,9 +44,9 @@ $this->registerJsFile('@web/js/bpa-service.js', ['depends' => [\yii\web\JqueryAs
                 </div>                    
                 <div class="row">
                     <div class="col-sm-2">
-                        <?= $form->field($modelBandwidth, "[{$i}]utilization")->dropDownList($utilization, ['prompt' => 'Please Select']) ?>
+                        <?= $form->field($modelBandwidth, "[{$i}]utilization")->dropDownList($utilization, ['prompt' => 'Please Select', 'onchange' => 'getCurrentFilter()']) ?>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-2 durationvisible">
                         <?= $form->field($modelBandwidth, "[{$i}]duration")->dropDownList($duration, ['class' => 'durationfclass form-control','prompt' => 'Please Select', 'onChange' => 'getHourDay()']) ?>
                     </div>
                     <div class="col-sm-2 durationselect" style="display:none;">

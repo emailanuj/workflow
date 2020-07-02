@@ -21,7 +21,7 @@ class BandwidthServiceModel extends Model
     public function rules()
     {
         return [
-            [['utilization', 'duration', 'duration_filter', 'utilization_type','a_end_host', 'z_end_host'], 'required']            
+            [['utilization', 'utilization_type','a_end_host', 'z_end_host'], 'required'],            
         ];
     }
 
@@ -50,18 +50,6 @@ class BandwidthServiceModel extends Model
     {
         return ["hour" => "hour", "day" => "day"];
     }
-
-    // public static function getHours()
-    // {
-    //     $hours = range(1,24);
-    //     return $hours;
-    // }
-
-    // public static function getDays()
-    // {
-    //     $days = range(1,30);
-    //     return $days;
-    // }
 
     public static function getUtilizationType()
     {
