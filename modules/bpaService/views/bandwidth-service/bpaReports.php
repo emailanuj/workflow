@@ -50,23 +50,28 @@ use fedemotta\datatables\DataTables;
                 <th>Provisional Bandwidth</th>
                 <th>Actual Bandwidth</th>
                 <th>Commission Bandwidth</th>
-                <th data-hide="all">class1</th>
-                <th data-hide="all">class1 timestamp</th>
-                <th data-hide="all">class2</th>
-                <th data-hide="all">class2 timestamp</th>
-                <th data-hide="all">class3</th>
-                <th data-hide="all">class3 timestamp</th>
+                <th data-hide="all"></th>
+                
             </tr>
         </thead>
         <tbody>
             <?php 
-            if(!empty($bpaReports)) {                
+            if(!empty($bpaReports)) { 
+                $exdata = '<td><table class="footable table table-stripped toggle-arrow-tiny">
+                            <thead>
+                                <th>class Name</th>
+                                <th>class value</th>
+                                <th>class timestamp</th>
+                            </thead>
+                            <tbody><tr><td>CORE_MOBILITY_DATA_OUT</td><td>1339.259</td><td>2020-05-27 21:45:04</td></tr><tr><td>CORE_MOBILITY_SIGNAL_OUT</td><td>1339.259</td><td>2020-05-27 21:45:04</td></tr><tr><td>CORE_NETWORK_OUT</td><td>1339.259</td><td>2020-05-27 21:45:04</td></tr></tbody>
+                        </table></td>';  
+                          
                 $row = '';
                 $bpaReports = json_decode($bpaReports,true);   
                 //echo '<pre/>'; print_r($bpaReports); exit;            
-                foreach($bpaReports as $reportKey => $reportValue) {
+                foreach($bpaReports as $reportKey => $reportValue) {                
                 $row  .= '<tr>';
-                $row .= '<td>'.$reportValue['id'].'</td><td>'.$reportValue['segment_mapping'].'</td><td>'.$reportValue['provisional_bandwidth'].'</td><td>'.$reportValue['actual_bandwidth'].'</td><td>'.$reportValue['commision_bandwidth'].'</td><td>class1</td><td>class1 Timestamp</td><td>class2</td><td>class2 Timestamp</td><td>class3</td><td>class3 Timestamp</td>';
+                $row .= '<td>'.$reportValue['id'].'</td><td>'.$reportValue['segment_mapping'].'</td><td>'.$reportValue['provisional_bandwidth'].'</td><td>'.$reportValue['actual_bandwidth'].'</td><td>'.$reportValue['commision_bandwidth'].'</td>'.$exdata;
                 $row .= '</tr>';
                 } 
                 echo $row;
