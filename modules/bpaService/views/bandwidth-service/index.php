@@ -37,43 +37,37 @@ $this->registerJsFile('@web/js/bpa-service.js', ['depends' => [\yii\web\JqueryAs
 ]); ?>
     <div class="container-items"><!-- widgetContainer -->
         <?php foreach ($modelsBandwidth as $i => $modelBandwidth): ?>
-            <div class="item panel panel-default"><!-- widgetBody -->
-                    <div class="panel-heading">
-                        <h3 class="panel-title pull-left">Bandwidth Filters</h3>
-                        <div class="pull-right">
-                            <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
-                            <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
-                        </div>
-                        <div class="clearfix"></div>
+            <div class="item"><!-- widgetBody -->
+                <div class="pull-right" style="margin-top:30px;">
+                    <button type="button" class="add-item btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+                    <button type="button" class="remove-item btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus"></i></button>
+                </div>                    
+                <div class="row">
+                    <div class="col-sm-2">
+                        <?= $form->field($modelBandwidth, "[{$i}]utilization")->dropDownList($utilization, ['prompt' => 'Please Select']) ?>
                     </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <?= $form->field($modelBandwidth, "[{$i}]utilization")->dropDownList($utilization, ['prompt' => 'Please Select']) ?>
-                            </div>
-                            <div class="col-sm-2">
-                                <?= $form->field($modelBandwidth, "[{$i}]duration")->dropDownList($duration, ['class' => 'durationfclass form-control','prompt' => 'Please Select', 'onChange' => 'getHourDay()']) ?>
-                            </div>
-                            <div class="col-sm-2 durationfilterselector">
-                                <?= $form->field($modelBandwidth, "[{$i}]duration_filter")->dropDownList($duration_filter, ['prompt' => 'Please Select']) ?>
-                            </div>                                                
-                            <div class="col-sm-2">
-                                <?= $form->field($modelBandwidth, "[{$i}]utilization_type")->dropDownList($utilizationType, ['prompt' => 'Please Select']) ?>
-                            </div>
-                            <div class="col-sm-2">
-                                <?= $form->field($modelBandwidth, "[{$i}]a_end_host")->textInput([]) ?>
-                            </div>
-                            <div class="col-sm-2">
-                                <?= $form->field($modelBandwidth, "[{$i}]z_end_host")->textInput([]) ?>
-                            </div> 
-                        </div>                       
+                    <div class="col-sm-2">
+                        <?= $form->field($modelBandwidth, "[{$i}]duration")->dropDownList($duration, ['class' => 'durationfclass form-control','prompt' => 'Please Select', 'onChange' => 'getHourDay()']) ?>
                     </div>
+                    <div class="col-sm-2 durationfilterselector">
+                        <?= $form->field($modelBandwidth, "[{$i}]duration_filter")->dropDownList($duration_filter, ['prompt' => 'Please Select']) ?>
+                    </div>                                                
+                    <div class="col-sm-2">
+                        <?= $form->field($modelBandwidth, "[{$i}]utilization_type")->dropDownList($utilizationType, ['prompt' => 'Please Select']) ?>
+                    </div>
+                    <div class="col-sm-2">
+                        <?= $form->field($modelBandwidth, "[{$i}]a_end_host")->textInput([]) ?>
+                    </div>
+                    <div class="col-sm-2">
+                        <?= $form->field($modelBandwidth, "[{$i}]z_end_host")->textInput([]) ?>
+                    </div> 
+                </div>                    
                 </div>
             <?php endforeach; ?>
         </div>
     <?php DynamicFormWidget::end(); ?>            
-    <div class="form-group">
-        <?= Html::submitButton('search', ['class' => 'btn btn-primary','id' => 'searchbpareport']) ?>
+    <div class="form-group row">
+        <div class="col-sm-12"><?= Html::submitButton('search', ['class' => 'btn btn-primary col-sm-2','id' => 'searchbpareport', 'style' => 'float:right;']) ?></div>
     </div>
     <?php ActiveForm::end(); ?>    
 
