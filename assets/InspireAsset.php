@@ -25,6 +25,7 @@ class InspireAsset extends AssetBundle
         'themes/inspire/css/animate.css',
         'themes/inspire/css/style.css',
         'css/dataTable.css',
+        'themes/inspire/css/plugins/footable/footable.core.css'
         // 'themes/inspire/css/custom-style.css',
         // 'themes/inspire/css/dataTable.css',
         // 'css/ie10-viewport-bug-workaround.css',
@@ -52,6 +53,7 @@ class InspireAsset extends AssetBundle
         'themes/inspire/js/plugins/easypiechart/jquery.easypiechart.js',
         'themes/inspire/js/plugins/sparkline/jquery.sparkline.min.js',
         'themes/inspire/js/demo/sparkline-demo.js',
+        'themes/inspire/js/plugins/footable/footable.all.min.js',
          '/js/custom.js',
         'js/workflow.js',
         'js/dataTable.js',

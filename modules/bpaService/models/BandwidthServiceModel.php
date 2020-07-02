@@ -21,6 +21,7 @@ class BandwidthServiceModel extends Model
     public function rules()
     {
         return [
+            [['duration','duration_filter'], 'string', 'max' => '20'],
             [['utilization', 'utilization_type','a_end_host', 'z_end_host'], 'required'],            
         ];
     }

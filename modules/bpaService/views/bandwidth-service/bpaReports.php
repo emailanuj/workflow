@@ -45,11 +45,17 @@ use fedemotta\datatables\DataTables;
 <table id="bpa-table" class="footable table table-stripped toggle-arrow-tiny" style="width:100%">
         <thead>
             <tr>
-                <th>Id</th>
-                <th data-toggle="true">Segment Mapping</th>
-                <th data-hide="all">Provisional Bandwidth</th>
-                <th data-hide="all">Actual Bandwidth</th>
-                <th data-hide="all">Commission Bandwidth</th>
+                <th data-toggle="true">Id</th>
+                <th>Segment Mapping</th>
+                <th>Provisional Bandwidth</th>
+                <th>Actual Bandwidth</th>
+                <th>Commission Bandwidth</th>
+                <th data-hide="all">class1</th>
+                <th data-hide="all">class1 timestamp</th>
+                <th data-hide="all">class2</th>
+                <th data-hide="all">class2 timestamp</th>
+                <th data-hide="all">class3</th>
+                <th data-hide="all">class3 timestamp</th>
             </tr>
         </thead>
         <tbody>
@@ -60,7 +66,7 @@ use fedemotta\datatables\DataTables;
                 //echo '<pre/>'; print_r($bpaReports); exit;            
                 foreach($bpaReports as $reportKey => $reportValue) {
                 $row  .= '<tr>';
-                $row .= '<td>'.$reportValue['id'].'</td><td>'.$reportValue['segment_mapping'].'</td><td>'.$reportValue['provisional_bandwidth'].'</td><td>'.$reportValue['actual_bandwidth'].'</td><td>'.$reportValue['commision_bandwidth'].'</td>';
+                $row .= '<td>'.$reportValue['id'].'</td><td>'.$reportValue['segment_mapping'].'</td><td>'.$reportValue['provisional_bandwidth'].'</td><td>'.$reportValue['actual_bandwidth'].'</td><td>'.$reportValue['commision_bandwidth'].'</td><td>class1</td><td>class1 Timestamp</td><td>class2</td><td>class2 Timestamp</td><td>class3</td><td>class3 Timestamp</td>';
                 $row .= '</tr>';
                 } 
                 echo $row;
@@ -78,5 +84,11 @@ use fedemotta\datatables\DataTables;
 <script>
 $(document).ready(function(){
     $('#bpa-table').DataTable({ 'pagingType': 'full_numbers', })
+    
+});
+$(document).ready(function() {
+
+$('#bpa-table').footable();
+
 });
 </script>

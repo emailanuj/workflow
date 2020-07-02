@@ -62,12 +62,17 @@ function getCurrentFilter() {
 				var currentString = $(this).attr('id');	
 				var currentID = currentString.match(/\d+/)[0];
 				var currentUtilization = $(this).val();
+				var selectedDuration = $("#bandwidthservicemodel-"+currentID+"-duration option:selected").val();				
 				if(currentUtilization == 'current') {
-					$("#bandwidthservicemodel-"+currentID+"-duration").closest('.durationvisible').css('display','none');
+					$("#bandwidthservicemodel-"+currentID+"-duration").closest('.durationvisible').css('display','none');					
 					$("#bandwidthservicemodel-"+currentID+"-duration_filter").closest('.durationselect').css('display','none');
 				} else {
 					$("#bandwidthservicemodel-"+currentID+"-duration").closest('.durationvisible').css('display','block');
-					$("#bandwidthservicemodel-"+currentID+"-duration_filter").closest('.durationselect').css('display','block');
+					if(selectedDuration !== '') {
+						$("#bandwidthservicemodel-"+currentID+"-duration_filter").closest('.durationselect').css('display','block');
+					} else {
+						$("#bandwidthservicemodel-"+currentID+"-duration_filter").closest('.durationselect').css('display','none');
+					}
 				}
 		});
 	}
@@ -81,7 +86,8 @@ function getHourDay() {
 			var currentString = $(this).attr('id');	
 			var currentID = currentString.match(/\d+/)[0];
 			console.log(currentID);				
-			if(duration == 'hour') {		
+			if(duration == 'hour') {	
+				console.log(duration);	
 				var hours = range(1,24);
 				hourHtml = '<option value>Please Select</option>';
 				$.each(hours, function(key,val){
