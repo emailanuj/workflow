@@ -86,7 +86,7 @@ function getHourDay() {
 			var currentString = $(this).attr('id');	
 			var currentID = currentString.match(/\d+/)[0];
 			console.log(currentID);				
-			if(duration == 'hour') {	
+			if(duration == 'h') {	
 				console.log(duration);	
 				var hours = range(1,24);
 				hourHtml = '<option value>Please Select</option>';
@@ -96,7 +96,7 @@ function getHourDay() {
 				$("#bandwidthservicemodel-"+currentID+"-duration_filter").closest(".durationselect").css('display','block');
 				$("#bandwidthservicemodel-"+currentID+"-duration_filter option").remove();
 				$("#bandwidthservicemodel-"+currentID+"-duration_filter").append(hourHtml);	
-			} else if(duration == 'day'){
+			} else if(duration == 'd'){
 				var days = range(1,60);
 				dayHtml = '<option value>Please Select</option>';
 				$.each(days, function(key,val){
