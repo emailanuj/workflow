@@ -409,6 +409,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     svg.on("click", function () {
         console.log("svg onclick")
         console.log(d3.event);
+
         // let WindowXCordinate = d3.event.x;
         // let WindowYCordinate = d3.event.y;
         // console.log(' X : ' + WindowXCordinate + ' # Y : ' + WindowYCordinate);
