@@ -49,11 +49,11 @@ class BandwidthServiceModel extends Model
 
     public static function getDuration()
     {
-        return ["hour" => "hour", "day" => "day"];
+        return ["h" => "hour", "d" => "day"];
     }
 
     public static function getUtilizationType()
     {
-        return ["QOSclassbased" => "Class Based", "combined" => "Combined"];
+        return ["true" => "Class Based", "false" => "Combined"];
     }
 }

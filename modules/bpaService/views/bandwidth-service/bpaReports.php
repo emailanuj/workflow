@@ -1,54 +1,13 @@
 <?php
 use yii\helpers\Html;
-//use yii\helpers\BaseUrl;
-//use yii\helpers\ArrayHelper;
-use fedemotta\datatables\DataTables;
-
-    //$searchModel = new ModelSearch();
-    //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-?>
-<?php 
-
-// DataTables::widget([
-//     'dataProvider' => $data,
-//     'filterModel' => $searchModel,
-//     'id' => 'bpa-list',
-//     'clientOptions' => [
-//         "lengthMenu"=> [[20,-1], [20,Yii::t('app',"All")]],
-//         "info"=>false,
-//         "responsive"=>true, 
-//         "dom"=> 'lfTrtip',
-//         "tableTools"=>[
-//             "aButtons"=> [  
-//                 [
-//                 "sExtends"=> "copy",
-//                 "sButtonText"=> Yii::t('app',"Copy to clipboard")
-//                 ],[
-//                 "sExtends"=> "csv",
-//                 "sButtonText"=> Yii::t('app',"Save to CSV")
-//                 ],[
-//                 "sExtends"=> "xls",
-//                 "oSelectorOpts"=> ["page"=> 'current']
-//                 ],[
-//                 "sExtends"=> "pdf",
-//                 "sButtonText"=> Yii::t('app',"Save to PDF")
-//                 ],[
-//                 "sExtends"=> "print",
-//                 "sButtonText"=> Yii::t('app',"Print")
-//                 ],
-//             ]
-//         ]
-//     ],
-// ]); 
-
 ?>
 <table id="bpa-table" class="footable table table-stripped toggle-arrow-tiny" style="width:100%">
         <thead>
             <tr>
-                <th data-toggle="true">Id</th>
-                <th>Segment Mapping</th>
+                <th data-toggle="true">Host mapping</th>
+                <th>Segment ID</th>
                 <th>Provisional Bandwidth</th>
-                <th>Actual Bandwidth</th>
+                <th>Configured Bandwidth</th>
                 <th>Commission Bandwidth</th>
                 <th data-hide="all"></th>
                 
@@ -56,8 +15,8 @@ use fedemotta\datatables\DataTables;
         </thead>
         <tbody>
             <?php 
-            if(!empty($bpaReports)) { 
-                $exdata = '<td><table class="footable table table-stripped toggle-arrow-tiny">
+            if(!empty($finalUtilizationTable)) { 
+                $exdata = '<td style="width:100%;"><table class="footable table table-stripped toggle-arrow-tiny" style="width:100%;">
                             <thead>
                                 <th>class Name</th>
                                 <th>class value</th>
@@ -67,13 +26,14 @@ use fedemotta\datatables\DataTables;
                         </table></td>';  
                           
                 $row = '';
-                $bpaReports = json_decode($bpaReports,true);   
-                //echo '<pre/>'; print_r($bpaReports); exit;            
-                foreach($bpaReports as $reportKey => $reportValue) {                
-                $row  .= '<tr>';
-                $row .= '<td>'.$reportValue['id'].'</td><td>'.$reportValue['segment_mapping'].'</td><td>'.$reportValue['provisional_bandwidth'].'</td><td>'.$reportValue['actual_bandwidth'].'</td><td>'.$reportValue['commision_bandwidth'].'</td>'.$exdata;
-                $row .= '</tr>';
+                           
+            foreach($finalUtilizationTable as $utilizationTableKey => $utilizationTableVal) {  
+                foreach($utilizationTableVal as $tableKey => $tableVal) {              
+                    $row  .= '<tr>';
+                    $row .= '<td>'.$utilizationTableKey.'</td><td>'.$tableVal['segment_id'].'</td><td>'.$tableVal['configured_capacity'].'</td><td>'.$tableVal['configured_capacity'].'</td><td>'.$tableVal['configured_capacity'].'</td>'.$exdata;
+                    $row .= '</tr>';
                 } 
+            }
                 echo $row;
             } ?>
         </tbody>
