@@ -50,10 +50,12 @@ class BandwidthServiceController extends Controller
                 foreach($utlizationPostData['BandwidthServiceModel'] as $utilizationPostKey => $utilizationPostValue) {
                     $arrTopologyBestPathLists   = TopologyServiceComponent::getRankwisePath($utilizationPostValue);
                     $arrSegmentLists            = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
-                    $utilizationPostValue['segment_ids'] = $arrSegmentLists;
+                    $utilizationPostValue['segment_ids'] = $arrSegmentLists;                    
                     $finalUtilizationTable[$utilizationPostValue['a_end_host'].'::'.$utilizationPostValue['z_end_host']] = BandwidthServiceComponent::getBwsUtilizationData($utilizationPostValue);
-                }
-                //pe($finalUtilizationTable); exit;               
+                    $finalUtilizationTable[$utilizationPostValue['a_end_host'].'::'.$utilizationPostValue['z_end_host']]['utilization_type'] = $utilizationPostValue['utilization'];
+                    $finalUtilizationTable[$utilizationPostValue['a_end_host'].'::'.$utilizationPostValue['z_end_host']]['class_type'] = $utilizationPostValue['utilization_type'];
+                    $finalUtilizationTable[$utilizationPostValue['a_end_host'].'::'.$utilizationPostValue['z_end_host']]['interval'] = $utilizationPostValue['duration_filter'].$utilizationPostValue['duration'];
+                }                
                 $reportOutputData['status'] = 'success';
                 $reportOutputData['html'] = $this->renderPartial(
                     'bpaReports',
