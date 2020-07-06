@@ -57,14 +57,14 @@ use yii\helpers\Html;
                                 }
                                 $classtd .= $TableFoot;
                         }
-                        else if(array_key_exists('class_avg_bw', $tableVal) !== '') {                            
+                        else if(array_key_exists('class_avg_bw', $tableVal)) {                            
                                 $classtd = $TableHead;
                                 foreach($tableVal['class_avg_bw'] as $classKey => $classVal) {                                
                                     $classtd .=  '<tr><td>'.$classKey.'</td><td>'.$classVal.'</td></tr>';
                                 }
                                 $classtd .= $TableFoot;
                         }
-                        else if(array_key_exists('class_precentile95_bw', $tableVal) !== '') {                            
+                        else if(array_key_exists('class_precentile95_bw', $tableVal)) {                            
                                 $classtd = $TableHead;
                                 foreach($tableVal['class_precentile95_bw'] as $classKey => $classVal) {                                
                                     $classtd .=  '<tr><td>'.$classKey.'</td><td>'.$classVal.'</td></tr>';

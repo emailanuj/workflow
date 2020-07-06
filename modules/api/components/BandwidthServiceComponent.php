@@ -173,7 +173,7 @@ class BandwidthServiceComponent
             }
         }
 
-        return json_decode($classtrue,true);        
+        return json_decode($classfalse,true);        
         //return CurlServiceComponent::postRequest($arrRequest); 
 
     }
