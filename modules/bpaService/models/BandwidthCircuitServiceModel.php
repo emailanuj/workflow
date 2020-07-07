@@ -4,7 +4,6 @@ namespace app\modules\bpaService\models;
 
 use Yii;
 use yii\base\Model;
-use yii\validators\EachValidator;
 
 class BandwidthCircuitServiceModel extends Model
 {
@@ -23,7 +22,7 @@ class BandwidthCircuitServiceModel extends Model
     public function rules()
     {
         return [
-            [['circuit_id', 'vpn_id', 'role_id', 'primary_interface', 'secondary_interface', 'qos_bandwidth'], 'required'],
+            [['circuit_id', 'vpn_id', 'role_id', 'primary_interface', 'secondary_interface', 'qos_bandwidth'], 'required']
 
         ];
     }

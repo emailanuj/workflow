@@ -38,8 +38,8 @@ $(document).on('click', '#searchbpacircuitreport', function () {
 			if (bpaData.status == "success") {
 				//alert(bpaData.html);
 				$("#bpacircuitreportdata").append(bpaData.html);
-			} else if (bpaData.status == "failed") {
-                $.each(bpaData.html, function (index, value) {
+			} else {
+                $.each(bpaData, function (index, value) {
                     $("#bpa-circuit-search").find('.field-bandwidthcircuitservicemodel-' + index).addClass('has-error');
                     $("#bpa-circuit-search").find('.field-bandwidthcircuitservicemodel-' + index).find('.help-block').text(value);
                 })

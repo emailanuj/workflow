@@ -16,12 +16,12 @@ $this->registerJsFile('@web/js/bpa-service.js', ['depends' => [\yii\web\JqueryAs
 
     $form = ActiveForm::begin([
         'id' => 'bpa-circuit-search',
-        'options' => [
-            'onsubmit' => 'return false',
-            'name' => 'bandwidth_circuit_service'
-        ],
+        // 'options' => [
+        //     'onsubmit' => 'return false',
+        //     'name' => 'bandwidth_circuit_service'
+        // ],
         'enableAjaxValidation' => false,
-        'enableClientValidation' => false,
+        'enableClientValidation' => true,
     ]);
     ?>
     <div class="form-group">
@@ -38,7 +38,7 @@ $this->registerJsFile('@web/js/bpa-service.js', ['depends' => [\yii\web\JqueryAs
     <div class="row">
         <div class="col-md-10"></div>        
         <div class="col-md-2">
-            <?= Html::Button('Search', ['class' => 'btn btn-primary', 'id' => 'searchbpacircuitreport']); ?>
+            <?= Html::Button('Search', ['class' => 'btn btn-primary save-ajax-btn', 'id' => 'searchbpacircuitreport']); ?>
         </div>
     </div>
 

@@ -23,15 +23,7 @@ use fedemotta\datatables\DataTables;
                 } 
                 echo $row;
             } ?>
-        </tbody>
-        <tfoot>
-            <tr>
-            <th>Id</th>
-                <th>Segment Mapping</th>
-                <th>Provisioned Bandwidth</th>
-                <th>Actual Bandwidth</th>
-            </tr>
-        </tfoot>
+        </tbody>        
     </table>
 <script>
 $(document).ready(function(){

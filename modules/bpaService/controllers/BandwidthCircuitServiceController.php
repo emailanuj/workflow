@@ -42,10 +42,11 @@ class BandwidthCircuitServiceController extends Controller
         if (Yii::$app->request->isAjax && Yii::$app->request->isPost) {
             $reportOutputData = [];            
             $bpaCircuitPostData = Yii::$app->request->post();                    
-            if ( $objBandwidthServiceModel->load(Yii::$app->request->post()) && $objBandwidthServiceModel->validate()) {                
+            if ($objBandwidthServiceModel->load(Yii::$app->request->post()) && $objBandwidthServiceModel->validate()) {                               
                 
                 $arrTopologyBestPathLists = TopologyServiceComponent::getRankwisePath($bpaCircuitPostData);
                 $arrSegmentLists          = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
+                
                 $arrPathsBandwidths       = BandwidthServiceComponent::getAllUtilization($arrSegmentLists);
                 $arrOutputResult          = OrchestratorComponent::calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths, 'BPA', '9000');
                 //pe($arrOutputResult);
@@ -60,10 +61,11 @@ class BandwidthCircuitServiceController extends Controller
                         ]
                     );
                     return json_encode($reportOutputData);               
+                
             }
-            $reportOutputData['status'] = 'failed';
-            $reportOutputData['html'] = $objBandwidthServiceModel->getErrors();
-            return json_encode($reportOutputData);
+            else {
+                return json_encode($objBandwidthServiceModel->getErrors());
+            }
         }
 
         return $this->render('index', [
