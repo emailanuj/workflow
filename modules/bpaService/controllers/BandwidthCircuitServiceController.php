@@ -7,6 +7,10 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\modules\bpaService\models\BandwidthCircuitServiceModel;
+use app\modules\api\components\BandwidthServiceComponent;
+use app\modules\api\components\TopologyServiceComponent;
+use app\modules\api\components\OrchestratorComponent;
+
 
 /**
  * BandwidthServiceController implements the CRUD actions for BandwidthService model.
@@ -37,14 +41,16 @@ class BandwidthCircuitServiceController extends Controller
         $objBandwidthServiceModel = new BandwidthCircuitServiceModel();
         if (Yii::$app->request->isAjax && Yii::$app->request->isPost) {
             $reportOutputData = [];            
-            $postdata = Yii::$app->request->post();                    
+            $bpaCircuitPostData = Yii::$app->request->post();                    
             if ( $objBandwidthServiceModel->load(Yii::$app->request->post()) && $objBandwidthServiceModel->validate()) {                
-                    // get A::Z ends [can be multiple] from playbook API
-                    // send all these A::Z ends to topology to get best path.
-                    // validate these best paths on the basis of threshold settings in orchestrator.
-                    // get segments from validated paths
-                    // send segments to bws to get utilizatin data.
-                    $reportOutputData['status'] = 'success';
+                
+                $arrTopologyBestPathLists = TopologyServiceComponent::getRankwisePath($bpaCircuitPostData);
+                $arrSegmentLists          = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
+                $arrPathsBandwidths       = BandwidthServiceComponent::getAllUtilization($arrSegmentLists);
+                $arrOutputResult          = OrchestratorComponent::calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths, 'BPA', '9000');
+                //pe($arrOutputResult);
+                
+                $reportOutputData['status'] = 'success';
                     $json = '[{"id":"1","segment_mapping":"A/B","provisioned_bandwidth":"100MB","actual_bandwidth":"120MB"},{"id":"2","segment_mapping":"B/C","provisioned_bandwidth":"200MB","actual_bandwidth":"220MB"},{"id":"3","segment_mapping":"C/D","provisioned_bandwidth":"300MB","actual_bandwidth":"320MB"},{"id":"4","segment_mapping":"D/E","provisioned_bandwidth":"400MB","actual_bandwidth":"420MB"}]';
                     $reportOutputData['html'] = $this->renderPartial(
                         'bpaReports',
