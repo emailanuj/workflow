@@ -6,19 +6,15 @@ use Yii;
 use yii\base\Model;
 use yii\validators\EachValidator;
 
-/**
- * This is the model class for table "bpaService".
- *
- * @property int $step_no
- * @property string|null $if_fail
- * @property string|null $a_end_host
- */
-
 class BandwidthCircuitServiceModel extends Model
 {
     
-    public $a_end_host = [];
-    public $z_end_host = [];    
+    public $circuit_id;
+    public $vpn_id;
+    public $role_id;
+    public $primary_interface;
+    public $secondary_interface;
+    public $qos_bandwidth;
 
 
     /**
@@ -27,7 +23,7 @@ class BandwidthCircuitServiceModel extends Model
     public function rules()
     {
         return [
-            [['a_end_host', 'z_end_host'], 'each', 'rule' => ['required']],
+            [['circuit_id', 'vpn_id', 'role_id', 'primary_interface', 'secondary_interface', 'qos_bandwidth'], 'required'],
 
         ];
     }
@@ -38,8 +34,12 @@ class BandwidthCircuitServiceModel extends Model
     public function attributeLabels()
     {
         return [            
-            'a_end_host' => 'A End Hostname',            
-            'z_end_host' => 'Z End Hostname',            
+            'circuit_id' => 'Circuit Id',            
+            'vpn_id' => 'VPN Id',
+            'role_id' => 'Role Id',
+            'primary_interface' => 'Primary Interface',
+            'secondary_interface' => 'Secondary Interface',
+            'qos_bandwidth' => 'Bandwidth',            
         ];
     }
 

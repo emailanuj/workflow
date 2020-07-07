@@ -37,20 +37,13 @@ class BandwidthCircuitServiceController extends Controller
         $objBandwidthServiceModel = new BandwidthCircuitServiceModel();
         if (Yii::$app->request->isAjax && Yii::$app->request->isPost) {
             $reportOutputData = [];            
-            $postdata = Yii::$app->request->post();
-            //$host_count = count($postdata['BandwidthCircuitServiceModel']['z_end_host']);            
-            if ( $objBandwidthServiceModel->load(Yii::$app->request->post()) && $objBandwidthServiceModel->validate()) {
-                // $validcount = 0;
-                // for($hc=0;$hc<$host_count;$hc++) {
-                //     $objBandwidthServiceMultiModel = new BandwidthCircuitServiceModel();
-                //     $objBandwidthServiceMultiModel->a_end_host  = $postdata['BandwidthCircuitServiceModel']['a_end_host'][$hc];
-                //     $objBandwidthServiceMultiModel->a_end_ip    = $postdata['BandwidthCircuitServiceModel']['a_end_ip'][$hc];
-                //     $objBandwidthServiceMultiModel->z_end_host  = $postdata['BandwidthCircuitServiceModel']['z_end_host'][$hc];
-                //     $objBandwidthServiceMultiModel->z_end_ip    = $postdata['BandwidthCircuitServiceModel']['z_end_ip'][$hc];
-                //     $valid=$objBandwidthServiceMultiModel->validate();
-                //     if($valid) { $validcount++; }
-                // }
-                //if($validcount == $host_count) {
+            $postdata = Yii::$app->request->post();                    
+            if ( $objBandwidthServiceModel->load(Yii::$app->request->post()) && $objBandwidthServiceModel->validate()) {                
+                    // get A::Z ends [can be multiple] from playbook API
+                    // send all these A::Z ends to topology to get best path.
+                    // validate these best paths on the basis of threshold settings in orchestrator.
+                    // get segments from validated paths
+                    // send segments to bws to get utilizatin data.
                     $reportOutputData['status'] = 'success';
                     $json = '[{"id":"1","segment_mapping":"A/B","provisioned_bandwidth":"100MB","actual_bandwidth":"120MB"},{"id":"2","segment_mapping":"B/C","provisioned_bandwidth":"200MB","actual_bandwidth":"220MB"},{"id":"3","segment_mapping":"C/D","provisioned_bandwidth":"300MB","actual_bandwidth":"320MB"},{"id":"4","segment_mapping":"D/E","provisioned_bandwidth":"400MB","actual_bandwidth":"420MB"}]';
                     $reportOutputData['html'] = $this->renderPartial(
@@ -60,12 +53,7 @@ class BandwidthCircuitServiceController extends Controller
 
                         ]
                     );
-                    return json_encode($reportOutputData);
-                // } else {
-                //     $reportOutputData['status'] = 'failed';
-                //     $reportOutputData['html'] = $objBandwidthServiceMultiModel->getErrors();
-                //     return json_encode($reportOutputData);
-                // }
+                    return json_encode($reportOutputData);               
             }
             $reportOutputData['status'] = 'failed';
             $reportOutputData['html'] = $objBandwidthServiceModel->getErrors();

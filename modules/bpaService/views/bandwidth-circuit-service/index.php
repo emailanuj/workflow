@@ -24,16 +24,14 @@ $this->registerJsFile('@web/js/bpa-service.js', ['depends' => [\yii\web\JqueryAs
         'enableClientValidation' => false,
     ]);
     ?>
-    <div class="form-group circuitgroup">
-        <div class="row multicircuit" id="multicircuit0">
-            <div class="col-md-4">
-                <?= $form->field($bandwidthCircuitServiceModel, 'a_end_host[]')->textInput([]) ?>
-            </div>            
-            <div class="col-md-4">
-                <?= $form->field($bandwidthCircuitServiceModel, 'z_end_host[]')->textInput([]) ?>
-            </div>            
-            <div class="col-md-2" style="margin-top:30px!important;"><a class="addfields" style="margin-top:10px;cursor:pointer;"><i class="fa fa-plus-circle"></i></a></div>           
-            <div class="col-md-2" style="margin-top:30px!important;"><a class="rmfields" style="margin-top:10px;cursor:pointer;"><i class="fa fa-minus-circle"></i></a></div>           
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2"><?= $form->field($bandwidthCircuitServiceModel, 'circuit_id')->textInput([]) ?></div>
+            <div class="col-md-2"><?= $form->field($bandwidthCircuitServiceModel, 'vpn_id')->textInput([]) ?></div>
+            <div class="col-md-2"><?= $form->field($bandwidthCircuitServiceModel, 'role_id')->textInput([]) ?></div>
+            <div class="col-md-2"><?= $form->field($bandwidthCircuitServiceModel, 'primary_interface')->textInput([]) ?></div>
+            <div class="col-md-2"><?= $form->field($bandwidthCircuitServiceModel, 'secondary_interface')->textInput([]) ?></div>
+            <div class="col-md-2"><?= $form->field($bandwidthCircuitServiceModel, 'qos_bandwidth')->textInput([]) ?></div>
         </div>                
     </div>
     
