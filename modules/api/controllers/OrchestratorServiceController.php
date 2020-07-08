@@ -31,7 +31,7 @@ class OrchestratorServiceController extends BaseController
         //$jsonRequestData = '{"module_type": "SRA","segment_ids":"[20525,20524,20526]","bandwidth_provision":"9000"}';
         //$jsonRequestData = '{"module_type": "SRA","source_hostname":"AHD-CGR-ISP-ACC-RTR-221","destination_hostname":"MUM-SC-ISPNGW-RTR-055"}';
         //$jsonRequestData   =  '{"module_type": "CCSM","source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10"}';
-        $jsonRequestData   =  '{"module_type": "BPA","source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10","bandwidth_provision":"9000"}';
+        //$jsonRequestData   =  '{"module_type": "BPA","source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10","bandwidth_provision":"9000"}';
 
         try {            
             $arrRequestData = Json::decode($jsonRequestData, true);
@@ -98,7 +98,7 @@ class OrchestratorServiceController extends BaseController
                 $arrSegments         = $arrRequestData['segment_ids'];
                 $arrSegments         = json::decode($arrSegments);
                 $arrPathsBandwidths  = BandwidthServiceComponent::getAllUtilization($arrSegments);
-                $arrOutputResult     = OrchestratorComponent::setModulePathBandwidth($arrPathsBandwidths, $this->intCurrentBandwidth);
+                $arrOutputResult     = OrchestratorComponent::setModulePathBandwidth($arrPathsBandwidths, $this->intCurrentBandwidth, $this->moduleType);
                 $arrOutputResult['status'] = 'Success';
                 // Need to discuss from where will get the best path.
                 // $arrTopologyBestPathLists = [];

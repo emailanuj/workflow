@@ -25,7 +25,7 @@ class OrchestratorComponent
 
                     // to avoid code replication
                     $sendBandwidthArray = array($strPayloadValue['seg_id'] => $arrBandwidthResponse[$strPayloadValue['seg_id']]);
-                    $bandwidthDetails = self::setModulePathBandwidth($sendBandwidthArray, $intCurrentBandwidth);
+                    $bandwidthDetails = self::setModulePathBandwidth($sendBandwidthArray, $intCurrentBandwidth, $moduleType);
                     $arrPathDetails[$strPayloadKey] = $bandwidthDetails;
                     if ($arrPathDetails[$strPayloadKey][$strPayloadValue['seg_id']]['status'] == 'selected') {
                         $strSuccessCounter++;
@@ -63,12 +63,12 @@ class OrchestratorComponent
         return $arrOutputLists;
     }
 
-    public static function setModulePathBandwidth($arrBandwidthResponse, $intCurrentBandwidth)
+    public static function setModulePathBandwidth($arrBandwidthResponse, $intCurrentBandwidth, $moduleType)
     {
-        //echo $this->intCurrentBandwidth; exit;
-        //pe($arrBandwidthResponse);
+        /** in case of BPA check threshold on the basis of service,network,utilization 
+         * settings done under threshold settings */
         foreach ($arrBandwidthResponse as $bandwidthKey => $bandwidthValue) {
-            $strModuleName = 'SRA';
+            $strModuleName = $moduleType;
             $intActualUtilization = isset($bandwidthValue['actual_bw']) ? $bandwidthValue['actual_bw'] : 0;
             $intTotalUtilization = isset($bandwidthValue['actual_capacity']) ? $bandwidthValue['actual_capacity'] : 0;
 
