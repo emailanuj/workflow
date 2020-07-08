@@ -64,6 +64,7 @@ class WorkFlowAsset extends AssetBundle
         'js/drawingpage/datastore/datastore.js',
         'js/drawingpage/flow/flow.js',
         'js/drawingpage/endevent/endevent.js',
+        'js/drawingpage/subprocess/subprocess.js',
         'js/drawingpage/drawing.js',
         'js/workflow.js',
         'js/jquery.validate.min.js',

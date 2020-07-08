@@ -76,11 +76,11 @@ $arrMenuLists = [
                             <input id="event-gateway-button" type="image" title="Event Gateway" src="<?= Url::base() . '/img/Eventgateway.png' ?>" alt="Event Gateway" style="width: 30px;height: 30px"><br>
 
                             <hr>
-
                             <input id="data-store-button" type="image" title="Data Store" src="<?= Url::base() . '/img/data-store.png' ?>" alt="Data Store" style="width: 30px;height: 30px">
-
                             <hr>
-
+                            
+                            <input id="sub-process-button" type="image" title="Sub Process" src="<?= Url::base() . '/img/subprocess.png' ?>" alt="Sub Process" style="width: 30px;height: 30px">
+                            <hr/>
                             <input type="file" id="hidden-file-upload">
                             <input id="upload-input" type="image" title="upload graph" src="<?= Url::base() . '/img/upload-icon.png' ?>">
                             <input type="image" id="download-input" title="download graph" src="<?= Url::base() . '/img/download-icon.png' ?>" alt="download graph">

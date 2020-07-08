@@ -14,6 +14,8 @@ function uploadgraphCreator(data) {
             gatewaydevider(bpmnelement.id, bpmnelement.subtype, sampleSVG, bpmnelement.x, bpmnelement.y)
         } else if (bpmnelement.type === "datastore") {
             datastoredevider(bpmnelement.id, bpmnelement.subtype, sampleSVG, bpmnelement.x, bpmnelement.y)
+        } else if (bpmnelement.type === "subprocess") {
+            subprocessdevider(bpmnelement.id, bpmnelement.subtype, sampleSVG, bpmnelement.x, bpmnelement.y)
         } else if (bpmnelement.type === "task") {
             taskdevider(bpmnelement.id, bpmnelement.subtype, sampleSVG, bpmnelement.x, bpmnelement.y)
         } else if (bpmnelement.type === "flow") {

@@ -24,6 +24,9 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
     } else if (bpmnElement === "datastore") {
         window.bpmnElement = null;
         datastoredevider(null, subElement, svg, d3.event.offsetX, d3.event.offsetY);
+    } else if (bpmnElement === "subprocess") {
+        window.bpmnElement = null;
+        subprocessdevider(null, subElement, svg, d3.event.offsetX, d3.event.offsetY);
     } else if (bpmnElement === "flow" || bpmnElement === "flowselect") {
         window.bpmnElement = null;
         flowcreator(null, subElement, svg, d3.event.offsetX, d3.event.offsetY);
