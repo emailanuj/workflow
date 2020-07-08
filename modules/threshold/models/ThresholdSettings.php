@@ -164,9 +164,13 @@ class ThresholdSettings extends ActiveRecord
         return $status;
     }
 
-    public static function getAllThresholdSetting()
+    public static function getAllThresholdSetting($strNetwork, $strService, $strUtilization)
     {
-        $arrLists = self::find()->select(['threshold_name', 'network_type', 'service_type', 'tag', 'utilization_type', 'threshold_condition', 'value'])->where(['is_deleted' => 0])->AsArray()->all();
+        if(!empty($strNetwork) && !empty($strService) && !empty($strUtilization)) {
+            $arrLists = self::find()->select(['threshold_name', 'threshold_condition', 'value'])->where(['is_deleted' => 0, 'network_type' => $strNetwork, 'service_type' => $strService, 'utilization_type' => $strUtilization])->AsArray()->all();
+        } else {
+            $arrLists = self::find()->select(['threshold_name', 'threshold_condition', 'value'])->where(['is_deleted' => 0])->AsArray()->all();
+        }
         $arrSettingData = [];
         foreach ($arrLists as $key => $arrList) {
             $arrSettingData[$arrList['threshold_name']] = $arrList;
@@ -218,12 +222,12 @@ class ThresholdSettings extends ActiveRecord
         return $arrOutput;
     }
 
-    public static function boolCheckThresholdPercentage($strModuleName, $intThresholdValue)
+    public static function boolCheckThresholdPercentage($strModuleName, $strNetwork, $strService, $strUtilization, $intThresholdValue)
     {
-        $objThresholdSettings = ThresholdSettings::getAllThresholdSetting();
-
+        $objThresholdSettings = ThresholdSettings::getAllThresholdSetting($strNetwork, $strService, $strUtilization);
+        //pe($objThresholdSettings);
         $arrSetting['threshold_condition'] = $objThresholdSettings[$strModuleName]['threshold_condition'];
-        $arrSetting['value'] = $objThresholdSettings[$strModuleName]['value'];
+        $arrSetting['value']               = $objThresholdSettings[$strModuleName]['value'];        
         $objCurrentThresholdValue = ThresholdSettings::selectConditionOperator($arrSetting, $intThresholdValue);
         return $objCurrentThresholdValue;
     }

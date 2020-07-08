@@ -66,7 +66,8 @@ class OrchestratorComponent
     public static function setModulePathBandwidth($arrBandwidthResponse, $intCurrentBandwidth, $moduleType)
     {
         /** in case of BPA check threshold on the basis of service,network,utilization 
-         * settings done under threshold settings */
+         * settings done under threshold settings
+         * currently we are accessing actual utilization only , in future we will fire all utilization for BPA */
         foreach ($arrBandwidthResponse as $bandwidthKey => $bandwidthValue) {
             $strModuleName = $moduleType;
             $intActualUtilization = isset($bandwidthValue['actual_bw']) ? $bandwidthValue['actual_bw'] : 0;
@@ -74,8 +75,14 @@ class OrchestratorComponent
 
             $intCurrentPercentage = Yii::$app->formatter->asPercent((($intActualUtilization + $intCurrentBandwidth) / $intTotalUtilization));
             $intCurrentPercentage = str_replace('%', '', $intCurrentPercentage);
-            $bolGetThresholdCheckData = ThresholdSettings::boolCheckThresholdPercentage($strModuleName, $intCurrentPercentage);
-
+            if($strModuleName == 'BPA') {
+                $network = 'IPMPLS';
+                $service = 'L3VPN';
+                $utilization = 'actual';
+                $bolGetThresholdCheckData = ThresholdSettings::boolCheckThresholdPercentage($strModuleName, $network, $service, $utilization,  $intCurrentPercentage);
+            } else {
+                $bolGetThresholdCheckData = ThresholdSettings::boolCheckThresholdPercentage($strModuleName, $network=NULL, $service=NULL, $utilization=NULL, $intCurrentPercentage);
+            }
             $strCurrentStatus = 'rejected';
             if ($bolGetThresholdCheckData['status'] == 'success') {
                 $strCurrentStatus = 'selected';
