@@ -76,29 +76,6 @@ var bpmnEventDivider = function (bpmnElement, subElement, svg) {
 
 }
 
-
-// function setEventName(selectedtextid, selectedtextx, selectedtexty) {
-//     if (selectedtextid != null) {
-// console.log(selectedtextid);
-//         var element = document.getElementById('edittext');
-//         var textvalue = element.value;
-//         element.value = "";
-//         element.style.display = "none";
-//         if (textvalue != '') {
-// console.log(selectedtextx);
-// console.log(selectedtexty);
-//             var textToElement = d3.select("#"+selectedtextid);
-//             var textGroup = textToElement                
-//                 .append('g')
-//                 .attr('transform', 'translate(' + selectedtextx + ',' + selectedtexty + ')')
-//                 .attr('id', selectedtextid + '_label')
-//                 //.call(drag);
-
-//             textGroup.append('text').text(textvalue);
-//         }
-//     }
-// }
-
 function deleteElement(id) {
     // console.log("ididid : "+id)
     // console.log(id);
