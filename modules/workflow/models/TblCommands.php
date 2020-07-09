@@ -48,7 +48,7 @@ class TblCommands extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [[ 'command_name'], 'required'],
+            [['os_type', 'name','template_name'], 'required'],
             [['is_deleted'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['command_name'], 'string', 'max' => 255],
@@ -64,6 +64,7 @@ class TblCommands extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'command_name' => 'Command Name',
+            'template_name' => 'Templeate Name',
             'is_deleted' => 'Is Deleted',
             'created_at' => 'Created At',
             'created_by' => 'Created By',

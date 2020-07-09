@@ -436,7 +436,7 @@ var drag = d3.behavior.drag()
                             // console.log('Prince');
                         } else {
                             // console.log('Pandey');
-                            if ((coords.y > (parentCircleCoords.y - 20)) && (coords.y < (parentCircleCoords.y + 20))) {
+                            if (( (coords.y - 20 ) > (parentCircleCoords.y - 20)) && ( (coords.y + 20 ) < (parentCircleCoords.y + 20))) {
                                 endx = coords.x - 30;
                                 endy = coords.y;
                             } else if (coords.y > (parentCircleCoords.y + 20)) {

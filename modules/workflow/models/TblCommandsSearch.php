@@ -18,7 +18,7 @@ class TblCommandsSearch extends TblCommands
     {
         return [
             [['id', 'is_deleted'], 'integer'],
-            [['command_name', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'safe'],
+            [['name', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'safe'],
         ];
     }
 
@@ -64,7 +64,8 @@ class TblCommandsSearch extends TblCommands
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'command_name', $this->command_name])
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'template_name', $this->template_name])
             ->andFilterWhere(['like', 'created_by', $this->created_by])
             ->andFilterWhere(['like', 'updated_by', $this->updated_by]);
 
