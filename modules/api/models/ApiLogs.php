@@ -1,30 +1,35 @@
 <?php
 
-namespace app\modules\workflow\models;
+namespace app\modules\api\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use \yii\db\ActiveRecord;
 
 /**
- * This is the model class for table "tbl_commands".
+ * This is the model class for table "api_logs".
  *
  * @property int $id
- * @property string $command_name
+ * @property string $app_type
+ * @property string $request
+ * @property string $response
+ * @property int $status
  * @property int $is_deleted
- * @property string $created_at
- * @property string $created_by
- * @property string $updated_at
- * @property string $updated_by
+ * @property int $created_at
+ * @property int|null $created_by
+ * @property int|null $updated_at
+ * @property int|null $updated_by
  */
-class TblCommands extends \yii\db\ActiveRecord
+class ApiLogs extends \yii\db\ActiveRecord
 {
+    const ORCHESTRATOR = 'ORCHESTRATOR';
+
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'tbl_commands';
+        return 'api_logs';
     }
 
     public function behaviors()
@@ -34,7 +39,7 @@ class TblCommands extends \yii\db\ActiveRecord
             'timestamp' => [
                 'class' => 'yii\behaviors\TimestampBehavior',
                 'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at','updated_at'],
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
                 ],
             ],
@@ -47,11 +52,10 @@ class TblCommands extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['os_type', 'name','template_name'], 'required'],
-            [['is_deleted'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['command_name'], 'string', 'max' => 255],
-            [['created_by', 'updated_by'], 'string', 'max' => 11],
+            [['app_type', 'request', 'response', 'status', 'created_at'], 'required'],
+            [['request', 'response'], 'string'],
+            [['status', 'is_deleted', 'created_by', 'updated_by'], 'integer'],
+            [['app_type'], 'string', 'max' => 20],
         ];
     }
 
@@ -62,8 +66,10 @@ class TblCommands extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'command_name' => 'Command Name',
-            'template_name' => 'Templeate Name',
+            'app_type' => 'App Type',
+            'request' => 'Request',
+            'response' => 'Response',
+            'status' => 'Status',
             'is_deleted' => 'Is Deleted',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
@@ -71,4 +77,10 @@ class TblCommands extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
         ];
     }
+
+    public static function saveApiLogs(){
+        
+    }
+
+
 }

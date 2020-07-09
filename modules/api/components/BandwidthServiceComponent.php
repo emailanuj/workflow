@@ -7,31 +7,47 @@ use yii\base\Exception;
 use yii\helpers\Json;
 use app\modules\api\components\CurlServiceComponent;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
+use app\modules\api\models\ApiLogs;
 
 class BandwidthServiceComponent
 {
     private static $bandwidthServiceUrl = 'http://bharti-bs01:5000/bws/api/v1/utilization';
 
+    public static function saveApiLogs($strUniqueId, $jsonRequestData = '', $jsonResponseData = '')
+    {
+        $objBwsApiLogs = new ApiLogs();
+        $objBwsApiLogs->unique_id = $strUniqueId;
+        $objBwsApiLogs->app_type = 'ORCHESTRATOR';
+        $objBwsApiLogs->app_url = self::$bandwidthServiceUrl;
+        $objBwsApiLogs->request_method = 'POST';
+        $objBwsApiLogs->request = $jsonRequestData;
+        $objBwsApiLogs->response = $jsonResponseData;
+        $objBwsApiLogs->save(false);
+        unset($objBwsApiLogs);
+    }
 
-    public static function getAllUtilization($arrSegmentId)
+    public static function getAllUtilization($arrSegmentId, $strUniqueId)
     {
         // pe($arrSegmentId);
         //https://jsonplaceholder.typicode.com/todos/
         // $arrRequest['url'] = self::$bandwidthServiceUrl;
-        // $arrRequest['data'] = Json::encode([
-        //     "segment_ids" => $arrSegmentId,
-        //     "class" => "false",
-        //     "interval" => "20d",
-        //     "type" => "all"
-        // ]);
+        $arrRequest['data'] = Json::encode([
+            "segment_ids" => $arrSegmentId,
+            "class" => "false",
+            "interval" => "20d",
+            "type" => "all"
+        ]);
         // $arrResponse = CurlServiceComponent::postRequest($arrRequest);
         // return ArrayHelper::index($arrResponse, 'segment_id');
         $strStaticResponce = '{"20525":{"segment_id":20525,"actual_time":"2020-06-07 23:45:03","actual_bw":21101.369,"actual_capacity":200000,"peak_time":"2020-06-03 15:15:04","peak_bw":29956.945,"peak_capacity":200000,"avg_bw":19646.6313902728,"percentile95_bw":27231.959},"20524":{"segment_id":20524,"actual_time":"2020-06-07 23:45:03","actual_bw":31791.809,"actual_capacity":100000,"peak_time":"2020-06-04 15:30:05","peak_bw":39413.121,"peak_capacity":100000,"avg_bw":27028.5380486358,"percentile95_bw":37258.375},"20529":{"segment_id":20529,"actual_time":"2020-06-07 23:45:03","actual_bw":0.016,"actual_capacity":10000,"peak_time":null,"peak_bw":null,"peak_capacity":null,"avg_bw":0.0159243499,"percentile95_bw":0.016},"20528":{"segment_id":20528,"actual_time":"2020-06-07 23:45:03","actual_bw":2.513,"actual_capacity":10000,"peak_time":"2020-06-04 06:15:03","peak_bw":160.869,"peak_capacity":10000,"avg_bw":11.6381867612,"percentile95_bw":22.6775},"20527":{"segment_id":20527,"actual_time":"2020-06-07 23:45:03","actual_bw":6085.658,"actual_capacity":100000,"peak_time":"2020-06-05 22:30:03","peak_bw":7123.063,"peak_capacity":100000,"avg_bw":4673.9113743243,"percentile95_bw":6593.0362},"20526":{"segment_id":20526,"actual_time":"2020-06-07 23:45:03","actual_bw":29432.063,"actual_capacity":200000,"peak_time":"2020-06-05 12:15:03","peak_bw":39693.363,"peak_capacity":200000,"avg_bw":30292.6193677343,"percentile95_bw":37899.7771}}';
+
+        BandwidthServiceComponent::saveApiLogs($strUniqueId, $arrRequest['data'], $strStaticResponce);
         return json_decode($strStaticResponce, true);
     }
 
 
-    public static function getActualUtilization($arrSegmentId)
+    public static function getActualUtilization($arrSegmentId, $strUniqueId)
     {
         $arrRequest['url'] = self::$bandwidthServiceUrl;
         $arrRequest['data'] = Json::encode([
@@ -47,7 +63,7 @@ class BandwidthServiceComponent
         return ArrayHelper::index($arrResponse, 'segment_id');
     }
 
-    public static function getActualClassUtilization()
+    public static function getActualClassUtilization($arrSegmentId, $strUniqueId)
     {
         $arrRequest['url'] = self::$bandwidthServiceUrl;
         $arrRequest['data'] = [
@@ -58,7 +74,7 @@ class BandwidthServiceComponent
         return CurlServiceComponent::postRequest($arrRequest);
     }
 
-    public static function getPeakUtilization($arrSegmentId)
+    public static function getPeakUtilization($arrSegmentId, $strUniqueId)
     {
         $arrRequest['url'] = self::$bandwidthServiceUrl;
         $arrRequest['data'] = [
@@ -70,7 +86,7 @@ class BandwidthServiceComponent
         return CurlServiceComponent::postRequest($arrRequest);
     }
 
-    public static function getPeakClassUtilization()
+    public static function getPeakClassUtilization($arrSegmentId, $strUniqueId)
     {
         $arrRequest['url'] = self::$bandwidthServiceUrl;
         $arrRequest['data'] = [
@@ -79,10 +95,10 @@ class BandwidthServiceComponent
             "interval" => "7d",
             "type" => "peak"
         ];
-        return CurlServiceComponent::postRequest($arrRequest);        
+        return CurlServiceComponent::postRequest($arrRequest);
     }
 
-    public static function getAverageUtilization()
+    public static function getAverageUtilization($arrSegmentId, $strUniqueId)
     {
         $arrRequest['url'] = self::$bandwidthServiceUrl;
         $arrRequest['data'] = [
@@ -134,13 +150,14 @@ class BandwidthServiceComponent
         return CurlServiceComponent::postRequest($arrRequest);
     }
 
-    public static function getBwsUtilizationData($utlizationPostData) {  
+    public static function getBwsUtilizationData($utlizationPostData)
+    {
         //pe($utlizationPostData); exit;
-        $interval = $utlizationPostData['duration_filter'].$utlizationPostData['duration'];
+        $interval = $utlizationPostData['duration_filter'] . $utlizationPostData['duration'];
         $arrRequest['url'] = self::$bandwidthServiceUrl;
-        if(!empty($utlizationPostData['utilization'])) {
-            if($utlizationPostData['utilization'] == 'current') {
-                
+        if (!empty($utlizationPostData['utilization'])) {
+            if ($utlizationPostData['utilization'] == 'current') {
+
                 $arrRequest['data'] = [
                     "segment_ids" => $utlizationPostData['segment_ids'],
                     "class" => $utlizationPostData['utilization_type']
@@ -149,7 +166,7 @@ class BandwidthServiceComponent
                 $classfalse = '[{"segment_id":20525,"timestamp":"2020-06-07 23:45:03","actual_bw":21101.369,"configured_capacity":200000.0},{"segment_id":20524,"timestamp":"2020-06-07 23:45:03","actual_bw":31791.809,"configured_capacity":100000.0},{"segment_id":20526,"timestamp":"2020-06-07 23:45:03","actual_bw":29432.063,"configured_capacity":200000.0}]';
                 $classtrue  = '[{"segment_id":20525,"timestamp":"2020-06-07 23:45:03","class_actual_bw":{"CORE_NETWORK_OAM_OUT":0.061,"CLASS-DEFAULT":5821.881,"CORE_MOBILITY_DATA_OUT":13218.498,"CORE_MOBILITY_SIGNAL_OUT":29.843,"CORE_PREMIUM_NRT_OUT":1294.554,"CORE_PREMIUM_RT_OUT":813.866,"CORE_NETWORK_OUT":1.164}},{"segment_id":20524,"timestamp":"2020-06-07 23:45:03","class_actual_bw":{"CORE_NETWORK_OAM_OUT":0.002,"CLASS-DEFAULT":14983.873,"CORE_MOBILITY_DATA_OUT":8506.123,"CORE_MOBILITY_SIGNAL_OUT":22.435,"CORE_PREMIUM_NRT_OUT":7242.605,"CORE_PREMIUM_RT_OUT":1434.278,"CORE_NETWORK_OUT":1.42}}]';
                 /**actual */
-            }  else {
+            } else {
                 $arrRequest['data'] = [
                     "segment_ids" => $utlizationPostData['segment_ids'],
                     "class" => $utlizationPostData['utilization_type'],
@@ -173,7 +190,7 @@ class BandwidthServiceComponent
             }
         }
 
-        return json_decode($classtrue,true);        
+        return json_decode($classtrue, true);
         //return CurlServiceComponent::postRequest($arrRequest); 
 
     }
