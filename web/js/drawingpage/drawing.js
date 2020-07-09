@@ -6,6 +6,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     window.idtaskelement = 0;
     window.idgatewayelement = 0;
     window.iddatastore = 0;
+    window.idsubprocess = 0;
     window.idelement = 0;
     window.idflow = 0;
     // var arrowbuttonclick = 0;
@@ -297,6 +298,13 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
             console.log("ok Data Store");
             bpmnElement = "datastore";
             subElement = "datastore";
+
+        });
+        d3.select("#sub-process-button").on("click", function () {
+            document.body.style.cursor = "copy";
+            console.log("ok Sub Process");
+            bpmnElement = "subprocess";
+            subElement = "subprocess";
 
         });
         d3.select("#arrow-button").on("click", function () {
