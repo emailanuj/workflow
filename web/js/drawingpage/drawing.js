@@ -49,62 +49,10 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
         .style("z-index", "10")
         .style("opacity", 0);
 
-    // window.trashfuntion = function () {
-    //     console.log("trash");
-    // }
-
 
     // define property creator object
     window.semodal = document.getElementById('SEModal');
-    //        var sepropertyclose = document.getElementById('SEClose');
-    //        sepropertyclose.onclick = function () {
-    //            semodal.style.display = "none";
-    //        }
-
-
-    // window.tsemodal = document.getElementById('TSEModal');
-    // var tsepropertyclose = document.getElementById('TSEClose');
-    // tsepropertyclose.onclick = function () {
-    //     tsemodal.style.display = "none";
-    // }
-
-    // window.msemodal = document.getElementById('MSEModal');
-    // var msepropertyclose = document.getElementById('MSEClose');
-    // msepropertyclose.onclick = function () {
-    //     msemodal.style.display = "none";
-    // }
-
-    // window.esemodal = document.getElementById('ESEModal');
-    // var esepropertyclose = document.getElementById('ESEClose');
-    // esepropertyclose.onclick = function () {
-    //     esemodal.style.display = "none";
-    // }
-
-    // window.eemodal = document.getElementById('EEModal');
-    // var eepropertyclose = document.getElementById('EEClose');
-    // eepropertyclose.onclick = function () {
-    //     eemodal.style.display = "none";
-    // }
-
-    // window.tmodal = document.getElementById('TModal');
-    // var tpropertyclose = document.getElementById('TClose');
-    // tpropertyclose.onclick = function () {
-    //     tmodal.style.display = "none";
-    // }
-
-    // window.gmodal = document.getElementById('GModal');
-    // var gpropertycloses = document.getElementById('GClose');
-    // gpropertycloses.onclick = function () {
-    //     gmodal.style.display = "none";
-    // }
-
-    //        window.fmodal = document.getElementById('FModal');
-    //        var fpropertycloses = document.getElementById('FClose');
-    //        fpropertycloses.onclick = function () {
-    //            fmodal.style.display = "none";
-    //        }
-
-
+    
 
     var GraphCreator = function (svg, nodes, edges) {
         var thisGraph = this;
@@ -148,9 +96,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
                 "idflow": idflow
             });
 
-            // thisGraph.edges.forEach(function (val, i) {
-            //     saveEdges.push({source: val.source.id, target: val.target.id});
-            // });
+            
             var blob = new Blob([window.JSON.stringify({
                 bpmn
                 //  bpmnjson
@@ -333,7 +279,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
 
                 filereader.onload = function () {
                     var txtRes = filereader.result;
-                    // TODO better error handling
+                    // TO DO better error handling
                     try {
                         var jsonObj = JSON.parse(txtRes);
                         //  console.log(jsonObj)
@@ -392,9 +338,6 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     var docEl = document.documentElement,
         bodyEl = document.getElementsByTagName('body')[0];
 
-    // console.log(docEl.clientWidth + '==' + docEl.clientHeight);
-    // console.log(bodyEl.clientWidth + '==' + bodyEl.clientHeight);
-    // console.log(window.innerWidth + '==' + window.innerHeight);
 
     var cwidth = window.innerWidth || docEl.clientWidth || bodyEl.clientWidth,
         height = window.innerHeight || docEl.clientHeight || bodyEl.clientHeight;
@@ -417,11 +360,6 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     svg.on("click", function () {
         console.log("svg onclick")
         console.log(d3.event);
-
-        // let WindowXCordinate = d3.event.x;
-        // let WindowYCordinate = d3.event.y;
-        // console.log(' X : ' + WindowXCordinate + ' # Y : ' + WindowYCordinate);
-
         bpmnEventDivider(bpmnElement, subElement, svg);
         d3.select('body').style("cursor", "auto");
     });
@@ -433,3 +371,5 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
 
 })(window.d3, window.saveAs, window.Blob);
 //graph.updateGraph();
+
+
