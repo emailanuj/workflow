@@ -1,15 +1,15 @@
 <?php
 
-namespace app\modules\workflow\models;
+namespace app\modules\api\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\workflow\models\TblCommands;
+use app\modules\api\models\ApiLogs;
 
 /**
- * TblCommandsSearch represents the model behind the search form of `app\models\TblCommands`.
+ * ApiLogsSearch represents the model behind the search form of `app\models\ApiLogs`.
  */
-class TblCommandsSearch extends TblCommands
+class ApiLogsSearch extends ApiLogs
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class TblCommandsSearch extends TblCommands
     public function rules()
     {
         return [
-            [['id', 'is_deleted'], 'integer'],
-            [['name', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'safe'],
+            [['id', 'status', 'is_deleted', 'created_at', 'created_by', 'updated_at', 'updated_by'], 'integer'],
+            [['unique_id','app_type', 'app_url','request_method' ,'request', 'response'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class TblCommandsSearch extends TblCommands
      */
     public function search($params)
     {
-        $query = TblCommands::find();
+        $query = ApiLogs::find();
 
         // add conditions that should always apply here
 
@@ -59,15 +59,17 @@ class TblCommandsSearch extends TblCommands
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'status' => $this->status,
             'is_deleted' => $this->is_deleted,
             'created_at' => $this->created_at,
+            'created_by' => $this->created_by,
             'updated_at' => $this->updated_at,
+            'updated_by' => $this->updated_by,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'template_name', $this->template_name])
-            ->andFilterWhere(['like', 'created_by', $this->created_by])
-            ->andFilterWhere(['like', 'updated_by', $this->updated_by]);
+        $query->andFilterWhere(['like', 'app_type', $this->app_type])
+            ->andFilterWhere(['like', 'request', $this->request])
+            ->andFilterWhere(['like', 'response', $this->response]);
 
         return $dataProvider;
     }

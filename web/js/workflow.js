@@ -203,7 +203,7 @@ function populateData(blockId, workflow_id) {
 /** Each entity form Dropdown filters */
 $(document).on('change', "#workflowdatamodel-keywords", function () {
 	selected_value = this.value;
-	if (selected_value == 'API') {
+	if (selected_value == 'API') {``
 		$('.api_cls').css("display", "block");
 		$('.ds_cls').css("display", "none");
 		$('.formdata_cls').css("display", "none");
@@ -212,6 +212,7 @@ $(document).on('change', "#workflowdatamodel-keywords", function () {
 		$('.ds_cls').css("display", "block");
 	}
 });
+
 $(document).on('change', "#workflowdatamodel-api_method", function () {
 	selected_value = this.value;
 	if (selected_value == 'post') {

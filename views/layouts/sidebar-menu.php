@@ -31,6 +31,11 @@ $arrMenuLists = [
         'controllerName' => 'threshold-setting'
     ],
     [
+        'title' => 'Api Logs',
+        'url' => '/api/api-logs',
+        'controllerName' => 'api-logs'
+    ],
+    [
         'title' => 'Keywords',
         'url' => '/workflow/tbl-keywords',
         'controllerName' => 'tbl-keywords'
@@ -78,7 +83,7 @@ $arrMenuLists = [
                 </div>
             </li>
             <?php
-            $sideIcons = array("fa-tachometer","fa-lightbulb-o","fa-terminal","fa-sitemap","fa-file","fa-cube","fa-cubes");
+            $sideIcons = array("fa-tachometer","fa-tachometer","fa-lightbulb-o","fa-terminal","fa-sitemap","fa-file","fa-cube","fa-cubes");
             foreach ($arrMenuLists as $strKey => $arrLists) {                
                 $strIsActive = '';
                 if(Yii::$app->controller->id == $arrLists['controllerName']){

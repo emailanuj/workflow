@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\TblCommandsSearch */
+/* @var $searchModel app\models\ApiLogsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Commands';
+$this->title = 'Api Logs';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="tbl-commands-index">
+<div class="api-logs-index">
 
-    <!-- <h1><?= Html::encode($this->title) ?></h1> -->
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Tbl Commands', ['create'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Create Api Logs', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,16 +26,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            // 'id',
-            'name',
-            'template_name'
+            'id',
+            'app_type',
+            'request:ntext',
+            'response:ntext',
+            'status',
             //'is_deleted',
             //'created_at',
             //'created_by',
             //'updated_at',
             //'updated_by',
 
-            // ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 
