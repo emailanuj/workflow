@@ -4,56 +4,20 @@ var subprocessdevider = function (eid,subElement,svg,xvalue,yvalue){
 var group = svg.append('g')
         .attr('transform', 'translate(' + xvalue + ',' + yvalue + ')')
         .attr('id', 'subprocess' + (++idsubprocess))
-        .call(drag);
-var g2 =    group.append("g")            
-            g2.append('rect')
-                .attr("x", 0)
-                .attr("y", 0) 
+        .attr("class","interactive")
+        .call(drag);           
+            group.append('rect')
+                .attr('id', 'subprocess' + idsubprocess) 
                 .attr("rx", 10)
                 .attr("ry", 10)
-                .style("fill", "none")
-                .style("width", "350px")
-                .style("height", "200px")
-                .style("stroke", "black")  
-                .style("stroke-width", "2px")
-                .style("fill-opacity", 0.95)
-var g3 =    g2.append('text')
-                .attr("lineHeight", 1.2)
-                .style("font-family", "Arial, sans-serif")
-                .style("font-size", "12px")
-                .style("font-weight", "normal")
-                .style("fill", "black")
-            g3.append('tspan')
-                    .attr("x", 175)
-                    .attr("y", 15.79);
-
-            // group.append('rect')
-            //         .attr("x", -6)
-            //         .attr("y", -6)
-            //         .style("width", "362px")
-            //         .style("height", "212px")
-            //         .style("fill", "none")
-            // group.append('rect')
-            //         .attr("x", 0)
-            //         .attr("y", 0)
-            //         .style("width", "350px")
-            //         .style("height", "200px")
-            //         .style("fill", "none")
-            //         .style("stroke-opacity", 0)
-            //         .style("stroke", "white")
-            //         .style("stroke-width", "15px")
-            // group.append('rect')
-            //         .attr("x", 0)
-            //         .attr("y", 0)
-            //         .style("width", "350px")
-            //         .style("height", "30px")
-            //         .style("fill", "none")
-            //         .style("stroke-opacity", 0)
-            //         .style("stroke", "white")
-            //         .style("stroke-width", "15px")
-
-
-                group.on("mouseover", function () {
+                .style("fill", "white")
+                .style("width", 350)
+                .style("height", 200)
+                .style("stroke", "black")
+                .style("stroke-width", "2")
+                .style("fill-opacity", "0")
+                .attr("class","interactive")
+            group.on("mouseover", function () {
                     console.log('mouse moving');
                     d3.select(this).style("fill", "aliceblue");            
                 })
@@ -176,8 +140,18 @@ var g3 =    g2.append('text')
             if (eid === null) {
                 eid = 'subprocess' + idsubprocess;
             }
-            EventBPMNJsonCreator(eid, xvalue, yvalue, 20, 20, "subprocess", subElement);
+            EventBPMNJsonCreator(eid, xvalue, yvalue, 350, 200, "subprocess", subElement);
             subElement = null;
+
+            var interactive = d3.selectAll(".interactive")
+                .on("mouseover", function(d){
+                    window.inter = true;
+                    console.log(inter);
+                })
+                .on("mouseleave", function(d){
+                    window.inter = false;
+                    console.log(inter);
+                });
  }
 
  

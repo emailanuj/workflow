@@ -37,6 +37,7 @@ document.onload = (function (d3, saveAs, Blob, undefined) {
     window.dragging = false;
     window.drawing = false;
     window.taskwidth = 0;
+    window.inter = false;
 
     //     window.sampleSVG ;
 

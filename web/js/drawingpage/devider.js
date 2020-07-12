@@ -102,15 +102,12 @@ function deleteElement(id) {
 
 function dragMove(me) {
     console.log('mouse draging');
-    // console.log(me);
     d3.select(".setting-box").style("opacity", 0);
-    //tooltipDiv.transition().style("opacity", 0);
-    // console.log(d3.select(me).attr("id"))
     var x = d3.event.x;
     var y = d3.event.y;
 
     d3.select(me).attr('transform', 'translate(' + x + ',' + y + ')')
-    for (var i = 0; i < bpmnjson.length; i++) {
+    for (var i = 0; i < bpmnjson.length; i++) {        
         if (bpmnjson[i].id == d3.select(me).attr("id")) {
             bpmnjson[i].x = x;
             bpmnjson[i].y = y;
@@ -207,6 +204,26 @@ var drag = d3.behavior.drag()
     })
     .on("dragend", function () {
         console.log('DRAG END : Length of dragFlow : ' + dragFlows.length);
+        /* drag limit */
+            // startevent 154x 190y  164 242 l   399 304 c   154 187 of
+            //process      95x 144y  300 266 l   535  328 c
+
+        console.log(d3.event);
+        var x = d3.event.sourceEvent.clientX;
+        var y = d3.event.sourceEvent.clientY;
+        var dropperElement = d3.select(document.elementFromPoint(x, y)).attr("id");
+        console.log(dropperElement);
+        if(dropperElement !== null && dropperElement.search('subprocess') !== '') {
+            console.log(inter);
+            if(inter){
+                console.log(inter)
+                d3.select(this).attr("transform", "translate(" + x + "," + y + ")");
+                d3.select(dropperElement).append(d3.select(this));
+            } else {
+                drag.on("drag", null);
+            }
+        }
+    /* drag limit */
         for (var i = 0; i < dragFlows.length; i++) {
             var flow = dragFlows[i];
 
