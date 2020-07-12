@@ -212,16 +212,19 @@ var drag = d3.behavior.drag()
         var x = d3.event.sourceEvent.clientX;
         var y = d3.event.sourceEvent.clientY;
         var dropperElement = d3.select(document.elementFromPoint(x, y)).attr("id");
+        var droppingElement = d3.select(this);
+        console.log(droppingElement);
         console.log(dropperElement);
         if(dropperElement !== null && dropperElement.search('subprocess') !== '') {
             console.log(inter);
             if(inter){
                 console.log(inter)
-                d3.select(this).attr("transform", "translate(" + x + "," + y + ")");
-                d3.select(dropperElement).append(d3.select(this));
-            } else {
-                drag.on("drag", null);
-            }
+                d3.select(this).attr("transform", "translate(" + x + "," + y + ")");                
+                droppingElement.appendTo(dropperElement);
+            } 
+            // else {
+            //     drag.on("drag", null);
+            // }
         }
     /* drag limit */
         for (var i = 0; i < dragFlows.length; i++) {
