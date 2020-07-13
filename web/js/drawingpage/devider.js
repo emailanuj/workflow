@@ -212,7 +212,7 @@ var drag = d3.behavior.drag()
         var x = d3.event.sourceEvent.clientX;
         var y = d3.event.sourceEvent.clientY;
         var dropperElement = d3.select(document.elementFromPoint(x, y)).attr("id");
-        var droppingElement = d3.select(this);
+        var droppingElement = d3.select(this).attr("id");
         console.log(droppingElement);
         console.log(dropperElement);
         if(dropperElement !== null && dropperElement.search('subprocess') !== '') {
