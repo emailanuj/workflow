@@ -220,10 +220,10 @@ var drag = d3.behavior.drag()
             if(inter){
                 console.log(inter)
                 d3.select(this).attr("transform", "translate(" + x + "," + y + ")");                
-                droppingElement.appendTo(dropperElement);
+                $("#"+droppingElement).appendTo($("#"+dropperElement));
             } 
             else {
-                droppingElement.appendTo(window.sampleSVG);
+                $("#"+droppingElement).appendTo(window.sampleSVG);
                 //drag.on("drag", null);
             }
         }
