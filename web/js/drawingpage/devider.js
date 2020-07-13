@@ -222,9 +222,10 @@ var drag = d3.behavior.drag()
                 d3.select(this).attr("transform", "translate(" + x + "," + y + ")");                
                 droppingElement.appendTo(dropperElement);
             } 
-            // else {
-            //     drag.on("drag", null);
-            // }
+            else {
+                droppingElement.appendTo(window.sampleSVG);
+                //drag.on("drag", null);
+            }
         }
     /* drag limit */
         for (var i = 0; i < dragFlows.length; i++) {
