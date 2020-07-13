@@ -2,12 +2,12 @@ $(".se-pre-con").fadeOut("slow");
 
 /** save each entity form */
 $(document).on('click', "#savestartevent", function () {
-	var diagram_json 		= {};
+	var diagram_json = {};
 	var entityFormSavedData = {};
-	var workflowId 			= $("#workflow_id").val();
-	diagram_json['bpmn'] 	= bpmnjson;
-	diagram_json 			= JSON.stringify(diagram_json);	
-	entityFormSavedData 	= sessionStorage.getItem(workflowId);	
+	var workflowId = $("#workflow_id").val();
+	diagram_json['bpmn'] = bpmnjson;
+	diagram_json = JSON.stringify(diagram_json);
+	entityFormSavedData = sessionStorage.getItem(workflowId);
 	$('#form_json_data').val(diagram_json);
 	$('#saved_form_data').val(entityFormSavedData);
 	formdata = $('#seModal0').serializeArray();
@@ -17,11 +17,11 @@ $(document).on('click', "#savestartevent", function () {
 		url: baseURL + '/workflow/workflow/get-ajax-form',
 		data: formdata,
 		dataType: "json",
-		success: function (jsonData) {			
+		success: function (jsonData) {
 			if (jsonData.status == "success") {
 				console.log(jsonData.json_data);
 				sessionStorage.setItem(jsonData.id, jsonData.json_data);
-				sessionStorage.setItem('form_json'+workflowId, diagram_json);
+				sessionStorage.setItem('form_json' + workflowId, diagram_json);
 				$('.workflow_form').empty();
 				alert('Data saved successfully !');
 			} else if (jsonData.status == "error") {
@@ -40,6 +40,22 @@ $(document).on('click', "#savestartevent", function () {
 		},
 	});
 });
+
+$(document).on('click', "#cloneFilterPanelBtn", function () {
+	var amount = $('li.jsFilter').length;
+	var new_amount = amount + 1;
+	var cloned_div = $('#jsFilterId-' + amount);
+	$(cloned_div).clone().attr('id', 'jsFilterId-' + new_amount).insertAfter('#jsFilterId-' + amount);
+});
+
+
+$(document).on('click', ".btn-condition-cancel-icon", function () {
+	var getLength = $('li.condition-filter-panel').length;
+	if(getLength > 1){
+		$(this).parent('.condition-filter-panel').remove();
+	}
+});
+
 /** save each entity form */
 
 /** Entity form Controls */
@@ -131,17 +147,23 @@ $(document).on('click', "#cancelstartevent", function () {
 
 /** workflow on each entity setting buton sideopen entity form */
 function showFunction(element_id, form_type) {
+	// $('#modal-lg').modal('show');
+	// return false;
 	//clearSessionStorage();
 	var workflow_id = $('#workflow_id').val();
-	// debugger;
 	$.ajax({
 		type: "post",
 		url: baseURL + '/workflow/workflow/get-ajax-form',
 		data: { 'element_id': element_id, 'form_type': form_type, 'workflow_id': workflow_id },
 		dataType: "json",
 		success: function (jsonData) {
-			$('.workflow_form').empty();
-			$('.workflow_form').append(jsonData.html);
+			$('#modal-lg').modal('show');
+			$('#modal-lg').find('#modalHeader').html('Set Field Parameters.');
+			$('#modal-lg').find('#modalContent').html('');
+			$('#modal-lg').find('#modalContent').html(jsonData.html);
+			$('#modal-lg').find('.save-ajax-btn').attr('id', 'savestartevent');
+			// $('.workflow_form').empty();
+			// $('.workflow_form').append(jsonData.html);
 			populateData(element_id, workflow_id);
 			return jsonData.status;
 		},
@@ -154,8 +176,8 @@ function showFunction(element_id, form_type) {
 	});
 }
 /** workflow on each entity setting buton sideopen entity form */
-
 /** workflow data of each entity form from local session*/
+
 function populateData(blockId, workflow_id) {
 	if (sessionStorage.getItem(workflow_id)) {
 		var localJSONData = JSON.parse(sessionStorage.getItem(workflow_id));
@@ -203,15 +225,25 @@ function populateData(blockId, workflow_id) {
 /** Each entity form Dropdown filters */
 $(document).on('change', "#workflowdatamodel-keywords", function () {
 	selected_value = this.value;
-	if (selected_value == 'API') {``
+	if (selected_value == 'API') {
 		$('.api_cls').css("display", "block");
 		$('.ds_cls').css("display", "none");
 		$('.formdata_cls').css("display", "none");
+	} else if (selected_value == 'Command') {
+		$('.api_cls').css("display", "none");
+		$('.ds_cls').css("display", "none");
+		$('.formdata_cls').css("display", "none");
+		$('.command_frm_box').css("display", "block");
 	} else {
 		$('.api_cls').css("display", "none");
 		$('.ds_cls').css("display", "block");
 	}
 });
+
+
+// $(document).on('keyup', "#workflowdatamodel-title", function () {
+// 	d3.select('#mySvg').dispatchEvent('click');
+// });
 
 $(document).on('change', "#workflowdatamodel-api_method", function () {
 	selected_value = this.value;
@@ -221,6 +253,46 @@ $(document).on('change', "#workflowdatamodel-api_method", function () {
 		$('.api_post_field').css("display", "none");
 	}
 });
+
+$(document).on('change', "#workflowdatamodel-application_os", function () {
+	var application_os = $(this).find('option:selected').val();
+
+	$.ajax({
+		type: "post",
+		url: baseURL + '/workflow/workflow/get-command-lists',
+		data: { 'application_os': application_os },
+		dataType: "html",
+		success: function (jsonData) {
+			$("#workflowmultiplecommand-select_command").html('');
+			$("#workflowmultiplecommand-select_command").html(jsonData);
+		},
+		error: function (xhr, status, errorThrown) {
+			console.log('Error');
+		},
+	});
+});
+
+$(document).on('change', "#workflowmultiplecommand-select_command", function () {
+	$.ajax({
+		type: "post",
+		url: baseURL + '/workflow/workflow/parse-command',
+		data: {},
+		dataType: "json",
+		success: function (jsonData) {
+			// $("#workflowdatamodel-condition").html('');
+			var my_orders = $("#workflowcommandmultiplecondition-condition");
+			$.each(jsonData, function (key, value) {
+				my_orders.append("<option>" + value + "</option>");
+			});
+
+			// $("#workflowdatamodel-condition").html(jsonData);
+		},
+		error: function (xhr, status, errorThrown) {
+			console.log('Error');
+		},
+	});
+});
+
 $(document).on('change', "#workflowdatamodel-data_source", function () {
 	selected_value = this.value;
 	if (selected_value == 'function_name') {
@@ -255,21 +327,21 @@ function completeWorkflow() {
 	diagram_json = JSON.stringify(diagram_json);
 	console.log(diagram_json);
 	$('#form_json_data').val(diagram_json);
-	sessionStorage.setItem('form_json'+w_id, diagram_json);
+	sessionStorage.setItem('form_json' + w_id, diagram_json);
 	workflow_data = sessionStorage.getItem(w_id);
-	workflow_json = sessionStorage.getItem('form_json'+w_id);
+	workflow_json = sessionStorage.getItem('form_json' + w_id);
 	workflow_title = $("#workflow_title").val();
 	$('#workflow_json').val(workflow_json);
 	$('#workflow_data').val(workflow_data);
-	$('#w_id').val(w_id);	
+	$('#w_id').val(w_id);
 	$.ajax({
 		type: "post",
 		url: baseURL + '/workflow/workflow/save-workflow',
 		data: { 'w_id': w_id, 'workflow_title': workflow_title, 'workflow_json': workflow_json, 'workflow_data': workflow_data },
 		dataType: "json",
 		success: function (jsonData) {
-			clearSessionStorage();			
-			if(jsonData == "success") {
+			clearSessionStorage();
+			if (jsonData == "success") {
 				window.location = baseURL + '/workflow/workflow/index';
 			}
 		},
@@ -294,6 +366,6 @@ function clearSessionStorage() {
 function drawGraph(grapOBJ, formObj, workflow_id) {
 	uploadgraphCreator(grapOBJ);
 	sessionStorage.setItem(workflow_id, JSON.stringify(formObj));
-	sessionStorage.setItem('form_json'+workflow_id, JSON.stringify(grapOBJ));
+	sessionStorage.setItem('form_json' + workflow_id, JSON.stringify(grapOBJ));
 }
 /** graph draw for create update pages */

@@ -190,6 +190,22 @@ var starteventdevider = function (eid, subElement, svg, xvalue, yvalue) {
     if (eid === null) {
         eid = 'startEvnet' + idstartelement;
     }
+
+
+
+    if (window.selectedtextid == null) {
+        // .attr('id', 'startEvnet' + idstartelement)
+        var t = d3.select('#startEvnet' + idstartelement).attr("id");
+        var coords = getCircleCoordById(t);
+        console.log(coords);
+        var textGroup = d3.select("#startEvnet" + idstartelement)
+            .append('g')
+            .attr('transform', 'translate(' + (window.selectedtextx - 30) + ',' + (window.selectedtexty + 35) + ')')
+            .attr('id', 'startEvnet' + idstartelement + '_label')
+            .call(drag);
+        textGroup.append('text').text('startEvnet' + idstartelement);
+    }
+
     EventBPMNJsonCreator(eid, xvalue, yvalue, 20, 20, "startEvnet", subElement);
     subElement = null;
 }

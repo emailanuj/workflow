@@ -104,6 +104,27 @@ WorkFlowAsset::register($this);
     echo "<div class='batch-info'></div>
              <div id='modalContent'></div>";
     yii\bootstrap\Modal::end();
+
+
+    yii\bootstrap\Modal::begin([
+        'options' => [
+            'tabindex' => false,
+            'class' => 'inmodal'
+        ],
+        'header' => '<h4 class="modal-title" id="modalHeader"></h4>',
+        'footer' => '<button type="button" class="btn btn-success save-ajax-btn" >Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>',
+        'id' => 'modal-lg',
+        'size' => 'modal-lg',
+        //keeps from closing modal with esc key or by clicking out of the modal.
+        // user must click cancel or X to close
+        'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+
+    ]);
+    echo "<div class='batch-info'></div>
+             <div id='modalContent'></div>";
+    yii\bootstrap\Modal::end();
+
     ?>
 
 

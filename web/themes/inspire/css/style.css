@@ -5277,7 +5277,8 @@ video {
 }
 
 .inmodal .modal-header {
-  padding: 30px 15px;
+  /* padding: 30px 15px; */
+  padding: 10px 15px;
   text-align: center;
   display: block;
 }
@@ -7089,6 +7090,49 @@ a.compose-mail {
 
 .mail-search {
   max-width: 300px;
+}
+
+.multiple-condition-box, .multiple-command-box {
+  width: 100%;
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.multiple-command-box li {
+  background: #b6b2b240;
+  padding: 10px;
+  float: left;
+  width: 100%;
+}
+
+.multiple-condition-box li {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 0px;
+  float: left;
+  width: 100%;
+}
+
+.condition-div-box {
+  width: 100%;
+  float: left;
+}
+
+a.btn.btn-command-icon {
+  float: right;
+  background: darkolivegreen;
+  color: #fff;
+}
+
+a.btn.btn-condition-cancel-icon {
+  float: right;
+  background: #d14d4d;
+  color: #fff;
+}
+
+.floatLeft {
+  float: left;
 }
 
 /* PROFILE */

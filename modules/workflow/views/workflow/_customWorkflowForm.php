@@ -19,4 +19,4 @@ if (!empty($model['id'])) {
 <textarea id="edittext" title="Press SHIFT+Enter for line feed" style="width: 90px; height: 30px; left: 608px; top: 180px; background-color: rgb(255, 255, 255);  position: absolute; overflow-wrap: normal; border: 1px solid #111111; box-sizing: border-box; text-align: center; display: none;">
 </textarea>
 <input type="hidden" name="workflow_id" id="workflow_id" value="<?php echo $workflow_id; ?>">
-<div id="propwrap" class="workflow_form"></div>
+<!-- <div id="propwrap" class="workflow_form"></div> -->
