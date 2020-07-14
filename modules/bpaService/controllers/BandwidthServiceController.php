@@ -16,6 +16,8 @@ use app\modules\api\components\TopologyServiceComponent;
  */
 class BandwidthServiceController extends Controller
 {
+
+    private $strUniqueId = '';
     /**
      * {@inheritdoc}
      */
@@ -37,7 +39,7 @@ class BandwidthServiceController extends Controller
      */
     public function actionIndex()
     {
-        //echo 'hi'; exit;
+        $this->strUniqueId = uniqid();
         $modelsBandwidth = [new BandwidthServiceModel];
         
         if (Yii::$app->request->isAjax && Yii::$app->request->isPost) {
@@ -48,14 +50,14 @@ class BandwidthServiceController extends Controller
             if ($valid) {
                 $utlizationPostData = Yii::$app->request->post();                
                 foreach($utlizationPostData['BandwidthServiceModel'] as $utilizationPostKey => $utilizationPostValue) {
-                    $arrTopologyBestPathLists   = TopologyServiceComponent::getRankwisePath($utilizationPostValue);
-                    $arrSegmentLists            = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
+                    $arrTopologyBestPathLists   = TopologyServiceComponent::getRankwisePath(json_encode($utilizationPostValue), $this->strUniqueId);
+                    $arrSegmentLists            = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);                    
                     $utilizationPostValue['segment_ids'] = $arrSegmentLists;                    
                     $finalUtilizationTable[$utilizationPostValue['a_end_host'].'::'.$utilizationPostValue['z_end_host']] = BandwidthServiceComponent::getBwsUtilizationData($utilizationPostValue);
                     $finalUtilizationTable[$utilizationPostValue['a_end_host'].'::'.$utilizationPostValue['z_end_host']]['utilization_type'] = $utilizationPostValue['utilization'];
                     $finalUtilizationTable[$utilizationPostValue['a_end_host'].'::'.$utilizationPostValue['z_end_host']]['class_type'] = $utilizationPostValue['utilization_type'];
                     $finalUtilizationTable[$utilizationPostValue['a_end_host'].'::'.$utilizationPostValue['z_end_host']]['interval'] = $utilizationPostValue['duration_filter'].$utilizationPostValue['duration'];
-                }                
+                }                                
                 $reportOutputData['status'] = 'success';
                 $reportOutputData['html'] = $this->renderPartial(
                     'bpaReports',

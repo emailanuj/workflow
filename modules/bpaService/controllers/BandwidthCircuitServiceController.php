@@ -17,6 +17,7 @@ use app\modules\api\components\OrchestratorComponent;
  */
 class BandwidthCircuitServiceController extends Controller
 {
+    private $strUniqueId = '';
     /**
      * {@inheritdoc}
      */
@@ -38,17 +39,18 @@ class BandwidthCircuitServiceController extends Controller
      */
     public function actionIndex()
     {
+        $this->strUniqueId = uniqid();
         $objBandwidthServiceModel = new BandwidthCircuitServiceModel();
         if (Yii::$app->request->isAjax && Yii::$app->request->isPost) {
             $reportOutputData = [];            
             $bpaCircuitPostData = Yii::$app->request->post();                    
+            
             if ($objBandwidthServiceModel->load(Yii::$app->request->post()) && $objBandwidthServiceModel->validate()) {                               
-                
-                $arrTopologyBestPathLists = TopologyServiceComponent::getRankwisePath($bpaCircuitPostData);
-                $arrSegmentLists          = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
-                
-                $arrPathsBandwidths       = BandwidthServiceComponent::getAllUtilization($arrSegmentLists);
-                $arrOutputResult          = OrchestratorComponent::calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths, 'BPA', '9000','IPMPLS','ckt-123');
+                    
+                $arrTopologyBestPathLists = TopologyServiceComponent::getRankwisePath(json_encode($bpaCircuitPostData),$this->strUniqueId);                
+                $arrSegmentLists          = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);                
+                $arrPathsBandwidths       = BandwidthServiceComponent::getAllUtilization($arrSegmentLists, $this->strUniqueId);
+                $arrOutputResult          = OrchestratorComponent::calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths, 'BPA', '9000','MPLS-L3','ckt-123');
                 //pe($arrOutputResult);
                 
                 $reportOutputData['status'] = 'success';
