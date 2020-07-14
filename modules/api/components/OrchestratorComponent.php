@@ -11,7 +11,7 @@ use app\modules\threshold\models\ThresholdSettings;
 class OrchestratorComponent
 {
 
-    public static function calculateBestPath($arrBestPathLists, $arrBandwidthResponse, $moduleType, $intCurrentBandwidth)
+    public static function calculateBestPath($arrBestPathLists, $arrBandwidthResponse, $moduleType, $intCurrentBandwidth, $serviceNetwork, $circuitId)
     {
         $arrOutputLists = $arrBwsOutputLists = [];
         $strBwsStatusCheck = 0;
@@ -25,7 +25,7 @@ class OrchestratorComponent
 
                     // to avoid code replication
                     $sendBandwidthArray = array($strPayloadValue['seg_id'] => $arrBandwidthResponse[$strPayloadValue['seg_id']]);
-                    $bandwidthDetails = self::setModulePathBandwidth($sendBandwidthArray, $intCurrentBandwidth, $moduleType);
+                    $bandwidthDetails = self::setModulePathBandwidth($sendBandwidthArray, $intCurrentBandwidth, $moduleType, $serviceNetwork, $circuitId);
                     $arrPathDetails[$strPayloadKey] = $bandwidthDetails;
                     if ($arrPathDetails[$strPayloadKey][$strPayloadValue['seg_id']]['status'] == 'selected') {
                         $strSuccessCounter++;
@@ -55,7 +55,7 @@ class OrchestratorComponent
         }
 
         if ($moduleType == 'BPA') {
-            $arrOutputLists['CircuitID'] = "MWRTN-P2P-62207-ABIS-P-C";
+            $arrOutputLists['CircuitID'] = $circuitId;
         }
         $arrOutputLists['status']           = $strBwsStatus;
         $arrOutputLists['statusMessage']    = $strBwsMsg;
@@ -63,7 +63,7 @@ class OrchestratorComponent
         return $arrOutputLists;
     }
 
-    public static function setModulePathBandwidth($arrBandwidthResponse, $intCurrentBandwidth, $moduleType)
+    public static function setModulePathBandwidth($arrBandwidthResponse, $intCurrentBandwidth, $moduleType, $serviceNetwork)
     {
         /** in case of BPA check threshold on the basis of service,network,utilization 
          * settings done under threshold settings
@@ -76,8 +76,8 @@ class OrchestratorComponent
             $intCurrentPercentage = Yii::$app->formatter->asPercent((($intActualUtilization + $intCurrentBandwidth) / $intTotalUtilization));
             $intCurrentPercentage = str_replace('%', '', $intCurrentPercentage);
             if($strModuleName == 'BPA') {
-                $network = 'IPMPLS';
-                $service = 'L3VPN';
+                $seviceNetworkArr = explode('-',$serviceNetwork);
+                $network = $seviceNetworkArr[0]; $service = $seviceNetworkArr[1];
                 $utilization = 'actual';
                 $bolGetThresholdCheckData = ThresholdSettings::boolCheckThresholdPercentage($strModuleName, $network, $service, $utilization,  $intCurrentPercentage);
             } else {

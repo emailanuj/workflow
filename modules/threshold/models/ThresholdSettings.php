@@ -100,7 +100,7 @@ class ThresholdSettings extends ActiveRecord
     public static function networkList()
     {
         return array(
-            'IPMPLS' => 'IPMPLS',
+            'MPLS' => 'MPLS',
             'CEN' => 'CEN',
             'ISP' =>'ISP',
         );
@@ -110,7 +110,7 @@ class ThresholdSettings extends ActiveRecord
     {
         return array(
             'L2VPN' => 'L2VPN',
-            'L3VPN' => 'L3VPN',
+            'L3VPN' => 'L3',
             'ISP' => 'ISP',
         );
     }
@@ -224,6 +224,7 @@ class ThresholdSettings extends ActiveRecord
 
     public static function boolCheckThresholdPercentage($strModuleName, $strNetwork, $strService, $strUtilization, $intThresholdValue)
     {
+        
         $objThresholdSettings = ThresholdSettings::getAllThresholdSetting($strNetwork, $strService, $strUtilization);
         //pe($objThresholdSettings);
         $arrSetting['threshold_condition'] = $objThresholdSettings[$strModuleName]['threshold_condition'];

@@ -48,7 +48,7 @@ class BandwidthCircuitServiceController extends Controller
                 $arrSegmentLists          = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
                 
                 $arrPathsBandwidths       = BandwidthServiceComponent::getAllUtilization($arrSegmentLists);
-                $arrOutputResult          = OrchestratorComponent::calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths, 'BPA', '9000');
+                $arrOutputResult          = OrchestratorComponent::calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths, 'BPA', '9000','IPMPLS','ckt-123');
                 //pe($arrOutputResult);
                 
                 $reportOutputData['status'] = 'success';
