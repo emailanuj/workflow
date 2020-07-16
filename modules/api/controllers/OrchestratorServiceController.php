@@ -38,8 +38,9 @@ class OrchestratorServiceController extends BaseController
     {
         //$jsonRequestData = '{"module_type": "SRA","segment_ids":"[20525,20524,20526]","bandwidth_provision":"9000"}';
         //$jsonRequestData = '{"module_type": "SRA","source_hostname":"AHD-CGR-ISP-ACC-RTR-221","destination_hostname":"MUM-SC-ISPNGW-RTR-055"}';
-        $jsonRequestData   =  '{"module_type": "CCSM","source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10"}';
+        $jsonRequestData   =  '{"module_type": "CCSM","source_hostname":"BGL_SSZ_917_1AC_B_CASR920R153","source_interface":"BGL_MRT_911_1AC_B_CASR920R387","destination_hostname":"BGL_SSZ_919_1AC_B_CASR920R153","destination_interface":"BGL_WAO_901_1AG_CASR9KTR140.00","link_type": "flap_link","drop_link": [],"drop_node": []}';
         
+        // pe($jsonRequestData);
         // BPA use cases L3vpn, L2VPN
         //$jsonRequestData   =  '{"module_type": "BPA","source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10","bandwidth_provision":"9000"}';
         
@@ -50,6 +51,7 @@ class OrchestratorServiceController extends BaseController
         //$jsonRequestData  = '{"module_type": "BPA","mpls-l2vpn-cfs:mpls-l2vpn":[{"src":{"access":[{"interface":{"intf-id":"GigabitEthernet0/4/3"},"device":"CHN_NUG_931_1AC_CASR903R341"}]},"service":{"business":{"type":"tng"}},"ckt-id":"TYRQ-ANG1639737","destn":{"access":[{"interface":{"intf-id":"GigabitEthernet0/0/11"},"device":"CHN_SRN_901_1AC_T_CASR920R458"}]},"bandwidth":"102400","downtime":"false","order":{"date-of-provisioning":"02042020","ra":3416760,"lsi":"13526474"}}]}';
         //$jsonRequestData =  '{"module_type": "BPA","mpls-l2vpn-cfs:mpls-l2vpn":[{"src":{"access":[{"interface":{"intf-id":"cem 1/26:126","mux-hostname":"CHN_SCS_939_1AC_CASR903R302"},"device":"CHN_SCS_939_1AC_CASR903R302"}]},"service":{"mobility":{"type":"2G-L2"}},"ckt-id":"MWRTN-P2P-61670-ABIS-P-C","destn":{"access":[{"interface":{"intf-id":"cem 0/4/0/41:141","mux-hostname":"CHN_KAN_903_1AC_M_CASR903R416"},"device":"CHN_KAN_903_1AC_M_CASR903R416"}]},"bandwidth":"4096","downtime":"false","transactionId":"None","order":{"date-of-provisioning":"03042020","ra":218300,"lsi":"0"}}]}';
 
+        
         try {            
             $arrRequestData = Json::decode($jsonRequestData, true);
             //pe($arrRequestData);
@@ -109,10 +111,9 @@ class OrchestratorServiceController extends BaseController
         try {
             $arrRequestData = json::decode($jsonRequestData, true);
             $arrTopologyBestPathLists   = TopologyServiceComponent::getRankwisePath($jsonRequestData, $this->strUniqueId);
-            $this->intCurrentBandwidth = '9000';
-
+            $this->intCurrentBandwidth = '90';
             if (!empty($arrTopologyBestPathLists)) {
-                $arrSegmentLists    = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
+                $arrSegmentLists    = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);                
                 $arrPathsBandwidths = BandwidthServiceComponent::getAllUtilization($arrSegmentLists,$this->strUniqueId);
                 $arrResponseResult  = OrchestratorComponent::calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths, $this->moduleType, $this->intCurrentBandwidth, $this->serviceType, $this->circuitId);
 
@@ -145,7 +146,7 @@ class OrchestratorServiceController extends BaseController
                 // $arrOutputResult = OrchestratorComponent::calculateBestPath, $this->intCurrentBandwidth);
             } else if (!empty($arrRequestData['source_hostname']) && !empty($arrRequestData['destination_hostname'])) {
                 $arrTopologyBestPathLists = TopologyServiceComponent::getRankwisePath($jsonRequestData, $this->strUniqueId);
-                $this->intCurrentBandwidth = '9000';
+                $this->intCurrentBandwidth = '90';
 
                 if (!empty($arrTopologyBestPathLists)) {
                     $arrSegmentLists    = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);

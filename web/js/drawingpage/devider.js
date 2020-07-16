@@ -207,9 +207,9 @@ var drag = d3.behavior.drag()
         /* drag limit */
             // startevent 154x 190y  164 242 l   399 304 c   154 187 of
             //process      95x 144y  300 266 l   535  328 c
-        var dragcont = drag.container();
-        console.log(dragcont);
-        console.log(d3.event);
+        // var dragcont = drag.container();
+        // console.log(dragcont);
+        console.log(d3.event.sourceEvent.currentTarget);
         var x = d3.event.sourceEvent.clientX;
         var y = d3.event.sourceEvent.clientY;
         var dropperElement = d3.select(document.elementFromPoint(x, y)).attr("id");
