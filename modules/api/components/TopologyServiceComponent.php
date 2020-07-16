@@ -10,23 +10,49 @@ use app\modules\api\models\ApiLogs;
 
 class TopologyServiceComponent
 {
-    private static $strTopologyServiceUrl = 'http://bharti-ts01:5000/bws/api/v1/utilization';
+    private static $strTopologyServiceUrl = 'http://10.127.248.19:8000/allpath/path/';
 
-    public static function getRankwisePath($jsonRequestData, $strUniqueId = '')
-    {
-        // Rankwise Path API
-        $rankwisePath = '{"A_D":[{"source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10","seg_id":"20524","segement_mapping":"AHD-CGR-ISP-ACC-RTR-221__et-0/1/1.10__MUM-SC-ISPNGW-RTR-055__et-11/1/0.10","tag":"1","bandwidth":"2656"},{"source_hostname":"ABD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUF-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10","seg_id":"20525","segement_mapping":"ABD-CGR-ISP-ACC-RTR-221__et-0/1/1.10__MUF-SC-ISPNGW-RTR-055__et-11/1/0.10","tag":"1","bandwidth":"5656"},{"source_hostname":"AHJ-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISFNGJ-RTR-055","destination_interface":"et-11/1/0.10","seg_id":"20526","segement_mapping":"AHJ-CGR-ISP-ACC-RTR-221__et-0/1/1.10__MUM-SC-ISFNGJ-RTR-055__et-11/1/0.10","tag":"1","bandwidth":"6656"}],"W_Z":[{"source_hostname":"AHT-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MPE-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10","seg_id":"20527","segement_mapping":"AHT-CGR-ISP-ACC-RTR-221__et-0/1/1.10__MPE-SC-ISPNGW-RTR-055__et-11/1/0.10","tag":"1","bandwidth":"3656"},{"source_hostname":"AHK-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MQP-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10","seg_id":"20528","segement_mapping":"AHK-CGR-ISP-ACC-RTR-221__et-0/1/1.10__MQP-SC-ISPNGW-RTR-055__et-11/1/0.10","tag":"1","bandwidth":"7656"},{"source_hostname":"AUD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MKH-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10","seg_id":"20529","segement_mapping":"AUD-CGR-ISP-ACC-RTR-221__et-0/1/1.10__MKH-SC-ISPNGW-RTR-055__et-11/1/0.10","tag":"1","bandwidth":"4656"}]}';
-
+    public static function saveApiLogs($strUniqueId, $jsonRequestData = '', $jsonResponseData = '')
+    { 
         $objTopApiLogs = new ApiLogs();
         $objTopApiLogs->unique_id = $strUniqueId;
         $objTopApiLogs->app_type = 'ORCHESTRATOR';
         $objTopApiLogs->app_url = self::$strTopologyServiceUrl;
         $objTopApiLogs->request_method = 'POST';
         $objTopApiLogs->request = $jsonRequestData;
-        $objTopApiLogs->response = $rankwisePath;
+        $objTopApiLogs->response = $jsonResponseData;
         $objTopApiLogs->save(false);
         unset($objTopApiLogs);
-        return json_decode($rankwisePath, true);
+    }
+
+    public static function getRankwisePath($jsonRequestData, $strUniqueId = '')
+    {        
+        $rankwisePath = '{"result":[{"BGL_SSZ_917_1AC_B_CASR920R153@BGL_SSZ_919_1AC_B_CASR920R153":{"source_hostname":"BGL_SIR_966_1AC_B_CASR920R153","source_interface":"TenGigabitEthernet0/0/12","destination_hostname":"BGL_ESP_901_1AG_CASR9KTR126","destination_interface":"TenGigabitEthernet0/2/1/3","seg_id":"23888","bandwidth":0,"segement_mapping":"BGL_SIR_966_1AC_B_CASR920R153__TenGigabitEthernet0/0/12__BGL_ESP_901_1AG_CASR9KTR126__TenGigabitEthernet0/2/1/3","tag":"","status":"fail","message":""}},{"BGL_SSZ_917_1AC_B_CASR920R153@BGL_SSZ_919_1AC_B_CASR920R153":{"source_hostname":"BGL_ESP_901_1AG_CASR9KTR126","source_interface":"HundredGigE0/6/1/0.241","destination_hostname":"BGL_0RG_901_1AG_A_CASR9KTR136","destination_interface":"Bundle-Ether2.241","seg_id":"22430","bandwidth":0,"segement_mapping":"BGL_ESP_901_1AG_CASR9KTR126__HundredGigE0/6/1/0.241__BGL_0RG_901_1AG_A_CASR9KTR136__Bundle-Ether2.241","tag":"","status":"success","message":""}},{"BGL_SSZ_917_1AC_B_CASR920R153@BGL_SSZ_919_1AC_B_CASR920R153":{"source_hostname":"BGL_0RG_901_1AG_A_CASR9KTR136","source_interface":"TenGigabitEthernet0/7/0/8","destination_hostname":"BGL_ISA_939_1AC_B_CASR920R153","destination_interface":"TenGigabitEthernet0/0/15","seg_id":"25635","bandwidth":0,"segement_mapping":"BGL_0RG_901_1AG_A_CASR9KTR136__TenGigabitEthernet0/7/0/8__BGL_ISA_939_1AC_B_CASR920R153__TenGigabitEthernet0/0/15","tag":"","status":"success","message":""}},{"BGL_SSZ_917_1AC_B_CASR920R153@BGL_SSZ_919_1AC_B_CASR920R153":{"source_hostname":"BGL_SIR_966_1AC_B_CASR920R153","source_interface":"TenGigabitEthernet0/0/12","destination_hostname":"BGL_ESP_901_1AG_CASR9KTR126","destination_interface":"TenGigabitEthernet0/2/1/3","seg_id":"23888","bandwidth":0,"segement_mapping":"BGL_SIR_966_1AC_B_CASR920R153__TenGigabitEthernet0/0/12__BGL_ESP_901_1AG_CASR9KTR126__TenGigabitEthernet0/2/1/3","tag":"","status":"success","message":""}},{"BGL_SSZ_917_1AC_B_CASR920R153@BGL_SSZ_919_1AC_B_CASR920R153":{"source_hostname":"BGL_ESP_901_1AG_CASR9KTR126","source_interface":"TenGigabitEthernet0/0/0/4","destination_hostname":"BGL_GGL_901_2AC_M_CASR903R030","destination_interface":"TenGigabitEthernet0/1/0","seg_id":"22473","bandwidth":10,"segement_mapping":"BGL_ESP_901_1AG_CASR9KTR126__TenGigabitEthernet0/0/0/4__BGL_GGL_901_2AC_M_CASR903R030__TenGigabitEthernet0/1/0","tag":"","status":"success","message":""}},{"BGL_SSZ_917_1AC_B_CASR920R153@BGL_SSZ_919_1AC_B_CASR920R153":{"source_hostname":"BGL_GGL_901_2AC_M_CASR903R030","source_interface":"TenGigabitEthernet0/0/0","destination_hostname":"BGL_6SC_901_1AC_T_CASR920R030","destination_interface":"TenGigabitEthernet0/0/15","seg_id":"22871","bandwidth":0,"segement_mapping":"BGL_GGL_901_2AC_M_CASR903R030__TenGigabitEthernet0/0/0__BGL_6SC_901_1AC_T_CASR920R030__TenGigabitEthernet0/0/15","tag":"","status":"success","message":""}},{"BGL_SSZ_917_1AC_B_CASR920R153@BGL_SSZ_919_1AC_B_CASR920R153":{"source_hostname":"BGL_6SC_901_1AC_T_CASR920R030","source_interface":"TenGigabitEthernet0/0/12","destination_hostname":"BGL_SUN_901_2AC_M_CASR903R030","destination_interface":"TenGigabitEthernet0/0/0","seg_id":"24859","bandwidth":0,"segement_mapping":"BGL_6SC_901_1AC_T_CASR920R030__TenGigabitEthernet0/0/12__BGL_SUN_901_2AC_M_CASR903R030__TenGigabitEthernet0/0/0","tag":"","status":"success","message":""}},{"BGL_SSZ_917_1AC_B_CASR920R153@BGL_SSZ_919_1AC_B_CASR920R153":{"source_hostname":"BGL_0RG_901_1AG_A_CASR9KTR136","source_interface":"TenGigabitEthernet0/7/0/8","destination_hostname":"BGL_ISA_939_1AC_B_CASR920R153","destination_interface":"TenGigabitEthernet0/0/15","seg_id":"25635","bandwidth":0,"segement_mapping":"BGL_0RG_901_1AG_A_CASR9KTR136__TenGigabitEthernet0/7/0/8__BGL_ISA_939_1AC_B_CASR920R153__TenGigabitEthernet0/0/15","tag":"","status":"success","message":""}}]}';
+        $rankwisePathResult = json_decode($rankwisePath, true);
+        TopologyServiceComponent::saveApiLogs($strUniqueId, $jsonRequestData, $rankwisePath);
+        return $rankwisePathResult["result"];
+
+        /* 
+        $requestDataArr = json_decode($jsonRequestData,true);
+        $arrRequest['url'] = self::$strTopologyServiceUrl;
+        $arrRequest['data'] = Json::encode(
+            [ "parameter_list" => [                    
+                        "source_host" => $requestDataArr['source_hostname'],
+                        "source_interface"=> $requestDataArr['source_interface'],
+                        "destination_host"=> $requestDataArr['destination_hostname'],
+                        "destination_interface"=> $requestDataArr['destination_interface'],
+                        "link_type"=> "flap_link",
+                        "drop_link"=> [],
+                        "drop_node"=> [],
+                        "module_type"=> $requestDataArr['module_type']                   
+                ]
+            ]
+        );        
+        $arrResponse =  CurlServiceComponent::postRequest($arrRequest); 
+        TopologyServiceComponent::saveApiLogs($strUniqueId, $jsonRequestData, $arrResponse); 
+        return $arrResponse;
+        */       
+
     }
 
     public static function getSegmentLists($arrRequestData)
@@ -34,9 +60,10 @@ class TopologyServiceComponent
         $arrSegmentIds = [];
         foreach ($arrRequestData as $strPath => $arrRequestLists) {
             foreach ($arrRequestLists as $strIndex => $arrRequest) {
-                $arrSegmentIds[] = $arrRequest['seg_id'];
-            }
-            // $arrSegmentIds[] = ArrayHelper::getColumn($arrRequestLists, 'seg_id');            
+                if($arrRequest['status'] == "success") {
+                    $arrSegmentIds[] = $arrRequest['seg_id'];
+                }
+            }                     
         }
         return $arrSegmentIds;
     }
