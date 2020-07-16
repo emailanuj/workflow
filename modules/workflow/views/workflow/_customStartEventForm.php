@@ -83,13 +83,14 @@ $form = ActiveForm::begin([
                     <div class="row">
 
                         <ul class="multiple-command-box">
-                            <li>
-                                <!-- <a class="btn btn-command-icon"><span class="fa fa-plus-square-o"></span></a> -->
+                            <li class=" jsCommandBlock filter-panel command-filter-panel" id="jsCommandBlockId-1">
+                                <a class="btn btn-command-cancel-icon"><span class="fa fa-times"></span></a>
+                                <!-- <button class="del-btn jsDelBlockBtn"><i class="fa fa-times"></i></button> -->
                                 <div class="col-md-6">
                                     <?= $form->field($objWorkflowMultipleCommand, 'select_command')->dropDownList([]) ?>
                                 </div>
                                 <ul class="multiple-condition-box">
-                                    <button class="btn btn-info  dim" id="cloneFilterPanelBtn" type="button"><i class="fa fa-plus"></i> </button>
+                                    <!-- <button class="btn btn-info  dim" id="cloneFilterPanelBtn" type="button"><i class="fa fa-plus"></i> </button> -->
                                     <li class=" jsFilter filter-panel condition-filter-panel" id="jsFilterId-1">
                                         <a class="btn btn-condition-cancel-icon"><span class="fa fa-times"></span></a>
                                         <div class="condition-div-box">
@@ -103,15 +104,22 @@ $form = ActiveForm::begin([
                                                 <?= $form->field($objWorkflowCommandMultipleCondition, 'input_val[]')->textInput([]) ?>
                                             </div>
                                             <div class="col-md-3 floatLeft">
-                                                <?= $form->field($objWorkflowCommandMultipleCondition, 'logic[]')->textInput([]) ?>
                                             </div>
                                         </div>
                                     </li>
                                 </ul>
+                                <div class="col-sm-12 mt-lg-1 mb-sm-3 floatLeft text-right">
+                                    <button id="cloneFilterPanelBtn" class="btn btn-primary btn-xs jsGetSelTxtBtn"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Filter</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <?= $form->field($objWorkflowCommandMultipleCondition, 'logic[]')->textInput([]) ?>
+                                </div>
                             </li>
                         </ul>
 
-
+                        <div class="text-right mt-lg-1 floatLeft text-right">
+                            <button id="cloneAddBlkPanelBtn" class="btn btn-success btn-xs jsAddBlk"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Block</button>
+                        </div>
                     </div>
                 </div>
 

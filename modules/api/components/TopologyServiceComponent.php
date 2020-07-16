@@ -10,7 +10,7 @@ use app\modules\api\models\ApiLogs;
 
 class TopologyServiceComponent
 {
-    private static $strTopologyServiceUrl = 'http://bharti-ts01:5000/bws/api/v1/utilization';
+    private static $strTopologyServiceUrl = 'http://bharti-ts01:8000/bws/api/v1/utilization';
 
     public static function getRankwisePath($jsonRequestData, $strUniqueId = '')
     {

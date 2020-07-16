@@ -42,17 +42,30 @@ $(document).on('click', "#savestartevent", function () {
 });
 
 $(document).on('click', "#cloneFilterPanelBtn", function () {
-	var amount = $('li.jsFilter').length;
-	var new_amount = amount + 1;
-	var cloned_div = $('#jsFilterId-' + amount);
-	$(cloned_div).clone().attr('id', 'jsFilterId-' + new_amount).insertAfter('#jsFilterId-' + amount);
+	var counter = $('li.jsFilter').length;
+	var new_counter = counter + 1;
+	var cloned_div = $('#jsFilterId-' + counter);
+	$(cloned_div).clone().attr('id', 'jsFilterId-' + new_counter).insertAfter('#jsFilterId-' + counter);
 });
 
+$(document).on('click', "#cloneAddBlkPanelBtn", function () {
+	var counter = $('li.jsCommandBlock').length;
+	var new_counter = counter + 1;
+	var cloned_div = $('#jsCommandBlockId-' + counter);
+	$(cloned_div).clone().attr('id', 'jsCommandBlockId-' + new_counter).insertAfter('#jsCommandBlockId-' + counter);
+});
 
 $(document).on('click', ".btn-condition-cancel-icon", function () {
 	var getLength = $('li.condition-filter-panel').length;
 	if(getLength > 1){
 		$(this).parent('.condition-filter-panel').remove();
+	}
+});
+
+$(document).on('click', ".btn-command-cancel-icon", function () {
+	var getLength = $('li.command-filter-panel').length;
+	if(getLength > 1){
+		$(this).parent('.command-filter-panel').remove();
 	}
 });
 

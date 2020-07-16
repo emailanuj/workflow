@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2020 at 04:02 PM
+-- Generation Time: Jul 13, 2020 at 04:20 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -1245,7 +1245,8 @@ INSERT INTO `tbl_workflow` (`id`, `workflow_title`, `workflow_description`, `wor
 (2, 'Workflow-1', 'test', '', '', 1592213482, NULL, 1592213644, 1, 0),
 (4, 'test', 'fsdfsdf', NULL, NULL, 1593430353, NULL, 1593430353, NULL, 0),
 (5, 'asdasd', 'asfdsf', NULL, NULL, 1593430389, NULL, 1593430389, NULL, 0),
-(7, 'abc', 'asd', NULL, NULL, 1594295715, NULL, 1594295715, NULL, 0);
+(7, 'abc', 'asd', NULL, NULL, 1594295715, NULL, 1594295715, NULL, 0),
+(8, 'asdsadsadsad', 'asdsadsad', NULL, NULL, 1594387462, NULL, 1594387462, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -1491,7 +1492,7 @@ ALTER TABLE `tbl_service_threshold`
 -- AUTO_INCREMENT for table `tbl_workflow`
 --
 ALTER TABLE `tbl_workflow`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_workflow_execution`

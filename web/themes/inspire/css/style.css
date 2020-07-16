@@ -7100,16 +7100,33 @@ a.compose-mail {
 }
 
 .multiple-command-box li {
-  background: #b6b2b240;
+  /* background: #b6b2b240;
   padding: 10px;
+  float: left;
+  width: 100%; */
+  margin: 0;
+  border: solid 1px #d5d5d5;
+  padding: 20px 10px 10px;
+  list-style: none;
+  margin-bottom: 10px;
+  position: relative;
+  background-color: #eee;
   float: left;
   width: 100%;
 }
 
 .multiple-condition-box li {
-  background: #fff;
+  /* background: #fff;
   border: 1px solid #ddd;
   padding: 0px;
+  float: left;
+  width: 100%; */
+  padding: 5px 15px 5px 55px;
+  margin-top: 10px;
+  position: relative;
+  background-color: #fff;
+  transition: all ease .3s;
+  border: 1px solid #c6c7ca;
   float: left;
   width: 100%;
 }
@@ -7125,10 +7142,19 @@ a.btn.btn-command-icon {
   color: #fff;
 }
 
-a.btn.btn-condition-cancel-icon {
-  float: right;
+a.btn.btn-condition-cancel-icon, a.btn.btn-command-cancel-icon {
+  /* float: right;
   background: #d14d4d;
-  color: #fff;
+  color: #fff; */
+  color: #fff; 
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px 9px;
+  font-size: 10px;
+  background-color: #c9302c;
+  border: none;
+  cursor: pointer;
 }
 
 .floatLeft {
