@@ -78,9 +78,16 @@ class ApiLogs extends \yii\db\ActiveRecord
         ];
     }
 
-    public static function saveApiLogs(){
-        
-    }
-
+    /* public static function saveApiLogs($strUniqueId, $reqUrl = '', $jsonRequestData = '', $jsonResponseData = '') {
+        $saveData = self::insert('api_logs',
+                    [
+                        'unique_id' => $strUniqueId,
+                        'app_type'  => 'ORCHESTRATOR',
+                        'app_url' => $reqUrl,
+                        'request_method' => 'POST',
+                        'request' => $jsonRequestData,
+                        'response'  => $jsonResponseData
+                    ])->execute();
+    } */
 
 }

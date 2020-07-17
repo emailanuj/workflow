@@ -7,9 +7,21 @@ use yii\base\Exception;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
 use app\modules\threshold\models\ThresholdSettings;
+use app\modules\api\models\ApiLogs;
 
 class OrchestratorComponent
 {
+    public static function saveApiLogs($strUniqueId, $reqUrl = '', $jsonRequestData = '', $jsonResponseData = ''){
+        $objBwsApiLogs = new ApiLogs();
+        $objBwsApiLogs->unique_id = $strUniqueId;
+        $objBwsApiLogs->app_type = 'ORCHESTRATOR';
+        $objBwsApiLogs->app_url = $reqUrl;
+        $objBwsApiLogs->request_method = 'POST';
+        $objBwsApiLogs->request = $jsonRequestData;
+        $objBwsApiLogs->response = $jsonResponseData;
+        $objBwsApiLogs->save(false);
+        unset($objBwsApiLogs);
+    }
 
     public static function calculateBestPath($arrBestPathLists, $arrBandwidthResponse, $moduleType, $intCurrentBandwidth, $serviceNetwork, $circuitId)
     {

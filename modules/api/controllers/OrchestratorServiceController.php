@@ -43,8 +43,10 @@ class OrchestratorServiceController extends BaseController
         // BPA use cases L3vpn, L2VPN
         //$jsonRequestData   =  '{"module_type": "BPA","source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10","bandwidth_provision":"9000"}';
         
-        // BPA L3VPN
+        // BPA L3VPN for playbook and response form playbook
+        //$jsonRequestData = '{"ckt-id":"MACS-ML3-2-1065","vpn-id":"MACS-ML3-2","role-id":"mesh","primary_hostname":"KVN-CPR-MPL-LTE-PE-RTR-43-250","secondary_hostname":"KVN-CPR-MPL-LTE-PE-RTR-46-255","bandwidth":4096}';
         //$jsonRequestData = '{"module_type": "BPA","formData":{"patch":[{"ckt-id":"AAA-ML3-1-5","ra":657894,"service-type":"MPLS-L3","modify":[{"interfaces":{"interface":[{"role":"primary","pe":"MNRLAB-MPL-PE-RTR-75","interface":"TenGigE0/7/1/8","wan-ip-pe":"172.30.76.1/30"}],"ethernet":{"svlan":503,"cvlan":504}},"qos":{"bandwidth":23552,"policy-maps":{"ingress-name":"XXXXXXX","egress-name":"YYYYYY"}}}]}]}}';
+        
         
         // BPA L2VPN
         //$jsonRequestData  = '{"module_type": "BPA","mpls-l2vpn-cfs:mpls-l2vpn":[{"src":{"access":[{"interface":{"intf-id":"GigabitEthernet0/4/3"},"device":"CHN_NUG_931_1AC_CASR903R341"}]},"service":{"business":{"type":"tng"}},"ckt-id":"TYRQ-ANG1639737","destn":{"access":[{"interface":{"intf-id":"GigabitEthernet0/0/11"},"device":"CHN_SRN_901_1AC_T_CASR920R458"}]},"bandwidth":"102400","downtime":"false","order":{"date-of-provisioning":"02042020","ra":3416760,"lsi":"13526474"}}]}';
