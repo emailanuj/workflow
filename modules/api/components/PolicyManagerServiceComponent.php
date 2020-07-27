@@ -29,7 +29,7 @@ class PolicyManagerServiceComponent
             ]
         );        
         $arrResponse =  CurlServiceComponent::postRequest($arrRequest); 
-       // OrchestratorComponent::saveApiLogs(uniqid(), $jsonRequestData, $arrResponse); 
+       // OrchestratorComponent::saveApiLogs(uniqid(), $jsonRequestData, $arrResponse); // for api logs
         return $arrResponse;
     }
 }
