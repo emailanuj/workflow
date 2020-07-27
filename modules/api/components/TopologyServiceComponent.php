@@ -7,6 +7,7 @@ use yii\base\Exception;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use app\modules\api\models\ApiLogs;
+use app\modules\api\components\CurlServiceComponent;
 
 class TopologyServiceComponent
 {
@@ -36,7 +37,7 @@ class TopologyServiceComponent
             ]
         );        
         $arrResponse =  CurlServiceComponent::postRequest($arrRequest); 
-        TopologyServiceComponent::saveApiLogs($strUniqueId, $jsonRequestData, $arrResponse); 
+        OrchestratorComponent::saveApiLogs($strUniqueId, $jsonRequestData, $arrResponse); 
         return $arrResponse;
         */       
 

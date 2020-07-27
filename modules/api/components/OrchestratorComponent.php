@@ -6,8 +6,8 @@ use Yii;
 use yii\base\Exception;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
-use app\modules\threshold\models\ThresholdSettings;
 use app\modules\api\models\ApiLogs;
+use app\modules\api\components\PolicyManagerServiceComponent;
 
 class OrchestratorComponent
 {
@@ -91,16 +91,16 @@ class OrchestratorComponent
                 $seviceNetworkArr = explode('-',$serviceNetwork);
                 $network = $seviceNetworkArr[0]; $service = $seviceNetworkArr[1];
                 $utilization = 'actual';
-                $bolGetThresholdCheckData = ThresholdSettings::boolCheckThresholdPercentage($strModuleName, $network, $service, $utilization,  $intCurrentPercentage);
+                $bolGetThresholdCheckData = PolicyManagerServiceComponent::getThresholdSettings($strModuleName, $network, $service, $utilization,  $intCurrentPercentage);
             } else {
-                $bolGetThresholdCheckData = ThresholdSettings::boolCheckThresholdPercentage($strModuleName, $network=NULL, $service=NULL, $utilization=NULL, $intCurrentPercentage);
+                $bolGetThresholdCheckData = PolicyManagerServiceComponent::getThresholdSettings($strModuleName, $network='', $service='', $utilization='', $intCurrentPercentage);
             }
             $strCurrentStatus = 'rejected';
             if ($bolGetThresholdCheckData['status'] == 'success') {
                 $strCurrentStatus = 'selected';
             }
             $arrBandwidthResponse[$bandwidthKey]['status']       =  $strCurrentStatus;
-            $arrBandwidthResponse[$bandwidthKey]['reason']       =  $bolGetThresholdCheckData['message'];
+            $arrBandwidthResponse[$bandwidthKey]['reason']       =  $bolGetThresholdCheckData['data'];
             $arrBandwidthResponse[$bandwidthKey]['actual_bw']    =  $intActualUtilization;
             $arrBandwidthResponse[$bandwidthKey]['actual_capacity']  =  $intTotalUtilization;
         }

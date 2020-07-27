@@ -36,9 +36,9 @@ class OrchestratorServiceController extends BaseController
 
     private function manipulatedRequestData($jsonRequestData)
     {
-        //$jsonRequestData = '{"module_type": "SRA","segment_ids":"[20525,20524,20526]","bandwidth_provision":"9000"}';
+        $jsonRequestData = '{"module_type": "SRA","segment_ids":"[20525,20524,20526]","bandwidth_provision":"9000"}';
         //$jsonRequestData = '{"module_type": "SRA","source_hostname":"AHD-CGR-ISP-ACC-RTR-221","destination_hostname":"MUM-SC-ISPNGW-RTR-055"}';
-        $jsonRequestData   =  '{"module_type": "CCSM","source_hostname":"BGL_CCG_902_1AC_M_CASR903R168","source_interface":"BGL_MRT_911_1AC_B_CASR920R387","destination_hostname":"BGL_CCG_901_1AG_CASR9KTR133","destination_interface":"BGL_WAO_901_1AG_CASR9KTR140.00"}';
+        //$jsonRequestData   =  '{"module_type": "CCSM","source_hostname":"BGL_CCG_902_1AC_M_CASR903R168","source_interface":"BGL_MRT_911_1AC_B_CASR920R387","destination_hostname":"BGL_CCG_901_1AG_CASR9KTR133","destination_interface":"BGL_WAO_901_1AG_CASR9KTR140.00"}';
         
         // BPA use cases L3vpn, L2VPN
         //$jsonRequestData   =  '{"module_type": "BPA","source_hostname":"AHD-CGR-ISP-ACC-RTR-221","source_interface":"et-0/1/1.10","destination_hostname":"MUM-SC-ISPNGW-RTR-055","destination_interface":"et-11/1/0.10","bandwidth_provision":"9000"}';
