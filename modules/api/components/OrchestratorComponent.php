@@ -18,7 +18,7 @@ class OrchestratorComponent
         $objBwsApiLogs->app_url = $reqUrl;
         $objBwsApiLogs->request_method = 'POST';
         $objBwsApiLogs->request = $jsonRequestData;
-        $objBwsApiLogs->response = $jsonResponseData;
+        $objBwsApiLogs->response = json_encode($jsonResponseData);
         $objBwsApiLogs->save(false);
         unset($objBwsApiLogs);
     }

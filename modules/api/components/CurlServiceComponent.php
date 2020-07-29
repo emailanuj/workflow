@@ -26,6 +26,7 @@ class CurlServiceComponent
             $curl = new curl\Curl();
             $arrOutputResponse = $curl->setOption(CURLOPT_POSTFIELDS, $arrRequest['data'])
                 ->setOption(CURLOPT_SSL_VERIFYPEER, false)
+                ->setOption(CURLOPT_SSL_VERIFYHOST, false)
                 ->setOption(CURLOPT_RETURNTRANSFER, 1)
                 ->setOption(CURLOPT_HTTPHEADER,['Content-Type:application/json'])
                 ->post($arrRequest['url']);
