@@ -12,31 +12,30 @@ use app\modules\api\models\ApiLogs;
 
 class BandwidthServiceComponent
 {
-    private static $bandwidthServiceUrl = 'http://bharti-bs01:5000/bws/api/v1/utilization';
 
     public static function getAllUtilization($arrSegmentId, $strUniqueId)
     {
-        // pe($arrSegmentId);
-        //https://jsonplaceholder.typicode.com/todos/
-        // $arrRequest['url'] = self::$bandwidthServiceUrl;
+        $arrSegmentId = array(23917,23991,22759);
+        $arrRequest['url'] = yii::$app->params['bandwidthServiceUrl'];
         $arrRequest['data'] = Json::encode([
             "segment_ids" => $arrSegmentId,
             "class" => "false",
-            "interval" => "20d",
+            "interval" => "70d",
             "type" => "all"
         ]);
-        // $arrResponse = CurlServiceComponent::postRequest($arrRequest);
-        // return ArrayHelper::index($arrResponse, 'segment_id');
-        $strStaticResponce = '[{"segment_id":22430,"actual_time":"2020-06-07 23:45:09","actual_bw":264.493,"actual_capacity":100000.0,"peak_time":"2020-06-07 16:45:09","peak_bw":307.249,"peak_capacity":100000.0,"avg_bw":240.42590625,"percentile95_bw":292.143},{"segment_id":23888,"actual_time":"2020-06-07 23:45:09","actual_bw":18.662,"actual_capacity":10000.0,"peak_time":"2020-06-07 21:00:09","peak_bw":18.887,"peak_capacity":10000.0,"avg_bw":18.144125,"percentile95_bw":18.81625},{"segment_id":25635,"actual_time":"2020-06-07 23:45:09","actual_bw":9.477,"actual_capacity":10000.0,"peak_time":"2020-06-07 18:15:09","peak_bw":14.732,"peak_capacity":10000.0,"avg_bw":8.517875,"percentile95_bw":13.37845}]';
-
-        OrchestratorComponent::saveApiLogs($strUniqueId, self::$bandwidthServiceUrl, $arrRequest['data'], $strStaticResponce);
-        return json_decode($strStaticResponce, true);
+         $arrResponse = CurlServiceComponent::postRequest($arrRequest);
+         OrchestratorComponent::saveApiLogs($strUniqueId, yii::$app->params['bandwidthServiceUrl'], $arrRequest['data'], $arrResponse);
+         return $arrResponse;
+        
+         // return ArrayHelper::index($arrResponse, 'segment_id');
+        //$strStaticResponce = '[{"segment_id":22430,"actual_time":"2020-06-07 23:45:09","actual_bw":264.493,"actual_capacity":100000.0,"peak_time":"2020-06-07 16:45:09","peak_bw":307.249,"peak_capacity":100000.0,"avg_bw":240.42590625,"percentile95_bw":292.143},{"segment_id":23888,"actual_time":"2020-06-07 23:45:09","actual_bw":18.662,"actual_capacity":10000.0,"peak_time":"2020-06-07 21:00:09","peak_bw":18.887,"peak_capacity":10000.0,"avg_bw":18.144125,"percentile95_bw":18.81625},{"segment_id":25635,"actual_time":"2020-06-07 23:45:09","actual_bw":9.477,"actual_capacity":10000.0,"peak_time":"2020-06-07 18:15:09","peak_bw":14.732,"peak_capacity":10000.0,"avg_bw":8.517875,"percentile95_bw":13.37845}]';        
+        //return json_decode($strStaticResponce, true);
     }
 
 
     public static function getActualUtilization($arrSegmentId, $strUniqueId)
     {
-        $arrRequest['url'] = self::$bandwidthServiceUrl;
+        $arrRequest['url'] = yii::$app->params['bandwidthServiceUrl'];
         $arrRequest['data'] = Json::encode([
             // "segment_ids" => [20524, 20525],
             "segment_ids" => $arrSegmentId,
@@ -52,7 +51,7 @@ class BandwidthServiceComponent
 
     public static function getActualClassUtilization($arrSegmentId, $strUniqueId)
     {
-        $arrRequest['url'] = self::$bandwidthServiceUrl;
+        $arrRequest['url'] = yii::$app->params['bandwidthServiceUrl'];
         $arrRequest['data'] = [
             "segment_ids" => [20524, 20525],
             "class" => "true"
@@ -63,7 +62,7 @@ class BandwidthServiceComponent
 
     public static function getPeakUtilization($arrSegmentId, $strUniqueId)
     {
-        $arrRequest['url'] = self::$bandwidthServiceUrl;
+        $arrRequest['url'] = yii::$app->params['bandwidthServiceUrl'];
         $arrRequest['data'] = [
             "segment_ids" => $arrSegmentId,
             "class" => "false",
@@ -75,7 +74,7 @@ class BandwidthServiceComponent
 
     public static function getPeakClassUtilization($arrSegmentId, $strUniqueId)
     {
-        $arrRequest['url'] = self::$bandwidthServiceUrl;
+        $arrRequest['url'] = yii::$app->params['bandwidthServiceUrl'];
         $arrRequest['data'] = [
             "segment_ids" => [20524, 20525],
             "class" => "true",
@@ -87,7 +86,7 @@ class BandwidthServiceComponent
 
     public static function getAverageUtilization($arrSegmentId, $strUniqueId)
     {
-        $arrRequest['url'] = self::$bandwidthServiceUrl;
+        $arrRequest['url'] = yii::$app->params['bandwidthServiceUrl'];
         $arrRequest['data'] = [
             "segment_ids" => [20524, 20525],
             "class" => "false",
@@ -100,7 +99,7 @@ class BandwidthServiceComponent
 
     public static function getAverageClassUtilization()
     {
-        $arrRequest['url'] = self::$bandwidthServiceUrl;
+        $arrRequest['url'] = yii::$app->params['bandwidthServiceUrl'];
         $arrRequest['data'] = [
             "segment_ids" => [20524, 20525],
             "class" => "true",
@@ -113,7 +112,7 @@ class BandwidthServiceComponent
 
     public static function get95PercentileUtilization()
     {
-        $arrRequest['url'] = self::$bandwidthServiceUrl;
+        $arrRequest['url'] = yii::$app->params['bandwidthServiceUrl'];
         $arrRequest['data'] = [
             "segment_ids" => [20524, 20525],
             "class" => "false",
@@ -126,7 +125,7 @@ class BandwidthServiceComponent
 
     public static function get95PercentileClassUtilization()
     {
-        $arrRequest['url'] = self::$bandwidthServiceUrl;
+        $arrRequest['url'] = yii::$app->params['bandwidthServiceUrl'];
         $arrRequest['data'] = [
             "segment_ids" => [20524, 20525],
             "class" => "true",
@@ -141,7 +140,7 @@ class BandwidthServiceComponent
     {
         //pe($utlizationPostData); exit;
         $interval = $utlizationPostData['duration_filter'] . $utlizationPostData['duration'];
-        $arrRequest['url'] = self::$bandwidthServiceUrl;
+        $arrRequest['url'] = yii::$app->params['bandwidthServiceUrl'];
         if (!empty($utlizationPostData['utilization'])) {
             if ($utlizationPostData['utilization'] == 'current') {
 

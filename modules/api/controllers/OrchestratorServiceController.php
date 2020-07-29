@@ -97,7 +97,7 @@ class OrchestratorServiceController extends BaseController
             $arrTopologyBestPathLists   = TopologyServiceComponent::getRankwisePath($jsonRequestData, $this->strUniqueId);
             $this->intCurrentBandwidth = '90';
             if (!empty($arrTopologyBestPathLists)) {
-                $arrSegmentLists    = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);                
+                $arrSegmentLists    = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);           
                 $arrPathsBandwidths = BandwidthServiceComponent::getAllUtilization($arrSegmentLists,$this->strUniqueId);
                 $arrResponseResult  = OrchestratorComponent::calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths, $this->moduleType, $this->intCurrentBandwidth, $this->serviceType, $this->circuitId);
 
@@ -129,7 +129,7 @@ class OrchestratorServiceController extends BaseController
                 // $arrTopologyBestPathLists = [];
                 // $arrOutputResult = OrchestratorComponent::calculateBestPath, $this->intCurrentBandwidth);
             } else if (!empty($arrRequestData['source_hostname']) && !empty($arrRequestData['destination_hostname'])) {
-                $arrTopologyBestPathLists = TopologyServiceComponent::getRankwisePath($jsonRequestData, $this->strUniqueId);
+                $arrTopologyBestPathLists = TopologyServiceComponent::getRankwisePath($jsonRequestData, $this->strUniqueId);                
                 $this->intCurrentBandwidth = '90';
 
                 if (!empty($arrTopologyBestPathLists)) {
@@ -154,7 +154,7 @@ class OrchestratorServiceController extends BaseController
     {
         try {
             $arrRequestData = json::decode($jsonRequestData, true);
-            $arrTopologyBestPathLists = TopologyServiceComponent::getRankwisePath($jsonRequestData, $this->strUniqueId);
+            $arrTopologyBestPathLists = TopologyServiceComponent::getRankwisePath($jsonRequestData, $this->strUniqueId);            
             $arrSegmentLists          = TopologyServiceComponent::getSegmentLists($arrTopologyBestPathLists);
             $arrPathsBandwidths       = BandwidthServiceComponent::getAllUtilization($arrSegmentLists,$this->strUniqueId);
             $arrOutputResult          = OrchestratorComponent::calculateBestPath($arrTopologyBestPathLists, $arrPathsBandwidths, $this->moduleType, $this->intCurrentBandwidth, $this->serviceType, $this->circuitId);
