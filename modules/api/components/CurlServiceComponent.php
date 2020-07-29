@@ -21,18 +21,17 @@ class CurlServiceComponent
 
     public static function postRequest($arrRequest = [])
     {
-        // echo '<pre>'; print_r($arrRequest);die;
-        // echo '<pre>'; print_r(http_build_query($arrRequest['data']));die;
         $arrOutputResponse = [];
         if (!empty($arrRequest)) {
             $curl = new curl\Curl();
             $arrOutputResponse = $curl->setOption(CURLOPT_POSTFIELDS, $arrRequest['data'])
                 ->setOption(CURLOPT_SSL_VERIFYPEER, false)
                 ->setOption(CURLOPT_RETURNTRANSFER, 1)
-                // ->setOption(CURLOPT_HTTPHEADER,['Content-Type:application/json'])
+                ->setOption(CURLOPT_HTTPHEADER,['Content-Type:application/json'])
                 ->post($arrRequest['url']);
         }
 
+        // pe($arrOutputResponse);
         return json_decode($arrOutputResponse, true);
     }
 

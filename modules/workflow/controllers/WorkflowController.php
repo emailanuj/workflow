@@ -316,6 +316,7 @@ class WorkflowController extends Controller
             $userId = Yii::$app->user->identity->id;
             Yii::$app->response->format = Response::FORMAT_JSON;
             $ajaxFormPostData = Yii::$app->request->post();
+            // pe($ajaxFormPostData);
             $ajaxFormJson[$ajaxFormPostData['element_id']] = $ajaxFormPostData['WorkflowDataModel'];
             // Adding Scenario Based on Keywords
             $elementType = $ajaxFormPostData['element_type'];
@@ -328,12 +329,8 @@ class WorkflowController extends Controller
                 }
             }
 
-            // pe($ajaxFormPostData);
-            // $WorkflowDataModel->condition
-            // ActiveForm::validate($WorkflowDataModel);
             if ($WorkflowDataModel->load($ajaxFormPostData) && $WorkflowDataModel->validate()) {
 
-                // pe($WorkflowDataModel);
 
                 $workflowId = $ajaxFormPostData['workflow_id'];
                 //$workflowUniqueId = uniqid($workflowId,$userId);
