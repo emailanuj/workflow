@@ -11,7 +11,7 @@ use app\modules\api\components\CurlServiceComponent;
 
 class TopologyServiceComponent
 {
-    private static $strTopologyServiceUrl = 'http://10.127.248.19:8000/allpath/path/';
+    
 
     public static function getRankwisePath($jsonRequestData, $strUniqueId = '')
     {        
@@ -22,7 +22,7 @@ class TopologyServiceComponent
 
         /* 
         $requestDataArr = json_decode($jsonRequestData,true);
-        $arrRequest['url'] = self::$strTopologyServiceUrl;
+        $arrRequest['url'] = yii::$app->params['topologyServiceUrl'];
         $arrRequest['data'] = Json::encode(
             [ "parameter_list" => [                    
                         "source_host" => $requestDataArr['source_hostname'],
