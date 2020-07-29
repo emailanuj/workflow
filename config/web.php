@@ -17,9 +17,6 @@ $config = [
         'workflow' => [
             'class' => 'app\modules\workflow\Module',
         ],
-        'threshold' => [
-            'class' => 'app\modules\threshold\Module',
-        ],
         'admin' => [
             'class' => 'mdm\admin\Module',
         ],

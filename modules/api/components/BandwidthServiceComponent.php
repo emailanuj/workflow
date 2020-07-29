@@ -14,20 +14,6 @@ class BandwidthServiceComponent
 {
     private static $bandwidthServiceUrl = 'http://bharti-bs01:5000/bws/api/v1/utilization';
 
-    public static function saveApiLogs($strUniqueId, $jsonRequestData = '', $jsonResponseData = '')
-    {
-        $objBwsApiLogs = new ApiLogs();
-        $objBwsApiLogs->unique_id = $strUniqueId;
-        $objBwsApiLogs->app_type = 'ORCHESTRATOR';
-        $objBwsApiLogs->app_url = self::$bandwidthServiceUrl;
-        $objBwsApiLogs->request_method = 'POST';
-        $objBwsApiLogs->request = $jsonRequestData;
-        $objBwsApiLogs->response = $jsonResponseData;
-        $objBwsApiLogs->save(false);
-        unset($objBwsApiLogs);
-    }
-
-    
     public static function getAllUtilization($arrSegmentId, $strUniqueId)
     {
         // pe($arrSegmentId);
@@ -43,7 +29,7 @@ class BandwidthServiceComponent
         // return ArrayHelper::index($arrResponse, 'segment_id');
         $strStaticResponce = '[{"segment_id":22430,"actual_time":"2020-06-07 23:45:09","actual_bw":264.493,"actual_capacity":100000.0,"peak_time":"2020-06-07 16:45:09","peak_bw":307.249,"peak_capacity":100000.0,"avg_bw":240.42590625,"percentile95_bw":292.143},{"segment_id":23888,"actual_time":"2020-06-07 23:45:09","actual_bw":18.662,"actual_capacity":10000.0,"peak_time":"2020-06-07 21:00:09","peak_bw":18.887,"peak_capacity":10000.0,"avg_bw":18.144125,"percentile95_bw":18.81625},{"segment_id":25635,"actual_time":"2020-06-07 23:45:09","actual_bw":9.477,"actual_capacity":10000.0,"peak_time":"2020-06-07 18:15:09","peak_bw":14.732,"peak_capacity":10000.0,"avg_bw":8.517875,"percentile95_bw":13.37845}]';
 
-        BandwidthServiceComponent::saveApiLogs($strUniqueId, $arrRequest['data'], $strStaticResponce);
+        OrchestratorComponent::saveApiLogs($strUniqueId, self::$bandwidthServiceUrl, $arrRequest['data'], $strStaticResponce);
         return json_decode($strStaticResponce, true);
     }
 
